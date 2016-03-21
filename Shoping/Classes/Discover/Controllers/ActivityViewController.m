@@ -6,6 +6,10 @@
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
 
+#define kWidth [UIScreen mainScreen].bounds.size.width
+#define kHeight [UIScreen mainScreen].bounds.size.height
+
+
 #define kActivity @"http://api.gjla.com/app_admin_v400/api/subject/detail?&audit="
 #define k @"http://api.gjla.com/app_admin_v400/api/subject/detail?&audit="
 

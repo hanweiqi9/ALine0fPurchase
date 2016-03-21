@@ -5,6 +5,8 @@
 //  Created by scjy on 16/3/19.
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
+#define kWidth [UIScreen mainScreen].bounds.size.width
+#define kHeight [UIScreen mainScreen].bounds.size.height
 
 #import "ShareView.h"
 

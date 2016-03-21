@@ -6,6 +6,11 @@
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
 
+#define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
+
+#define kWidth [UIScreen mainScreen].bounds.size.width
+#define kHeight [UIScreen mainScreen].bounds.size.height
+
 #import "LoginViewController.h"
 
 @interface LoginViewController ()<UITableViewDataSource,UITableViewDelegate>

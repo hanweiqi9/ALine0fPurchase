@@ -5,6 +5,8 @@
 //  Created by scjy on 16/3/15.
 //  Copyright © 2016年 王雪娟. All rights reserved.
 //
+#define kWidth [UIScreen mainScreen].bounds.size.width
+#define kHeight [UIScreen mainScreen].bounds.size.height
 
 #import "MineViewController.h"
 

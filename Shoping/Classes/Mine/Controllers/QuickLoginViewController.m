@@ -8,8 +8,8 @@
 
 #import "QuickLoginViewController.h"
 #import "UserViewController.h"
-#import <BmobSDK/BmobUser.h>
-#import <BmobSDK/BmobSMS.h>
+//#import <BmobSDK/BmobUser.h>
+//#import <BmobSDK/BmobSMS.h>
 
 @interface QuickLoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *phoneNum;
@@ -24,7 +24,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
+//    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
     [backBtn setImage:[UIImage imageNamed:@"arrow_left_pink"] forState:UIControlStateNormal];
     [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 5)];
     [backBtn addTarget:self action:@selector(backBtnActivity) forControlEvents:UIControlEventTouchUpInside];
@@ -38,21 +38,21 @@
 
 //登陆
 - (IBAction)loginAction:(id)sender {
-    [BmobSMS verifySMSCodeInBackgroundWithPhoneNumber:self.phoneNum.text andSMSCode:self.getNum.text resultBlock:^(BOOL isSuccessful, NSError *error) {
-        if (isSuccessful) {
-            NSLog(@"验证成功");
-        }else{
-            NSLog(@"验证失败");
-        }
-    }];
-    
-    [BmobUser signOrLoginInbackgroundWithMobilePhoneNumber:self.phoneNum.text andSMSCode:self.getNum.text block:^(BmobUser *user, NSError *error) {
-        if (user) {
-            NSLog(@"%@",user);
-        }else{
-            NSLog(@"%@",error);
-        }
-    }];
+//    [BmobSMS verifySMSCodeInBackgroundWithPhoneNumber:self.phoneNum.text andSMSCode:self.getNum.text resultBlock:^(BOOL isSuccessful, NSError *error) {
+//        if (isSuccessful) {
+//            NSLog(@"验证成功");
+//        }else{
+//            NSLog(@"验证失败");
+//        }
+//    }];
+//    
+//    [BmobUser signOrLoginInbackgroundWithMobilePhoneNumber:self.phoneNum.text andSMSCode:self.getNum.text block:^(BmobUser *user, NSError *error) {
+//        if (user) {
+//            NSLog(@"%@",user);
+//        }else{
+//            NSLog(@"%@",error);
+//        }
+//    }];
     
 }
 
@@ -108,11 +108,11 @@
     if (![self checkout]) {
         return;
     }else{
-   [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNum.text andTemplate:@"message" resultBlock:^(int number, NSError *error) {
-        if (error) {
-            NSLog(@"%@",error);
-        }
-    }];
+//   [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNum.text andTemplate:@"message" resultBlock:^(int number, NSError *error) {
+//        if (error) {
+//            NSLog(@"%@",error);
+//        }
+//    }];
     }
 }
 
@@ -120,8 +120,8 @@
 
 
 - (IBAction)agreementAction:(id)sender {
-    UserViewController *user =[[UserViewController alloc] init];
-    [self.navigationController pushViewController:user animated:YES];
+//    UserViewController *user =[[UserViewController alloc] init];
+//    [self.navigationController pushViewController:user animated:YES];
     
 }
 

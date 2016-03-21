@@ -7,8 +7,8 @@
 //
 
 #import "RegistViewController.h"
-#import <BmobSDK/Bmob.h>
-#import <BmobSDK/BmobSMS.h>
+//#import <BmobSDK/Bmob.h>
+//#import <BmobSDK/BmobSMS.h>
 #import "UserViewController.h"
 
 @interface RegistViewController ()
@@ -27,7 +27,7 @@
     // Do any additional setup after loading the view.
      self.view.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
+//    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
     [backBtn setImage:[UIImage imageNamed:@"arrow_left_pink"] forState:UIControlStateNormal];
     [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 5)];
     [backBtn addTarget:self action:@selector(backBtnActivity) forControlEvents:UIControlEventTouchUpInside];
@@ -44,27 +44,27 @@
     if (![self checkout]) {
         return;
     }
-    BmobUser *user  =[[BmobUser alloc] init];
-    [user setUsername:self.phoneText.text];
-    [user setPassword:self.passWord.text];
-
-    [user signUpInBackgroundWithBlock:^(BOOL isSuccessful, NSError *error) {
-        if (isSuccessful) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"恭喜你" message:@"注册成功" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-       [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-                        
-                    }];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        
-            }];
-           [alert addAction:action];
-           [alert addAction:cancelAction];
-           [self presentViewController:alert animated:YES completion:nil];
-        }else{
-            NSLog(@"%@",error);
-            }
-    }];
+//    BmobUser *user  =[[BmobUser alloc] init];
+//    [user setUsername:self.phoneText.text];
+//    [user setPassword:self.passWord.text];
+//
+//    [user signUpInBackgroundWithBlock:^(BOOL isSuccessful, NSError *error) {
+//        if (isSuccessful) {
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"恭喜你" message:@"注册成功" preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//       [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+//                        
+//                    }];
+//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                        
+//            }];
+//           [alert addAction:action];
+//           [alert addAction:cancelAction];
+//           [self presentViewController:alert animated:YES completion:nil];
+//        }else{
+//            NSLog(@"%@",error);
+//            }
+//    }];
 
 }
 

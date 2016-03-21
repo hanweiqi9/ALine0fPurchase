@@ -7,7 +7,7 @@
 //
 
 #import "ResetViewController.h"
-#import <BmobSDK/Bmob.h>
+//#import <BmobSDK/Bmob.h>
 
 @interface ResetViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *phoneNum;
@@ -25,7 +25,7 @@
     // Do any additional setup after loading the view.
      self.view.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
+//    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
     [backBtn setImage:[UIImage imageNamed:@"arrow_left_pink"] forState:UIControlStateNormal];
     [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 5)];
     [backBtn addTarget:self action:@selector(backBtnActivity) forControlEvents:UIControlEventTouchUpInside];

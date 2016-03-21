@@ -6,6 +6,11 @@
 //  Copyright © 2016年 王雪娟. All rights reserved.
 //
 
+
+#define kWidth [UIScreen mainScreen].bounds.size.width
+#define kHeight [UIScreen mainScreen].bounds.size.height
+
+
 //发现 热门
 #define kHot @"http://api.gjla.com/app_admin_v400/api/subject/list?pageSize=8&cityId=391db7b8fdd211e3b2bf00163e000dce"
 
