@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface NearbyViewController : UIViewController
+@property (nonatomic, strong) NSMutableArray *cateId;
+
+
 
 @end
