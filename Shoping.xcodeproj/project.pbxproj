@@ -34,6 +34,12 @@
 		7A2D55AC1C9F79B9002018F4 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55AB1C9F79B9002018F4 /* ScanViewController.m */; };
 		7A2D55AF1C9F79D8002018F4 /* MainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55AE1C9F79D8002018F4 /* MainModel.m */; };
 		7A2D55B21C9F79F2002018F4 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55B11C9F79F2002018F4 /* TableViewCell.m */; };
+		7A2D55B51C9F7AD7002018F4 /* NearbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55B41C9F7AD7002018F4 /* NearbyViewController.m */; };
+		7A2D55B81C9F7AF1002018F4 /* ShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55B71C9F7AF1002018F4 /* ShopModel.m */; };
+		7A2D55BB1C9F7B1F002018F4 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55BA1C9F7B1F002018F4 /* TableViewCell.m */; };
+		7A2D55BE1C9F7B43002018F4 /* CenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55BD1C9F7B43002018F4 /* CenterViewController.m */; };
+		7A2D55C11C9F7B57002018F4 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55C01C9F7B57002018F4 /* Model.m */; };
+		7A2D55C41C9F7B6A002018F4 /* CenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55C31C9F7B6A002018F4 /* CenterTableViewCell.m */; };
 		878BDD405C63EC5BFCCF1F64 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E8722CE52D8272C529BF80 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +91,18 @@
 		7A2D55AE1C9F79D8002018F4 /* MainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainModel.m; sourceTree = "<group>"; };
 		7A2D55B01C9F79F2002018F4 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		7A2D55B11C9F79F2002018F4 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		7A2D55B31C9F7AD7002018F4 /* NearbyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyViewController.h; sourceTree = "<group>"; };
+		7A2D55B41C9F7AD7002018F4 /* NearbyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyViewController.m; sourceTree = "<group>"; };
+		7A2D55B61C9F7AF1002018F4 /* ShopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopModel.h; sourceTree = "<group>"; };
+		7A2D55B71C9F7AF1002018F4 /* ShopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopModel.m; sourceTree = "<group>"; };
+		7A2D55B91C9F7B1F002018F4 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		7A2D55BA1C9F7B1F002018F4 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		7A2D55BC1C9F7B43002018F4 /* CenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterViewController.h; sourceTree = "<group>"; };
+		7A2D55BD1C9F7B43002018F4 /* CenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterViewController.m; sourceTree = "<group>"; };
+		7A2D55BF1C9F7B57002018F4 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		7A2D55C01C9F7B57002018F4 /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
+		7A2D55C21C9F7B6A002018F4 /* CenterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterTableViewCell.h; sourceTree = "<group>"; };
+		7A2D55C31C9F7B6A002018F4 /* CenterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterTableViewCell.m; sourceTree = "<group>"; };
 		E747211142BC7577B3EE2490 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +194,8 @@
 		7A2D55681C9F780A002018F4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7A2D55BC1C9F7B43002018F4 /* CenterViewController.h */,
+				7A2D55BD1C9F7B43002018F4 /* CenterViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -183,6 +203,8 @@
 		7A2D55691C9F780A002018F4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7A2D55BF1C9F7B57002018F4 /* Model.h */,
+				7A2D55C01C9F7B57002018F4 /* Model.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -190,6 +212,8 @@
 		7A2D556A1C9F780A002018F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7A2D55C21C9F7B6A002018F4 /* CenterTableViewCell.h */,
+				7A2D55C31C9F7B6A002018F4 /* CenterTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -335,6 +359,8 @@
 		7A2D55951C9F780A002018F4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7A2D55B31C9F7AD7002018F4 /* NearbyViewController.h */,
+				7A2D55B41C9F7AD7002018F4 /* NearbyViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -342,6 +368,8 @@
 		7A2D55961C9F780A002018F4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7A2D55B61C9F7AF1002018F4 /* ShopModel.h */,
+				7A2D55B71C9F7AF1002018F4 /* ShopModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -349,6 +377,8 @@
 		7A2D55971C9F780A002018F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7A2D55B91C9F7B1F002018F4 /* TableViewCell.h */,
+				7A2D55BA1C9F7B1F002018F4 /* TableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -497,16 +527,22 @@
 				7A2D55541C9F7148002018F4 /* AppDelegate.m in Sources */,
 				7A2D55A51C9F780B002018F4 /* QuickLoginViewController.m in Sources */,
 				7A2D55A01C9F780A002018F4 /* MatchTableViewCell.m in Sources */,
+				7A2D55B81C9F7AF1002018F4 /* ShopModel.m in Sources */,
 				7A2D55A21C9F780B002018F4 /* ShareView.m in Sources */,
 				7A2D55A81C9F780B002018F4 /* UserViewController.m in Sources */,
 				7A2D55B21C9F79F2002018F4 /* TableViewCell.m in Sources */,
+				7A2D55C11C9F7B57002018F4 /* Model.m in Sources */,
 				7A2D55A31C9F780B002018F4 /* LoginViewController.m in Sources */,
 				7A2D55511C9F7148002018F4 /* main.m in Sources */,
+				7A2D55BB1C9F7B1F002018F4 /* TableViewCell.m in Sources */,
 				7A2D55A71C9F780B002018F4 /* ResetViewController.m in Sources */,
 				7A2D55AF1C9F79D8002018F4 /* MainModel.m in Sources */,
+				7A2D55C41C9F7B6A002018F4 /* CenterTableViewCell.m in Sources */,
 				7A2D55A41C9F780B002018F4 /* MineViewController.m in Sources */,
+				7A2D55B51C9F7AD7002018F4 /* NearbyViewController.m in Sources */,
 				7A2D55981C9F780A002018F4 /* ActivityViewController.m in Sources */,
 				7A2D559E1C9F780A002018F4 /* HotTableViewCell.m in Sources */,
+				7A2D55BE1C9F7B43002018F4 /* CenterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
