@@ -1,0 +1,70 @@
+{
+datas =     (
+{
+collocationId = 52d33b32f24c469991e0c8df1159b79c;
+isSupport = 0;
+mainPicUrl = "uploadtemp/collocation/2016-02/collocation_1c27e310588d4b8aa274d8a0888cc3d9.jpg";
+tagText = "";
+thumbMainPicUrl = "uploadtemp/collocation_thumb/2016-02-15/1c27e310588d4b8aa274d8a0888cc3d9.jpg";
+title = "\U4eba\U4eba\U90fd\U8be5\U6709\U53cc\U6768\U5e42\U7684\U978b\Uff0c\U8f66\U591a\U4eba\U6324\U5c31\U7a7f\U8fd9\U56de\U5bb6\Uff01";
+},
+{
+collocationId = affa1be315cf4240b3678cc6154e385b;
+isSupport = 0;
+mainPicUrl = "uploadtemp/collocation/2016-02/collocation_87d2ba5624144746aec368035c7c58fc.jpg";
+tagText = "";
+thumbMainPicUrl = "uploadtemp/collocation_thumb/2016-02-15/87d2ba5624144746aec368035c7c58fc.jpg";
+title = "\U6ca1\U6709\U8fd93\U4ef6\U5355\U54c1\Uff0c\U4f60\U600e\U4e48\U6562\U9738\U5c4f\U670b\U53cb\U5708\Uff1f";
+},
+{
+collocationId = 3400b288e28547b2b9e925773de97bdc;
+isSupport = 0;
+mainPicUrl = "uploadtemp/collocation/2016-02/collocation_d69a1f48f98043279b672a0104544c8a.jpg";
+tagText = "";
+thumbMainPicUrl = "uploadtemp/collocation_thumb/2016-02-03/d69a1f48f98043279b672a0104544c8a.jpg";
+title = "\U886c\U886b\U4e0d\U53e0\U7a7f\Uff1f\U4f6080%\U7684\U9020\U578b\U90fd\U5728cos\U552e\U697c\U5c0f\U59d0\Uff01";
+},
+{
+collocationId = fd49c3ec87c94e1fbfa4a6c2f28680c3;
+isSupport = 0;
+mainPicUrl = "uploadtemp/collocation/2015-09/collocation_0f26667745da4c0b8ac6a75acfc31701.jpg";
+tagText = "";
+thumbMainPicUrl = "uploadtemp/collocation_thumb/2015-09-11/0f26667745da4c0b8ac6a75acfc31701.jpg";
+title = "\U5f00\U79cb\U536b\U8863\U7684N\U79cd\U4f60\U53ef\U4ee5\U5c1d\U8bd5\U7684\U642d\U6cd5\Uff01";
+},
+{
+collocationId = a9cea8fcf174462d94be742a392c140a;
+isSupport = 0;
+mainPicUrl = "uploadtemp/collocation/2016-01/collocation_31357b6a61cf404a8161bbca02187ea6.jpg";
+tagText = "";
+thumbMainPicUrl = "uploadtemp/collocation_thumb/2016-01-22/31357b6a61cf404a8161bbca02187ea6.jpg";
+title = "\U5973\U795e\U4eec\U90fd\U6234\U4e0a\U773c\U955c\U5f53\U6587\U9752\U5566\Uff01\U8d76\U7d27\U6765\U505a\U8d85\U65f6\U9ae6\U7684\U4e66\U5446\U5b50\Uff01";
+},
+{
+collocationId = 454b304b0f774cf2a690102a2e501765;
+isSupport = 0;
+mainPicUrl = "uploadtemp/collocation/2016-01/collocation_e1758d7d9c3947148fa5dfe57fc0091f.jpg";
+tagText = "";
+thumbMainPicUrl = "uploadtemp/collocation_thumb/2016-01-14/e1758d7d9c3947148fa5dfe57fc0091f.jpg";
+title = "\U90a3\U4e9b\U8d85\U6a21\U65f6\U9ae6\U8fd8\U817f\U957f \U79d8\U5bc6\U90fd\U5728\U9774\U5b50\U91cc";
+},
+{
+collocationId = 8d1cafd2c38b4305b5422d29f7268369;
+isSupport = 0;
+mainPicUrl = "uploadtemp/collocation/2016-01/collocation_41aaab55f7834e2696f63d78a82c8b77.jpg";
+tagText = "";
+thumbMainPicUrl = "uploadtemp/collocation_thumb/2016-01-20/41aaab55f7834e2696f63d78a82c8b77.jpg";
+title = "\U9ad8\U7ffb\U9886\U6bdb\U8863\U600e\U4e48\U7a7f\U6700\U6f6e\Uff1f4\U62db\U641e\U5b9a\Uff01";
+},
+{
+collocationId = ab59e049f65f41a2a2aad9590fba4f7f;
+isSupport = 0;
+mainPicUrl = "uploadtemp/collocation/2016-01/collocation_68eee82db6094ea3a2ca534514b3a5e3.jpg";
+tagText = "";
+thumbMainPicUrl = "uploadtemp/collocation_thumb/2016-01-14/68eee82db6094ea3a2ca534514b3a5e3.jpg";
+title = "\U4f60\U4eec\U8981\U7684\U6bdb\U8863\U88d9\U6765\U4e86 \U6b3e\U5f0f\U90fd\U5e2e\U4f60\U9009\U597d";
+}
+);
+errcode = 0;
+errmsg = "";
+}

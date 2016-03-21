@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="308" id="KGk-i7-Jjw" customClass="MatchTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="308"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="307"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DIP-4B-yza">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="270"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="as6-6l-geO">
+                        <rect key="frame" x="8" y="278" width="312" height="24"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="z2W-Sv-47S"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="as6-6l-geO" firstAttribute="top" secondItem="DIP-4B-yza" secondAttribute="bottom" constant="8" id="5vl-3X-4uh"/>
+                    <constraint firstItem="DIP-4B-yza" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="Wan-aD-PN7"/>
+                    <constraint firstItem="DIP-4B-yza" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="bCI-sU-E8N"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="as6-6l-geO" secondAttribute="trailing" constant="-8" id="f0v-W1-8zb"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="as6-6l-geO" secondAttribute="bottom" constant="-3" id="mT2-tG-4aL"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="DIP-4B-yza" secondAttribute="trailing" constant="-8" id="pIq-MB-Gb7"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="as6-6l-geO" secondAttribute="leading" id="wP1-4g-Mxr"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="imageTop" destination="DIP-4B-yza" id="JGm-8E-wnE"/>
+                <outlet property="title" destination="as6-6l-geO" id="ThU-7D-Xin"/>
+            </connections>
+            <point key="canvasLocation" x="324" y="309"/>
+        </tableViewCell>
+    </objects>
+</document>
