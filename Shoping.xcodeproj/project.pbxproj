@@ -31,6 +31,9 @@
 		7A2D55A71C9F780B002018F4 /* ResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D558E1C9F780A002018F4 /* ResetViewController.m */; };
 		7A2D55A81C9F780B002018F4 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55901C9F780A002018F4 /* UserViewController.m */; };
 		7A2D55A91C9F780B002018F4 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D55931C9F780A002018F4 /* Mine.storyboard */; };
+		7A2D55AC1C9F79B9002018F4 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55AB1C9F79B9002018F4 /* ScanViewController.m */; };
+		7A2D55AF1C9F79D8002018F4 /* MainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55AE1C9F79D8002018F4 /* MainModel.m */; };
+		7A2D55B21C9F79F2002018F4 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55B11C9F79F2002018F4 /* TableViewCell.m */; };
 		878BDD405C63EC5BFCCF1F64 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E8722CE52D8272C529BF80 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +79,12 @@
 		7A2D558F1C9F780A002018F4 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
 		7A2D55901C9F780A002018F4 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
 		7A2D55931C9F780A002018F4 /* Mine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Mine.storyboard; sourceTree = "<group>"; };
+		7A2D55AA1C9F79B9002018F4 /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
+		7A2D55AB1C9F79B9002018F4 /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
+		7A2D55AD1C9F79D8002018F4 /* MainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainModel.h; sourceTree = "<group>"; };
+		7A2D55AE1C9F79D8002018F4 /* MainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainModel.m; sourceTree = "<group>"; };
+		7A2D55B01C9F79F2002018F4 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		7A2D55B11C9F79F2002018F4 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		E747211142BC7577B3EE2490 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -245,6 +254,8 @@
 		7A2D55801C9F780A002018F4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7A2D55AA1C9F79B9002018F4 /* ScanViewController.h */,
+				7A2D55AB1C9F79B9002018F4 /* ScanViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -252,6 +263,8 @@
 		7A2D55811C9F780A002018F4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7A2D55AD1C9F79D8002018F4 /* MainModel.h */,
+				7A2D55AE1C9F79D8002018F4 /* MainModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -259,6 +272,8 @@
 		7A2D55821C9F780A002018F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7A2D55B01C9F79F2002018F4 /* TableViewCell.h */,
+				7A2D55B11C9F79F2002018F4 /* TableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -476,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A2D55991C9F780A002018F4 /* DiscoverViewController.m in Sources */,
+				7A2D55AC1C9F79B9002018F4 /* ScanViewController.m in Sources */,
 				7A2D55571C9F7148002018F4 /* ViewController.m in Sources */,
 				7A2D55A61C9F780B002018F4 /* RegistViewController.m in Sources */,
 				7A2D55541C9F7148002018F4 /* AppDelegate.m in Sources */,
@@ -483,9 +499,11 @@
 				7A2D55A01C9F780A002018F4 /* MatchTableViewCell.m in Sources */,
 				7A2D55A21C9F780B002018F4 /* ShareView.m in Sources */,
 				7A2D55A81C9F780B002018F4 /* UserViewController.m in Sources */,
+				7A2D55B21C9F79F2002018F4 /* TableViewCell.m in Sources */,
 				7A2D55A31C9F780B002018F4 /* LoginViewController.m in Sources */,
 				7A2D55511C9F7148002018F4 /* main.m in Sources */,
 				7A2D55A71C9F780B002018F4 /* ResetViewController.m in Sources */,
+				7A2D55AF1C9F79D8002018F4 /* MainModel.m in Sources */,
 				7A2D55A41C9F780B002018F4 /* MineViewController.m in Sources */,
 				7A2D55981C9F780A002018F4 /* ActivityViewController.m in Sources */,
 				7A2D559E1C9F780A002018F4 /* HotTableViewCell.m in Sources */,
