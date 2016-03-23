@@ -7,7 +7,7 @@
 //
 
 #import "PreferDetailViewController.h"
-
+#import "UIViewController+Common.h"
 @interface PreferDetailViewController ()
 
 @end
@@ -17,6 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self showBackButtonWithImage:@"titlebarback"];
+
+    
 }
 
 - (void)didReceiveMemoryWarning {

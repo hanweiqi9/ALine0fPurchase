@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   的风格和北京今年" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8kd-vX-0iU">
-                        <rect key="frame" x="0.0" y="156" width="261" height="40"/>
+                        <rect key="frame" x="8" y="156" width="253" height="40"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -24,7 +24,6 @@
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VXU-MB-OcG">
                         <rect key="frame" x="0.0" y="0.0" width="340" height="153"/>
-                        <color key="backgroundColor" red="0.46351211869999998" green="1" blue="0.44294297500000002" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYs-6e-XPe">
                         <rect key="frame" x="260" y="156" width="80" height="40"/>
@@ -41,6 +40,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottomMargin" secondItem="VXU-MB-OcG" secondAttribute="bottom" constant="43" id="6uW-Sq-gsI"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="8kd-vX-0iU" secondAttribute="leading" id="AZD-gW-xCj"/>
                     <constraint firstItem="8kd-vX-0iU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="JaO-3G-KtI"/>
                     <constraint firstAttribute="trailingMargin" secondItem="VXU-MB-OcG" secondAttribute="trailing" constant="-8" id="NGc-lk-ab6"/>
                     <constraint firstItem="8kd-vX-0iU" firstAttribute="height" secondItem="PYs-6e-XPe" secondAttribute="height" id="Nst-8n-odt"/>
@@ -54,6 +54,11 @@
                     <constraint firstItem="PYs-6e-XPe" firstAttribute="top" secondItem="8kd-vX-0iU" secondAttribute="top" id="wIY-nc-sFP"/>
                     <constraint firstItem="PYs-6e-XPe" firstAttribute="trailing" secondItem="VXU-MB-OcG" secondAttribute="trailing" id="xFT-2N-08h"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="JaO-3G-KtI"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="IconImageView" destination="VXU-MB-OcG" id="Bt9-KG-dny"/>

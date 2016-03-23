@@ -58,7 +58,7 @@
 		7A5E4FC81C9F8E8F003EF725 /* NearTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A5E4FC61C9F8E8F003EF725 /* NearTableViewCell.xib */; };
 		7A5E4FCB1C9F94F4003EF725 /* UIViewController+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E4FCA1C9F94F4003EF725 /* UIViewController+Common.m */; };
 		7A5E4FCD1C9FA4C2003EF725 /* youhui.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A5E4FCC1C9FA4C2003EF725 /* youhui.plist */; };
-
+		7A5E4FD91CA02E58003EF725 /* nearpre.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A5E4FD81CA02E58003EF725 /* nearpre.plist */; };
 		7A81FD2C1C9FCCA50054A7FA /* BrandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A81FD251C9FCCA50054A7FA /* BrandModel.m */; };
 		7A81FD2D1C9FCCA50054A7FA /* DetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A81FD271C9FCCA50054A7FA /* DetailModel.m */; };
 		7A81FD2E1C9FCCA50054A7FA /* OneBrandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A81FD291C9FCCA50054A7FA /* OneBrandModel.m */; };
@@ -92,6 +92,13 @@
 		7A81FD861C9FCECE0054A7FA /* ZLDropDownMenuTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A81FD761C9FCECE0054A7FA /* ZLDropDownMenuTitleButton.m */; };
 		7A81FD871C9FCECE0054A7FA /* ZLDropDownMenuUICalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A81FD781C9FCECE0054A7FA /* ZLDropDownMenuUICalc.m */; };
 		7A81FD8D1C9FCEE90054A7FA /* JXBAdPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A81FD8C1C9FCEE90054A7FA /* JXBAdPageView.m */; };
+		7ADA10C11CA0C9A4003116FA /* MainCell.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADA10C01CA0C9A4003116FA /* MainCell.plist */; };
+		7ADA10C41CA0D124003116FA /* HtmlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA10C31CA0D124003116FA /* HtmlViewController.m */; };
+		7ADA10E81CA0DCD9003116FA /* Turn.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADA10E71CA0DCD9003116FA /* Turn.plist */; };
+		7ADA10EC1CA0EA71003116FA /* Tool.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADA10EB1CA0EA71003116FA /* Tool.plist */; };
+		7ADA10EF1CA0EDEF003116FA /* ActivityMianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA10EE1CA0EDEF003116FA /* ActivityMianViewController.m */; };
+		7ADA10F11CA0F181003116FA /* you.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADA10F01CA0F181003116FA /* you.plist */; };
+		7ADA10F31CA121C6003116FA /* activityMian.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADA10F21CA121C6003116FA /* activityMian.plist */; };
 		878BDD405C63EC5BFCCF1F64 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E8722CE52D8272C529BF80 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -185,7 +192,7 @@
 		7A5E4FC91C9F94F4003EF725 /* UIViewController+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Common.h"; sourceTree = "<group>"; };
 		7A5E4FCA1C9F94F4003EF725 /* UIViewController+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Common.m"; sourceTree = "<group>"; };
 		7A5E4FCC1C9FA4C2003EF725 /* youhui.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = youhui.plist; sourceTree = "<group>"; };
-
+		7A5E4FD81CA02E58003EF725 /* nearpre.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = nearpre.plist; sourceTree = "<group>"; };
 		7A81FD241C9FCCA50054A7FA /* BrandModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandModel.h; sourceTree = "<group>"; };
 		7A81FD251C9FCCA50054A7FA /* BrandModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandModel.m; sourceTree = "<group>"; };
 		7A81FD261C9FCCA50054A7FA /* DetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailModel.h; sourceTree = "<group>"; };
@@ -252,6 +259,15 @@
 		7A81FD781C9FCECE0054A7FA /* ZLDropDownMenuUICalc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLDropDownMenuUICalc.m; sourceTree = "<group>"; };
 		7A81FD8B1C9FCEE90054A7FA /* JXBAdPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXBAdPageView.h; sourceTree = "<group>"; };
 		7A81FD8C1C9FCEE90054A7FA /* JXBAdPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXBAdPageView.m; sourceTree = "<group>"; };
+		7ADA10C01CA0C9A4003116FA /* MainCell.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MainCell.plist; sourceTree = "<group>"; };
+		7ADA10C21CA0D124003116FA /* HtmlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HtmlViewController.h; sourceTree = "<group>"; };
+		7ADA10C31CA0D124003116FA /* HtmlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HtmlViewController.m; sourceTree = "<group>"; };
+		7ADA10E71CA0DCD9003116FA /* Turn.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Turn.plist; sourceTree = "<group>"; };
+		7ADA10EB1CA0EA71003116FA /* Tool.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Tool.plist; sourceTree = "<group>"; };
+		7ADA10ED1CA0EDEF003116FA /* ActivityMianViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityMianViewController.h; sourceTree = "<group>"; };
+		7ADA10EE1CA0EDEF003116FA /* ActivityMianViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityMianViewController.m; sourceTree = "<group>"; };
+		7ADA10F01CA0F181003116FA /* you.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = you.plist; sourceTree = "<group>"; };
+		7ADA10F21CA121C6003116FA /* activityMian.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = activityMian.plist; sourceTree = "<group>"; };
 		E747211142BC7577B3EE2490 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -429,12 +445,16 @@
 		7A2D55801C9F780A002018F4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7A5E4FB31C9F8AB4003EF725 /* NearPreferViewController.h */,
-				7A5E4FB41C9F8AB4003EF725 /* NearPreferViewController.m */,
+				7ADA10C21CA0D124003116FA /* HtmlViewController.h */,
+				7ADA10C31CA0D124003116FA /* HtmlViewController.m */,
+				7ADA10ED1CA0EDEF003116FA /* ActivityMianViewController.h */,
+				7ADA10EE1CA0EDEF003116FA /* ActivityMianViewController.m */,
 				7A5E4FB61C9F8AC2003EF725 /* YouhuiViewController.h */,
 				7A5E4FB71C9F8AC2003EF725 /* YouhuiViewController.m */,
 				7A5E4FB91C9F8AD2003EF725 /* PreferDetailViewController.h */,
 				7A5E4FBA1C9F8AD2003EF725 /* PreferDetailViewController.m */,
+				7A5E4FB31C9F8AB4003EF725 /* NearPreferViewController.h */,
+				7A5E4FB41C9F8AB4003EF725 /* NearPreferViewController.m */,
 				7A5E4FBC1C9F8ADF003EF725 /* InviteViewController.h */,
 				7A5E4FBD1C9F8ADF003EF725 /* InviteViewController.m */,
 				7A2D55AA1C9F79B9002018F4 /* ScanViewController.h */,
@@ -446,9 +466,15 @@
 		7A2D55811C9F780A002018F4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7ADA10C01CA0C9A4003116FA /* MainCell.plist */,
+				7A5E4FD81CA02E58003EF725 /* nearpre.plist */,
 				7A2D55AD1C9F79D8002018F4 /* MainModel.h */,
 				7A2D55AE1C9F79D8002018F4 /* MainModel.m */,
+				7ADA10F21CA121C6003116FA /* activityMian.plist */,
 				7A5E4FCC1C9FA4C2003EF725 /* youhui.plist */,
+				7ADA10F01CA0F181003116FA /* you.plist */,
+				7ADA10E71CA0DCD9003116FA /* Turn.plist */,
+				7ADA10EB1CA0EA71003116FA /* Tool.plist */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -582,7 +608,6 @@
 			children = (
 				7A5E4FC91C9F94F4003EF725 /* UIViewController+Common.h */,
 				7A5E4FCA1C9F94F4003EF725 /* UIViewController+Common.m */,
-
 				7A81FD8A1C9FCEE90054A7FA /* JXBAdPageView */,
 				7A81FD521C9FCECE0054A7FA /* ZLDropDownMenu */,
 				7A2D55CA1C9F8031002018F4 /* VOSegmentedControl */,
@@ -767,22 +792,28 @@
 				7A2D559A1C9F780A002018F4 /* Activity.plist in Resources */,
 				7A81FD501C9FCCE00054A7FA /* ShopDetail.plist in Resources */,
 				7A2D55A11C9F780A002018F4 /* MatchTableViewCell.xib in Resources */,
+				7ADA10E81CA0DCD9003116FA /* Turn.plist in Resources */,
 				7A2D559C1C9F780A002018F4 /* Hot.plist in Resources */,
 				7A2D559F1C9F780A002018F4 /* HotTableViewCell.xib in Resources */,
 				7A81FD4C1C9FCCE00054A7FA /* BrandDetail.plist in Resources */,
+				7ADA10F11CA0F181003116FA /* you.plist in Resources */,
 				7A2D55C81C9F7DD7002018F4 /* Nearby.storyboard in Resources */,
 				7A81FD4F1C9FCCE00054A7FA /* ShopBrand.plist in Resources */,
 				7A2D559B1C9F780A002018F4 /* Discover.storyboard in Resources */,
 				7A81FD3F1C9FCCCC0054A7FA /* ShopTableViewCell.xib in Resources */,
 				7A2D55C61C9F7DA1002018F4 /* GlobalShop.storyboard in Resources */,
+				7ADA10C11CA0C9A4003116FA /* MainCell.plist in Resources */,
 				7A2D555C1C9F7148002018F4 /* Assets.xcassets in Resources */,
+				7ADA10EC1CA0EA71003116FA /* Tool.plist in Resources */,
 				7A2D55A91C9F780B002018F4 /* Mine.storyboard in Resources */,
 				7A5E4FC31C9F8BA7003EF725 /* YouhuiTableViewCell.xib in Resources */,
 				7A5E4FCD1C9FA4C2003EF725 /* youhui.plist in Resources */,
 				7A81FD4B1C9FCCE00054A7FA /* Brand.plist in Resources */,
 				7A2D55D81C9F8031002018F4 /* blueArrow.png in Resources */,
+				7A5E4FD91CA02E58003EF725 /* nearpre.plist in Resources */,
 				7A2D555A1C9F7148002018F4 /* Main.storyboard in Resources */,
 				7A2D559D1C9F780A002018F4 /* Hot1.plist in Resources */,
+				7ADA10F31CA121C6003116FA /* activityMian.plist in Resources */,
 				7A5E4FC81C9F8E8F003EF725 /* NearTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -850,6 +881,7 @@
 				7A81FD7A1C9FCECE0054A7FA /* MASCompositeConstraint.m in Sources */,
 				7A81FD7C1C9FCECE0054A7FA /* MASConstraintMaker.m in Sources */,
 				7A81FD7E1C9FCECE0054A7FA /* MASViewAttribute.m in Sources */,
+				7ADA10EF1CA0EDEF003116FA /* ActivityMianViewController.m in Sources */,
 				7A2D55DB1C9F8031002018F4 /* VOContentLayer.m in Sources */,
 				7A81FD7F1C9FCECE0054A7FA /* MASViewConstraint.m in Sources */,
 				7A2D55AC1C9F79B9002018F4 /* ScanViewController.m in Sources */,
@@ -857,11 +889,8 @@
 				7A2D55571C9F7148002018F4 /* ViewController.m in Sources */,
 				7A2D55A61C9F780B002018F4 /* RegistViewController.m in Sources */,
 				7A2D55541C9F7148002018F4 /* AppDelegate.m in Sources */,
-
 				7A5E4FCB1C9F94F4003EF725 /* UIViewController+Common.m in Sources */,
-
 				7A81FD821C9FCECE0054A7FA /* View+MASAdditions.m in Sources */,
-
 				7A2D55A51C9F780B002018F4 /* QuickLoginViewController.m in Sources */,
 				7A2D55A01C9F780A002018F4 /* MatchTableViewCell.m in Sources */,
 				7A81FD2C1C9FCCA50054A7FA /* BrandModel.m in Sources */,
@@ -883,7 +912,6 @@
 				7A81FD511C9FCCE00054A7FA /* ShopDetailViewController.m in Sources */,
 				7A2D55A71C9F780B002018F4 /* ResetViewController.m in Sources */,
 				7A5E4FC21C9F8BA7003EF725 /* YouhuiTableViewCell.m in Sources */,
-
 				7A81FD861C9FCECE0054A7FA /* ZLDropDownMenuTitleButton.m in Sources */,
 				7A81FD7B1C9FCECE0054A7FA /* MASConstraint.m in Sources */,
 				7A2D55AF1C9F79D8002018F4 /* MainModel.m in Sources */,
@@ -904,13 +932,11 @@
 				7A81FD7D1C9FCECE0054A7FA /* MASLayoutConstraint.m in Sources */,
 				7A81FD2D1C9FCCA50054A7FA /* DetailModel.m in Sources */,
 				7A2D559E1C9F780A002018F4 /* HotTableViewCell.m in Sources */,
-
 				7A5E4FB51C9F8AB4003EF725 /* NearPreferViewController.m in Sources */,
-
 				7A81FD801C9FCECE0054A7FA /* NSArray+MASAdditions.m in Sources */,
-
 				7A2D55BE1C9F7B43002018F4 /* CenterViewController.m in Sources */,
 				7A5E4FBB1C9F8AD2003EF725 /* PreferDetailViewController.m in Sources */,
+				7ADA10C41CA0D124003116FA /* HtmlViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

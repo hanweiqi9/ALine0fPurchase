@@ -1,0 +1,100 @@
+{
+datas =     {
+beginDate = 1454256000000;
+brandId = c68e083a34b711e4998d00163e0200e5;
+brandNameEn = GANT;
+brandNameZh = "";
+brandPicUrl = "uploadtemp/brand/2015-12/brand_9d1cc63681bd913cc01ef13912494335.jpg";
+costPrice = 100;
+couponDesc = "\U6301\U6b64\U5238\U5238\U7801\U6d88\U8d39\Uff0c\U8bf7\U5728\U7ed3\U7b97\U524d\U51fa\U793a\Uff0c\U6d88\U8d39\U8005\U81ea\U884c\U70b9\U51fb\U4f7f\U7528\U65e0\U6548
+\n\U51ed\U6b64\U5238\U53ef\U62b5\U6263300\U5143\U73b0\U91d1
+\n\U9650\U539f\U4ef7\U5546\U54c1\U4f7f\U7528
+\n\U4e0d\U4e0e\U5176\U4ed6\U4f18\U60e0\U540c\U65f6\U4f7f\U7528
+\n\U6bcf\U5355\U9650\U7528\U4e00\U5f20
+\n\U54c1\U724c\U65b9\U5bf9\U6b64\U4f18\U60e0\U5238\U4eab\U6709\U6700\U7ec8\U89e3\U91ca\U6743";
+couponId = d2f4004e66db32250f56629b32bcc5f5;
+couponIndividualNum = 0;
+couponIndividuals = "<null>";
+    couponLeft = 287;
+    couponName = "300\U5143\U73b0\U91d1\U5238";
+    couponOrDiscounts =         (
+    {
+    beginDate = 1454256000000;
+    brandLogoUrl = "uploadtemp/brand/2015-12/brand_9d1cc63681bd913cc01ef13912494335.jpg";
+    costPrice = 50;
+    couponType = 1;
+    endDate = 1459353600000;
+    id = d46a82e3cf6edf617df7ff8ced77c11e;
+    name = "200\U5143\U73b0\U91d1\U5238";
+    price = 200;
+    type = 1;
+    },
+    {
+    beginDate = 1458403200000;
+    brandLogoUrl = "uploadtemp/brand/2015-12/brand_9d1cc63681bd913cc01ef13912494335.jpg";
+    costPrice = "<null>";
+        couponType = "<null>";
+            endDate = 1459353600000;
+            id = 1c44ce6756bb39f850b5f1b6d08ee05c;
+            name = "\U5168\U573a7\U6298\Uff08\U8d77\Uff09";
+            price = "<null>";
+                type = 0;
+                },
+                {
+                beginDate = 1456761600000;
+                brandLogoUrl = "uploadtemp/brand/2015-12/brand_9d1cc63681bd913cc01ef13912494335.jpg";
+                costPrice = "<null>";
+                    couponType = "<null>";
+                        endDate = 1459353600000;
+                        id = 73341c717c0799474e897110cd298759;
+                        name = "\U5168\U573a5\U6298~6\U6298";
+                        price = "<null>";
+                            type = 0;
+                            },
+                            {
+                            beginDate = 1456761600000;
+                            brandLogoUrl = "uploadtemp/brand/2015-12/brand_9d1cc63681bd913cc01ef13912494335.jpg";
+                            costPrice = "<null>";
+                                couponType = "<null>";
+                                    endDate = 1459353600000;
+                                    id = d7e416f40920bcf075d46583fb8a8a1a;
+                                    name = "\U4e24\U4ef6\U6298\U4e0a9\U6298 \U4e09\U4ef68\U6298";
+                                    price = "<null>";
+                                        type = 0;
+                                        },
+                                        {
+                                        beginDate = 1457452800000;
+                                        brandLogoUrl = "uploadtemp/brand/2015-12/brand_9d1cc63681bd913cc01ef13912494335.jpg";
+                                        costPrice = "<null>";
+                                            couponType = "<null>";
+                                                endDate = 1459353600000;
+                                                id = 31fe4769c6c9703492742b49cd6053ed;
+                                                name = "\U90e8\U52067\U6298\Uff08\U8d77\Uff09";
+                                                price = "<null>";
+                                                    type = 0;
+                                                    }
+                                                    );
+                                                    couponPicUrls =         (
+                                                    "uploadtemp/coupon/201601/coupon_20160129144913_14540501535968_res.jpg"
+                                                    );
+                                                    couponStatus = 0;
+                                                    couponType = 1;
+                                                    currentUserReceiveCount = 0;
+                                                    distance = 920071;
+                                                    endDate = 1459439940000;
+                                                    externalLink = "<null>";
+                                                        isCollected = 0;
+                                                        latitude = "31.240537";
+                                                        limitCountPerPerson = 5;
+                                                        longitude = "121.419606";
+                                                        price = 300;
+                                                        storeAddress = "\U666e\U9640\U533a\U4e2d\U5c71\U5317\U8def3222\U53f71F";
+                                                        storeId = bc439bfd8df411e5860600163e000dce;
+                                                        storeName = "GANT \U6708\U661f\U73af\U7403\U6e2f";
+                                                        storeNum = 12;
+                                                        verificationDesc = "1.\U60a8\U53ef\U4ee5\U8bf7\U8425\U4e1a\U5458\U70b9\U51fb\U201c\U624b\U52a8\U786e\U8ba4\U201d\U6309\U94ae\U8fdb\U884c\U9a8c\U5238
+                                                        \n2.\U60a8\U53ef\U4ee5\U5728\U5168\U57ce\U901b\U8857\U94f6\U8054\U9a8c\U5238\U673a\U4e0a\U8f93\U5165\U4f18\U60e0\U5238\U7f16\U7801\U8fdb\U884c\U9a8c\U5238";
+                                                        };
+                                                        errcode = 0;
+                                                        errmsg = "";
+                                                    }

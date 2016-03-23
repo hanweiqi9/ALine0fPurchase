@@ -12,6 +12,11 @@
 #import "ScanViewController.h"
 #import "YouhuiViewController.h"
 #import "NearPreferViewController.h"
+#import "ActivityViewController.h"
+#import "HtmlViewController.h"
+#import "ActivityMianViewController.h"
+#import "ShopDetailViewController.h"
+
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate >
 //UI控件
 @property (nonatomic, strong) UITableView *tableview;
@@ -116,6 +121,12 @@
         //        images.backgroundColor = [UIColor redColor];
         [images sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/%@",self.turnArray[i][@"mainPicUrl"]]] placeholderImage:nil];
         [self.scrollView addSubview:images];
+        self.HeadView.userInteractionEnabled = YES;
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = images.frame;
+        button.tag = 100 +i;
+        [button addTarget:self action:@selector(TurnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.scrollView addSubview:button];
     }
     [self.HeadView addSubview:self.scrollView];
     [self.HeadView addSubview:self.pageC];
@@ -229,7 +240,7 @@
         NSDictionary *dic = responseObject;
         NSArray *data = dic[@"datas"];
         for (NSDictionary *dics in data) {
-            [self.cellArray addObject:dics[@"mainPicUrl"]];
+            [self.cellArray addObject:dics];
         }
         [self.tableview reloadData];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -376,7 +387,7 @@
     }
     if (indexPath.row < self.cellArray.count) {
         UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 5, kWidth, kWidth -110)];
-        [imageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/%@",self.cellArray[indexPath.row]]] placeholderImage:nil];
+        [imageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/%@",self.cellArray[indexPath.row][@"mainPicUrl"]]] placeholderImage:nil];
         [cell addSubview:imageview];
     }
     return cell;
@@ -389,7 +400,43 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return kWidth -100;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    ActivityViewController *activityVC = [[ActivityViewController alloc] init];
+
+    activityVC.selectId = self.cellArray[indexPath.row][@"subjectId"] ;
+    activityVC.type = [self.cellArray[indexPath.row][@"type"] integerValue];
+    activityVC.userId = @"c649ac4bf87f43fea924f52a2639e533";
+    activityVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:activityVC animated:YES];
+}
 #pragma mark --------- 点击方法
+- (void)TurnAction:(UIButton *)button{
+    
+    NSString *urlsting = self.turnArray[button.tag - 100][@"linkUrl"];
+    NSArray *array = [urlsting componentsSeparatedByString:@"/"];
+    NSString *stinr = array[array.count-1];
+    NSArray *typeArray = [stinr componentsSeparatedByString:@".html"];
+    NSString *typestinr = typeArray[0];
+    if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"] ) {
+        HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
+        htmlVC.urlString = self.turnArray[button.tag - 100][@"fuliId"];
+        htmlVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:htmlVC animated:YES];
+    }
+    if ([typestinr isEqualToString:@"brandcoupon"]) {
+        ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
+        activityMianVC.hidesBottomBarWhenPushed = YES;
+        NSString *stinf = typeArray[1];
+        NSArray *aarray = [stinf componentsSeparatedByString:@"?cid="];
+        NSString *csting = aarray[1];
+        NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
+        activityMianVC.trunId = barray[0];
+        activityMianVC.title = self.turnArray[button.tag - 100][@"description"];
+        [self.navigationController pushViewController:activityMianVC animated:YES];
+    }
+}
+
 - (void)leftBarButtonAction{
     [self getCityData];
     self.blackView.hidden = NO;
@@ -462,51 +509,50 @@
 }
 
 - (void)AllBottonAction:(UIButton *)button {
-    switch (button.tag) {
-        case 1:
-        {
-            
+    if (button.tag > 0 && button.tag < 6) {
+        NSString *urlsting = self.toolArray[button.tag-1][@"recommendLink"];
+        NSArray *array = [urlsting componentsSeparatedByString:@"/"];
+        NSString *stinr = array[array.count-1];
+        NSArray *typeArray = [stinr componentsSeparatedByString:@".html?"];
+        NSString *typestinr = typeArray[0];
+        if ([typestinr isEqualToString:@"index9"]) {
+            HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
+            htmlVC.urlString = self.toolArray[button.tag][@"recommendLink"];
+            [self.navigationController pushViewController:htmlVC animated:YES];
         }
-            break;
-        case 2:
-        {
-            
+        if ([typestinr isEqualToString:@"brandcoupon"]) {
+            ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
+            activityMianVC.hidesBottomBarWhenPushed = YES;
+            NSString *stinf = typeArray[1];
+            NSArray *aarray = [stinf componentsSeparatedByString:@"cid="];
+            NSString *csting = aarray[1];
+            NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
+            activityMianVC.trunId = barray[0];
+            activityMianVC.type = barray[1];
+            [self.navigationController pushViewController:activityMianVC animated:YES];
         }
-            break;
-        case 3:
-        {
-            
-        }
-            break;
-        case 4:
-        {
-            
-        }
-            break;
-        case 5:
-        {
-            
-        }
-            break;
-        case 6:
-        {
-            
-        }
-            break;
-        case 7:
-        {
-            
-        }
-            break;
-        case 8:
-        {
-            NearPreferViewController *nearVC = [[NearPreferViewController alloc] init];
-            nearVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:nearVC animated:YES];
-        }
-            break;
-        default:
-            break;
+    }
+    if (button.tag == 6) {
+        //广场详情
+        ShopDetailViewController *shopVC = [[ShopDetailViewController alloc] init];
+        shopVC.title = self.youDic[@"mallName"];
+        shopVC.detailId = self.youDic[@"mallId"];
+        shopVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:shopVC animated:self];
+    }
+    if (button.tag == 7) {
+////        附近商城
+//        UIStoryboard *sort = [UIStoryboard storyboardWithName:@"Nearby" bundle:nil];
+//        UINavigationController *nav = sort.instantiateInitialViewController;
+//        [self presentModalViewController:nav animated:YES];
+    }
+    
+    if (button.tag == 8) {
+        //附近优惠
+        NearPreferViewController *nearVC = [[NearPreferViewController alloc] init];
+        nearVC.title = @"所有优惠";
+        nearVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:nearVC animated:YES];
     }
 }
 

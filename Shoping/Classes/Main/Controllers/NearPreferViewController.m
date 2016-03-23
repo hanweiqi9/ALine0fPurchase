@@ -12,9 +12,16 @@
 #import "PullingRefreshTableView.h"
 #import "NearTableViewCell.h"
 #import "UIViewController+Common.h"
+#import <AFNetworking/AFHTTPSessionManager.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
-@interface NearPreferViewController ()<PullingRefreshTableViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface NearPreferViewController ()<PullingRefreshTableViewDelegate,UITableViewDataSource,UITableViewDelegate>{
+    
+    NSInteger _pageNum;
+}
 @property (nonatomic, strong) PullingRefreshTableView *pullTbaleView;
+@property (nonatomic, strong) NSMutableArray *cellArray;
+@property (nonatomic, assign) BOOL refreshing;
 @end
 
 @implementation NearPreferViewController
@@ -22,25 +29,113 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-   [ self showBackButtonWithImage:@"arrow_left_pink"];
+    [ self showBackButtonWithImage:@"arrow_left_pink"];
     self.view.backgroundColor = [UIColor whiteColor];
+    _pageNum = 1;
+    //注册cell
+    [self.pullTbaleView registerNib:[UINib nibWithNibName:@"NearTableViewCell" bundle:nil] forCellReuseIdentifier:@"nearCell"];
+    [self getNearbyData];
+    [self.pullTbaleView launchRefreshing];
     
     [self.view addSubview:self.pullTbaleView];
     
-    //注册cell
-    [self.pullTbaleView registerNib:[UINib nibWithNibName:@"NearTableViewCell" bundle:nil] forCellReuseIdentifier:@"nearCell"];
+   
 }
-
+- (void)getNearbyData{
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/couponList?districtId=&cityId=391db7b8fdd211e3b2bf00163e000dce&categoryId=&sortType=&pageSize=20&longitude=112.426833&latitude=34.618754&pageNum=%ld",_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic = responseObject;
+        NSArray *data = dic[@"datas"];
+        if (self.refreshing) {
+            if (self.cellArray.count > 0) {
+                [self.cellArray removeAllObjects];
+            }
+        }
+        for (NSDictionary *dic in data) {
+            [self.cellArray addObject:dic];
+        }
+        [self.pullTbaleView reloadData];
+        [self.pullTbaleView tableViewDidFinishedLoading];
+        self.pullTbaleView.reachedTheEnd = NO;
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+    
+}
 
 #pragma mark ------------- 代理
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NearTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"nearCell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
+    NSMutableArray *group = self.cellArray[indexPath.section][@"couponOrDiscounts"];
+    //    NSInteger type = 0;
+    NSString *typesting =group[indexPath.row][@"type"];
+    if (group.count > 0) {
+        if ([typesting compare:@"0"] == NSOrderedSame) {
+            cell.imageView.image = [UIImage imageNamed:@"discount_bg.9"];
+            //时间日期转换
+            NSString *start = group[indexPath.row][@"beginDate"];
+            NSString *end = group[indexPath.row][@"endDate"];
+            
+            NSDateFormatter *matter = [[NSDateFormatter alloc] init];
+            //        [matter setDateStyle:NSDateFormatterMediumStyle];
+            [matter setTimeStyle:NSDateFormatterShortStyle];
+            [matter setDateFormat:@"YYYY/MM/DD"];
+            
+            NSDate *timeSter = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval)[start intValue]];
+            NSString *timeSting = [matter stringFromDate:timeSter];
+            NSDate *timeEnd = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval)[end intValue]];
+            NSString *timeEndSting = [matter stringFromDate:timeEnd];
+            NSString *timeLabels = [NSString stringWithFormat:@"有效期 %@-%@",timeSting,timeEndSting];
+            cell.timeLable.text = timeLabels;
+        }
+        
+        
+        else{
+            
+            cell.imageView.image = [UIImage imageNamed:@"coupon_bg.9"];
+            cell.timeLable.text = @"免费";
+        }
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.titleLable.text = group[indexPath.row][@"name"];
+    }
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    NSMutableArray *group = self.cellArray[section][@"couponOrDiscounts"];
+    return group.count;
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.cellArray.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return kHeight / 13 ;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight / 13)];
+    headView.backgroundColor = [UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.7];
+    UIImageView *iconview = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, kWidth /9, kWidth / 9)];
+    [iconview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kImageString,self.cellArray[section][@"brandLogoUrl"]]] placeholderImage:nil];
+    iconview.layer.cornerRadius = 2;
+    iconview.layer.masksToBounds = YES;
+    [headView addSubview:iconview];
+    
+    
+    UILabel *lableTitle = [[UILabel alloc] initWithFrame:CGRectMake( kWidth /8 + 15, 5, kWidth /3, kWidth /12)];
+    lableTitle.text = self.cellArray[section][@"brandNameEn"];
+    //    lableTitle.backgroundColor = [UIColor redColor];
+    [headView addSubview:lableTitle];
+    
+    UILabel *diatance = [[UILabel alloc] initWithFrame:CGRectMake(kWidth /3*2, kHeight / 13/3 - 5, kWidth/4,kHeight /13/3 + 5)];
+    CGFloat dis =[self.cellArray[section][@"distance"] floatValue];
+    diatance.text = [NSString stringWithFormat:@"%.2fkm",dis/1000];
+    diatance.textColor = [UIColor grayColor];
+    //    diatance.backgroundColor = [UIColor redColor];
+    [headView addSubview:diatance];
+    return headView;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -48,10 +143,23 @@
 }
 #pragma mark ------------- 刷新代理
 - (void)pullingTableViewDidStartRefreshing:(PullingRefreshTableView *)tableView{
-    
+    self.refreshing = YES;
+    _pageNum = 1;
+    [self performSelector:@selector(getNearbyData) withObject:nil afterDelay:1.0];
 }
 - (void)pullingTableViewDidStartLoading:(PullingRefreshTableView *)tableView{
-    
+    self.refreshing = NO;
+    _pageNum +=1;
+    [self performSelector:@selector(getNearbyData) withObject:nil afterDelay:1.0];
+}
+//手指开始拖动
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.pullTbaleView tableViewDidScroll:scrollView];
+}
+
+//下拉刷新开始时调用
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    [self.pullTbaleView tableViewDidEndDragging:scrollView];
 }
 
 #pragma mark ------------- 懒加载
@@ -67,6 +175,12 @@
 }
 
 
+- (NSMutableArray *)cellArray{
+    if (_cellArray == nil) {
+        _cellArray = [NSMutableArray new];
+    }
+    return _cellArray;
+}
 
 
 - (void)didReceiveMemoryWarning {
@@ -75,13 +189,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

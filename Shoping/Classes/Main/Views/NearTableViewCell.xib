@@ -15,9 +15,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_page_discount_bg.91" translatesAutoresizingMaskIntoConstraints="NO" id="XIk-yY-pzQ">
-                        <rect key="frame" x="10" y="8" width="35" height="70"/>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第三方GV不和你家门口" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7nW-bQ-cUj">
                         <rect key="frame" x="60" y="18" width="220" height="25"/>
                         <constraints>
@@ -37,21 +34,26 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="confirm_list_item_bg2" translatesAutoresizingMaskIntoConstraints="NO" id="bFn-V5-8Rm">
                         <rect key="frame" x="44" y="8" width="268" height="70"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XIk-yY-pzQ">
+                        <rect key="frame" x="8" y="7" width="34" height="69"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="69" id="cBG-bD-p2z"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottomMargin" secondItem="bFn-V5-8Rm" secondAttribute="bottom" constant="3" id="1DL-Yl-S4o"/>
                     <constraint firstItem="Alo-jJ-E7t" firstAttribute="height" secondItem="7nW-bQ-cUj" secondAttribute="height" id="2KQ-nX-Wkv"/>
-                    <constraint firstItem="bFn-V5-8Rm" firstAttribute="leading" secondItem="XIk-yY-pzQ" secondAttribute="trailing" constant="-1" id="4cm-Ov-QRX"/>
-                    <constraint firstItem="XIk-yY-pzQ" firstAttribute="height" secondItem="bFn-V5-8Rm" secondAttribute="height" id="ALj-dF-ge2"/>
                     <constraint firstItem="bFn-V5-8Rm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="36" id="C3X-ov-MZy"/>
                     <constraint firstAttribute="topMargin" secondItem="bFn-V5-8Rm" secondAttribute="top" id="HJy-at-CI1"/>
+                    <constraint firstItem="bFn-V5-8Rm" firstAttribute="leading" secondItem="XIk-yY-pzQ" secondAttribute="trailing" constant="2" id="PI7-yj-51s"/>
                     <constraint firstAttribute="trailingMargin" secondItem="bFn-V5-8Rm" secondAttribute="trailing" id="RAj-jl-fhv"/>
                     <constraint firstItem="7nW-bQ-cUj" firstAttribute="top" secondItem="bFn-V5-8Rm" secondAttribute="top" constant="10" id="SwC-53-08i"/>
                     <constraint firstItem="bFn-V5-8Rm" firstAttribute="leading" secondItem="7nW-bQ-cUj" secondAttribute="trailing" constant="-236" id="fcY-ON-IU8"/>
-                    <constraint firstItem="XIk-yY-pzQ" firstAttribute="bottom" secondItem="bFn-V5-8Rm" secondAttribute="bottom" id="gUO-eV-hNZ"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="XIk-yY-pzQ" secondAttribute="leading" id="lfl-eb-Dfp"/>
+                    <constraint firstItem="XIk-yY-pzQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-1" id="ork-3t-Mmq"/>
                     <constraint firstItem="Alo-jJ-E7t" firstAttribute="width" secondItem="7nW-bQ-cUj" secondAttribute="width" id="q0K-ab-1u0"/>
                     <constraint firstItem="Alo-jJ-E7t" firstAttribute="top" secondItem="7nW-bQ-cUj" secondAttribute="bottom" constant="3" id="vX2-EZ-YA4"/>
-                    <constraint firstItem="XIk-yY-pzQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="wUn-B4-Qgz"/>
                     <constraint firstItem="Alo-jJ-E7t" firstAttribute="leading" secondItem="7nW-bQ-cUj" secondAttribute="leading" id="y1E-zE-tsW"/>
                 </constraints>
             </tableViewCellContentView>
@@ -65,6 +67,5 @@
     </objects>
     <resources>
         <image name="confirm_list_item_bg2" width="468" height="92"/>
-        <image name="main_page_discount_bg.91" width="65" height="160"/>
     </resources>
 </document>
