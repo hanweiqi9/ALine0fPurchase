@@ -99,6 +99,21 @@
 		7ADA10EF1CA0EDEF003116FA /* ActivityMianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA10EE1CA0EDEF003116FA /* ActivityMianViewController.m */; };
 		7ADA10F11CA0F181003116FA /* you.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADA10F01CA0F181003116FA /* you.plist */; };
 		7ADA10F31CA121C6003116FA /* activityMian.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADA10F21CA121C6003116FA /* activityMian.plist */; };
+		7AEC175C1CA2334A004DEFBE /* AllStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC175B1CA2334A004DEFBE /* AllStoreViewController.m */; };
+		7AEC17601CA236BA004DEFBE /* StoreAllTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC175E1CA236BA004DEFBE /* StoreAllTableViewCell.m */; };
+		7AEC17611CA236BA004DEFBE /* StoreAllTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC175F1CA236BA004DEFBE /* StoreAllTableViewCell.xib */; };
+		7AEC17631CA23CD4004DEFBE /* stroALLL.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC17621CA23CD4004DEFBE /* stroALLL.plist */; };
+		7AEC176B1CA27525004DEFBE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEC176A1CA27525004DEFBE /* AVFoundation.framework */; };
+		7AEC17951CA2794E004DEFBE /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC17921CA2794E004DEFBE /* ProgressHUD.bundle */; };
+		7AEC17961CA2794E004DEFBE /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC17941CA2794E004DEFBE /* ProgressHUD.m */; };
+		7AEC17A71CA28641004DEFBE /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC179A1CA28641004DEFBE /* TAAbstractDotView.m */; };
+		7AEC17A81CA28641004DEFBE /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC179C1CA28641004DEFBE /* TAAnimatedDotView.m */; };
+		7AEC17A91CA28641004DEFBE /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC179E1CA28641004DEFBE /* TADotView.m */; };
+		7AEC17AA1CA28641004DEFBE /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC17A01CA28641004DEFBE /* TAPageControl.m */; };
+		7AEC17AB1CA28641004DEFBE /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC17A21CA28641004DEFBE /* SDCollectionViewCell.m */; };
+		7AEC17AC1CA28641004DEFBE /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC17A41CA28641004DEFBE /* SDCycleScrollView.m */; };
+		7AEC17AD1CA28641004DEFBE /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC17A61CA28641004DEFBE /* UIView+SDExtension.m */; };
+		7AEC17AF1CA29055004DEFBE /* guangzou.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC17AE1CA29055004DEFBE /* guangzou.plist */; };
 		878BDD405C63EC5BFCCF1F64 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E8722CE52D8272C529BF80 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -268,6 +283,31 @@
 		7ADA10EE1CA0EDEF003116FA /* ActivityMianViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityMianViewController.m; sourceTree = "<group>"; };
 		7ADA10F01CA0F181003116FA /* you.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = you.plist; sourceTree = "<group>"; };
 		7ADA10F21CA121C6003116FA /* activityMian.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = activityMian.plist; sourceTree = "<group>"; };
+		7AEC175A1CA2334A004DEFBE /* AllStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllStoreViewController.h; sourceTree = "<group>"; };
+		7AEC175B1CA2334A004DEFBE /* AllStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllStoreViewController.m; sourceTree = "<group>"; };
+		7AEC175D1CA236BA004DEFBE /* StoreAllTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreAllTableViewCell.h; sourceTree = "<group>"; };
+		7AEC175E1CA236BA004DEFBE /* StoreAllTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreAllTableViewCell.m; sourceTree = "<group>"; };
+		7AEC175F1CA236BA004DEFBE /* StoreAllTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreAllTableViewCell.xib; sourceTree = "<group>"; };
+		7AEC17621CA23CD4004DEFBE /* stroALLL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stroALLL.plist; sourceTree = "<group>"; };
+		7AEC176A1CA27525004DEFBE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		7AEC17921CA2794E004DEFBE /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
+		7AEC17931CA2794E004DEFBE /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		7AEC17941CA2794E004DEFBE /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
+		7AEC17991CA28641004DEFBE /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
+		7AEC179A1CA28641004DEFBE /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
+		7AEC179B1CA28641004DEFBE /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
+		7AEC179C1CA28641004DEFBE /* TAAnimatedDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAnimatedDotView.m; sourceTree = "<group>"; };
+		7AEC179D1CA28641004DEFBE /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADotView.h; sourceTree = "<group>"; };
+		7AEC179E1CA28641004DEFBE /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
+		7AEC179F1CA28641004DEFBE /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
+		7AEC17A01CA28641004DEFBE /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
+		7AEC17A11CA28641004DEFBE /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
+		7AEC17A21CA28641004DEFBE /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
+		7AEC17A31CA28641004DEFBE /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
+		7AEC17A41CA28641004DEFBE /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
+		7AEC17A51CA28641004DEFBE /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
+		7AEC17A61CA28641004DEFBE /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
+		7AEC17AE1CA29055004DEFBE /* guangzou.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = guangzou.plist; sourceTree = "<group>"; };
 		E747211142BC7577B3EE2490 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -276,6 +316,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AEC176B1CA27525004DEFBE /* AVFoundation.framework in Frameworks */,
 				878BDD405C63EC5BFCCF1F64 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,6 +327,7 @@
 		5C9BFE9262BF9451EACBE43D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7AEC176A1CA27525004DEFBE /* AVFoundation.framework */,
 				63E8722CE52D8272C529BF80 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -449,16 +491,18 @@
 				7ADA10C31CA0D124003116FA /* HtmlViewController.m */,
 				7ADA10ED1CA0EDEF003116FA /* ActivityMianViewController.h */,
 				7ADA10EE1CA0EDEF003116FA /* ActivityMianViewController.m */,
+				7AEC175A1CA2334A004DEFBE /* AllStoreViewController.h */,
+				7AEC175B1CA2334A004DEFBE /* AllStoreViewController.m */,
 				7A5E4FB61C9F8AC2003EF725 /* YouhuiViewController.h */,
 				7A5E4FB71C9F8AC2003EF725 /* YouhuiViewController.m */,
-				7A5E4FB91C9F8AD2003EF725 /* PreferDetailViewController.h */,
-				7A5E4FBA1C9F8AD2003EF725 /* PreferDetailViewController.m */,
+				7A2D55AA1C9F79B9002018F4 /* ScanViewController.h */,
+				7A2D55AB1C9F79B9002018F4 /* ScanViewController.m */,
 				7A5E4FB31C9F8AB4003EF725 /* NearPreferViewController.h */,
 				7A5E4FB41C9F8AB4003EF725 /* NearPreferViewController.m */,
 				7A5E4FBC1C9F8ADF003EF725 /* InviteViewController.h */,
 				7A5E4FBD1C9F8ADF003EF725 /* InviteViewController.m */,
-				7A2D55AA1C9F79B9002018F4 /* ScanViewController.h */,
-				7A2D55AB1C9F79B9002018F4 /* ScanViewController.m */,
+				7A5E4FB91C9F8AD2003EF725 /* PreferDetailViewController.h */,
+				7A5E4FBA1C9F8AD2003EF725 /* PreferDetailViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -468,6 +512,8 @@
 			children = (
 				7ADA10C01CA0C9A4003116FA /* MainCell.plist */,
 				7A5E4FD81CA02E58003EF725 /* nearpre.plist */,
+				7AEC17621CA23CD4004DEFBE /* stroALLL.plist */,
+				7AEC17AE1CA29055004DEFBE /* guangzou.plist */,
 				7A2D55AD1C9F79D8002018F4 /* MainModel.h */,
 				7A2D55AE1C9F79D8002018F4 /* MainModel.m */,
 				7ADA10F21CA121C6003116FA /* activityMian.plist */,
@@ -484,6 +530,9 @@
 			children = (
 				7A2D55B01C9F79F2002018F4 /* TableViewCell.h */,
 				7A2D55B11C9F79F2002018F4 /* TableViewCell.m */,
+				7AEC175D1CA236BA004DEFBE /* StoreAllTableViewCell.h */,
+				7AEC175E1CA236BA004DEFBE /* StoreAllTableViewCell.m */,
+				7AEC175F1CA236BA004DEFBE /* StoreAllTableViewCell.xib */,
 				7A5E4FBF1C9F8BA7003EF725 /* YouhuiTableViewCell.h */,
 				7A5E4FC01C9F8BA7003EF725 /* YouhuiTableViewCell.m */,
 				7A5E4FC11C9F8BA7003EF725 /* YouhuiTableViewCell.xib */,
@@ -606,6 +655,8 @@
 		7A2D55C91C9F8003002018F4 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				7AEC17971CA28641004DEFBE /* SDCycleScrollView */,
+				7AEC17911CA2794E004DEFBE /* ProgressHUD */,
 				7A5E4FC91C9F94F4003EF725 /* UIViewController+Common.h */,
 				7A5E4FCA1C9F94F4003EF725 /* UIViewController+Common.m */,
 				7A81FD8A1C9FCEE90054A7FA /* JXBAdPageView */,
@@ -718,6 +769,46 @@
 			path = JXBAdPageView;
 			sourceTree = "<group>";
 		};
+		7AEC17911CA2794E004DEFBE /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				7AEC17921CA2794E004DEFBE /* ProgressHUD.bundle */,
+				7AEC17931CA2794E004DEFBE /* ProgressHUD.h */,
+				7AEC17941CA2794E004DEFBE /* ProgressHUD.m */,
+			);
+			name = ProgressHUD;
+			path = "../../../项目期/B段项目一/SweetFood/SweetFood/Library/ProgressHUD";
+			sourceTree = "<group>";
+		};
+		7AEC17971CA28641004DEFBE /* SDCycleScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				7AEC17981CA28641004DEFBE /* PageControl */,
+				7AEC17A11CA28641004DEFBE /* SDCollectionViewCell.h */,
+				7AEC17A21CA28641004DEFBE /* SDCollectionViewCell.m */,
+				7AEC17A31CA28641004DEFBE /* SDCycleScrollView.h */,
+				7AEC17A41CA28641004DEFBE /* SDCycleScrollView.m */,
+				7AEC17A51CA28641004DEFBE /* UIView+SDExtension.h */,
+				7AEC17A61CA28641004DEFBE /* UIView+SDExtension.m */,
+			);
+			path = SDCycleScrollView;
+			sourceTree = "<group>";
+		};
+		7AEC17981CA28641004DEFBE /* PageControl */ = {
+			isa = PBXGroup;
+			children = (
+				7AEC17991CA28641004DEFBE /* TAAbstractDotView.h */,
+				7AEC179A1CA28641004DEFBE /* TAAbstractDotView.m */,
+				7AEC179B1CA28641004DEFBE /* TAAnimatedDotView.h */,
+				7AEC179C1CA28641004DEFBE /* TAAnimatedDotView.m */,
+				7AEC179D1CA28641004DEFBE /* TADotView.h */,
+				7AEC179E1CA28641004DEFBE /* TADotView.m */,
+				7AEC179F1CA28641004DEFBE /* TAPageControl.h */,
+				7AEC17A01CA28641004DEFBE /* TAPageControl.m */,
+			);
+			path = PageControl;
+			sourceTree = "<group>";
+		};
 		D6B9D2E3370F3E14A2730002 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,6 +852,7 @@
 				TargetAttributes = {
 					7A2D554B1C9F7148002018F4 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 8X38GN74J3;
 					};
 				};
 			};
@@ -790,7 +882,9 @@
 				7A2D555F1C9F7148002018F4 /* LaunchScreen.storyboard in Resources */,
 				7A2D55D91C9F8031002018F4 /* blueArrowDown.png in Resources */,
 				7A2D559A1C9F780A002018F4 /* Activity.plist in Resources */,
+				7AEC17631CA23CD4004DEFBE /* stroALLL.plist in Resources */,
 				7A81FD501C9FCCE00054A7FA /* ShopDetail.plist in Resources */,
+				7AEC17611CA236BA004DEFBE /* StoreAllTableViewCell.xib in Resources */,
 				7A2D55A11C9F780A002018F4 /* MatchTableViewCell.xib in Resources */,
 				7ADA10E81CA0DCD9003116FA /* Turn.plist in Resources */,
 				7A2D559C1C9F780A002018F4 /* Hot.plist in Resources */,
@@ -809,7 +903,9 @@
 				7A5E4FC31C9F8BA7003EF725 /* YouhuiTableViewCell.xib in Resources */,
 				7A5E4FCD1C9FA4C2003EF725 /* youhui.plist in Resources */,
 				7A81FD4B1C9FCCE00054A7FA /* Brand.plist in Resources */,
+				7AEC17AF1CA29055004DEFBE /* guangzou.plist in Resources */,
 				7A2D55D81C9F8031002018F4 /* blueArrow.png in Resources */,
+				7AEC17951CA2794E004DEFBE /* ProgressHUD.bundle in Resources */,
 				7A5E4FD91CA02E58003EF725 /* nearpre.plist in Resources */,
 				7A2D555A1C9F7148002018F4 /* Main.storyboard in Resources */,
 				7A2D559D1C9F780A002018F4 /* Hot1.plist in Resources */,
@@ -874,10 +970,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A2D55991C9F780A002018F4 /* DiscoverViewController.m in Sources */,
+				7AEC17A71CA28641004DEFBE /* TAAbstractDotView.m in Sources */,
 				7A5E4FB81C9F8AC2003EF725 /* YouhuiViewController.m in Sources */,
 				7A2D55DC1C9F8031002018F4 /* VOIndicatorAnimation.m in Sources */,
 				7A2D55DA1C9F8031002018F4 /* PullingRefreshTableView.m in Sources */,
 				7A5E4FC71C9F8E8F003EF725 /* NearTableViewCell.m in Sources */,
+				7AEC17601CA236BA004DEFBE /* StoreAllTableViewCell.m in Sources */,
+				7AEC17A81CA28641004DEFBE /* TAAnimatedDotView.m in Sources */,
 				7A81FD7A1C9FCECE0054A7FA /* MASCompositeConstraint.m in Sources */,
 				7A81FD7C1C9FCECE0054A7FA /* MASConstraintMaker.m in Sources */,
 				7A81FD7E1C9FCECE0054A7FA /* MASViewAttribute.m in Sources */,
@@ -894,11 +993,15 @@
 				7A2D55A51C9F780B002018F4 /* QuickLoginViewController.m in Sources */,
 				7A2D55A01C9F780A002018F4 /* MatchTableViewCell.m in Sources */,
 				7A81FD2C1C9FCCA50054A7FA /* BrandModel.m in Sources */,
+				7AEC175C1CA2334A004DEFBE /* AllStoreViewController.m in Sources */,
+				7AEC17A91CA28641004DEFBE /* TADotView.m in Sources */,
 				7A2D55B81C9F7AF1002018F4 /* ShopModel.m in Sources */,
 				7A81FD4D1C9FCCE00054A7FA /* BrandDetailViewController.m in Sources */,
 				7A2D55A21C9F780B002018F4 /* ShareView.m in Sources */,
 				7A2D55DE1C9F8031002018F4 /* VOSegmentedControl.m in Sources */,
+				7AEC17AB1CA28641004DEFBE /* SDCollectionViewCell.m in Sources */,
 				7A2D55A81C9F780B002018F4 /* UserViewController.m in Sources */,
+				7AEC17AC1CA28641004DEFBE /* SDCycleScrollView.m in Sources */,
 				7A2D55B21C9F79F2002018F4 /* TableViewCell.m in Sources */,
 				7A81FD4E1C9FCCE00054A7FA /* BrandViewController.m in Sources */,
 				7A81FD811C9FCECE0054A7FA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
@@ -920,9 +1023,11 @@
 				7A81FD3E1C9FCCCC0054A7FA /* ShopTableViewCell.m in Sources */,
 				7A81FD831C9FCECE0054A7FA /* ViewController+MASAdditions.m in Sources */,
 				7A81FD791C9FCECE0054A7FA /* NSString+ZLStringSize.m in Sources */,
+				7AEC17AA1CA28641004DEFBE /* TAPageControl.m in Sources */,
 				7A81FD8D1C9FCEE90054A7FA /* JXBAdPageView.m in Sources */,
 				7A2D55C41C9F7B6A002018F4 /* CenterTableViewCell.m in Sources */,
 				7A2D55A41C9F780B002018F4 /* MineViewController.m in Sources */,
+				7AEC17961CA2794E004DEFBE /* ProgressHUD.m in Sources */,
 				7A81FD2F1C9FCCA50054A7FA /* TwoCellModel.m in Sources */,
 				7A81FD3B1C9FCCCC0054A7FA /* BrandTableViewCell.m in Sources */,
 				7A81FD2E1C9FCCA50054A7FA /* OneBrandModel.m in Sources */,
@@ -936,6 +1041,7 @@
 				7A81FD801C9FCECE0054A7FA /* NSArray+MASAdditions.m in Sources */,
 				7A2D55BE1C9F7B43002018F4 /* CenterViewController.m in Sources */,
 				7A5E4FBB1C9F8AD2003EF725 /* PreferDetailViewController.m in Sources */,
+				7AEC17AD1CA28641004DEFBE /* UIView+SDExtension.m in Sources */,
 				7ADA10C41CA0D124003116FA /* HtmlViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1047,6 +1153,8 @@
 			baseConfigurationReference = E747211142BC7577B3EE2490 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Shoping/Tools/PrefixHeader.pch";
 				INFOPLIST_FILE = Shoping/Info.plist;
@@ -1054,6 +1162,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MangoInc.Shoping;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1062,6 +1171,8 @@
 			baseConfigurationReference = 01A0D5C6BB4AC833914A9774 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Shoping/Tools/PrefixHeader.pch";
 				INFOPLIST_FILE = Shoping/Info.plist;
@@ -1069,6 +1180,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MangoInc.Shoping;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

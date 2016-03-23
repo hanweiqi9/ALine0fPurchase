@@ -76,18 +76,21 @@
         if ([typesting compare:@"0"] == NSOrderedSame) {
             cell.imageView.image = [UIImage imageNamed:@"discount_bg.9"];
             //时间日期转换
-            NSString *start = group[indexPath.row][@"beginDate"];
-            NSString *end = group[indexPath.row][@"endDate"];
-            
+            //开始日期
+            NSTimeInterval start =[ group[indexPath.row][@"beginDate"] integerValue] /1000;
             NSDateFormatter *matter = [[NSDateFormatter alloc] init];
-            //        [matter setDateStyle:NSDateFormatterMediumStyle];
-            [matter setTimeStyle:NSDateFormatterShortStyle];
-            [matter setDateFormat:@"YYYY/MM/DD"];
-            
-            NSDate *timeSter = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval)[start intValue]];
+            [matter setDateFormat:@"YYYY/MM/dd"];
+            NSDate *timeSter = [NSDate dateWithTimeIntervalSince1970:start ];
             NSString *timeSting = [matter stringFromDate:timeSter];
-            NSDate *timeEnd = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval)[end intValue]];
-            NSString *timeEndSting = [matter stringFromDate:timeEnd];
+            
+            //结束
+            NSTimeInterval end = [group[indexPath.row][@"endDate"]integerValue] / 1000;
+            
+            NSDate *timeEnd = [NSDate dateWithTimeIntervalSince1970:end];
+            NSDateFormatter *endmatter = [[NSDateFormatter alloc] init];
+            [endmatter setDateFormat:@"YYYY/MM/dd"];
+            NSString *timeEndSting = [endmatter stringFromDate:timeEnd];
+            
             NSString *timeLabels = [NSString stringWithFormat:@"有效期 %@-%@",timeSting,timeEndSting];
             cell.timeLable.text = timeLabels;
         }
@@ -101,6 +104,8 @@
         cell.backgroundColor = [UIColor whiteColor];
         cell.titleLable.text = group[indexPath.row][@"name"];
     }
+    //点击cell时的颜色效果取消
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -165,11 +170,14 @@
 #pragma mark ------------- 懒加载
 -(PullingRefreshTableView *)pullTbaleView{
     if (_pullTbaleView == nil) {
-        _pullTbaleView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight) pullingDelegate:self];
+        _pullTbaleView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight) pullingDelegate:self];
         self.pullTbaleView.dataSource = self;
         self.pullTbaleView.delegate = self;
         self.pullTbaleView.rowHeight = 90;
         self.pullTbaleView.separatorColor = [UIColor clearColor];
+        //隐藏滚动条
+        self.pullTbaleView.showsVerticalScrollIndicator =
+        NO;
     }
     return _pullTbaleView;
 }

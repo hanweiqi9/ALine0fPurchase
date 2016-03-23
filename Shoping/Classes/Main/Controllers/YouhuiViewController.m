@@ -67,14 +67,17 @@
         NSString *sting = [NSString stringWithFormat:@"%@%@",kImageString,self.YouArray[indexPath.row][@"picUrl"]];
         [cell.IconImageView sd_setImageWithURL:[NSURL URLWithString:sting] placeholderImage:nil];
         cell.titleLable.text = self.YouArray[indexPath.row][@"couponName"];
-//        NSString  *price = self.YouArray[indexPath.row][@"couponType"] ;
-//        if ([price compare:@"1"]) {
-//            cell.priceLable.text = @"免费" ;
-//        }
-//        else{
-//            cell.priceLable.text = self.YouArray[indexPath.row][@"costPrice"];
-//        }
+        NSNumber *price = self.YouArray[indexPath.row][@"costPrice"] ;
+        if ([price isEqual: @(0)]) {
+            cell.priceLable.text = @"免费" ;
+        }
+        else{
+            NSString *priceString = self.YouArray[indexPath.row][@"costPrice"];
+            cell.priceLable.text = [NSString stringWithFormat:@"￥%@",priceString];
+        }
     }
+    //点击cell时的颜色效果取消
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.6];
     return cell;
 }
@@ -118,10 +121,14 @@
 #pragma mark ------------- 懒加载
 -(PullingRefreshTableView *)pullTbaleView{
     if (_pullTbaleView == nil) {
-        _pullTbaleView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight) pullingDelegate:self];
+        _pullTbaleView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64) pullingDelegate:self];
         self.pullTbaleView.dataSource = self;
         self.pullTbaleView.delegate = self;
-        self.pullTbaleView.rowHeight = kHeight/2-30;
+        self.pullTbaleView.rowHeight = kHeight/3+20;
+        self.pullTbaleView.separatorColor = [UIColor clearColor];
+        //隐藏滚动条
+//        self.pullTbaleView.showsVerticalScrollIndicator =
+//        NO;
     }
     return _pullTbaleView;
 }

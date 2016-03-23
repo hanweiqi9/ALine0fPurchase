@@ -11,7 +11,8 @@
 #import "NearTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIViewController+Common.h"
-
+#import "AllStoreViewController.h"
+#import "ProgressHUD.h"
 @interface ActivityMianViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *DetailsTableView;
@@ -40,9 +41,10 @@
 - (void)getActivityDetailData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
+    [ProgressHUD show:@"加载中"];
     [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/detail?cityId=391db7b8fdd211e3b2bf00163e000dce&userId=fe8d0970f7d4469bb6a8d5fbb1a2bb6f&couponId=%@&longitude=112.426829&latitude=34.618749&source=1&salesId=",self.trunId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [ProgressHUD showSuccess:@"加载完成"];
         NSDictionary *dic = responseObject;
         self.datasDic = dic[@"datas"];
         
@@ -87,7 +89,7 @@
     title.textAlignment = NSTextAlignmentCenter;
     [self.headView addSubview:title];
     
-    UILabel *enTitle = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 -5, kHeight /3-20+kWidth /8+kHeight /24, kWidth /3 + 10, kHeight /24)];
+    UILabel *enTitle = [[UILabel alloc] initWithFrame:CGRectMake(kWidth /4, kHeight /3-20+kWidth /8+kHeight /24, kWidth /2 , kHeight /24)];
     //    enTitle.backgroundColor = [UIColor cyanColor];
     enTitle.text = self.datasDic[@"couponName"];
     enTitle.font = [UIFont systemFontOfSize:15.0];
@@ -95,7 +97,12 @@
     [self.headView addSubview:enTitle];
     
     UILabel *price = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3-10 ,kHeight /3-20+kWidth /8 + kHeight /24 *2, kWidth /3, kHeight /24)];
-    price.text = [NSString stringWithFormat:@"￥%@",self.datasDic[@"costPrice"]];
+    NSNumber *stinf = self.datasDic[@"costPrice"] ;
+    if ([stinf isEqual: @(0)]) {
+        price.text = @"免费";
+    }
+    else
+        price.text = [NSString stringWithFormat:@"￥%@",self.datasDic[@"costPrice"]];
     price.textColor = [UIColor redColor];
     price.textAlignment = NSTextAlignmentCenter;
     [self.headView addSubview:price];
@@ -105,7 +112,7 @@
     titleView.image = [UIImage imageNamed:@"icon_tblack_a"];
     [self.headView addSubview:titleView
      ];
-    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/5*2-5,kHeight /3-25+kWidth /8 + kHeight /24 *3 , kWidth/5,kHeight/24)];
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/5*2-5,kHeight /3-10+kWidth /8 + kHeight /24 *3 -kHeight/40 , kWidth/5,kHeight/24)];
     
     titleL.text = @"适用门店";
     
@@ -115,7 +122,7 @@
     [self.headView addSubview:titleL];
     
     
-    UILabel *eTitle = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 - 10, kHeight /3-20+kWidth /8 + kHeight /24 *4, kWidth /3+30, kHeight /24)];
+    UILabel *eTitle = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 - 20, kHeight /3-20+kWidth /8 + kHeight /24 *4, kWidth /3+40, kHeight /24)];
     eTitle.text = self.datasDic[@"storeName"];
     eTitle.font = [UIFont systemFontOfSize:15.0];
     eTitle.textAlignment = NSTextAlignmentCenter;
@@ -144,24 +151,20 @@
     weizhi.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [weizhi addTarget:self action:@selector(dituLook) forControlEvents:UIControlEventTouchUpInside];
     [self.headView addSubview:weizhi];
-    
-    UIButton *buttom = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttom.frame = CGRectMake(kWidth /3, kHeight /3-20+kWidth /8 + kHeight /24 * 7, kWidth / 3, kHeight /24);
-    [buttom setTitle:[NSString stringWithFormat:@"查看全部店铺(%@)",self.datasDic[@"storeNum"]] forState:UIControlStateNormal];
-    buttom.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [buttom addTarget:self action:@selector(AllAction) forControlEvents:UIControlEventTouchUpInside];
-    [buttom setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [self.headView addSubview:buttom];
 }
 - (void)dituLook{
     
 }
-- (void)AllAction{
-    
-}
+//- (void)AllAction{
+//    AllStoreViewController *allVC = [[AllStoreViewController alloc] init];
+//    allVC.title = @"全部门店";
+//    allVC.storeId = self.datasDic[@"brandId"];
+//    allVC.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:allVC animated:YES];
+//}
 #pragma mark ========== 代理
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 1;
 }
 + (CGFloat)getTextHeightWithText:(NSString *)introl{
     
@@ -186,13 +189,18 @@
                 self.DetailsTableView.rowHeight = 30;
             }
             if (indexPath.row == 2) {
-                cells.textLabel.text = self.datasDic[@"couponDesc"];
                 CGFloat height = [[self class] getTextHeightWithText:self.datasDic[@"couponDesc"]];
-                cells.textLabel.numberOfLines = 0;
-                self.DetailsTableView.rowHeight = height + 30;
+                UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, kWidth-20, height + 80)];
+                title.text = self.datasDic[@"couponDesc"];
+
+                title.numberOfLines = 0;
+                [cells addSubview:title];
+                self.DetailsTableView.rowHeight = height + 80;
             }
             
         }
+    //点击cell时的颜色效果取消
+    cells.selectionStyle = UITableViewCellSelectionStyleNone;
         return cells;
 //    }
 //    else{
@@ -283,13 +291,17 @@
         self.DetailsTableView.delegate = self;
         self.DetailsTableView.dataSource = self;
         self.DetailsTableView.tableHeaderView = self.headView;
+        self.DetailsTableView.separatorColor =[UIColor clearColor];
+        //隐藏滚动条
+        self.DetailsTableView.showsVerticalScrollIndicator =
+        NO;
     }
     return _DetailsTableView;
 }
 
 - (UIView *)headView{
     if (_headView == nil) {
-        self.headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight /3+kWidth /8 + kHeight /24 * 8)];
+        self.headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight /3-20+kWidth /8 + kHeight /24 * 7)];
     }
     return _headView;
 }

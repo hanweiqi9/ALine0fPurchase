@@ -7,7 +7,7 @@
 //
 
 #import "HtmlViewController.h"
-
+#import "ProgressHUD.h"
 @interface HtmlViewController ()<UIWebViewDelegate>
 
 @property (nonatomic, strong) UIWebView *webView;
@@ -22,6 +22,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBarHidden = YES;
+    [ProgressHUD show:@"正在加载……"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,6 +44,7 @@
     [button setImage:[UIImage imageNamed:@"arrow_left_pink"] forState:UIControlStateNormal];
     [button setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [self.webView addSubview:button];
+    [ProgressHUD showSuccess:@"完成！"];
 }
 -(void)backButtonActton:(UIButton *)button{
     [self.navigationController popViewControllerAnimated:YES];
