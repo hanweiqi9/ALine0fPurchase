@@ -95,6 +95,8 @@
     self.tablebarVC.viewControllers = @[MainNav, nearNav, globalNav, discoverNav, MineNav];
     self.tablebarVC.tabBar.tintColor = kColor;
     self.window.rootViewController = self.tablebarVC;
+    //设置window的背景
+    [self.window makeKeyAndVisible];
 
     //初始化地理编码对象
     _geocoder = [[CLGeocoder alloc] init];

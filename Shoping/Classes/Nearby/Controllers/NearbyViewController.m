@@ -24,6 +24,7 @@
 #import "SearchViewController.h"
 #import "MangoSingleton.h"
 #import "MapViewController.h"
+#import "ProgressHUD.h"
 
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
@@ -131,6 +132,7 @@
 
 //开始网络请求
 - (void)requestData {
+    [ProgressHUD show:@"正在加载..."];
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     [manger GET:[NSString stringWithFormat:@"%@&pageNum=%ld",kShop, _pageCount] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -140,7 +142,7 @@
             ShopModel *model = [[ShopModel alloc] initWithDistionary:dic];
             [self.dataArray addObject:model];
         }
-        
+        [ProgressHUD showSuccess:@"数据加载完成"];
         [self.tableView tableViewDidFinishedLoading];
         self.tableView.reachedTheEnd = NO;
         [self.tableView reloadData];
@@ -368,6 +370,7 @@
 //第二种tableView
 //网路请求
 - (void)requestBrandData{
+    [ProgressHUD show:@"正在加载中"];
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
     [sessionManger GET:[NSString stringWithFormat:@"%@&pageNum=%ld",kBrand,(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -388,6 +391,7 @@
             }
             
         }
+        [ProgressHUD showSuccess:@"数据加载完成"];
         //rightTableView加载完成
         [self.rightTableView tableViewDidFinishedLoading];
         self.rightTableView.reachedTheEnd = NO;

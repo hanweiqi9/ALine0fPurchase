@@ -19,6 +19,7 @@
 #import "NSString+ZLStringSize.h"
 #import "SearchViewController.h"
 #import "ShopBrandDetailViewController.h"
+#import "ProgressHUD.h"
 
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
@@ -90,6 +91,7 @@
 
 //网络请求
 - (void)requestdata {
+    [ProgressHUD show:@"正在加载中"];
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
     [sessionManger GET:[NSString stringWithFormat:@"%@&pageNum=%ld&categoryId=%@",kShopBrand,(long)_pageNum,categoryId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -103,16 +105,15 @@
                 [self.lishtArray removeAllObjects];
             }
         }
-        
-        if (self.lishtArray.count > 0) {
-            [self.lishtArray removeAllObjects];
-        }
+//        if (self.lishtArray.count > 0) {
+//            [self.lishtArray removeAllObjects];
+//        }
             for (NSDictionary *dic in array) {
                 BrandModel *braModel = [[BrandModel alloc] initWithDictionary:dic];
                 [self.lishtArray addObject:braModel];
                 
             }
-
+        [ProgressHUD showSuccess:@"数据加载完成"];
         [self.tableView tableViewDidFinishedLoading];
         self.tableView.reachedTheEnd = NO;
         [self.tableView reloadData];

@@ -121,7 +121,6 @@
 - (void)configHeaderTableView {
     NSString *str = @"http://api.gjla.com/app_admin_v400/";
     NSString *brandUrl = self.datasDic[@"storePicUrl"];
-
         UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth * 0.335)];
         [self.headerView addSubview:headImage];
         NSString *brandUrl1 = [str stringByAppendingString:brandUrl];
@@ -256,8 +255,12 @@
     NSString *address = self.datasDic[@"address"];
     //使用单例传值
     MangoSingleton *mango = [MangoSingleton sharInstance];
-    mango.title = name;
-    mango.inputText = address;
+    //如果获取到的经纬度值不为空，就传到地图页面
+    if ([name isEqual:[NSNull null]] && [address isEqual:[NSNull null]]) {
+        mango.title = name;
+        mango.inputText = address;
+
+    }
     [self.navigationController pushViewController:mapVC animated:YES];
 
     
