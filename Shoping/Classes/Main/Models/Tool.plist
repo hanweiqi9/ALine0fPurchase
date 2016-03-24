@@ -1,0 +1,26 @@
+{
+datas =     (
+{
+recommendLink = "http://api.gjla.com/webapp/brandcoupon.html?cid=d2f4004e66db32250f56629b32bcc5f5&ctype=1";
+recommendPic = "uploadtemp/home_recommend/2016-03/home_recommend_397c2ef1a4c74e73a38705b4e6cc5374.jpg";
+},
+{
+recommendLink = "http://api.gjla.com/activity/apply/index9.html?update=9";
+recommendPic = "uploadtemp/home_recommend/2016-03/home_recommend_859cee1ccd4445d7a16998eaf21d5c97.jpg";
+},
+{
+recommendLink = "http://api.gjla.com/webapp/brandcoupon.html?cid=ea6731a3ead46325d297b1229d81c654&ctype=2";
+recommendPic = "uploadtemp/home_recommend/2016-03/home_recommend_67726c85a4c248639388e8bbaa19b98b.jpg";
+},
+{
+recommendLink = "http://api.gjla.com/webapp/brandcoupon.html?cid=42d1c8dc1a924c3db1247fdf1de34e82&ctype=2";
+recommendPic = "uploadtemp/home_recommend/2016-03/home_recommend_06487cae4650451eab8f0227211eb0ea.jpg";
+},
+{
+recommendLink = "http://api.gjla.com/webapp/brandcoupon.html?cid=fb27daaa670e48c84c37d37b0836db57&ctype=2";
+recommendPic = "uploadtemp/home_recommend/2016-02/home_recommend_a4deeb48d88e48f485c9a88d5f0fa1bc.jpg";
+}
+);
+errcode = 0;
+errmsg = "";
+}

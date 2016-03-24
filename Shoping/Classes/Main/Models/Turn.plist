@@ -1,0 +1,78 @@
+{
+	datas = (
+		{
+			activityId = "aa2463409aee4dfa9602a255477b0658";
+			description = "\U7533\U98869-\U7c89\U7ea2\U8272IPHONE6S";
+			fuliId = "http://api.gjla.com/activity/apply/index9.html?update=1";
+			linkUrl = "http://api.gjla.com/activity/apply/index9.html?update=1";
+			mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_603aaae794b24e1692bea5fa2932bcde.jpg";
+			title = "\U7533\U98869-\U7c89\U7ea2\U8272IPHONE6S";
+			type = 0;
+		},
+		{
+			activityId = "82a82c4afc5145debc5ffe6c2d5b18ba";
+			description = "GANT-300\U5143\U73b0\U91d1\U5238";
+			fuliId = "http://api.gjla.com/webapp/brandcoupon.html?cid=d2f4004e66db32250f56629b32bcc5f5&ctype=1";
+			linkUrl = "http://api.gjla.com/webapp/brandcoupon.html?cid=d2f4004e66db32250f56629b32bcc5f5&ctype=1";
+			mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_d6b7fe83778f414db509ec0715b1b017.jpg";
+			title = "GANT-300\U5143\U73b0\U91d1\U5238";
+			type = 0;
+		},
+		{
+			activityId = "27e0b300df2f465f8c4ace1ce520f4f5";
+			description = "CRZ-80\U5143\U73b0\U91d1\U5238";
+			fuliId = "http://api.gjla.com/webapp/brandcoupon.html?cid=d47103203b5a9a901042f447739dbe73&ctype=1";
+			linkUrl = "http://api.gjla.com/webapp/brandcoupon.html?cid=d47103203b5a9a901042f447739dbe73&ctype=1";
+			mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_a0c4ba6bc55c41bf960c7c4d8d6b39d7.jpg";
+			title = "CRZ-80\U5143\U73b0\U91d1\U5238";
+			type = 0;
+		},
+		{
+			activityId = "27e24abecab841b8a0634102a43a8865";
+			description = "MCG-128\U5143\U73b0\U91d1\U5238";
+			fuliId = "http://api.gjla.com/webapp/brandcoupon.html?cid=a981c364b9185c65067271c917fca94a&ctype=1";
+			linkUrl = "http://api.gjla.com/webapp/brandcoupon.html?cid=a981c364b9185c65067271c917fca94a&ctype=1";
+			mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_8032d056e2524696833f6471afb6d013.jpg";
+			title = "MCG-128\U5143\U73b0\U91d1\U5238";
+			type = 0;
+		},
+		{
+			activityId = "4e2cc2a966854d149e84de7d1b9bd5ca";
+			description = "lulualways-\U6298\U4e0a50\U5143\U73b0\U91d1\U5238";
+			fuliId = "http://api.gjla.com/webapp/brandcoupon.html?cid=ff64f25ebcc6bd60aee11aee0f8bbf74&ctype=1";
+			linkUrl = "http://api.gjla.com/webapp/brandcoupon.html?cid=ff64f25ebcc6bd60aee11aee0f8bbf74&ctype=1";
+			mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_a6832fd296e641b6811ce6a6a5834588.jpg";
+			title = "lulualways-\U6298\U4e0a50\U5143\U73b0\U91d1\U5238";
+			type = 0;
+		},
+		{
+			activityId = "9b76f90b436045fd91b6989025afc968";
+			description = "successful-\U6298\U4e0a9\U6298\U5238";
+			fuliId = "http://api.gjla.com/webapp/brandcoupon.html?cid=aa721231ce512543306e5b416e10f431&ctype=1";
+			linkUrl = "http://api.gjla.com/webapp/brandcoupon.html?cid=aa721231ce512543306e5b416e10f431&ctype=1";
+			mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_e622e41444c84c70a0f5017c1c014757.jpg";
+			title = "successful-\U6298\U4e0a9\U6298\U5238";
+			type = 0;
+		},
+		{
+			activityId = "c662e3535c1641828b7aa84d1cf0f4f0";
+			description = "eiplas-50\U5143\U73b0\U91d1\U5238";
+			fuliId = "http://api.gjla.com/webapp/brandcoupon.html?cid=a6a860c9083aedfebd165d1ed3bd0ee3&ctype=1";
+			linkUrl = "http://api.gjla.com/webapp/brandcoupon.html?cid=a6a860c9083aedfebd165d1ed3bd0ee3&ctype=1";
+			mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_8e177024110b40a0aa7fffd1286d6f46.jpg";
+			title = "eiplas-50\U5143\U73b0\U91d1\U5238";
+			type = 0;
+		},
+		{
+			activityId = "ee41a922ef2a4dbeb40a2d3a12119828";
+			description = "\U5927\U8679\U6865\U5546\U5708";
+			fuliId = "http://api.gjla.com/webapp/hq.html?tt=4";
+			linkUrl = "http://api.gjla.com/webapp/hq.html?tt=4";
+			mainPicUrl = "uploadtemp/onlineactivity/2015-11/onlineactivity_2b15701aec934fc48a0425088951729c.jpg";
+			title = "\U65b0\U8679\U6865\U5546\U5708";
+			type = 0;
+		},
+	);
+	errcode = 0;
+	errmsg = "";
+}
