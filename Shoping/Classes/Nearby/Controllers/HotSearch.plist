@@ -1,0 +1,21 @@
+{
+datas =     (
+{
+keywordId = 54690b1594e84486aa114e1face36fa4;
+keywordName = "\U5c1a\U5609\U4e2d\U5fc3";
+keywordType = 2;
+},
+{
+keywordId = 87efce2e96f34dbfb268618e86e13d30;
+keywordName = "\U5409\U76db\U4f1f\U90a6\U8679\U6865\U8fdb\U53e3\U5bb6\U4fec\U9986";
+keywordType = 2;
+},
+{
+keywordId = f962183cd3854047b837c80282a00687;
+keywordName = "\U8679\U6865\U5357\U4e30\U57ce";
+keywordType = 2;
+}
+);
+errcode = 0;
+errmsg = "";
+}

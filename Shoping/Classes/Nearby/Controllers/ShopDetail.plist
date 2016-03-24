@@ -1,0 +1,156 @@
+{
+datas =     {
+address = "\U77f3\U666f\U5c71\U533a\U77f3\U666f\U5c71\U8def\U4e5918\U53f7";
+businessNum = 165;
+category =         (
+{
+categoryId = 37ca9c6f213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U670d\U88c5";
+num = 100;
+picUrl = "<null>";
+    },
+    {
+    categoryId = 5927b7a1213011e4b2bf00163e000dce;
+    categoryName = "\U5973\U58eb\U978b\U5305";
+    num = 49;
+    picUrl = "<null>";
+        },
+        {
+        categoryId = 55581a9334b711e4998d00163e0200e5;
+        categoryName = "\U7f8e\U5bb9\U7f8e\U5986";
+        num = 16;
+        picUrl = "<null>";
+            },
+            {
+            categoryId = 5558185534b711e4998d00163e0200e5;
+            categoryName = "\U949f\U8868\U914d\U9970";
+            num = 9;
+            picUrl = "<null>";
+                },
+                {
+                categoryId = 55581a1834b711e4998d00163e0200e5;
+                categoryName = "\U6bcd\U5a74\U4eb2\U5b50";
+                num = 5;
+                picUrl = "<null>";
+                    },
+                    {
+                    categoryId = 5558192234b711e4998d00163e0200e5;
+                    categoryName = "\U7537\U58eb\U670d\U88c5";
+                    num = 49;
+                    picUrl = "<null>";
+                        },
+                        {
+                        categoryId = 55581b7d34b711e4998d00163e0200e5;
+                        categoryName = "\U7537\U58eb\U978b\U5305";
+                        num = 22;
+                        picUrl = "<null>";
+                            },
+                            {
+                            categoryId = 55581b0a34b711e4998d00163e0200e5;
+                            categoryName = "\U751f\U6d3b\U5bb6\U5c45";
+                            num = 3;
+                            picUrl = "<null>";
+                                }
+                                );
+                                closeTime = "20:00";
+                                commenNum = 0;
+                                commentAvgGrade = 0;
+                                commentdto = "<null>";
+                                    couponOrDiscountNum = 1;
+                                    couponOrDiscounts =         (
+                                    {
+                                    beginDate = 1457366400000;
+                                    brandLogoUrl = "uploadtemp/brand/2015-03/CRZ.jpg";
+                                    costPrice = 8;
+                                    couponType = 1;
+                                    endDate = 1459353600000;
+                                    id = d47103203b5a9a901042f447739dbe73;
+                                    name = "80\U5143\U73b0\U91d1\U5238";
+                                    price = 80;
+                                    type = 1;
+                                    }
+                                    );
+                                    distance = 678601;
+                                    isCollect = 0;
+                                    latitude = "39.911927";
+                                    longitude = "116.230751";
+                                    mallActivityList =         (
+                                    );
+                                    mallId = 5206d4d2c7096e7d0f1a756d8621703d;
+                                    mallName = "\U4e07\U8fbe\U5e7f\U573a\U77f3\U666f\U5c71\U5e97";
+                                    mallPirUrl =         (
+                                    "uploadtemp/mall/2015-07/mall_cb392f3fbbdfd3f8c3ef355f123de2bb.jpg"
+                                    );
+                                    openTime = "10:00";
+                                    shareContent = "\U6211\U8981\U53bb\U901b\U8857\Uff01\U76ee\U7684\U5730\Uff1a\U4e07\U8fbe\U5e7f\U573a\U77f3\U666f\U5c71\U5e97\Uff01";
+                                    subjectMall =         (
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2016-02/subject_fe0135ee79e14ed8b9c3de202588affe.jpg";
+                                    subjectId = f7cab3ee46004965be161badeae1f590;
+                                    type = 1;
+                                    },
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2015-12/subject_29ca11bc312647d595a69e906178d7d4.jpg";
+                                    subjectId = 623dcf3cd9494e3e9528e7583df4a80e;
+                                    type = 1;
+                                    },
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2015-12/subject_33435109bd374ec798840e3e95274c3d.jpg";
+                                    subjectId = 7692b462dd144f54a429626e5bd88a64;
+                                    type = 1;
+                                    },
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2015-11/subject_4452ed473c6f419c95fd209a6294eb9b.jpg";
+                                    subjectId = 6d7d467f10b346db9d786f7da307209b;
+                                    type = 1;
+                                    },
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2015-11/subject_b022d73988454e199a0a4801229d139f.jpg";
+                                    subjectId = a4f67a18146e45d29702e8a99e71b4b8;
+                                    type = 1;
+                                    },
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2015-11/subject_ac4fb762879e40989ade77fc5ad5f090.jpg";
+                                    subjectId = 1243b852b5f64932badc8161aa4544ed;
+                                    type = 1;
+                                    },
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2015-11/subject_977b137f6c8642448c96e6ff1a62bea5.jpg";
+                                    subjectId = 69d6d6e7b008426b84cfbc606c3619e5;
+                                    type = 1;
+                                    },
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2015-11/subject_5dcfb28cba364203a3519f5d7a59bebe.jpg";
+                                    subjectId = 7ffc1825f2c246cebfc9fcffaf58cbdd;
+                                    type = 1;
+                                    },
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2015-11/subject_9ada84b05c2749a28fa4bfc377422601.jpg";
+                                    subjectId = 3cbbaf833ef141c9a12aef7a4d05cffb;
+                                    type = 1;
+                                    },
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2015-11/subject_5cf5681aec3d4731b68ce19103d6a534.jpg";
+                                    subjectId = b03c0c469a6d4a26b0bc87353ce367d5;
+                                    type = 1;
+                                    },
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2015-11/subject_d760a6a02b004f1aaeafcf3a08899984.jpg";
+                                    subjectId = 533d670fe49d4253a6484f3f79b280da;
+                                    type = 1;
+                                    },
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2015-11/subject_ebd90d78273f43f9bebd3cf121f39d09.jpg";
+                                    subjectId = 8c1606cb1f52441d9ea873e0e3419363;
+                                    type = 1;
+                                    },
+                                    {
+                                    mainPicUrl = "uploadtemp/subject/2015-11/subject_c76de43cee9a479a86d17dcd9f88e529.jpg";
+                                    subjectId = 67d66e65e41049fd8013d241f69d11ee;
+                                    type = 1;
+                                    }
+                                    );
+                                    };
+                                    errcode = 0;
+                                    errmsg = "";
+                                }

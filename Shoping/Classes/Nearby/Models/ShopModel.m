@@ -9,5 +9,25 @@
 #import "ShopModel.h"
 
 @implementation ShopModel
+- (instancetype)initWithDistionary:(NSDictionary *)dic{
+    self = [super init];
+    if (self) {
+        self.latitude = [dic[@"latitude"] floatValue];
+        self.longitude = [dic[@"longitude"]floatValue];
+        self.distance = [dic[@"distance"] floatValue];
+        self.mallId = dic[@"mallId"];
+        self.mallName = dic[@"mallName"];
+        NSString *str = @"http://api.gjla.com/app_admin_v400/";
+        //拼接图片URL
+        NSString *mallPic = dic[@"mallPicUrl"];
+        self.mallPicUrl = [NSString stringWithFormat:@"%@%@",str,mallPic];
+        
+        NSString *mallThumb = dic[@"mallThumbUrl"];
+        self.mallThumbUrl = [NSString stringWithFormat:@"%@%@",str,mallThumb];
+    }
+    return self;
+    
+}
+
 
 @end

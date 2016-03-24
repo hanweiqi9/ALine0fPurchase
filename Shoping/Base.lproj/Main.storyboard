@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -22,7 +23,81 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="914.5" y="1031.5"/>
+            <point key="canvasLocation" x="742.5" y="1058.5"/>
+        </scene>
+        <!--Invite View Controller-->
+        <scene sceneID="pcq-Ql-C5H">
+            <objects>
+                <viewController id="Bo8-DN-NX0" customClass="InviteViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WTL-If-6xv"/>
+                        <viewControllerLayoutGuide type="bottom" id="ISl-Kf-gPX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IMU-Y5-Iye">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rq7-Qx-6H8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1704.5" y="1058.5"/>
+        </scene>
+        <!--Scan View Controller-->
+        <scene sceneID="hbW-uF-wdE">
+            <objects>
+                <viewController storyboardIdentifier="scanvc" id="cPr-FQ-bRX" customClass="ScanViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sBF-yr-hAc"/>
+                        <viewControllerLayoutGuide type="bottom" id="9AE-U2-cWK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UoP-Zi-4T4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0sR-Wv-qlV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3p5-7H-nzj">
+                                        <rect key="frame" x="58" y="42" width="259" height="27"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="mjd-Jd-2bM"/>
+                                        </constraints>
+                                        <state key="normal" title="开始">
+                                            <color key="titleColor" red="1" green="0.021532233000000001" blue="0.2432913397" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="syartStopReading:" destination="cPr-FQ-bRX" eventType="touchUpInside" id="bDk-tz-bHy"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="3p5-7H-nzj" secondAttribute="trailing" constant="58" id="RHX-rq-5Pa"/>
+                                    <constraint firstItem="3p5-7H-nzj" firstAttribute="leading" secondItem="0sR-Wv-qlV" secondAttribute="leading" constant="58" id="RTp-a6-gWX"/>
+                                    <constraint firstItem="3p5-7H-nzj" firstAttribute="top" secondItem="0sR-Wv-qlV" secondAttribute="top" constant="42" id="nh4-tP-ky2"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9AE-U2-cWK" firstAttribute="top" secondItem="0sR-Wv-qlV" secondAttribute="bottom" id="P2b-sl-iQZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0sR-Wv-qlV" secondAttribute="trailing" constant="-20" id="kZ0-hW-7l7"/>
+                            <constraint firstItem="0sR-Wv-qlV" firstAttribute="top" secondItem="sBF-yr-hAc" secondAttribute="bottom" id="mmx-zd-xeQ"/>
+                            <constraint firstItem="0sR-Wv-qlV" firstAttribute="leading" secondItem="UoP-Zi-4T4" secondAttribute="leadingMargin" constant="-20" id="u2x-mu-Fxl"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="StartBtn" destination="3p5-7H-nzj" id="2hj-y9-Cbq"/>
+                        <outlet property="viewPreview" destination="0sR-Wv-qlV" id="YiZ-6j-U9a"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Dr-la-SEE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1247.5" y="1058.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Xf4-rM-2sm">

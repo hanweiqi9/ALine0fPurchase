@@ -1,0 +1,203 @@
+{
+	datas = (
+		{
+			brandId = "1ec003207042c71d576b9fc81d98b2ef";
+			brandNameEn = HOLI;
+			brandNameZh = "\U8c6a\U793c";
+			categorys = (
+				{
+					categoryId = "5558185534b711e4998d00163e0200e5";
+					categoryName = "\U949f\U8868\U914d\U9970";
+				},
+			);
+			floor = 1F;
+			isDiscount = 0;
+			isFree = 0;
+			storeId = "0a924e863d1a99849140659914be3883";
+			storeName = "HOLI \U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a";
+			storePicUrl = "uploadtemp/mall/default_shop.jpg";
+			storeThumbUrl = "uploadtemp/mall/default_shop_thumb.jpg";
+		},
+		{
+			brandId = "e1193526354b3c6756a6d9c05f8cebde";
+			brandNameEn = TRANOI;
+			brandNameZh = " ";
+			categorys = (
+				{
+					categoryId = "55581b7d34b711e4998d00163e0200e5";
+					categoryName = "\U7537\U58eb\U978b\U5305";
+				},
+				{
+					categoryId = "5927b7a1213011e4b2bf00163e000dce";
+					categoryName = "\U5973\U58eb\U978b\U5305";
+				},
+			);
+			floor = 1F;
+			isDiscount = 1;
+			isFree = 0;
+			storeId = "4b43dcb4225eef4eae6fd1fbf4f57593";
+			storeName = "TRANOI \U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a";
+			storePicUrl = "uploadtemp/mall/default_shop.jpg";
+			storeThumbUrl = "uploadtemp/mall/default_shop_thumb.jpg";
+		},
+		{
+			brandId = "c2622da98023f81b3c24cba8e32d35a3";
+			brandNameEn = "Sunglass Hut";
+			brandNameZh = "";
+			categorys = (
+				{
+					categoryId = "5558185534b711e4998d00163e0200e5";
+					categoryName = "\U949f\U8868\U914d\U9970";
+				},
+			);
+			floor = 1F;
+			isDiscount = 1;
+			isFree = 0;
+			storeId = "db17e25fac97e1c137bc565e0abdaebd";
+			storeName = "Sunglass Hut \U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a";
+			storePicUrl = "uploadtemp/mall/default_shop.jpg";
+			storeThumbUrl = "uploadtemp/mall/default_shop_thumb.jpg";
+		},
+		{
+			brandId = "3409cac33b84157ecb5ecb4b76449fa2";
+			brandNameEn = "AAA AutaSon";
+			brandNameZh = "<null>";
+			categorys = (
+				{
+					categoryId = "5558192234b711e4998d00163e0200e5";
+					categoryName = "\U7537\U58eb\U670d\U88c5";
+				},
+			);
+			floor = 1F;
+			isDiscount = 1;
+			isFree = 0;
+			storeId = "dd588d0e4e215a7ba35d18cecb5dc729";
+			storeName = "AAA AutaSon \U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a";
+			storePicUrl = "uploadtemp/mall/default_shop.jpg";
+			storeThumbUrl = "uploadtemp/mall/default_shop_thumb.jpg";
+		},
+		{
+			brandId = "e024456e41702cd630145e8e4213f57b";
+			brandNameEn = WEDGWOOD;
+			brandNameZh = "<null>";
+			categorys = (
+				{
+					categoryId = "55581b0a34b711e4998d00163e0200e5";
+					categoryName = "\U751f\U6d3b\U5bb6\U5c45";
+				},
+			);
+			floor = 1F;
+			isDiscount = 1;
+			isFree = 0;
+			storeId = "f7fdfc0f73f591d216b96e5ba215f2d7";
+			storeName = "WEDGWOOD \U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a";
+			storePicUrl = "uploadtemp/mall/default_shop.jpg";
+			storeThumbUrl = "uploadtemp/mall/default_shop_thumb.jpg";
+		},
+		{
+			brandId = "c689a22b34b711e4998d00163e0200e5";
+			brandNameEn = ACE;
+			brandNameZh = "\U7231\U601d";
+			categorys = (
+				{
+					categoryId = "5927b7a1213011e4b2bf00163e000dce";
+					categoryName = "\U5973\U58eb\U978b\U5305";
+				},
+				{
+					categoryId = "55581b7d34b711e4998d00163e0200e5";
+					categoryName = "\U7537\U58eb\U978b\U5305";
+				},
+			);
+			floor = 1F;
+			isDiscount = 0;
+			isFree = 0;
+			storeId = "0cd65f83b6aa11e5aa44ecf4bb47472e";
+			storeName = "ACE\U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a\U5e97";
+			storePicUrl = "uploadtemp/mall/default_shop.jpg";
+			storeThumbUrl = "uploadtemp/mall/default_shop_thumb.jpg";
+		},
+		{
+			brandId = "edf6c4e27d354bb7aee94ca1d9936caf";
+			brandNameEn = ara;
+			brandNameZh = "";
+			categorys = (
+				{
+					categoryId = "5927b7a1213011e4b2bf00163e000dce";
+					categoryName = "\U5973\U58eb\U978b\U5305";
+				},
+			);
+			floor = 1F;
+			isDiscount = 1;
+			isFree = 0;
+			storeId = "0cd79bebb6aa11e5aa44ecf4bb47472e";
+			storeName = "ara \U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a";
+			storePicUrl = "uploadtemp/mall/default_shop.jpg";
+			storeThumbUrl = "uploadtemp/mall/default_shop_thumb.jpg";
+		},
+		{
+			brandId = "c689c16034b711e4998d00163e0200e5";
+			brandNameEn = "andrew mackenzie";
+			brandNameZh = "";
+			categorys = (
+				{
+					categoryId = "5558192234b711e4998d00163e0200e5";
+					categoryName = "\U7537\U58eb\U670d\U88c5";
+				},
+			);
+			floor = 1F;
+			isDiscount = 1;
+			isFree = 0;
+			storeId = "87ebd71dc20af2f28091cc7d2d58ec4c";
+			storeName = "andrew mackenzie \U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a";
+			storePicUrl = "uploadtemp/mall/default_shop.jpg";
+			storeThumbUrl = "uploadtemp/mall/default_shop_thumb.jpg";
+		},
+		{
+			brandId = "c689cfa634b711e4998d00163e0200e5";
+			brandNameEn = "ARMANI EXCHANGE";
+			brandNameZh = "\U963f\U739b\U5c3c\U4f11\U95f2";
+			categorys = (
+				{
+					categoryId = "37ca9c6f213011e4b2bf00163e000dce";
+					categoryName = "\U5973\U58eb\U670d\U88c5";
+				},
+				{
+					categoryId = "5558192234b711e4998d00163e0200e5";
+					categoryName = "\U7537\U58eb\U670d\U88c5";
+				},
+			);
+			floor = 1F;
+			isDiscount = 1;
+			isFree = 0;
+			storeId = "bd3f87da8df411e5860600163e000dce";
+			storeName = "ARMANI EXCHANGE \U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a";
+			storePicUrl = "uploadtemp/brand/shop_pic/mall_c689cfa634b711e4998d00163e0200e5.jpg";
+			storeThumbUrl = "uploadtemp/brand/shop_pic/mall_c689cfa634b711e4998d00163e0200e5.jpg";
+		},
+		{
+			brandId = "c689ccb734b711e4998d00163e0200e5";
+			brandNameEn = ARCTERYX;
+			brandNameZh = "\U59cb\U7956\U9e1f";
+			categorys = (
+				{
+					categoryId = "37ca9c6f213011e4b2bf00163e000dce";
+					categoryName = "\U5973\U58eb\U670d\U88c5";
+				},
+				{
+					categoryId = "5558192234b711e4998d00163e0200e5";
+					categoryName = "\U7537\U58eb\U670d\U88c5";
+				},
+			);
+			floor = 1F;
+			isDiscount = 1;
+			isFree = 0;
+			storeId = "bd461cc08df411e5860600163e000dce";
+			"New item" = "";
+			storeName = "ARCTERYX \U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a";
+			storePicUrl = "uploadtemp/brand/shop_pic/mall_c689ccb734b711e4998d00163e0200e5.jpg";
+			storeThumbUrl = "uploadtemp/brand/shop_pic/mall_c689ccb734b711e4998d00163e0200e5.jpg";
+		},
+	);
+	errcode = 0;
+	errmsg = "";
+}

@@ -1,0 +1,334 @@
+{
+datas =     (
+{
+brandId = 041dd8d81a19a00611f8040e0681498d;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-10%2Fbrand_28a31d251a37e2b82ee44cbc3966b80e.jpg";
+brandNameEn = TIMEX;
+brandNameZh = "\U5929\U7f8e\U65f6";
+categorys =             (
+{
+categoryId = 5558185534b711e4998d00163e0200e5;
+categoryName = "\U949f\U8868\U914d\U9970";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 10af6912ee9693fbadbf29292171425e;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-11%2Fbrand_1abe57de7a2417b658e3e4f1f94a9504.jpg";
+brandNameEn = "TIAN WANG";
+brandNameZh = "\U5929\U738b\U8868";
+categorys =             (
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 2580957848638963e0ee88a43c148924;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-09%2Fbrand_fe5fee6b067b0a485e3bb78737b1b53e.jpg";
+brandNameEn = "Candie's";
+brandNameZh = "";
+categorys =             (
+{
+categoryId = 5927b7a1213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U978b\U5305";
+},
+{
+categoryId = 37ca9c6f213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U670d\U88c5";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 2928c5fdac1911e4904700163e000dce;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-03%2Fbrand_d1d45ae4100f4993b1ae8a00c13374f7.jpg";
+brandNameEn = "NAUTICA KIDS";
+brandNameZh = "\U8bfa\U5e1d\U5361\U7ae5\U88c5";
+categorys =             (
+{
+categoryId = 55581a1834b711e4998d00163e0200e5;
+categoryName = "\U6bcd\U5a74\U4eb2\U5b50";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 3a323a6fb3d14fdcbfa1f9d292b41d49;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-07%2Fbrand_85ede2a5eec34da885ad6f88c20837d1.jpg";
+brandNameEn = POTE;
+brandNameZh = "";
+categorys =             (
+{
+categoryId = 5558192234b711e4998d00163e0200e5;
+categoryName = "\U7537\U58eb\U670d\U88c5";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 4aeaf4c1570b4240a328224c09637f45;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-08%2Fbrand_cbd89060b473440ca88da635cd88c886.jpg";
+brandNameEn = ClothScenery;
+brandNameZh = "\U5e03\U666f";
+categorys =             (
+{
+categoryId = 37ca9c6f213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U670d\U88c5";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 50eb985a86b9415aa0ffd8b78625f800;
+brandLogoUrl = "uploadtemp%2Fmall2w%2F2015-08%2Fbrand_e63225b47dd06aeb60b0fa5122a7de97.jpg";
+brandNameEn = adidas;
+brandNameZh = "\U963f\U8fea\U8fbe\U65af";
+categorys =             (
+{
+categoryId = 55581b7d34b711e4998d00163e0200e5;
+categoryName = "\U7537\U58eb\U978b\U5305";
+},
+{
+categoryId = 5927b7a1213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U978b\U5305";
+},
+{
+categoryId = 37ca9c6f213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U670d\U88c5";
+},
+{
+categoryId = 5558192234b711e4998d00163e0200e5;
+categoryName = "\U7537\U58eb\U670d\U88c5";
+},
+{
+categoryId = 55581a1834b711e4998d00163e0200e5;
+categoryName = "\U6bcd\U5a74\U4eb2\U5b50";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 53ee3489b19411e4904700163e000dce;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-04%2Fbrand_c957c23114b94af68784afe67cee1684.jpg";
+brandNameEn = CATALOG;
+brandNameZh = "\U9177\U578b\U4e50";
+categorys =             (
+{
+categoryId = 55581b7d34b711e4998d00163e0200e5;
+categoryName = "\U7537\U58eb\U978b\U5305";
+},
+{
+categoryId = 5927b7a1213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U978b\U5305";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 5ab38b30860d4e9f0064fc614b069d93;
+brandLogoUrl = "uploadtemp%2Fbrand%2F201602%2Fbrand_20160217181035_14557038357339_logo.jpg";
+brandNameEn = 7M;
+brandNameZh = 7M;
+categorys =             (
+{
+categoryId = 37ca9c6f213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U670d\U88c5";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 5b229478bf1011e4ba1b00163e000dce;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-03%2Fbrand_eedac8ca83a14e0e84dc0cc8f32b89e3.jpg";
+brandNameEn = bandgewoo;
+brandNameZh = "\U962a\U7ec7\U5c4b";
+categorys =             (
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 5b22b065bf1011e4ba1b00163e000dce;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-03%2Fbrand_11e94f8446ec4f8598e23ec6391955bb.jpg";
+brandNameEn = "Clarks kids";
+brandNameZh = "\U5176\U4e50\U7ae5\U978b";
+categorys =             (
+{
+categoryId = 55581a1834b711e4998d00163e0200e5;
+categoryName = "\U6bcd\U5a74\U4eb2\U5b50";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 5d774c005990a3f7bbd8568d3a2fe1c8;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-04%2FELLE.jpg";
+brandNameEn = "ELLE\U98ce\U5c1a\U5927\U5178";
+brandNameZh = "";
+categorys =             (
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 0;
+isFondBrand = 0;
+},
+{
+brandId = 7bff90730c3f4c6ba8b675ed3f09e0ed;
+brandLogoUrl = "uploadtemp%2Fmall2w%2F2015-08%2Fbrand_a1b862cebe587e14a2f543b9ea90b985.jpg";
+brandNameEn = SDEER;
+brandNameZh = "\U5723\U8fea\U5965";
+categorys =             (
+{
+categoryId = 37ca9c6f213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U670d\U88c5";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 7cf4d88653f4162997df80fee66493fb;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-12%2Fbrand_304b5a87bfd4e6b98611d4c13d141149.jpg";
+brandNameEn = Puella;
+brandNameZh = "";
+categorys =             (
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 80563178b36911e4ba1b00163e000dce;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-04%2Fbrand_40a129b8fb63499c88bd66d039c9b26b.jpg";
+brandNameEn = Metersbonwe;
+brandNameZh = "\U7f8e\U7279\U65af\U90a6\U5a01";
+categorys =             (
+{
+categoryId = 37ca9c6f213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U670d\U88c5";
+},
+{
+categoryId = 5558192234b711e4998d00163e0200e5;
+categoryName = "\U7537\U58eb\U670d\U88c5";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 8056379db36911e4ba1b00163e000dce;
+brandLogoUrl = "uploadtemp%2Fmall2w%2F2015-08%2Fbrand_c343249cf4ed4c33c92434a47ed9e265.jpg";
+brandNameEn = "cache cache";
+brandNameZh = "";
+categorys =             (
+{
+categoryId = 37ca9c6f213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U670d\U88c5";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 879ddda5136d450b9e5c468b0c0af92a;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-04%2Fbrand_1c515d22e1634c6cb8eee49b85035e7e.jpg";
+brandNameEn = "map by BeLLE";
+brandNameZh = "";
+categorys =             (
+{
+categoryId = 37ca9c6f213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U670d\U88c5";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+},
+{
+brandId = 882d85fca1fb5c121e42c045bbfe0bf5;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-11%2Fbrand_adb815df06af002b6f58c34810da4ddb.jpg";
+brandNameEn = "\U5609\U4ead\U835f\U57ce\U5e02\U751f\U6d3b\U5e7f\U573a";
+brandNameZh = "\U5609\U4ead\U835f\U57ce\U5e02\U751f\U6d3b\U5e7f\U573a";
+categorys =             (
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 0;
+isFondBrand = 0;
+},
+{
+brandId = 8ca305e4e6624122b74dcdc6aab9c520;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-05%2Fbrand_b65cfdfd31ed4865addf4ca40cdbcce8.jpg";
+brandNameEn = SIYANLI;
+brandNameZh = "\U601d\U598d\U4e3d";
+categorys =             (
+{
+categoryId = 55581a9334b711e4998d00163e0200e5;
+categoryName = "\U7f8e\U5bb9\U7f8e\U5986";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 0;
+isFondBrand = 0;
+},
+{
+brandId = 97e4cc661968aa5895209baa720576b8;
+brandLogoUrl = "uploadtemp%2Fbrand%2F2015-10%2Fbrand_48bd9e0db14818cde286da2c1ffc2320.jpg";
+brandNameEn = leyo;
+brandNameZh = "\U730e\U53cb";
+categorys =             (
+{
+categoryId = 55581b7d34b711e4998d00163e0200e5;
+categoryName = "\U7537\U58eb\U978b\U5305";
+}
+);
+distance = 896076;
+isCoupon = 0;
+isDiscount = 1;
+isFondBrand = 0;
+}
+);
+errcode = 0;
+errmsg = "";
+}

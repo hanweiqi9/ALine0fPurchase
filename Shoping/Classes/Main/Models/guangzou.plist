@@ -1,0 +1,69 @@
+{
+datas =     (
+{
+activityId = ed4b14e5a2294be8a01368861d0fc59a;
+description = "\U7070\U59d1\U5a18\U9006\U88ad\U6210\U529f";
+fuliId = "http://api.gjla.com/webapp/subject.html?detailType=subject&detailId=23f9d4b81e7a490cb5d2e47f9450995b";
+linkUrl = "http://api.gjla.com/webapp/subject.html?detailType=subject&detailId=23f9d4b81e7a490cb5d2e47f9450995b";
+mainPicUrl = "uploadtemp/onlineactivity/2016-01/onlineactivity_f7531320633d44d3b4d3db20fcafd15b.jpg";
+title = "\U7070\U59d1\U5a18\U9006\U88ad\U6210\U529f";
+type = 0;
+},
+{
+activityId = 73669694ee584d3b84d5f9dc4f8d902b;
+description = "\U7533\U98869-\U7c89\U7ea2\U8272IPHONE6S";
+fuliId = "http://api.gjla.com/activity/apply/index9.html?update=1";
+linkUrl = "http://api.gjla.com/activity/apply/index9.html?update=1";
+mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_8060bda857744be0a816cf626434e1f4.jpg";
+title = "\U7533\U98869-\U7c89\U7ea2\U8272IPHONE6S";
+type = 0;
+},
+{
+activityId = cb6e148eed864522b2ded962fb8d4e47;
+description = "coni beauty-\U53f0\U6e7e\U7f8e\U5986\U5927\U8d4f\U5f97\U59562\U4ef6\U5957\U514d\U8d39\U9886";
+fuliId = "http://api.gjla.com/webapp/brandcoupon.html?cid=0dd535004ebe788e2110390fdc1f072f&ctype=2";
+linkUrl = "http://api.gjla.com/webapp/brandcoupon.html?cid=0dd535004ebe788e2110390fdc1f072f&ctype=2";
+mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_cec92906e3fc4b6ba4ea1f97ed9b7a18.jpg";
+title = "coni beauty-\U53f0\U6e7e\U7f8e\U5986\U5927\U8d4f\U5f97\U59562\U4ef6\U5957\U514d\U8d39\U9886";
+type = 0;
+},
+{
+activityId = b3a16fd62d74403188981f92d0a157d5;
+description = "KONZEN-100\U5143\U73b0\U91d1\U5238";
+fuliId = "http://api.gjla.com/webapp/brandcoupon.html?cid=bd4ba9c01a10b6c3a2e43f4fd82fe1f9&ctype=1";
+linkUrl = "http://api.gjla.com/webapp/brandcoupon.html?cid=bd4ba9c01a10b6c3a2e43f4fd82fe1f9&ctype=1";
+mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_b264cb3119174608a0bc54fda960bb3b.jpg";
+title = "KONZEN-100\U5143\U73b0\U91d1\U5238";
+type = 0;
+},
+{
+activityId = 04367e66f4944dc1baa728bd309b0ded;
+description = "Gant\U73b0\U91d1\U4f18\U60e0\U5238";
+fuliId = "http://api.gjla.com/webapp/brandinfo.html?brandId=c68e083a34b711e4998d00163e0200e5";
+linkUrl = "http://api.gjla.com/webapp/brandinfo.html?brandId=c68e083a34b711e4998d00163e0200e5";
+mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_cf9decf4c9a54f13a7b6a7ab510d43da.jpg";
+title = "Gant\U73b0\U91d1\U4f18\U60e0\U5238";
+type = 0;
+},
+{
+activityId = 92bef6241d9c4f8ca1299ce779a0a5e8;
+description = "Jessica\U6298\U4e0a9\U6298\U5238";
+fuliId = "http://api.gjla.com/webapp/brandcoupon.html?cid=ea6731a3ead46325d297b1229d81c654&ctype=2";
+linkUrl = "http://api.gjla.com/webapp/brandcoupon.html?cid=ea6731a3ead46325d297b1229d81c654&ctype=2";
+mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_0d462e3f0d6d41a39a1102c75558cf20.jpg";
+title = "Jessica\U6298\U4e0a9\U6298\U5238";
+type = 0;
+},
+{
+activityId = aee3066494814e54932854547893724c;
+description = "CRZ 80\U5143\U73b0\U91d1\U5238";
+fuliId = "http://api.gjla.com/webapp/brandcoupon.html?cid=d47103203b5a9a901042f447739dbe73&ctype=1";
+linkUrl = "http://api.gjla.com/webapp/brandcoupon.html?cid=d47103203b5a9a901042f447739dbe73&ctype=1";
+mainPicUrl = "uploadtemp/onlineactivity/2016-03/onlineactivity_37db61484e7e4396b47b99f9f92e4a4a.jpg";
+title = "CRZ 80\U5143\U73b0\U91d1\U5238";
+type = 0;
+}
+);
+errcode = 0;
+errmsg = "";
+}

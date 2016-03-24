@@ -1,0 +1,76 @@
+{
+datas =     (
+{
+costPrice = 100;
+couponId = d2f4004e66db32250f56629b32bcc5f5;
+couponName = "GANT-300\U5143\U73b0\U91d1\U5238";
+couponType = 1;
+picUrl = "uploadtemp/coupon/201601/coupon_20160129144913_14540501535968_res.jpg";
+},
+{
+costPrice = 0;
+couponId = 42d1c8dc1a924c3db1247fdf1de34e82;
+couponName = "\U4f0a\U59ff\U4e09\U65e5\U7626-2500\U5143\U7626\U8eab\U5957\U9910\U514d\U8d39\U4f53\U9a8c\U5238";
+couponType = 2;
+picUrl = "uploadtemp/brand/2015-04/brand_5a394d2762f44262934912b6249d8c73.jpg";
+},
+{
+costPrice = 0;
+couponId = ea6731a3ead46325d297b1229d81c654;
+couponName = "Jessica-\U6298\U4e0a9\U6298\U5238";
+couponType = 6;
+picUrl = "uploadtemp/brand/2015-10/brand_6ca2b42907e9be67807bfdcb4afeb733.jpg";
+},
+{
+costPrice = 0;
+couponId = 0c03afc32db74a1e9921a5aff53b4723;
+couponName = "betu-\U65b0\U54c1\U6298\U4e0a9\U6298\U5238";
+couponType = 6;
+picUrl = "uploadtemp/brand/2015-06/brand_8e5fadec2d3b4a9ca64914b95bfb40e5.jpg";
+},
+{
+costPrice = 0;
+couponId = 426af902821b443f9cd349a92bafc536;
+couponName = "SPASHINING-588\U5143SPA\U5957\U9910\U514d\U8d39\U9001\Uff01";
+couponType = 2;
+picUrl = "uploadtemp/brand/2015-12/brand_d22df000229fd29a4ec6b85de89b956a.jpg";
+},
+{
+costPrice = 0;
+couponId = c366a0069e8e431b9ada6fc0a47d79ee;
+couponName = "dnim-20\U5143\U62b5\U6263\U5238";
+couponType = 6;
+picUrl = "uploadtemp/brand/2015-08/brand_0b41752015894967827d86a61ca242cb.jpg";
+},
+{
+costPrice = 0;
+couponId = 0e19b20d14ac453ab2f6313e71d3c227;
+couponName = "HR-85\U6298\U4f18\U60e0\U5238";
+couponType = 6;
+picUrl = "uploadtemp/brand/2015-05/brand_afa4a107a1234d13a207308a76610ef1.jpg";
+},
+{
+costPrice = 50;
+couponId = d46a82e3cf6edf617df7ff8ced77c11e;
+couponName = "GANT-200\U5143\U73b0\U91d1\U5238";
+couponType = 1;
+picUrl = "uploadtemp/coupon/201601/coupon_20160129143908_14540495488648_res.jpg";
+},
+{
+costPrice = 0;
+couponId = 53a60b2625f34584886761ac4a3867e3;
+couponName = "100km&pf-\U5168\U573a\U6298\U4e0a9\U6298";
+couponType = 6;
+picUrl = "uploadtemp/brand/2015-06/brand_98aa563c664b4226939af4a66b7dcc7d.jpg";
+},
+{
+costPrice = 0;
+couponId = 5686a0c1cabd4b6ba89cf926f51223c9;
+couponName = "LIREN VILLAGE-\U65b0\U54c1\U6298\U4e0a9\U6298\U5238";
+couponType = 6;
+picUrl = "uploadtemp/brand/2015-06/brand_3edb43c0731944e3834fb0ce89e9ba0d.jpg";
+}
+);
+errcode = 0;
+errmsg = "";
+}
