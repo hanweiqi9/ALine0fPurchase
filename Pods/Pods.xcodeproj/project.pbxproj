@@ -9,16 +9,16 @@
 /* Begin PBXBuildFile section */
 		00F09DB5E05D1208F27161E2F016FE36 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D76ABBE0539FBAEDDE460117C034323 /* MobileCoreServices.framework */; };
 		022B549F10007177A43FAB1DD5114F7D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F8F5F8B5AC32C2C1F4DA160CD17E6D6 /* Security.framework */; };
-		067F246BD6CE8A98223EF958399AD332 /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A66DEAB6AA953120EECDD5700A6E289 /* SDWebImageManager.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		0A08FC71C4E3B8E0F8734BCDA7CCA7CB /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BDCAA4EE090EF1D758092D72644221C /* AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		13CA086DC6DF62F9EEC3CEED8EF96156 /* UIButton+WebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C9AA863F53652D3C3FD9E9C85754DA82 /* UIButton+WebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		14CD3DFB4A25BAEFB205730FA6750025 /* AFAutoPurgingImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC72C8DB0BDB0FA26A03E159FA43298 /* AFAutoPurgingImageCache.m */; };
-		15460ABD372C937E2A07A2FCDF98C473 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B08B31F4F5B3C9D383CDC5299CF0AC4 /* UIActivityIndicatorView+AFNetworking.m */; };
-		19E6319F6ECED7539AABBD9A211F7AEC /* AFAutoPurgingImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = F922FC4BAF25DE6E17FDB3DAB5C2B353 /* AFAutoPurgingImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EEBF2E5F6574F9427319E39E8B1852D /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E61C8A5D090784E0ACA9FE9FF82C3CD /* UIButton+WebCache.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		067F246BD6CE8A98223EF958399AD332 /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B38A38A9E6E8EDE0EA8CB786735430B /* SDWebImageManager.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		0A08FC71C4E3B8E0F8734BCDA7CCA7CB /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 50B275390897F76BECA18E5B3AA89B26 /* AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		13CA086DC6DF62F9EEC3CEED8EF96156 /* UIButton+WebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = FA488AB050B9F00CEA141A884668B55E /* UIButton+WebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14CD3DFB4A25BAEFB205730FA6750025 /* AFAutoPurgingImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F7A3553A497A6D7587D1F22817EF7 /* AFAutoPurgingImageCache.m */; };
+		15460ABD372C937E2A07A2FCDF98C473 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6CB29D3208B8AA16CF170935AC2D40 /* UIActivityIndicatorView+AFNetworking.m */; };
+		19E6319F6ECED7539AABBD9A211F7AEC /* AFAutoPurgingImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 74AA611743CBBC47E5E5308CCC79F499 /* AFAutoPurgingImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EEBF2E5F6574F9427319E39E8B1852D /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F5A696AF5BAB9B62A356EF6B89A976 /* UIButton+WebCache.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		2053D71CF543C3A3CC47C5409D61923C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5D248A97F42C8351D0D35BB4D6BF82 /* CoreGraphics.framework */; };
-		22745B7AD241209E49AF7B22A8238310 /* UIImage+MultiFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B22FD6B3229C8789871FAC2F53BD61D /* UIImage+MultiFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		23415204AA48A02959E4E5245CF96037 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE60EE3ADD10AF7CD09457A5ACD46BE /* AFHTTPSessionManager.m */; };
+		22745B7AD241209E49AF7B22A8238310 /* UIImage+MultiFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D568B05AD48A76A1ECF644012C64FFA /* UIImage+MultiFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		23415204AA48A02959E4E5245CF96037 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6ED968839872E00871E4FBBA21DCC /* AFHTTPSessionManager.m */; };
 		2359387620C5E815BF0594BC40311734 /* AFURLRequestSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04A3EFCF802C8BDAF963B4CAA65A2B /* AFURLRequestSerialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		248E9A27FD48F066FA907CD48A43E66F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 110E05E6ED451100822211B22A701110 /* Foundation.framework */; };
 		2DE2B5992B7B3C878B7D348639D87298 /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAED7737F6B196837D043B783A6ADD7 /* SDWebImagePrefetcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
