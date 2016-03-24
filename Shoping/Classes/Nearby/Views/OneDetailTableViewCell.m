@@ -36,7 +36,7 @@
     self.typeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (kWidth - 20) / 8, kHeight * 0.1)];
     [label addSubview:self.typeImageView];
     //内容图片
-    self.logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake((kWidth - 20) / 8 + 20, 0, kHeight * 0.1, kHeight * 0.1)];
+    self.logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake((kWidth - 20) / 8 + 20, 6, kHeight * 0.1 - 10, kHeight * 0.1 - 10)];
     [label addSubview:self.logoImageView];
     //内容label
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake((kWidth - 20) / 8 + 10 + kHeight * 0.1, 2, kWidth - 20 - kHeight * 0.1 - 20, kHeight * 0.1 / 2)];
@@ -62,7 +62,7 @@
     NSString *str = @"http://api.gjla.com/app_admin_v400/";
     NSString *urlStr = detailModel.brandLogoUrl;
     if ([detailModel.type integerValue] == 1) {
-        self.typeImageView.image = [UIImage imageNamed:@"you"];
+        self.typeImageView.image = [UIImage imageNamed:@"you.png"];
         if (detailModel.costPrice != nil) {
             NSString *str1 = detailModel.costPrice;
             self.timeLabel.text = [NSString stringWithFormat:@"¥ %@",str1];
@@ -71,7 +71,7 @@
         }
         self.timeLabel.textColor = kColor;
         self.nameLabel.text = detailModel.name;
-        if (![urlStr isEqualToString:@""]) {
+        if (urlStr != NULL) {
             [self.logoImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",str,urlStr]] placeholderImage:nil];
         }
         

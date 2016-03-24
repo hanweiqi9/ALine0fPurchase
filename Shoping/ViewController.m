@@ -16,7 +16,6 @@
 #import "HtmlViewController.h"
 #import "ActivityMianViewController.h"
 #import "ShopDetailViewController.h"
-#import "ProgressHUD.h"
 #import "SDCycleScrollView.h"
 
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate >

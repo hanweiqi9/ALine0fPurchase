@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Quanchneg View Controller-->
+        <scene sceneID="yKs-Yp-EmY">
+            <objects>
+                <viewController storyboardIdentifier="story" id="bkT-LF-qzP" customClass="QuanchnegViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Xl4-MZ-3XB"/>
+                        <viewControllerLayoutGuide type="bottom" id="fyx-7M-CsM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="C8A-UA-PND">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tupian" translatesAutoresizingMaskIntoConstraints="NO" id="bf6-cr-igy">
+                                <rect key="frame" x="0.0" y="224" width="375" height="443"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="客服电话：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAm-f2-NC7">
+                                <rect key="frame" x="87" y="112" width="80" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="dS3-75-IhD"/>
+                                    <constraint firstAttribute="width" constant="80" id="rES-V4-3xg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="021-62512785" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9c-4M-RGc">
+                                <rect key="frame" x="169" y="112" width="107" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="微信群：2016-666" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMp-tZ-u7F">
+                                <rect key="frame" x="87" y="145" width="189" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="QQ群：434057107" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WsO-09-9ob">
+                                <rect key="frame" x="87" y="173" width="189" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="版本号 4.2.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSO-AZ-JWA">
+                                <rect key="frame" x="111" y="79" width="153" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="Bzr-ug-HaI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iAm-f2-NC7" firstAttribute="top" secondItem="WSO-AZ-JWA" secondAttribute="bottom" constant="8" id="0Kt-bl-WMT"/>
+                            <constraint firstItem="SMp-tZ-u7F" firstAttribute="top" secondItem="iAm-f2-NC7" secondAttribute="bottom" constant="8" id="2RD-Ah-4Zq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SMp-tZ-u7F" secondAttribute="trailing" constant="79" id="4kp-Gk-Srd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="c9c-4M-RGc" secondAttribute="trailing" constant="30" id="7k8-yS-U0S"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bf6-cr-igy" secondAttribute="trailing" constant="-20" id="8Rj-iN-MOM"/>
+                            <constraint firstItem="WsO-09-9ob" firstAttribute="leading" secondItem="C8A-UA-PND" secondAttribute="leadingMargin" constant="67" id="AN9-Eh-0ui"/>
+                            <constraint firstItem="WsO-09-9ob" firstAttribute="width" secondItem="SMp-tZ-u7F" secondAttribute="width" id="DSQ-hh-LTM"/>
+                            <constraint firstItem="bf6-cr-igy" firstAttribute="leading" secondItem="C8A-UA-PND" secondAttribute="leadingMargin" constant="-20" id="E5I-Fx-H40"/>
+                            <constraint firstItem="c9c-4M-RGc" firstAttribute="leading" secondItem="iAm-f2-NC7" secondAttribute="trailing" constant="2" id="GOr-VM-9qB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WSO-AZ-JWA" secondAttribute="trailing" constant="91" id="GOw-io-tjr"/>
+                            <constraint firstItem="SMp-tZ-u7F" firstAttribute="leading" secondItem="iAm-f2-NC7" secondAttribute="leading" id="HBZ-tl-be2"/>
+                            <constraint firstItem="c9c-4M-RGc" firstAttribute="height" secondItem="iAm-f2-NC7" secondAttribute="height" id="NEx-EP-RET"/>
+                            <constraint firstItem="fyx-7M-CsM" firstAttribute="top" secondItem="bf6-cr-igy" secondAttribute="bottom" id="Pmh-BW-LkB"/>
+                            <constraint firstItem="iAm-f2-NC7" firstAttribute="leading" secondItem="C8A-UA-PND" secondAttribute="leadingMargin" constant="67" id="SFo-Gw-62l"/>
+                            <constraint firstItem="c9c-4M-RGc" firstAttribute="top" secondItem="WSO-AZ-JWA" secondAttribute="bottom" constant="8" id="WYc-1u-wlm"/>
+                            <constraint firstItem="WSO-AZ-JWA" firstAttribute="top" secondItem="Xl4-MZ-3XB" secondAttribute="bottom" constant="59" id="XXg-Mb-Q2T"/>
+                            <constraint firstItem="WsO-09-9ob" firstAttribute="top" secondItem="SMp-tZ-u7F" secondAttribute="bottom" constant="3" id="Y8h-en-ZeC"/>
+                            <constraint firstItem="SMp-tZ-u7F" firstAttribute="height" secondItem="iAm-f2-NC7" secondAttribute="height" id="Yug-wL-Syq"/>
+                            <constraint firstItem="bf6-cr-igy" firstAttribute="top" secondItem="WsO-09-9ob" secondAttribute="bottom" constant="26" id="cWn-KX-Jtr"/>
+                            <constraint firstItem="WsO-09-9ob" firstAttribute="height" secondItem="SMp-tZ-u7F" secondAttribute="height" id="gbk-qx-5fK"/>
+                            <constraint firstItem="WSO-AZ-JWA" firstAttribute="leading" secondItem="C8A-UA-PND" secondAttribute="leadingMargin" constant="91" id="zSX-62-Nkk"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hlJ-yB-nVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="650.5" y="410.5"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="tupian" width="465" height="592"/>
+    </resources>
+</document>

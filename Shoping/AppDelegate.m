@@ -13,17 +13,51 @@
 #import "CenterViewController.h"
 #import "DiscoverViewController.h"
 #import "MineViewController.h"
+#import <BmobSDK/Bmob.h>
+#import "WeiboSDK.h"
+#import "WXApi.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MAMapKit/MAMapKit.h>
 
 
-@interface AppDelegate ()
+
+@interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate,CLLocationManagerDelegate>
+{
+    //创建一个定位的CLLocationManager对象
+    CLLocationManager *_locationManger;
+    //创建地理编码
+    CLGeocoder *_geocoder;
+    
+}
 
 @end
 
-@implementation AppDelegate
 
+
+@implementation AppDelegate
+@synthesize wbtoken;
+@synthesize wbCurrentUserID;
+@synthesize wbRefreshToken;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //状态栏颜色
+//    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+    
+    
+    
+    //bmob
+    [Bmob registerWithAppKey:@"413557b216c3e5c7ef5e11008d0c6b26"];
+    //微博
+    [WeiboSDK enableDebugMode:YES];
+    [WeiboSDK registerApp:@"894620014"];
+    
+    //微信
+    [WXApi registerApp:@"wxb18bd78d096243ca"];
+    
+    //配置用户key
+    [MAMapServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
+    
     self.tablebarVC = [[UITabBarController alloc] init];
     //首页
     UIStoryboard *mainStory = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -83,9 +117,87 @@
     self.tablebarVC.viewControllers = @[MainNav, nearNav, globalNav, discoverNav, MineNav];
     self.tablebarVC.tabBar.tintColor = kColor;
     self.window.rootViewController = self.tablebarVC;
+    //设置window的背景
+    [self.window makeKeyAndVisible];
 
+    //初始化地理编码对象
+    _geocoder = [[CLGeocoder alloc] init];
+    _locationManger = [[CLLocationManager alloc] init];
+    //4.判断定位服务是否可用
+    if (![CLLocationManager locationServicesEnabled]) {
+        NSLog(@"定位服务未打开");
+    }
+    //是否授权定位
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        [_locationManger requestWhenInUseAuthorization];
+    } else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        //设置代理
+        _locationManger.delegate = self;
+        //设置定位精度
+        _locationManger.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+        //定位频率
+        CLLocationDistance distance = 10.0;
+        _locationManger.distanceFilter = distance;
+        //启动定位
+        [_locationManger startUpdatingLocation];
+        
+    }
     
     return YES;
+}
+
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    if ([WeiboSDK isCanShareInWeiboAPP]) {
+         return [WeiboSDK handleOpenURL:url delegate:self];
+    }
+    return [WXApi handleOpenURL:url delegate:self];
+   
+}
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    
+    if ([WeiboSDK isCanShareInWeiboAPP]) {
+        return [WeiboSDK handleOpenURL:url delegate:self];
+
+    }
+    return [WXApi handleOpenURL:url delegate:self];
+    
+}
+
+- (void)didReceiveWeiboRequest:(WBBaseRequest *)request{
+    
+}
+
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response{
+    
+}
+
+-(void)onReq:(BaseReq *)req{
+    
+}
+-(void)onResp:(BaseResp *)resp{
+    
+}
+
+
+#pragma mark -------------------------- 定位服务协议方法
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    //从数组中取出一个位置
+    CLLocation *location = [locations firstObject];
+    //从location中取出坐标的精度维度
+    CLLocationCoordinate2D coordinate = location.coordinate;
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    [user setValue:[NSNumber numberWithDouble:coordinate.latitude] forKey:@"latitude"];
+    [user setValue:[NSNumber numberWithDouble:coordinate.longitude] forKey:@"longitude"];
+    
+    //实现反地理编码
+    [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        CLPlacemark *placemark = [placemarks firstObject];
+        //保存数据
+        [[NSUserDefaults standardUserDefaults] setValue:placemark.addressDictionary[@"city"] forKey:@"city"];
+        [user synchronize];
+    }];
+    //如果不需要使用定位服务，及时关闭
+    [_locationManger stopUpdatingLocation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

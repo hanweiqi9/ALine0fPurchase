@@ -9,6 +9,7 @@
 
 #import "ShopTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <CoreLocation/CoreLocation.h>
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
 #define kWidth [UIScreen mainScreen].bounds.size.width
@@ -33,7 +34,8 @@
 -(void)setShopModel:(ShopModel *)shopModel {
     [self.imagePicture sd_setImageWithURL:[NSURL URLWithString:shopModel.mallPicUrl] placeholderImage:nil];
     self.titleLabel.text = [NSString stringWithFormat:@"%@",shopModel.mallName];
-    [self.addressBtn setTitle:[NSString stringWithFormat:@"%@",shopModel.distance] forState:UIControlStateNormal];
+    CGFloat distance = shopModel.distance / 1000;
+    [self.addressBtn setTitle:[NSString stringWithFormat:@"%.2fkm",distance] forState:UIControlStateNormal];
 
 }
 

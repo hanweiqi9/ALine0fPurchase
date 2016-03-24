@@ -1,0 +1,76 @@
+{
+datas =     {
+address = "\U9752\U6d66\U533a\U6caa\U9752\U5e73\U516c\U8def2888\U53f71F";
+brandLogoUrl = "uploadtemp/brand/2015-03/brand_efad188ba1b348b49dbfb6d48c17748e.jpg";
+categorys =         (
+{
+categoryId = 37ca9c6f213011e4b2bf00163e000dce;
+categoryName = "\U5973\U58eb\U670d\U88c5";
+},
+{
+categoryId = 55581a9334b711e4998d00163e0200e5;
+categoryName = "\U7f8e\U5bb9\U7f8e\U5986";
+}
+);
+comment = "<null>";
+    commentAvgGrade = 0;
+    commentNum = "<null>";
+        couponOrDiscountNum = 2;
+        couponOrDiscounts =         (
+        {
+        beginDate = 1456761600000;
+        brandLogoUrl = "uploadtemp/brand/2015-03/brand_efad188ba1b348b49dbfb6d48c17748e.jpg";
+        costPrice = "<null>";
+            couponType = "<null>";
+                endDate = 1459353600000;
+                id = 261ccfb7e39a7485568f678ca9119822;
+                name = "\U90e8\U52065\U6298\Uff08\U8d77\Uff09";
+                price = "<null>";
+                    type = 0;
+                    },
+                    {
+                    beginDate = 1456761600000;
+                    brandLogoUrl = "uploadtemp/brand/2015-03/brand_efad188ba1b348b49dbfb6d48c17748e.jpg";
+                    costPrice = "<null>";
+                        couponType = "<null>";
+                            endDate = 1459353600000;
+                            id = 8d31e3b50e80124fc692d9a741332694;
+                            name = "\U4e24\U4ef6\U6298\U4e0a9\U6298 \U4e09\U4ef6\U6298\U4e0a8\U6298";
+                            price = "<null>";
+                                type = 0;
+                                }
+                                );
+                                distance = 908299;
+                                isCollect = 0;
+                                latitude = "31.162206";
+                                longitude = "121.234298";
+                                mallName = "\U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a";
+                                sameBrandOtherStoreNum = 4;
+                                sameBrandOtherStores =         (
+                                {
+                                storeId = 4cb97512aecd11e58a8f00163e000dce;
+                                storeName = "Salvatore\U00a0Ferragamo\U4e1c\U65b9\U5546\U53a6\U5f90\U5bb6\U6c47\U5e97";
+                                storePicUrl = "uploadtemp/mall/default_shop.jpg";
+                                },
+                                {
+                                storeId = ee5e278a980811e5860600163e000dce;
+                                storeName = "Salvatore\U00a0Ferragamo \U65b0\U4e16\U754c\U5927\U4e38\U767e\U8d27";
+                                storePicUrl = "uploadtemp/mall/default_shop.jpg";
+                                },
+                                {
+                                storeId = bbe304758df411e5860600163e000dce;
+                                storeName = "Salvatore\U00a0Ferragamo\U5927\U4e0a\U6d77\U65f6\U4ee3\U5e7f\U573a\U5e97";
+                                storePicUrl = "uploadtemp/brand/shop_pic/mall_c694177a34b711e4998d00163e0200e5.jpg";
+                                }
+                                );
+                                shareContent = "Salvatore\U00a0Ferragamo \U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a\U5f88\U8d5e\U54df\Uff01\U7ea6\U5417\Uff1f\U4e00\U8d77\U53bb\U901b\U901b\U5427\Uff01";
+                                storeCloseTime = "22:00";
+                                storeId = 0ce31e90b6aa11e5aa44ecf4bb47472e;
+                                storeName = "Salvatore\U00a0Ferragamo \U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a";
+                                storeOpenTime = "10:00";
+                                storePicUrl = "uploadtemp/mall/default_shop.jpg";
+                                storeTel = "<null>";
+                                    };
+                                    errcode = 0;
+                                    errmsg = "";
+                                }

@@ -9,11 +9,18 @@
 #import "ShopDetailViewController.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <CoreLocation/CoreLocation.h>
 #import "DetailModel.h"
 #import "OneDetailTableViewCell.h"
 #import "TwoDetailTableViewCell.h"
 #import "TwoCellModel.h"
 #import "BrandViewController.h"
+#import "MapViewController.h"
+#import "BrandDetailViewController.h"
+#import "MangoSingleton.h"
+#import "ShopDetPicDetailViewController.h"
+#import "VOSegmentedControl.h"
+#import "ProgressHUD.h"
 
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
@@ -85,18 +92,14 @@
     //网络请求
     [self requestData];
 
-    //1.注册通知
-    NSNotificationCenter *notification = [NSNotificationCenter defaultCenter];
-    //把通知的内容放入字典,把字典传过去
-    [notification postNotificationName:@"数据Id" object:self userInfo:self.headerDic];
-    
-
 }
 
 
 //网络请求
 - (void)requestData {
+    [ProgressHUD show:@"正在加载中..."];
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
+    
     [sessionManger GET:[NSString stringWithFormat:@"%@&mallId=%@", kShopDetail, _detailId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -111,6 +114,7 @@
             [self.discountsArray addObject:model];
 
         }
+
         //第二个cell需要显示的数据
         NSMutableArray *subjectArray = self.headerDic[@"subjectMall"];
         for (NSDictionary *dict in subjectArray) {
@@ -119,7 +123,7 @@
             [self.dataArray addObject:model1];
             
     }
-        
+        [ProgressHUD showSuccess:@"数据加载完成"];
         [self.tableView reloadData];
         [self configTableViewHeader];
         
@@ -182,6 +186,14 @@
 
 
 //点击方法
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1) {
+        ShopDetPicDetailViewController *picVC = [[ShopDetPicDetailViewController alloc] init];
+
+        picVC.twoModel = self.dataArray[indexPath.row];
+        [self.navigationController pushViewController:picVC animated:YES];
+    }
+}
 
 //返回每一行的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -202,9 +214,9 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 60)];
 
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 39, kWidth / 3, 2)];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(40, 39, kWidth / 3 - 30, 2)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 + 10 , 20, kWidth / 3 - 10, 30)];
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5 , 39, kWidth / 3 - 5, 2)];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5 , 39, kWidth / 3 - 30, 2)];
     label1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
     label1.alpha = 0.1;
     label2.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
@@ -212,6 +224,7 @@
     
     if (section == 0) {
         label.text = @"商户优惠";
+
     }else {
     label.text = @"精彩推荐";
     }
@@ -247,13 +260,15 @@
     currentLabel.textAlignment = NSTextAlignmentCenter;
     currentLabel.textColor = kColor;
     
-    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 4 + 85, kWidth * 0.335 + 40, kWidth / 4 + 20, 30)];
+    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 4 + 80, kWidth * 0.335 + 40, kWidth / 4 + 40, 30)];
     timeLabel.text = [NSString stringWithFormat:@"%@ ~ %@",openTime, closeTime];
     timeLabel.textColor = kColor;
+
     //距离
     UIButton *distanceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     distanceBtn.frame = CGRectMake(100, kWidth * 0.335 + 75, kWidth - 200, 30);
-    [distanceBtn setTitle:[NSString stringWithFormat:@"%@ km",self.headerDic[@"distance"]] forState:UIControlStateNormal];
+    CGFloat distan = [self.headerDic[@"distance"] floatValue] / 1000;
+    [distanceBtn setTitle:[NSString stringWithFormat:@"%.2fkm", distan] forState:UIControlStateNormal];
     //设置图片和内容的间距
     [distanceBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [distanceBtn setImage:[UIImage imageNamed:@"address_icon"] forState:UIControlStateNormal];
@@ -269,13 +284,13 @@
     [addressBtn setImage:[UIImage imageNamed:@"address_ico"] forState:UIControlStateNormal];
     [addressBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     //入住商户
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(5, kWidth * 0.335 + 160, kWidth / 3, 2)];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(40, kWidth * 0.335 + 160, kWidth / 3 - 30, 2)];
     label1.alpha = 0.1;
     
     label1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
     UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 + 32 , kWidth * 0.335 + 145, kWidth / 3 - 10, 30)];
     label2.text = @"入住商户";
-    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5 , kWidth * 0.335 + 160, kWidth / 3 - 5, 2)];
+    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5 , kWidth * 0.335 + 160, kWidth / 3 - 30, 2)];
     label3.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
     label3.alpha = 0.1;
     //for循环创建8个按钮
@@ -315,7 +330,6 @@
     
 }
 
-
 //八个按钮的点击方法
 - (void)classfiyBtnAction:(UIButton *)btn {
     //取出按钮的id
@@ -328,14 +342,25 @@
         [self.navigationController pushViewController:brandVC animated:YES];
         
     }
+
     
    
 }
 
 //打开地图导航按钮
 - (void)addressBtnAction:(UIButton *)btn {
-
-
+    MapViewController *mapVC = [[MapViewController alloc] init];
+    NSString *latitude = self.headerDic[@"latitude"];
+    NSString *longitude = self.headerDic[@"longitude"];
+    mapVC.lat = [latitude floatValue];
+    mapVC.lng = [longitude floatValue];
+    NSString *name = self.headerDic[@"mallName"];
+    NSString *address = self.headerDic[@"address"];
+    //使用单例传值
+    MangoSingleton *mango = [MangoSingleton sharInstance];
+    mango.title = name;
+    mango.inputText = address;
+    [self.navigationController pushViewController:mapVC animated:YES];
 }
 
 //返回按钮
@@ -404,6 +429,12 @@
         self.detailView.frame=CGRectMake(0, 10, kWidth, kWidth * 0.335 + 180 + kWidth / 4 + kWidth / 4 - 15);
     }
     return _detailView;
+}
+
+//在页面将要消失的时候去掉所有的圈圈
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [ProgressHUD dismiss];
 }
 
 

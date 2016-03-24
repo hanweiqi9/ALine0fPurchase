@@ -10,4 +10,6 @@
 
 @interface TwoCellModel : NSObject
 @property (nonatomic, strong) NSString *mainPicUrl;
+@property (nonatomic, strong) NSString *subjectId;
+
 @end

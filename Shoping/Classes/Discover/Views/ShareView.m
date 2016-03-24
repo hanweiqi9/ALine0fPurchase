@@ -7,10 +7,15 @@
 //
 #define kWidth [UIScreen mainScreen].bounds.size.width
 #define kHeight [UIScreen mainScreen].bounds.size.height
+#define kRedirectURI @"https://api.weibo.com/oauth2/default.html"
 
 #import "ShareView.h"
+#import "WeiboSDK.h"
+#import "AppDelegate.h"
+#import "WXApi.h"
 
-@interface ShareView ()
+
+@interface ShareView ()<WeiboSDKDelegate,WXApiDelegate>
 @property(nonatomic,strong) UIView *grayView;
 @property(nonatomic,strong) UIView *shareView;
 
@@ -94,21 +99,54 @@
     
 }
 
-
+//weibo
 -(void)weiboAction{
-    
-    
-    
+   
+    AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
+    authRequest.redirectURI = kRedirectURI;
+    authRequest.scope = @"all";
+    WBSendMessageToWeiboRequest *request = [ WBSendMessageToWeiboRequest requestWithMessage:[self messageToShare] authInfo:authRequest access_token:myDelegate.wbtoken];
+    request.userInfo = @{@"ShareMessageFrom": @"MeViewController",
+                         @"Other_Info_1": [NSNumber numberWithInt:123],
+                         @"Other_Info_2": @[@"obj1", @"obj2"],
+                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
+    [WeiboSDK sendRequest:request];
+ 
+    [self removeAction];
     
     
 }
 
+-(WBMessageObject *)messageToShare{
+    WBMessageObject *message = [WBMessageObject message];
+    NSString *str = [NSString stringWithFormat:@"%@%@",self.titStr,self.urlStr];
+    message.text = str;
+    return message;
+}
+
+//weixin
 -(void)weixinAction{
     
+    SendMessageToWXReq *req =[[SendMessageToWXReq alloc]init];
+    req.text = self.titStr;
+    req.bText = YES;
+    req.scene = WXSceneSession;
+    [WXApi sendReq:req];
 }
 
+//朋友圈
 -(void)firendAction{
+    WXMediaMessage *message = [WXMediaMessage message];
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = YES;
+     NSString *str = [NSString stringWithFormat:@"%@%@",self.titStr,self.urlStr];
+    req.text = str;
+    req.message = message;
+    req.scene = WXSceneTimeline;
     
+    [WXApi sendReq:req];
+
     
 }
 
@@ -116,6 +154,17 @@
     [self.shareView removeFromSuperview];
     [self.grayView removeFromSuperview];
 }
+
+- (void)didReceiveWeiboRequest:(WBBaseRequest *)request{
+    
+}
+
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response{
+    
+}
+
+
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

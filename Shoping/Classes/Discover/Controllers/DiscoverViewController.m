@@ -199,7 +199,7 @@
         MatchTableViewCell *cell  = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         cell.title.text = self.matchArray[indexPath.row][@"title"];
         [cell.imageTop sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",str,self.matchArray[indexPath.row][@"mainPicUrl"]]] placeholderImage:nil];
-        self.tableView.rowHeight = kHeight *2/3;
+        self.tableView.rowHeight = kHeight *1/2+30;
         return cell;
 
     }
@@ -228,14 +228,12 @@
     avtivity.userId= @"fe8d0970f7d4469bb6a8d5fbb1a2bb6f";
     avtivity.type = 2;
     }
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:avtivity];
-//    [self.navigationController presentViewController:nav animated:YES completion:nil];
     [self.navigationController pushViewController:avtivity animated:YES];
     
 }
-//
+
 //#pragma mark -------------pullingDelegate
-//
+
 //下拉
 -(void)pullingTableViewDidStartRefreshing:(PullingRefreshTableView *)tableView{
     self.refreshing = YES;
@@ -256,6 +254,11 @@
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     [self.tableView tableViewDidEndDragging:scrollView];
 }
+
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

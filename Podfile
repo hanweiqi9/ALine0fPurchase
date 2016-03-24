@@ -1,3 +1,5 @@
 platform:ios,'7.0'
 pod 'AFNetworking', '~> 3.0.4'
+pod 'AMap2DMap', '~> 3.3.0'
+pod 'AMapSearch', '~> 3.3.0'
 pod 'SDWebImage', '~> 3.7.5'

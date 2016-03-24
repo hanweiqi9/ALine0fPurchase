@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ShareView : UIView
+@property(nonatomic,strong) NSString *titStr;
+@property(nonatomic,strong) NSString *urlStr;
 
 
 @end

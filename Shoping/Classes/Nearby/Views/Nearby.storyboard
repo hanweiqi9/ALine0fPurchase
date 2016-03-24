@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3Fu-g9-RNP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3Fu-g9-RNP">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--Nearby View Controller-->
@@ -25,165 +25,6 @@
             </objects>
             <point key="canvasLocation" x="725.5" y="481.5"/>
         </scene>
-        <!--Shop Detail View Controller-->
-        <scene sceneID="9bP-rX-d8Z">
-            <objects>
-                <viewController id="Bpe-Qo-X1t" customClass="ShopDetailViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hWX-L6-d7j"/>
-                        <viewControllerLayoutGuide type="bottom" id="Zbn-T1-CjK"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rNA-EE-PJD" customClass="DetailHeaserView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PlL-wh-kcl">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="595"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mrv-z3-NtT">
-                                        <rect key="frame" x="8" y="8" width="359" height="142"/>
-                                        <color key="backgroundColor" red="1" green="0.1696042119" blue="0.31985426160000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48u-xc-hVw">
-                                        <rect key="frame" x="8" y="158" width="359" height="27"/>
-                                        <color key="backgroundColor" red="1" green="0.97239033799999997" blue="0.23239527339999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="营业时间:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JbN-1J-B2k">
-                                        <rect key="frame" x="64" y="193" width="79" height="31"/>
-                                        <color key="backgroundColor" red="1" green="0.88754123220000003" blue="0.066016703960000006" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="0.55132871029999997" blue="0.77657310430000004" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10:00 ~ 12:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCI-Ou-n8A">
-                                        <rect key="frame" x="151" y="193" width="161" height="31"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="0.55132871029999997" blue="0.77657310430000004" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IMX-A8-fef">
-                                        <rect key="frame" x="143" y="233" width="104" height="24"/>
-                                        <state key="normal" title="978.3km" image="address_icon">
-                                            <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfy-ev-UKT">
-                                        <rect key="frame" x="31" y="260" width="312" height="24"/>
-                                        <color key="backgroundColor" red="0.23897694950000001" green="0.86341886140000002" blue="0.88952020200000004" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="徐汇区湖民路7899-3号" image="address_ico">
-                                            <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="jia2" translatesAutoresizingMaskIntoConstraints="NO" id="tP8-7Z-9Th">
-                                        <rect key="frame" x="13" y="304" width="111" height="6"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="jia2" translatesAutoresizingMaskIntoConstraints="NO" id="BJN-wt-DhE">
-                                        <rect key="frame" x="240" y="304" width="111" height="6"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="入住商户(74)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwt-5O-qgC">
-                                        <rect key="frame" x="133" y="296" width="99" height="27"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="classify_women_wear" translatesAutoresizingMaskIntoConstraints="NO" id="9qd-xD-pHC">
-                                        <rect key="frame" x="8" y="331" width="83" height="74"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="classify_ladies_shoes_bag" translatesAutoresizingMaskIntoConstraints="NO" id="AcL-1R-hTK">
-                                        <rect key="frame" x="102" y="331" width="83" height="74"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXy-tl-rUQ">
-                                        <rect key="frame" x="113" y="336" width="60" height="74"/>
-                                        <state key="normal" title="女士鞋包"/>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="classify_men_wear" translatesAutoresizingMaskIntoConstraints="NO" id="GgS-4u-7uP">
-                                        <rect key="frame" x="102" y="435" width="83" height="74"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ulA-Hu-zoh">
-                                        <rect key="frame" x="113" y="441" width="60" height="74"/>
-                                        <state key="normal" title="男士服装"/>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="classify_men_shoes_bag" translatesAutoresizingMaskIntoConstraints="NO" id="Dvi-rW-uYE">
-                                        <rect key="frame" x="193" y="435" width="83" height="74"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mlo-8N-iuk">
-                                        <rect key="frame" x="204" y="441" width="60" height="74"/>
-                                        <state key="normal" title="男士鞋包"/>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="classify_live_home" translatesAutoresizingMaskIntoConstraints="NO" id="Pu0-g3-s0q">
-                                        <rect key="frame" x="284" y="435" width="83" height="74"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GfD-j6-ixa">
-                                        <rect key="frame" x="291" y="441" width="60" height="74"/>
-                                        <state key="normal" title="生活家居"/>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="classify_cosmetology" translatesAutoresizingMaskIntoConstraints="NO" id="TbL-ec-f9g">
-                                        <rect key="frame" x="193" y="331" width="83" height="74"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENl-zF-48l">
-                                        <rect key="frame" x="204" y="336" width="60" height="74"/>
-                                        <state key="normal" title="美容美妆"/>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="classify_watch" translatesAutoresizingMaskIntoConstraints="NO" id="MnK-Hr-Mv4">
-                                        <rect key="frame" x="284" y="331" width="83" height="74"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwW-HC-2K1">
-                                        <rect key="frame" x="294" y="341" width="60" height="74"/>
-                                        <state key="normal" title="钟表配饰"/>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="classify_mother_baby" translatesAutoresizingMaskIntoConstraints="NO" id="oe1-Cn-eDT">
-                                        <rect key="frame" x="8" y="435" width="83" height="74"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZ4-Yx-WoB">
-                                        <rect key="frame" x="19" y="441" width="60" height="74"/>
-                                        <state key="normal" title="母婴亲子"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Si-ve-SGY">
-                                        <rect key="frame" x="19" y="331" width="60" height="74"/>
-                                        <state key="normal" title="女士服装"/>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="jia2" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-dd-1Im">
-                                        <rect key="frame" x="14" y="538" width="111" height="6"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="jia2" translatesAutoresizingMaskIntoConstraints="NO" id="70I-ei-PTX">
-                                        <rect key="frame" x="238" y="538" width="111" height="6"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="商户优惠" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apl-pw-Y7X">
-                                        <rect key="frame" x="139" y="527" width="87" height="27"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <outlet property="addressBtn" destination="yfy-ev-UKT" id="sPp-Qu-Wg3"/>
-                            <outlet property="appearBeatifulBtn" destination="ENl-zF-48l" id="oA8-h0-PM1"/>
-                            <outlet property="detailScrollView" destination="PlL-wh-kcl" id="kpy-nb-KBE"/>
-                            <outlet property="distanceBtn" destination="IMX-A8-fef" id="UhW-Wi-VzX"/>
-                            <outlet property="headerView" destination="Mrv-z3-NtT" id="uNc-DE-8Jb"/>
-                            <outlet property="lifeLiveBtn" destination="GfD-j6-ixa" id="yqA-p8-euJ"/>
-                            <outlet property="motherChildBtn" destination="KZ4-Yx-WoB" id="Gnf-vx-Wpc"/>
-                            <outlet property="timeLabel" destination="GCI-Ou-n8A" id="SK4-IE-tXp"/>
-                            <outlet property="titleLabel" destination="48u-xc-hVw" id="7b6-pq-1c1"/>
-                            <outlet property="watchBtn" destination="fwW-HC-2K1" id="u8f-Yy-mb7"/>
-                            <outlet property="wemDressBtn" destination="ulA-Hu-zoh" id="OdW-7b-0wp"/>
-                            <outlet property="wemShoesBtn" destination="mlo-8N-iuk" id="tqK-lj-JFW"/>
-                            <outlet property="woShoesBtn" destination="tXy-tl-rUQ" id="Lkb-Hc-1ID"/>
-                            <outlet property="womDressBtn" destination="7Si-ve-SGY" id="YAA-uU-miD"/>
-                        </connections>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZKz-9a-17h" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1184.5" y="481.5"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="3x6-Pa-9fA">
             <objects>
@@ -204,17 +45,4 @@
             <point key="canvasLocation" x="313" y="529"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="address_ico" width="28" height="24"/>
-        <image name="address_icon" width="14" height="19"/>
-        <image name="classify_cosmetology" width="260" height="260"/>
-        <image name="classify_ladies_shoes_bag" width="260" height="260"/>
-        <image name="classify_live_home" width="260" height="260"/>
-        <image name="classify_men_shoes_bag" width="260" height="260"/>
-        <image name="classify_men_wear" width="260" height="260"/>
-        <image name="classify_mother_baby" width="260" height="260"/>
-        <image name="classify_watch" width="260" height="260"/>
-        <image name="classify_women_wear" width="260" height="260"/>
-        <image name="jia2" width="48" height="48"/>
-    </resources>
 </document>

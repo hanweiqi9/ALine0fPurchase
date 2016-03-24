@@ -6,12 +6,17 @@
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
 
+#define kWidth [UIScreen mainScreen].bounds.size.width
+#define kHeight [UIScreen mainScreen].bounds.size.height
+#define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
+
 #import "QuickLoginViewController.h"
 #import "UserViewController.h"
-//#import <BmobSDK/BmobUser.h>
-//#import <BmobSDK/BmobSMS.h>
+#import <BmobSDK/BmobUser.h>
+#import <BmobSDK/BmobSMS.h>
+#import "LoginViewController.h"
 
-@interface QuickLoginViewController ()
+@interface QuickLoginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneNum;
 @property (weak, nonatomic) IBOutlet UITextField *getNum;
 
@@ -24,7 +29,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
+    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
     [backBtn setImage:[UIImage imageNamed:@"arrow_left_pink"] forState:UIControlStateNormal];
     [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 5)];
     [backBtn addTarget:self action:@selector(backBtnActivity) forControlEvents:UIControlEventTouchUpInside];
@@ -38,22 +43,25 @@
 
 //登陆
 - (IBAction)loginAction:(id)sender {
-//    [BmobSMS verifySMSCodeInBackgroundWithPhoneNumber:self.phoneNum.text andSMSCode:self.getNum.text resultBlock:^(BOOL isSuccessful, NSError *error) {
-//        if (isSuccessful) {
-//            NSLog(@"验证成功");
-//        }else{
-//            NSLog(@"验证失败");
-//        }
-//    }];
-//    
-//    [BmobUser signOrLoginInbackgroundWithMobilePhoneNumber:self.phoneNum.text andSMSCode:self.getNum.text block:^(BmobUser *user, NSError *error) {
-//        if (user) {
-//            NSLog(@"%@",user);
-//        }else{
-//            NSLog(@"%@",error);
-//        }
-//    }];
-    
+            [BmobUser signOrLoginInbackgroundWithMobilePhoneNumber:self.phoneNum.text andSMSCode:self.getNum.text block:^(BmobUser *user, NSError *error) {
+                if (user) {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"登陆成功" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        LoginViewController *login = [[LoginViewController alloc] init];
+                        [self.navigationController pushViewController:login animated:YES];
+                        
+                    }];
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    [alert addAction:action];
+                    [alert addAction:cancelAction];
+                    [self presentViewController:alert animated:YES completion:nil];
+                    NSLog(@"%@",user);
+                }else{
+                    NSLog(@"%@",error);
+                }
+            }];
 }
 
 -(BOOL)checkout{
@@ -108,11 +116,11 @@
     if (![self checkout]) {
         return;
     }else{
-//   [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNum.text andTemplate:@"message" resultBlock:^(int number, NSError *error) {
-//        if (error) {
-//            NSLog(@"%@",error);
-//        }
-//    }];
+   [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNum.text andTemplate:@"message" resultBlock:^(int number, NSError *error) {
+        if (error) {
+            NSLog(@"%@",error);
+        }
+    }];
     }
 }
 
@@ -120,9 +128,19 @@
 
 
 - (IBAction)agreementAction:(id)sender {
-//    UserViewController *user =[[UserViewController alloc] init];
-//    [self.navigationController pushViewController:user animated:YES];
+    UserViewController *user =[[UserViewController alloc] init];
+    [self.navigationController pushViewController:user animated:YES];
     
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
 }
 
 

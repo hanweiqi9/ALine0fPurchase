@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
-
+@interface LoginViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@property(nonatomic ,strong) NSString *userStr;
 @end
