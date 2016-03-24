@@ -59,6 +59,8 @@
 		7A5E4FCB1C9F94F4003EF725 /* UIViewController+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E4FCA1C9F94F4003EF725 /* UIViewController+Common.m */; };
 		7A5E4FCD1C9FA4C2003EF725 /* youhui.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A5E4FCC1C9FA4C2003EF725 /* youhui.plist */; };
 		7A5E4FD91CA02E58003EF725 /* nearpre.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A5E4FD81CA02E58003EF725 /* nearpre.plist */; };
+		7A7430F21CA36ED200DB5DE4 /* mei.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A7430F11CA36ED200DB5DE4 /* mei.plist */; };
+		7A7CC8C51CA3947F00B77F98 /* beijingtool.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A7CC8C41CA3947F00B77F98 /* beijingtool.plist */; };
 		7A81FD2C1C9FCCA50054A7FA /* BrandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A81FD251C9FCCA50054A7FA /* BrandModel.m */; };
 		7A81FD2D1C9FCCA50054A7FA /* DetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A81FD271C9FCCA50054A7FA /* DetailModel.m */; };
 		7A81FD2E1C9FCCA50054A7FA /* OneBrandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A81FD291C9FCCA50054A7FA /* OneBrandModel.m */; };
@@ -208,6 +210,8 @@
 		7A5E4FCA1C9F94F4003EF725 /* UIViewController+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Common.m"; sourceTree = "<group>"; };
 		7A5E4FCC1C9FA4C2003EF725 /* youhui.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = youhui.plist; sourceTree = "<group>"; };
 		7A5E4FD81CA02E58003EF725 /* nearpre.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = nearpre.plist; sourceTree = "<group>"; };
+		7A7430F11CA36ED200DB5DE4 /* mei.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mei.plist; sourceTree = "<group>"; };
+		7A7CC8C41CA3947F00B77F98 /* beijingtool.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = beijingtool.plist; sourceTree = "<group>"; };
 		7A81FD241C9FCCA50054A7FA /* BrandModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandModel.h; sourceTree = "<group>"; };
 		7A81FD251C9FCCA50054A7FA /* BrandModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandModel.m; sourceTree = "<group>"; };
 		7A81FD261C9FCCA50054A7FA /* DetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailModel.h; sourceTree = "<group>"; };
@@ -521,6 +525,8 @@
 				7ADA10F01CA0F181003116FA /* you.plist */,
 				7ADA10E71CA0DCD9003116FA /* Turn.plist */,
 				7ADA10EB1CA0EA71003116FA /* Tool.plist */,
+				7A7CC8C41CA3947F00B77F98 /* beijingtool.plist */,
+				7A7430F11CA36ED200DB5DE4 /* mei.plist */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -892,6 +898,7 @@
 				7A81FD4C1C9FCCE00054A7FA /* BrandDetail.plist in Resources */,
 				7ADA10F11CA0F181003116FA /* you.plist in Resources */,
 				7A2D55C81C9F7DD7002018F4 /* Nearby.storyboard in Resources */,
+				7A7CC8C51CA3947F00B77F98 /* beijingtool.plist in Resources */,
 				7A81FD4F1C9FCCE00054A7FA /* ShopBrand.plist in Resources */,
 				7A2D559B1C9F780A002018F4 /* Discover.storyboard in Resources */,
 				7A81FD3F1C9FCCCC0054A7FA /* ShopTableViewCell.xib in Resources */,
@@ -903,6 +910,7 @@
 				7A5E4FC31C9F8BA7003EF725 /* YouhuiTableViewCell.xib in Resources */,
 				7A5E4FCD1C9FA4C2003EF725 /* youhui.plist in Resources */,
 				7A81FD4B1C9FCCE00054A7FA /* Brand.plist in Resources */,
+				7A7430F21CA36ED200DB5DE4 /* mei.plist in Resources */,
 				7AEC17AF1CA29055004DEFBE /* guangzou.plist in Resources */,
 				7A2D55D81C9F8031002018F4 /* blueArrow.png in Resources */,
 				7AEC17951CA2794E004DEFBE /* ProgressHUD.bundle in Resources */,

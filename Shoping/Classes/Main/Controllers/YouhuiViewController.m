@@ -91,9 +91,6 @@
     activityMianVC.title = self.YouArray[indexPath.row][@"couponName"];
     activityMianVC.trunId = self.YouArray[indexPath.row][@"couponId"];
     [self.navigationController pushViewController:activityMianVC animated:YES];
-
-    
-    
     
 }
 #pragma mark ------------- 刷新代理

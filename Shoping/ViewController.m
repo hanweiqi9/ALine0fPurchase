@@ -171,16 +171,17 @@
     youButton.frame = CGRectMake(5, kHeight/2+kWidth/3 + kWidth /4 + 7+ kWidth/13, kWidth / 2 + 30, kWidth/2);
     youButton.tag = 6;
     [youButton addTarget:self action:@selector(AllBottonAction:) forControlEvents:UIControlEventTouchUpInside];
-    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(youButton.frame.size.width/8, youButton.frame.size.height - 40,youButton.frame.size.width/2 ,40)];
-    lable.text = self.youDic[@"mallName"];
-    lable.textAlignment = NSTextAlignmentCenter;
-    lable.textColor = [UIColor whiteColor];
-    [youButton addSubview:lable];
     
     NSString *string =[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/%@",self.youDic[@"mainPicUrl"]];
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, youButton.frame.size.width, youButton.frame.size.height)];
     [imageview sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
     [youButton addSubview:imageview];
+    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(0, youButton.frame.size.height - 40,youButton.frame.size.width ,40)];
+    lable.text = self.youDic[@"mallName"];
+    lable.backgroundColor = [UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.6];
+    lable.textAlignment = NSTextAlignmentCenter;
+    lable.textColor = [UIColor whiteColor];
+    [imageview addSubview:lable];
     [self.HeadView addSubview:youButton];
     for (int i = 0; i < 2; i++) {
         UIButton *Button = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -253,7 +254,8 @@
 - (void)toolViewData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/recommend?appVersion=4.2.0&cityId=%@",self.cityId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    NSString *urlSting = [NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/recommend?appVersion=4.2.0&cityId=%@",self.cityId];
+    [manger GET:urlSting parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSArray *dataArray = dic[@"datas"];
@@ -345,48 +347,7 @@
     [self.HeadView addSubview:titleLgood];
     
 }
-//圆点随着滑动变化
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView1{
-//    CGFloat pagenum = self.scrollView.frame.size.width;
-//    CGPoint offset =  self.scrollView.contentOffset;
-//    NSInteger num = offset.x / pagenum;
-//    self.pageC.currentPage = num;
-//}
-//
-//- (void)startTimer{
-//    
-//    //如果定时器存在的话， 不在执行
-//    if (_timer != nil) {
-//        return;
-//    }
-//    self.timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(rollScreen) userInfo:nil repeats:YES];
-//    
-//    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
-//    
-//}
-////每两秒执行一次图片自动轮播
-//- (void)rollScreen{
-//    if (self.turnArray.count > 0) {
-//        //当前页 +1
-//        //self.idArray.count的元素可能为0，当0时对取余的时候，没有意义
-//        NSInteger rollPage = (self.pageC.currentPage + 1) % self.turnArray.count;
-//        self.pageC.currentPage = rollPage;
-//        
-//        CGFloat offset = rollPage * kWidth;
-//        [self.scrollView setContentOffset:CGPointMake(offset, 0) animated:YES];
-//    }
-//    
-//}
-//
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-//    //    [self rollScreen];
-//    //停止定时器后，将定时器置为nil，再次启动时，定时器才能保证正常执行。
-//    //        self.timer = nil;
-//    //    [self startTimer];
-//}
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-//    [self startTimer];
-//}
+
 
 #pragma mark ---------- 代理
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -423,40 +384,13 @@
     [self.navigationController pushViewController:activityVC animated:YES];
 }
 #pragma mark --------- 点击方法
-//- (void)TurnAction:(UIButton *)button{
-//    
-//    NSString *urlsting = self.turnArray[button.tag - 100][@"linkUrl"];
-//    NSArray *array = [urlsting componentsSeparatedByString:@"/"];
-//    NSString *stinr = array[array.count-1];
-//    NSArray *typeArray = [stinr componentsSeparatedByString:@".html"];
-//    NSString *typestinr = typeArray[0];
-//    if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"] ) {
-//        HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
-//        htmlVC.urlString = self.turnArray[button.tag - 100][@"fuliId"];
-//        htmlVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:htmlVC animated:YES];
-//    }
-//    if ([typestinr isEqualToString:@"brandcoupon"]) {
-//        ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
-//        activityMianVC.hidesBottomBarWhenPushed = YES;
-//        NSString *stinf = typeArray[1];
-//        NSArray *aarray = [stinf componentsSeparatedByString:@"?cid="];
-//        NSString *csting = aarray[1];
-//        NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
-//        activityMianVC.trunId = barray[0];
-//        activityMianVC.title = self.turnArray[button.tag - 100][@"description"];
-//        [self.navigationController pushViewController:activityMianVC animated:YES];
-//    }
-//}
-
-
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
         NSString *urlsting = self.turnArray[index][@"linkUrl"];
         NSArray *array = [urlsting componentsSeparatedByString:@"/"];
         NSString *stinr = array[array.count-1];
         NSArray *typeArray = [stinr componentsSeparatedByString:@".html"];
         NSString *typestinr = typeArray[0];
-        if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"] ) {
+        if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"] ||[typestinr isEqualToString:@"brandinfo"] ) {
             HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
             htmlVC.urlString = self.turnArray[index][@"fuliId"];
             htmlVC.hidesBottomBarWhenPushed = YES;
@@ -466,32 +400,30 @@
             ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
             activityMianVC.hidesBottomBarWhenPushed = YES;
             NSString *stinf = typeArray[1];
-            NSArray *aarray = [stinf componentsSeparatedByString:@"?cid="];
+            NSArray *aarray = [stinf componentsSeparatedByString:@"="];
             NSString *csting = aarray[1];
             NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
             activityMianVC.trunId = barray[0];
-            activityMianVC.title = self.turnArray[index][@"description"];
             [self.navigationController pushViewController:activityMianVC animated:YES];
         }
-//    if ([typestinr isEqualToString:@"subject"]) {
-//        ActivityViewController *activityVC = [[ActivityViewController alloc] init];
-//        activityVC.userId = @"c649ac4bf87f43fea924f52a2639e533";
-//        activityVC.type = 1;
-//        NSString *sting = typeArray[typeArray.count - 1];
-//        NSArray *arra = [sting componentsSeparatedByString:@"&detailId="];
-//        activityVC.selectId = arra[1];
-//        activityVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:activityVC animated:YES];
-//
-//    }
+    if ([typestinr isEqualToString:@"subject"]) {
+        ActivityViewController *avtivity = [[ActivityViewController alloc] init];
+        NSString *stinf = typeArray[1];
+        NSArray *aarray = [stinf componentsSeparatedByString:@"="];
+        NSString *csting = aarray[aarray.count - 1];
+            avtivity.selectId = csting;
+            avtivity.userId = @"c649ac4bf87f43fea924f52a2639e533";
+            avtivity.type = 1;
+        
+        [self.navigationController pushViewController:avtivity animated:YES];
+    }
     
 }
-
-
 - (void)leftBarButtonAction{
     [self getCityData];
     self.blackView.hidden = NO;
     UIButton *buttona = [UIButton buttonWithType:UIButtonTypeCustom];
+
     buttona.frame = CGRectMake(0, 30, kWidth, kHeight -30);
     [buttona addTarget:self action:@selector(BackMain) forControlEvents:UIControlEventTouchUpInside];
     [self.blackView addSubview:buttona];
@@ -500,8 +432,9 @@
     if (self.cityArray.count > 0) {
         for (int i = 0; i < self.cityArray.count; i++) {
             self.cityButton = [UIButton buttonWithType:UIButtonTypeSystem];
-            self.cityButton .backgroundColor = [UIColor cyanColor];
+            self.cityButton .backgroundColor =[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:1.0];
             self.cityButton .frame = CGRectMake(kWidth/3*i+ 10, 15, kWidth/3-20, 30);
+            [self.cityButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [self.cityButton  setTitle:self.cityArray[i][@"cityName"] forState:UIControlStateNormal];
             self.cityButton .tag = i;
             [self.cityButton  addTarget:self action:@selector(BackUpView:) forControlEvents:UIControlEventTouchUpInside];
@@ -514,6 +447,8 @@
 - (void)BackUpView:(UIButton *)button{
 //    [self.cityButton  setTitle:self.cityArray[button.tag][@"cityName"] forState:UIControlStateNormal];
     self.cityButton.titleLabel.text = self.cityArray[button.tag][@"cityName"];
+    self.cityButton.backgroundColor = [UIColor redColor];
+    self.cityButton.titleLabel.textColor = [UIColor whiteColor];
     self.blackView.hidden = YES;
     self.cityId = self.cityArray[button.tag][@"cityId"];
     [self MoreThead];
@@ -700,5 +635,75 @@
  //}
  
  
+ //圆点随着滑动变化
+ //- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView1{
+ //    CGFloat pagenum = self.scrollView.frame.size.width;
+ //    CGPoint offset =  self.scrollView.contentOffset;
+ //    NSInteger num = offset.x / pagenum;
+ //    self.pageC.currentPage = num;
+ //}
+ //
+ //- (void)startTimer{
+ //
+ //    //如果定时器存在的话， 不在执行
+ //    if (_timer != nil) {
+ //        return;
+ //    }
+ //    self.timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(rollScreen) userInfo:nil repeats:YES];
+ //
+ //    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+ //
+ //}
+ ////每两秒执行一次图片自动轮播
+ //- (void)rollScreen{
+ //    if (self.turnArray.count > 0) {
+ //        //当前页 +1
+ //        //self.idArray.count的元素可能为0，当0时对取余的时候，没有意义
+ //        NSInteger rollPage = (self.pageC.currentPage + 1) % self.turnArray.count;
+ //        self.pageC.currentPage = rollPage;
+ //
+ //        CGFloat offset = rollPage * kWidth;
+ //        [self.scrollView setContentOffset:CGPointMake(offset, 0) animated:YES];
+ //    }
+ //
+ //}
+ //
+ //- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+ //    //    [self rollScreen];
+ //    //停止定时器后，将定时器置为nil，再次启动时，定时器才能保证正常执行。
+ //    //        self.timer = nil;
+ //    //    [self startTimer];
+ //}
+ //- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+ //    [self startTimer];
+ //}
+ 
+ 
+ 
+ //- (void)TurnAction:(UIButton *)button{
+ //
+ //    NSString *urlsting = self.turnArray[button.tag - 100][@"linkUrl"];
+ //    NSArray *array = [urlsting componentsSeparatedByString:@"/"];
+ //    NSString *stinr = array[array.count-1];
+ //    NSArray *typeArray = [stinr componentsSeparatedByString:@".html"];
+ //    NSString *typestinr = typeArray[0];
+ //    if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"] ) {
+ //        HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
+ //        htmlVC.urlString = self.turnArray[button.tag - 100][@"fuliId"];
+ //        htmlVC.hidesBottomBarWhenPushed = YES;
+ //        [self.navigationController pushViewController:htmlVC animated:YES];
+ //    }
+ //    if ([typestinr isEqualToString:@"brandcoupon"]) {
+ //        ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
+ //        activityMianVC.hidesBottomBarWhenPushed = YES;
+ //        NSString *stinf = typeArray[1];
+ //        NSArray *aarray = [stinf componentsSeparatedByString:@"?cid="];
+ //        NSString *csting = aarray[1];
+ //        NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
+ //        activityMianVC.trunId = barray[0];
+ //        activityMianVC.title = self.turnArray[button.tag - 100][@"description"];
+ //        [self.navigationController pushViewController:activityMianVC animated:YES];
+ //    }
+ //}
  
  */
