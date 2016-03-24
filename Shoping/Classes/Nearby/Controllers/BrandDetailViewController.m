@@ -127,7 +127,11 @@
 //tableView头部视图
 - (void)configHeaderTableView {
      NSString *str = @"http://api.gjla.com/app_admin_v400/";
-    NSString *brandUrl = self.datasDic[@"brandPicUrl"];
+    NSString *brandUrl;
+    if (![self.datasDic[@"brandPicUrl"] isEqual:[NSNull null]]) {
+        brandUrl = self.datasDic[@"brandPicUrl"];
+    }
+    
     //字符串查找，判断字符串中是否有 |
     NSMutableArray *strArray1 = [NSMutableArray new];
     if ([brandUrl rangeOfString:@"|"].location != NSNotFound) {
@@ -152,7 +156,7 @@
         _adView.iDisplayTime = 2;
         _adView.bWebImage = YES;
         _adView.delegate = self;
-        if (strArray1.count > 0) {
+        if (strArray1.count > 1) {
             [_adView startAdsWithBlock:strArray1 block:^(NSInteger clickIndex){
             }];
 
@@ -344,6 +348,13 @@
     }
     return _datasDic;
 }
+
+//在页面将要消失的时候去掉所有的圈圈
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [ProgressHUD dismiss];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -20,6 +20,7 @@
 #import "MangoSingleton.h"
 #import "ShopDetPicDetailViewController.h"
 #import "VOSegmentedControl.h"
+#import "ProgressHUD.h"
 
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
@@ -96,6 +97,7 @@
 
 //网络请求
 - (void)requestData {
+    [ProgressHUD show:@"正在加载中..."];
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
     
     [sessionManger GET:[NSString stringWithFormat:@"%@&mallId=%@", kShopDetail, _detailId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -121,7 +123,7 @@
             [self.dataArray addObject:model1];
             
     }
-        
+        [ProgressHUD showSuccess:@"数据加载完成"];
         [self.tableView reloadData];
         [self configTableViewHeader];
         
@@ -427,6 +429,12 @@
         self.detailView.frame=CGRectMake(0, 10, kWidth, kWidth * 0.335 + 180 + kWidth / 4 + kWidth / 4 - 15);
     }
     return _detailView;
+}
+
+//在页面将要消失的时候去掉所有的圈圈
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [ProgressHUD dismiss];
 }
 
 

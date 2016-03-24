@@ -13,6 +13,7 @@
 #import "MapViewController.h"
 #import "MangoSingleton.h"
 #import "ShBraDetaiTableViewCell.h"
+#import "ProgressHUD.h"
 
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
@@ -80,6 +81,7 @@
 
 //网络请求
 - (void)requestDataFromNet {
+    [ProgressHUD show:@"数据加载中..."];
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
     [sessionManger GET:[NSString stringWithFormat:@"%@&brandId=%@&storeId=%@", kDetail, _brandId, _storeId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -87,6 +89,7 @@
         NSDictionary *dict = responseObject;
         self.datasDic = dict[@"datas"];
        self.dataArray = self.datasDic[@"sameBrandOtherStores"];
+        [ProgressHUD showSuccess:@"数据加载完成"];
         [self.tableView reloadData];
         [self configHeaderTableView];
         
@@ -310,7 +313,11 @@
     return _datasDic;
 }
 
-
+//在页面将要消失的时候去掉所有的圈圈
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [ProgressHUD dismiss];
+}
 
 
 - (void)didReceiveMemoryWarning {

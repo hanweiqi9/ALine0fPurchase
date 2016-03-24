@@ -279,6 +279,12 @@
     self.mySearchBar.hidden = NO;
 }
 
+//在页面将要消失的时候去掉所有的圈圈
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [ProgressHUD dismiss];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

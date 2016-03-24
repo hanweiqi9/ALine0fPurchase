@@ -9,7 +9,7 @@
 #import "ShopDetPicDetailViewController.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import <SDWebImage/UIImageView+WebCache.h>
-
+#import "ProgressHUD.h"
 #define kPicUrl @"http://api.gjla.com/app_admin_v400/"
 #define kPicDetail @"http://api.gjla.com/app_admin_v400/api/subject/detail?userId=2ff0ab3508b24d20a87092b06f056c1e&type=1&audit="
 
@@ -78,22 +78,24 @@
 
 //网络请求
 - (void)requestData {
+    [ProgressHUD show:@"数据加载中..."];
      AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
     NSLog(@"%@&objId=%@",kPicDetail,self.twoModel.subjectId);
     [sessionManger GET:[NSString stringWithFormat:@"%@&objId=%@",kPicDetail,self.twoModel.subjectId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *responsDic = responseObject;
-       self.dic = responsDic[@"datas"];
+        self.dic = responsDic[@"datas"];
+        //将字典中取出的字符串进行查找替换
+        NSString *conStr = self.dic[@"content"];
+        NSString *urlStr = [conStr stringByReplacingOccurrencesOfString:@"ueditorUpload" withString:@"http://api.gjla.com/app_admin_v400/ueditorUpload"];
         //加载html-content
-        [self.webView loadHTMLString:self.dic[@"content"] baseURL:nil];
-        //初始化一个数组获取到字典中所有的key
-        [self.keyArray addObject:self.dic.allKeys];
-        
+        [self.webView loadHTMLString:urlStr baseURL:nil];
         //初始化一个ImageView
         UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.headView.frame.size.width, self.headView.frame.size.height)];
         NSString *imageUrl = [NSString stringWithFormat:@"%@%@",kPicUrl, self.twoModel.mainPicUrl];
         [imageView1 sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
-               [self.headView addSubview:imageView1];
+        [self.headView addSubview:imageView1];
+        [ProgressHUD showSuccess:@"数据加载完成"];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -106,19 +108,6 @@
 
 //改变webView字体大小
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
-//    for (NSString *str in self.keyArray) {
-//        //取出字符串为content的key
-//        if ([str isEqualToString:@"content"]) {
-////            
-//        }
-//    }
-    
-//    NSString *strValue = [self.dic valueForKey:@"content"];
-//    NSString *strurl=[strValue stringByReplacingOccurrencesOfString:@"src=\"" withString:@"src=\"+http://api.gjla.com/app_admin_v400/"];
-//    NSString *strurls=[strurl stringByReplacingOccurrencesOfString:@"?tp=webp" withString:@""];
-//    [_webView loadHTMLString:strurls baseURL:nil];
-
-
     
     NSString *str = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '300%'";
     [_webView stringByEvaluatingJavaScriptFromString:str];
@@ -169,6 +158,12 @@
 
 - (void)backLeftAction:(UIButton *)btn {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+//在页面将要消失的时候去掉所有的圈圈
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [ProgressHUD dismiss];
 }
 
 - (void)didReceiveMemoryWarning {
