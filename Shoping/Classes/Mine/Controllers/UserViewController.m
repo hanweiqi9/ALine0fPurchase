@@ -5,6 +5,9 @@
 //  Created by scjy on 16/3/20.
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
+#define kWidth [UIScreen mainScreen].bounds.size.width
+#define kHeight [UIScreen mainScreen].bounds.size.height
+
 
 #import "UserViewController.h"
 
@@ -19,9 +22,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"用户协议";
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
+    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
     [backBtn setImage:[UIImage imageNamed:@"arrow_left_pink"] forState:UIControlStateNormal];
     [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 5)];
     [backBtn addTarget:self action:@selector(backBtnActivity) forControlEvents:UIControlEventTouchUpInside];
@@ -36,6 +40,8 @@
     NSString *str = @"http://115.28.144.229:8080/app_web/xieyi?datetime=1458443351087";
     NSURL *url = [NSURL URLWithString:str];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    self.webView.opaque = NO;
+    self.webView.backgroundColor = [UIColor whiteColor];
     [self.webView loadRequest:request];
     
     

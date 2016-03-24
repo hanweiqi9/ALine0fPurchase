@@ -13,17 +13,39 @@
 #import "CenterViewController.h"
 #import "DiscoverViewController.h"
 #import "MineViewController.h"
+#import <BmobSDK/Bmob.h>
+#import "WeiboSDK.h"
+#import "WXApi.h"
 
 
-@interface AppDelegate ()
+
+@interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate>
 
 @end
 
-@implementation AppDelegate
 
+
+@implementation AppDelegate
+@synthesize wbtoken;
+@synthesize wbCurrentUserID;
+@synthesize wbRefreshToken;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //状态栏颜色
+//    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+    
+    
+    
+    //bmob
+    [Bmob registerWithAppKey:@"413557b216c3e5c7ef5e11008d0c6b26"];
+    //微博
+    [WeiboSDK enableDebugMode:YES];
+    [WeiboSDK registerApp:@"894620014"];
+    
+    //微信
+    [WXApi registerApp:@"wxb18bd78d096243ca"];
+    
     self.tablebarVC = [[UITabBarController alloc] init];
     //首页
     UIStoryboard *mainStory = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -87,6 +109,40 @@
     
     return YES;
 }
+
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    if ([WeiboSDK isCanShareInWeiboAPP]) {
+         return [WeiboSDK handleOpenURL:url delegate:self];
+    }
+    return [WXApi handleOpenURL:url delegate:self];
+   
+}
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    
+    if ([WeiboSDK isCanShareInWeiboAPP]) {
+        return [WeiboSDK handleOpenURL:url delegate:self];
+
+    }
+    return [WXApi handleOpenURL:url delegate:self];
+    
+}
+
+- (void)didReceiveWeiboRequest:(WBBaseRequest *)request{
+    
+}
+
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response{
+    
+}
+
+-(void)onReq:(BaseReq *)req{
+    
+}
+-(void)onResp:(BaseResp *)resp{
+    
+}
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

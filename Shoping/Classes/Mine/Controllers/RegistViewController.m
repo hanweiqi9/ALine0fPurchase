@@ -6,16 +6,19 @@
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
 
+#define kWidth [UIScreen mainScreen].bounds.size.width
+#define kHeight [UIScreen mainScreen].bounds.size.height
+
 #import "RegistViewController.h"
-//#import <BmobSDK/Bmob.h>
-//#import <BmobSDK/BmobSMS.h>
+#import <BmobSDK/Bmob.h>
+#import <BmobSDK/BmobSMS.h>
 #import "UserViewController.h"
 
-@interface RegistViewController ()
+@interface RegistViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneText;
 @property (weak, nonatomic) IBOutlet UITextField *passWord;
+@property (weak, nonatomic) IBOutlet UITextField *getwordLabel;
 
-@property (weak, nonatomic) IBOutlet UITextField *pleaseWord;
 
 
 @end
@@ -27,12 +30,13 @@
     // Do any additional setup after loading the view.
      self.view.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
+    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
     [backBtn setImage:[UIImage imageNamed:@"arrow_left_pink"] forState:UIControlStateNormal];
     [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 5)];
     [backBtn addTarget:self action:@selector(backBtnActivity) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = leftBarBtn;
+    self.passWord.secureTextEntry = YES;
 }
 
 -(void)backBtnActivity{
@@ -41,30 +45,27 @@
 
 //注册
 - (IBAction)registAction:(id)sender {
-    if (![self checkout]) {
-        return;
-    }
-//    BmobUser *user  =[[BmobUser alloc] init];
-//    [user setUsername:self.phoneText.text];
-//    [user setPassword:self.passWord.text];
-//
-//    [user signUpInBackgroundWithBlock:^(BOOL isSuccessful, NSError *error) {
-//        if (isSuccessful) {
-//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"恭喜你" message:@"注册成功" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//       [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-//                        
-//                    }];
-//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                        
-//            }];
-//           [alert addAction:action];
-//           [alert addAction:cancelAction];
-//           [self presentViewController:alert animated:YES completion:nil];
-//        }else{
-//            NSLog(@"%@",error);
-//            }
-//    }];
+    BmobUser *user  =[[BmobUser alloc] init];
+    [user setUsername:self.phoneText.text];
+    [user setMobilePhoneNumber:self.phoneText.text];
+    [user setPassword:self.passWord.text];
+    [user signUpInBackgroundWithBlock:^(BOOL isSuccessful, NSError *error) {
+        if (isSuccessful) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"恭喜你" message:@"注册成功" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+       [self.navigationController popToRootViewControllerAnimated:YES];
+                        
+                    }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        
+            }];
+           [alert addAction:action];
+           [alert addAction:cancelAction];
+           [self presentViewController:alert animated:YES completion:nil];
+        }else{
+            NSLog(@"%@",error);
+            }
+    }];
 
 }
 
@@ -129,31 +130,19 @@
     }
     return YES;
 }
-//获取验证码
-//- (IBAction)getWordAction:(id)sender {
-//    if (self.phoneText.text.length <= 0&&[self.phoneText.text stringByReplacingOccurrencesOfString:@" " withString:@""].length <= 0) {
-//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"手机号码不能为空，请重新输入" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-//            
-//        }];
-//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            
-//        }];
-//        [alert addAction:action];
-//        [alert addAction:cancelAction];
-//        [self presentViewController:alert animated:YES completion:nil];
-//    }
-//    [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneText.text andTemplate:@"message" resultBlock:^(int number, NSError *error) {
-//        if (error) {
-//            NSLog(@"%@",error);
-//        }else{
-//            NSLog(@"%d",number);
-//        }
-//        
-//    }];
-//    
-//}
+- (IBAction)getWordAction:(id)sender {
+    if (![self checkout]) {
+        return;
+    }else{
+        [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneText.text andTemplate:@"message" resultBlock:^(int number, NSError *error) {
+            if (error) {
+                NSLog(@"%@",error);
+            }
+        }];
+    }
+    
+    
+}
 //全程逛街用户协议
 - (IBAction)activityAction:(id)sender {
     UserViewController *user = [[UserViewController alloc] init];
@@ -162,7 +151,16 @@
 }
 
 
+//回收键盘
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    
+    return YES;
+}
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
 
 
 

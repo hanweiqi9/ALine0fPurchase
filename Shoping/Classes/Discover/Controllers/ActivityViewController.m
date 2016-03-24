@@ -18,13 +18,18 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MineViewController.h"
 #import "ShareView.h"
+#import "GuanCang.h"
 
-@interface ActivityViewController ()
+@interface ActivityViewController ()<UIWebViewDelegate>
 @property(nonatomic,strong) NSDictionary *dict;
 @property(nonatomic,strong) UIWebView *webView;
 @property(nonatomic,strong) UIView *headView;
 @property(nonatomic,strong) NSString *str;
 @property(nonatomic,strong) NSString *image;
+@property(nonatomic,strong) NSString *titleStr;
+@property(nonatomic,strong) UIButton *zanBtn;
+@property(nonatomic,strong) NSString *subTit;
+@property(nonatomic,strong) NSString *support;
 
 
 @end
@@ -35,7 +40,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    
     [self titles];
         UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
@@ -45,13 +49,14 @@
         UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
         self.navigationItem.leftBarButtonItem = leftBarBtn;
     
-    UIButton *zanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    zanBtn.frame = CGRectMake(kWidth*2/3, 0, kWidth/8, 20);
-    [zanBtn setImage:[UIImage imageNamed:@"zan@2x.icon"] forState:UIControlStateNormal];
-    [zanBtn setTintColor:[UIColor clearColor]];
-    [zanBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 5)];
-    [zanBtn addTarget:self action:@selector(zanActivity) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *oneBtn = [[UIBarButtonItem alloc] initWithCustomView:zanBtn];
+    self.zanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.zanBtn.frame = CGRectMake(kWidth*2/3, 0, kWidth/8, 20);
+    [self.zanBtn setImage:[UIImage imageNamed:@"favor_no1"] forState:UIControlStateNormal];
+    
+    [self.zanBtn setTintColor:[UIColor clearColor]];
+    [self.zanBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 5)];
+    [self.zanBtn addTarget:self action:@selector(zanActivity) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *oneBtn = [[UIBarButtonItem alloc] initWithCustomView:self.zanBtn];
     
     UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     shareBtn.frame = CGRectMake(kWidth*5/6, 0, kWidth/8, 20);
@@ -66,10 +71,17 @@
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.webView.dataDetectorTypes = UIDataDetectorTypeAll;
     self.webView.scalesPageToFit = YES;
+    self.webView.delegate = self;
+    self.webView.opaque = NO;//不设置这个，背景颜色默认为黑
+    self.webView.backgroundColor =[UIColor whiteColor];
     [self.view addSubview:self.webView];
     
     [self.webView.scrollView addSubview:self.headView];
     
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '300%'"];
 }
 
 -(void)titles{
@@ -93,6 +105,8 @@
     if (_headView == nil) {
         self.headView = [[UIView alloc] initWithFrame:CGRectMake(0, -kHeight*1/2, kWidth, kHeight*1/2)];
         self.webView.scrollView.contentInset = UIEdgeInsetsMake(kHeight*1/2, 0, 0, 0);
+        self.webView.scrollView.backgroundColor = [UIColor whiteColor];
+        self.headView.backgroundColor = [UIColor whiteColor];
     }
     return _headView;
 }
@@ -105,10 +119,15 @@
 //        NSLog(@"%@",responseObject);
         NSDictionary *dic = responseObject;
         self.dict = dic[@"datas"];
-        self.str = self.dict[@"content"];
+        self.titleStr = self.dict[@"title"];
+        NSString *conStr = self.dict[@"content"];
+        self.str = [conStr stringByReplacingOccurrencesOfString:@"ueditorUpload" withString:@"http://api.gjla.com/app_admin_v400/ueditorUpload"];
+        self.subTit = self.dict[@"shareContent"];
+        self.support = self.dict[@"id"];
         NSString *imStr = @"http://api.gjla.com/app_admin_v400/";
         self.image = [NSString stringWithFormat:@"%@%@",imStr,self.dict[@"mainPicUrl"]];
        
+//        self.str = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='300%'";
         [self.webView loadHTMLString:self.str baseURL:nil];
         
         UIImageView *image1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.headView.frame.size.width, self.headView.frame.size.height)];
@@ -127,14 +146,26 @@
 }
 
 -(void)zanActivity{
-    UIStoryboard *mine = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
-    UINavigationController *nav = mine.instantiateInitialViewController;
-    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    [self.zanBtn setImage:[UIImage imageNamed:@"favor_yes1"] forState:UIControlStateNormal];
+//    UIStoryboard *mine = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+//    UINavigationController *nav = mine.instantiateInitialViewController;
+//    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    
+    GuanCang *manager =[GuanCang sharedInstance];
+    GuanModel *model = [[GuanModel alloc] init];
+    model.title = self.titleStr;
+    model.subTitle = self.subTit;
+    model.titImage = self.image;
+//    model.timeText = self.support;
+    [manager insertIntoNewModel:model];
     
 }
 -(void)shareBtn{
     
     ShareView *shareVC = [[ShareView alloc] init];
+    shareVC.titStr = self.titleStr;
+    shareVC.urlStr = self.image;
+    
     [self.view addSubview:shareVC];
 }
 
