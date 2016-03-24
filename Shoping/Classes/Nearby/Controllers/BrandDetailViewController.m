@@ -14,6 +14,7 @@
 #import "DetailModel.h"
 #import "MapViewController.h"
 #import "MangoSingleton.h"
+#import "ProgressHUD.h"
 
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
@@ -76,6 +77,7 @@
 
 //网络请求
 - (void)requestDataFromNet {
+    [ProgressHUD show:@"正在加载中"];
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
     [sessionManger GET:[NSString stringWithFormat:@"%@&brandId=%@", kBrandDetail, _brandId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -88,10 +90,9 @@
             [model setValuesForKeysWithDictionary:dic];
             [self.dataArray addObject:model];
         }
-        
-        [self.tableView reloadData];
+        [ProgressHUD showSuccess:@"数据加载完成"];
         [self configHeaderTableView];
-        
+        [self.tableView reloadData];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
