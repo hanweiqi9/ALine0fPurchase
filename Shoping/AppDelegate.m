@@ -13,9 +13,17 @@
 #import "CenterViewController.h"
 #import "DiscoverViewController.h"
 #import "MineViewController.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MAMapKit/MAMapKit.h>
 
-
-@interface AppDelegate ()
+@interface AppDelegate ()<CLLocationManagerDelegate>
+{
+    //创建一个定位的CLLocationManager对象
+    CLLocationManager *_locationManger;
+    //创建地理编码
+    CLGeocoder *_geocoder;
+    
+}
 
 @end
 
@@ -24,6 +32,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //配置用户key
+    [MAMapServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
+    
     self.tablebarVC = [[UITabBarController alloc] init];
     //首页
     UIStoryboard *mainStory = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -84,8 +96,51 @@
     self.tablebarVC.tabBar.tintColor = kColor;
     self.window.rootViewController = self.tablebarVC;
 
+    //初始化地理编码对象
+    _geocoder = [[CLGeocoder alloc] init];
+    _locationManger = [[CLLocationManager alloc] init];
+    //4.判断定位服务是否可用
+    if (![CLLocationManager locationServicesEnabled]) {
+        NSLog(@"定位服务未打开");
+    }
+    //是否授权定位
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        [_locationManger requestWhenInUseAuthorization];
+    } else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        //设置代理
+        _locationManger.delegate = self;
+        //设置定位精度
+        _locationManger.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+        //定位频率
+        CLLocationDistance distance = 10.0;
+        _locationManger.distanceFilter = distance;
+        //启动定位
+        [_locationManger startUpdatingLocation];
+        
+    }
     
     return YES;
+}
+
+#pragma mark -------------------------- 定位服务协议方法
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    //从数组中取出一个位置
+    CLLocation *location = [locations firstObject];
+    //从location中取出坐标的精度维度
+    CLLocationCoordinate2D coordinate = location.coordinate;
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    [user setValue:[NSNumber numberWithDouble:coordinate.latitude] forKey:@"latitude"];
+    [user setValue:[NSNumber numberWithDouble:coordinate.longitude] forKey:@"longitude"];
+    
+    //实现反地理编码
+    [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        CLPlacemark *placemark = [placemarks firstObject];
+        //保存数据
+        [[NSUserDefaults standardUserDefaults] setValue:placemark.addressDictionary[@"city"] forKey:@"city"];
+        [user synchronize];
+    }];
+    //如果不需要使用定位服务，及时关闭
+    [_locationManger stopUpdatingLocation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

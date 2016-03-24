@@ -17,6 +17,8 @@
 #import "ZLDropDownMenu.h"
 #import "ZLDropDownMenuCollectionViewCell.h"
 #import "NSString+ZLStringSize.h"
+#import "SearchViewController.h"
+#import "ShopBrandDetailViewController.h"
 
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
@@ -26,7 +28,7 @@
 #define kShopBrand @"http://api.gjla.com/app_admin_v400/api/mall/storeList?pageSize=10&mallId=99df3f47f14948a0b8c6aa142a25e967"
 
 
-@interface BrandViewController ()<UITableViewDataSource, UITableViewDelegate, PullingRefreshTableViewDelegate, ZLDropDownMenuDataSource, ZLDropDownMenuDelegate>
+@interface BrandViewController ()<UITableViewDataSource, UITableViewDelegate, PullingRefreshTableViewDelegate, ZLDropDownMenuDataSource, ZLDropDownMenuDelegate, UISearchBarDelegate>
 
 
 @property (nonatomic, strong) PullingRefreshTableView *tableView;
@@ -37,6 +39,7 @@
 @property (nonatomic, strong) NSMutableArray *brandNameArray;
 @property (nonatomic, strong) NSDictionary *dictNameId;
 @property (nonatomic, strong) ZLDropDownMenu *menu;
+@property (nonatomic, strong) UISearchBar *mySearchBar;
 
 @end
 
@@ -45,6 +48,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.mySearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(60, 4, kWidth - 100, 40)];
+    self.mySearchBar.placeholder = @"搜索品牌、商场、门店";
+    self.mySearchBar.backgroundColor = [UIColor clearColor];
+    self.mySearchBar.delegate = self;
+    self.mySearchBar.keyboardType = UIKeyboardAppearanceDefault;
+    self.mySearchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.mySearchBar.layer.masksToBounds = YES;
+    self.mySearchBar.layer.cornerRadius = 25.0f;
+    
+    [self.navigationController.navigationBar addSubview:self.mySearchBar];
+
     
     //自定义导航栏左侧返回按钮
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -126,6 +141,22 @@
      cell.brandModel = self.lishtArray[indexPath.row];
     return cell;
 
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ShopBrandDetailViewController *shopBrandVC = [[ShopBrandDetailViewController alloc] init];
+    BrandModel *model = self.lishtArray[indexPath.row];
+    shopBrandVC.brandId = model.brandId;
+    shopBrandVC.storeId = model.storeId;
+    [self.navigationController pushViewController:shopBrandVC animated:YES];
+    self.mySearchBar.hidden = YES;
+
+}
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    SearchViewController *search = [[SearchViewController alloc] init];
+    [self.navigationController pushViewController:search animated:YES];
+    NSLog(@"123");
 }
 
 //下拉刷新
@@ -239,7 +270,12 @@
 
 - (void)backAction:(UIButton *)btn {
     [self.navigationController popViewControllerAnimated:YES];
-    
+    self.mySearchBar.hidden = YES;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.mySearchBar.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning {

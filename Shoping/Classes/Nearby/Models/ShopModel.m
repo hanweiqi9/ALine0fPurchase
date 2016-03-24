@@ -12,7 +12,9 @@
 - (instancetype)initWithDistionary:(NSDictionary *)dic{
     self = [super init];
     if (self) {
-        self.distance = dic[@"distance"];
+        self.latitude = [dic[@"latitude"] floatValue];
+        self.longitude = [dic[@"longitude"]floatValue];
+        self.distance = [dic[@"distance"] floatValue];
         self.mallId = dic[@"mallId"];
         self.mallName = dic[@"mallName"];
         NSString *str = @"http://api.gjla.com/app_admin_v400/";

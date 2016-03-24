@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface DetailModel : NSObject
 @property (nonatomic, strong) NSString *brandLogoUrl; //图片
@@ -16,6 +17,7 @@
 @property (nonatomic, strong) NSString *type;    //类型
 @property (nonatomic, strong) NSString *discountsId;   //折扣Id
 @property (nonatomic, strong) NSString *costPrice;   //优惠价
-
+@property (nonatomic, assign) CGFloat latitude;
+@property (nonatomic, assign) CGFloat longitude;
 
 @end

@@ -12,6 +12,8 @@
 #import "JXBAdPageView.h"
 #import "OneDetailTableViewCell.h"
 #import "DetailModel.h"
+#import "MapViewController.h"
+#import "MangoSingleton.h"
 
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
@@ -42,7 +44,6 @@
     // Do any additional setup after loading the view.
     self.title = self.titleId;
     [self.view addSubview:self.tableView];
-//    [self configHeaderTableView];
     //自定义导航栏左侧返回按钮
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 0, 44, 44);
@@ -68,7 +69,7 @@
     shareButton.tag = 2;
     [shareButton addTarget:self action:@selector(rightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
    self.shareBtn = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
-
+   self.navigationItem.rightBarButtonItems = @[self.shareBtn, self.rightLikeBtn];
     //网络请求
     [self requestDataFromNet];
 }
@@ -158,7 +159,6 @@
         [self.headerView addSubview:_adView];
     } else {
         NSString *brandUrl1 = [str stringByAppendingString:brandUrl];
-//        [strArray1 addObject:brandUrl1];
         UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth * 0.335)];
             [headImage sd_setImageWithURL:[NSURL URLWithString:brandUrl1] placeholderImage:nil];
             [self.headerView addSubview:headImage];
@@ -184,14 +184,14 @@
     }
    
     //附近门店
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(5, kWidth * 0.7 + 26, kWidth / 3, 2)];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(40, kWidth * 0.7 + 26, kWidth / 3 - 30, 2)];
     label1.alpha = 0.1;
     
     label1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
     UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 + 30, kWidth * 0.7 + 15, kWidth / 3, 30)];
     label2.text = @"附近门店";
     label2.textColor = [UIColor grayColor];
-    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5 + 5 , kWidth * 0.7 + 26, kWidth / 3, 2)];
+    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5 + 5 , kWidth * 0.7 + 26, kWidth / 3 - 30, 2)];
     label3.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
     label3.alpha = 0.1;
     //门店label
@@ -201,7 +201,8 @@
     //距离
     UIButton *distanceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     distanceBtn.frame = CGRectMake(100, kWidth / 3 + kWidth / 3 + 95, kWidth - 200, 30);
-    [distanceBtn setTitle:[NSString stringWithFormat:@"%@ km",self.datasDic[@"distance"]] forState:UIControlStateNormal];
+    CGFloat distan = [self.datasDic[@"distance"] floatValue] / 1000;
+    [distanceBtn setTitle:[NSString stringWithFormat:@"%.2fkm",distan] forState:UIControlStateNormal];
     //设置图片和内容的间距
     [distanceBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [distanceBtn setImage:[UIImage imageNamed:@"address_icon"] forState:UIControlStateNormal];
@@ -232,16 +233,16 @@
 
 //返回区头的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 60.0;
+    return 50.0;
 }
 
 //自定义分区头部
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 60)];
     
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 39, kWidth / 3, 2)];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(40, 39, kWidth / 3 - 30, 2)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 + 10 , 20, kWidth / 3 - 10, 30)];
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5 , 39, kWidth / 3 - 5, 2)];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5 , 39, kWidth / 3 - 30, 2)];
     label1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
     label1.alpha = 0.1;
     label2.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
@@ -283,6 +284,19 @@
 
 //地址导航
 - (void)addressBtnAction:(UIButton *)btn {
+    MapViewController *mapVC = [[MapViewController alloc] init];
+    NSString *latitude = self.datasDic[@"latitude"];
+    NSString *longitude = self.datasDic[@"longitude"];
+    mapVC.lat = [latitude floatValue];
+    mapVC.lng = [longitude floatValue];
+    NSString *name = self.datasDic[@"storeName"];
+    NSString *address = self.datasDic[@"storeAddress"];
+    //使用单例传值
+    MangoSingleton *mango = [MangoSingleton sharInstance];
+    mango.title = name;
+    mango.inputText = address;
+    [self.navigationController pushViewController:mapVC animated:YES];
+
 
 }
 

@@ -21,6 +21,9 @@
 #import "ZLDropDownMenuCollectionViewCell.h"
 #import "NSString+ZLStringSize.h"
 #import "BrandDetailViewController.h"
+#import "SearchViewController.h"
+#import "MangoSingleton.h"
+#import "MapViewController.h"
 
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
@@ -30,7 +33,6 @@
 #define kMenuBrand @"http://api.gjla.com/app_admin_v400/api/brand/screening?cityId=391db7b8fdd211e3b2bf00163e000dce&userId=2ff0ab3508b24d20a87092b06f056c1e&styleIds=2a29a50f37954026af1613425ac01e31&pageSize=20&sortType=1&longitude=112.426851&latitude=34.618758"
 #define kBrand @"http://api.gjla.com/app_admin_v400/api/brand/screening?categoryIds=&cityId=391db7b8fdd211e3b2bf00163e000dce&userId=2ff0ab3508b24d20a87092b06f056c1e&styleIds=&pageSize=20&sortType=1&longitude=112.426851&latitude=34.618758"
 #define kShop @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426904&latitude=34.618939&districtId=&cityId=bd21203d001c11e4b2bf00163e000dce"
-
 
 @interface NearbyViewController ()<PullingRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate, ZLDropDownMenuDataSource, ZLDropDownMenuDelegate>
 {
@@ -81,7 +83,7 @@
     //自定义导航栏右侧搜索按钮
     UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     searchButton.frame = CGRectMake(kWidth * 0.75, 0, 30, 30);
-    [searchButton setImage:[UIImage imageNamed:@"search_icon"] forState:UIControlStateNormal];
+    [searchButton setImage:[UIImage imageNamed:@"search_icon1"] forState:UIControlStateNormal];
     [searchButton setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [searchButton addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *searchBtn = [[UIBarButtonItem alloc] initWithCustomView:searchButton];
@@ -264,6 +266,8 @@
 
 //导航栏右侧搜索按钮
 - (void)searchBtnAction:(UIButton *)btn {
+    SearchViewController *searchVC = [[SearchViewController alloc] init];
+    [self.navigationController pushViewController:searchVC animated:YES];
     
     
 }
@@ -359,27 +363,6 @@
         default:
             break;
     }
-}
-
-//实现接收通知的方法
-- (void)accpetNotifactionId:(NSNotification *)notifac {
-    //获取通知的内容
-    NSDictionary *dict = notifac.userInfo;
-    NSMutableArray *cateArray = dict[@"category"];
-    if (![cateArray isEqual:[NSNull null]]) {
-        for (NSDictionary *dic in cateArray) {
-            NSString *strId = dic[@"categoryId"];
-            NSLog(@"id  ===   %@", strId);
-        }
-    }
-    
-}
-
-//移除通知
-- (void)dealloc {
-    //删除观察者
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"数据Id" object:nil];
-    
 }
 
 //第二种tableView
@@ -490,6 +473,10 @@
     NSArray *array = self.subTitleArray[indexPath.column];
     NSString *nameStr = array[indexPath.row];
     NSArray *arrayValues = [NSArray new];
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] valueForKey:@"dic"];
+    NSLog(@"%@",dict);
+    
+    
     //通过属性传值传过来的数组，遍历数组
     if (![self.cateId isEqual:[NSNull null]]) {
         for (NSDictionary *dic in self.cateId) {
