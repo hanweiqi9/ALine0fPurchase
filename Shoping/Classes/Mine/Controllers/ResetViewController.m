@@ -44,6 +44,9 @@
 
 //获取验证码
 - (IBAction)getWordAction:(id)sender {
+    if (![self checkout]) {
+        return;
+    }
     [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:self.phoneNum.text andTemplate:@"message" resultBlock:^(int number, NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -72,6 +75,67 @@
     
 }
 
+
+-(BOOL)checkout{
+    //手机号码
+    if (self.phoneNum.text.length <= 0&&[self.phoneNum.text stringByReplacingOccurrencesOfString:@" " withString:@""].length <= 0) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"手机号码不能为空，请重新输入" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alert addAction:action];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        return NO;
+    }
+    //移动
+    NSString *mobile = @"^1(3[0-9]|5[0-35-9]|8[025-9])\\d{8}$";
+    //联通
+    NSString *cm = @"^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d)\\d{7}$";
+    //电信
+    NSString *cu = @"^1(3[0-2]|5[256]|8[56])\\d{8}$";
+    //小灵通
+    NSString *ct = @"^1((33|53|8[09])[0-9]|349)\\d{7}$";
+    
+    NSPredicate *regexter = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",mobile];
+    NSPredicate *cmtext = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",cm];
+    NSPredicate *cutext =[NSPredicate predicateWithFormat:@"SELF MATCHES %@",cu];
+    NSPredicate *cttext = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",ct];
+    
+    if (!([regexter evaluateWithObject:self.phoneNum.text]==YES||[cmtext evaluateWithObject:self.phoneNum.text]==YES||[cutext evaluateWithObject:self.phoneNum.text]==YES||[cttext evaluateWithObject:self.phoneNum.text]==YES)) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"手机号格式不正确，请检查" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alert addAction:action];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        return NO;
+    }
+    
+    NSString *pass = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pass];
+    if (![pred evaluateWithObject:self.passLabel.text]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"密码格式错误，请重新输入" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        [alert addAction:action];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        return NO;
+    }
+    return YES;
+}
 
 
 //回收键盘

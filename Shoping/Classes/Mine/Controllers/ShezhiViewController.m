@@ -14,13 +14,15 @@
 #import <SDWebImage/SDImageCache.h>
 #import "QuanchnegViewController.h"
 #import "TuiJianView.h"
+#import "AppDelegate.h"
+
 
 @interface ShezhiViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) NSMutableArray *titleArray;
 @property(nonatomic,strong) NSMutableArray *titArray;
 @property(nonatomic,strong) UIView *mainView;
-
+@property(nonatomic, strong ) AppDelegate *appdelegate;
 @end
 
 @implementation ShezhiViewController
@@ -30,9 +32,10 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"设置";
      self.view.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight/2) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.scrollEnabled = NO;//设置tableview不滚动
     [self.view addSubview:self.tableView];
     
     self.titleArray = [[NSMutableArray alloc] initWithObjects:@"清除缓存", nil];
@@ -44,6 +47,45 @@
     [backBtn addTarget:self action:@selector(backBtnActivity) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = leftBarBtn;
+    
+    
+    UIButton *removeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    removeBtn.frame = CGRectMake(kWidth/3, kHeight/2+10, kWidth/3, 44);
+    removeBtn.backgroundColor = kColor;
+    [removeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [removeBtn setTitle:@"退出当前账户" forState:UIControlStateNormal];
+    [removeBtn addTarget:self action:@selector(removeAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:removeBtn];
+    
+}
+
+-(void)removeAction{
+    UIAlertController *alert =[UIAlertController alertControllerWithTitle:@"确定退出" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action1 =[ UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *action2 =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+        [userDefault removeObjectForKey:@"name"];
+        [userDefault removeObjectForKey:@"password"];
+        [userDefault removeObjectForKey:@"headImage"];
+        [userDefault synchronize];
+        
+//        self.appdelegate = (AppDelegate *)[UIApplication sharedApplication];
+//        [self presentViewController:self.appdelegate.window.rootViewController animated:YES completion:nil];
+        
+        
+        
+    }];
+    [alert addAction:action1];
+    [alert addAction:action2];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    
+   
+    
+    
+    
 }
 -(void)backBtnActivity{
     [self.navigationController popViewControllerAnimated:YES];

@@ -20,13 +20,12 @@
 @property(nonatomic,strong) NSMutableArray *titleArray;
 @property(nonatomic,strong) NSMutableArray *imageArray;
 @property(nonatomic,strong) UITableView *tableView;
-@property(nonatomic,strong) UILabel *phoneLabel;//用户名
-@property(nonatomic,strong) UIButton *headBtn; //头像
+@property(nonatomic,strong) UILabel *phoneLabel;//用户名 //头像
 @property(nonatomic,strong) UILabel *headerLabel;
 @property(nonatomic,strong) UIButton *setBtn;
 @property(nonatomic,strong) UIView *head;
 @property(nonatomic,assign) float level;
-
+@property(nonatomic,strong) UIButton *headBtn;
 @property(nonatomic,strong) UIView *score1;
 @property(nonatomic,strong) UIView *grayView;
 
@@ -77,7 +76,8 @@
     self.headBtn.clipsToBounds = YES;
     [self.headBtn addTarget:self action:@selector(headimageAction) forControlEvents:UIControlEventTouchUpInside];
     self.headBtn.backgroundColor = [UIColor whiteColor];
-    [self.headBtn setImage:[UIImage imageNamed:@"defult_avatar"] forState:UIControlStateNormal];
+//    [self.headBtn setImage:[UIImage imageNamed:@"defult_avatar"] forState:UIControlStateNormal];
+    [self.headBtn setImage:self.image1 forState:UIControlStateNormal];
     [heardView addSubview:self.headBtn];
     
     self.tableView.tableHeaderView = heardView;
@@ -131,6 +131,12 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary<NSString *,id> *)editingInfo{
     [self.headBtn setImage:image forState:UIControlStateNormal];
     [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    NSData *imageData = UIImagePNGRepresentation(image);
+    NSUserDefaults *userDefaults =[NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:imageData forKey:@"headImage"];
+    [userDefaults synchronize];
+
 }
 
 //相机
@@ -144,6 +150,11 @@
 
 -(void)saveImage:(UIImage *)image{
     [self.headBtn setImage:image forState:UIControlStateNormal];
+    
+    NSData *imageData = UIImagePNGRepresentation(image);
+    NSUserDefaults *userDefaults =[NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:imageData forKey:@"headImage"];
+    [userDefaults synchronize];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{

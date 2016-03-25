@@ -18,10 +18,11 @@
 #import "WXApi.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MAMapKit/MAMapKit.h>
+#import "LoginViewController.h"
 
 
 
-@interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate,CLLocationManagerDelegate>
+@interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate>
 {
     //创建一个定位的CLLocationManager对象
     CLLocationManager *_locationManger;
@@ -29,6 +30,12 @@
     CLGeocoder *_geocoder;
     
 }
+@property(nonatomic,strong)UINavigationController *MineNav;
+@property(nonatomic,strong)UINavigationController *MainNav;
+@property(nonatomic,strong)UINavigationController *nearNav;
+@property(nonatomic,strong)UINavigationController *globalNav;
+@property(nonatomic,strong)UINavigationController *discoverNav;
+
 
 @end
 
@@ -43,7 +50,7 @@
     // Override point for customization after application launch.
     //状态栏颜色
 //    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
-    
+
     
     
     //bmob
@@ -59,62 +66,63 @@
     [MAMapServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
     
     self.tablebarVC = [[UITabBarController alloc] init];
+    self.tablebarVC.delegate = self;
     //首页
     UIStoryboard *mainStory = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UINavigationController *MainNav = mainStory.instantiateInitialViewController;
+    self.MainNav = mainStory.instantiateInitialViewController;
     //设置图片
-    MainNav.tabBarItem.image = [UIImage imageNamed:@"tab_home_normal"];
-    MainNav.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -2, 0);
-    MainNav.tabBarItem.title = @"首页";
+    self.MainNav.tabBarItem.image = [UIImage imageNamed:@"tab_home_normal"];
+    self.MainNav.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -2, 0);
+    self.MainNav.tabBarItem.title = @"首页";
     //设置选中图片
     UIImage *mainImage = [UIImage imageNamed:@"tab_home_selected"];
-    MainNav.tabBarItem.selectedImage = [mainImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.MainNav.tabBarItem.selectedImage = [mainImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //附近
     UIStoryboard *nearbyStory = [UIStoryboard storyboardWithName:@"Nearby" bundle:nil];
-    UINavigationController *nearNav = nearbyStory.instantiateInitialViewController;
-    nearNav.tabBarItem.title = @"附近";
+    self.nearNav = nearbyStory.instantiateInitialViewController;
+    self.nearNav.tabBarItem.title = @"附近";
     //设置图片
-    nearNav.tabBarItem.image = [UIImage imageNamed:@"tab"];
-    nearNav.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -2, 0);
+    self.nearNav.tabBarItem.image = [UIImage imageNamed:@"tab"];
+    self.nearNav.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -2, 0);
     //设置选中图片
     UIImage *nearImage = [UIImage imageNamed:@"tabselect"];
-    nearNav.tabBarItem.selectedImage = [nearImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.nearNav.tabBarItem.selectedImage = [nearImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     //全球逛
     UIStoryboard *globalStory = [UIStoryboard storyboardWithName:@"GlobalShop" bundle:nil];
-    UINavigationController *globalNav = globalStory.instantiateInitialViewController;
+    self.globalNav = globalStory.instantiateInitialViewController;
     //设置图片
-    globalNav.tabBarItem.image = [UIImage imageNamed:@"tab_mall_normal"];
-    globalNav.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -2, 0);
-    globalNav.tabBarItem.title = @"全球购";
+    self.globalNav.tabBarItem.image = [UIImage imageNamed:@"tab_mall_normal"];
+    self.globalNav.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -2, 0);
+    self.globalNav.tabBarItem.title = @"全球购";
     //设置选中图片
     UIImage *globalImage = [UIImage imageNamed:@"tab_mall_selected"];
-    globalNav.tabBarItem.selectedImage = [globalImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.globalNav.tabBarItem.selectedImage = [globalImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     //发现
     UIStoryboard *discoverStory = [UIStoryboard storyboardWithName:@"Discover" bundle:nil];
-    UINavigationController *discoverNav = discoverStory.instantiateInitialViewController;
-    discoverNav.tabBarItem.title = @"发现";
+    self.discoverNav = discoverStory.instantiateInitialViewController;
+    self.discoverNav.tabBarItem.title = @"发现";
     //设置图片
-    discoverNav.tabBarItem.image = [UIImage imageNamed:@"tab_discover_normal"];
-    discoverNav.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -2, 0);
+    self.discoverNav.tabBarItem.image = [UIImage imageNamed:@"tab_discover_normal"];
+    self.discoverNav.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -2, 0);
     //设置选中图片
     UIImage *discoverImage = [UIImage imageNamed:@"tab_discover_selected"];
-    discoverNav.tabBarItem.selectedImage = [discoverImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.discoverNav.tabBarItem.selectedImage = [discoverImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     //我的
     UIStoryboard *mineStory = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
-    UINavigationController *MineNav = mineStory.instantiateInitialViewController;
+    self.MineNav = mineStory.instantiateInitialViewController;
     //设置图片
-    MineNav.tabBarItem.image = [UIImage imageNamed:@"tab_person_normal"];
-    MineNav.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -2, 0);
-    MineNav.tabBarItem.title = @"我的";
+    self.MineNav.tabBarItem.image = [UIImage imageNamed:@"tab_person_normal"];
+    self.MineNav.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -2, 0);
+    self.MineNav.tabBarItem.title = @"我的";
     //设置选中图片
     UIImage *mineImage = [UIImage imageNamed:@"tab_person_selected"];
-    MineNav.tabBarItem.selectedImage = [mineImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.MineNav.tabBarItem.selectedImage = [mineImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     //添加到tabBarVC上
-    self.tablebarVC.viewControllers = @[MainNav, nearNav, globalNav, discoverNav, MineNav];
+    self.tablebarVC.viewControllers = @[self.MainNav, self.nearNav, self.globalNav, self.discoverNav, self.MineNav];
     self.tablebarVC.tabBar.tintColor = kColor;
     self.window.rootViewController = self.tablebarVC;
     //设置window的背景
@@ -145,6 +153,31 @@
     
     return YES;
 }
+
+
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    if (viewController == self.tablebarVC.viewControllers[4]){
+        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+        NSString *name = [userDefault objectForKey:@"name"];
+        NSData *data = [userDefault objectForKey:@"headImage"];
+        UIImage *headIma = [UIImage imageWithData:data];
+        NSLog(@"%@",headIma);
+        if (name !=nil) {
+            LoginViewController *login = [[LoginViewController alloc] init];
+            login.userStr = name;
+            login.image1 = headIma;
+            [((UINavigationController *)tabBarController.selectedViewController) pushViewController:login animated:nil];
+          
+              return NO;
+        }else{
+            return YES;
+            
+        }
+    }
+    else
+        return YES;
+}
+
 
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
     if ([WeiboSDK isCanShareInWeiboAPP]) {

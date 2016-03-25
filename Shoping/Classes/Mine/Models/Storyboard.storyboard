@@ -32,13 +32,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="021-62512785" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9c-4M-RGc">
-                                <rect key="frame" x="169" y="112" width="107" height="25"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="微信群：2016-666" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMp-tZ-u7F">
                                 <rect key="frame" x="87" y="145" width="189" height="25"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -63,6 +56,13 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="021-62512785" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9c-4M-RGc">
+                                <rect key="frame" x="169" y="112" width="107" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -74,7 +74,7 @@
                             <constraint firstItem="WsO-09-9ob" firstAttribute="leading" secondItem="C8A-UA-PND" secondAttribute="leadingMargin" constant="67" id="AN9-Eh-0ui"/>
                             <constraint firstItem="WsO-09-9ob" firstAttribute="width" secondItem="SMp-tZ-u7F" secondAttribute="width" id="DSQ-hh-LTM"/>
                             <constraint firstItem="bf6-cr-igy" firstAttribute="leading" secondItem="C8A-UA-PND" secondAttribute="leadingMargin" constant="-20" id="E5I-Fx-H40"/>
-                            <constraint firstItem="c9c-4M-RGc" firstAttribute="leading" secondItem="iAm-f2-NC7" secondAttribute="trailing" constant="2" id="GOr-VM-9qB"/>
+                            <constraint firstItem="c9c-4M-RGc" firstAttribute="leading" secondItem="iAm-f2-NC7" secondAttribute="trailing" id="GOr-VM-9qB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WSO-AZ-JWA" secondAttribute="trailing" constant="91" id="GOw-io-tjr"/>
                             <constraint firstItem="SMp-tZ-u7F" firstAttribute="leading" secondItem="iAm-f2-NC7" secondAttribute="leading" id="HBZ-tl-be2"/>
                             <constraint firstItem="c9c-4M-RGc" firstAttribute="height" secondItem="iAm-f2-NC7" secondAttribute="height" id="NEx-EP-RET"/>

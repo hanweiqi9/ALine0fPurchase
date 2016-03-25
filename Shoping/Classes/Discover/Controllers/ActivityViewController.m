@@ -60,7 +60,7 @@
     
     UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     shareBtn.frame = CGRectMake(kWidth*5/6, 0, kWidth/8, 20);
-    [shareBtn setImage:[UIImage imageNamed:@"share_icon"] forState:UIControlStateNormal];
+    [shareBtn setImage:[UIImage imageNamed:@"shareicon"] forState:UIControlStateNormal];
     [shareBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 5)];
     [shareBtn addTarget:self action:@selector(shareBtn) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *twoBtn = [[UIBarButtonItem alloc] initWithCustomView:shareBtn];
