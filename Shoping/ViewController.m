@@ -17,10 +17,12 @@
 #import "ActivityMianViewController.h"
 #import "ShopDetailViewController.h"
 #import "SDCycleScrollView.h"
+#import "PullingRefreshTableView.h"
+#import "BrandDetailViewController.h"
 
-@interface ViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate >
+@interface ViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate,PullingRefreshTableViewDelegate>
 //UI控件
-@property (nonatomic, strong) UITableView *tableview;
+@property (nonatomic, strong) PullingRefreshTableView *tableview;
 @property (nonatomic, strong) UIView *HeadView;
 //@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIPageControl *pageC;
@@ -33,9 +35,10 @@
 @property (nonatomic, strong) NSMutableArray *turnArray;
 @property (nonatomic, strong) NSMutableArray *cellArray;
 @property (nonatomic, strong) NSMutableArray *toolArray;
-@property (nonatomic, strong) NSDictionary *youDic;
+@property (nonatomic, strong) NSMutableArray *youArray;
 @property (nonatomic, strong) NSMutableArray *cityArray;
 @property (nonatomic, strong) NSString *cityId;
+@property (nonatomic, assign) BOOL refreshing;
 
 @end
 
@@ -54,7 +57,7 @@
     //数据请求
 //    [self startTimer];
     [self MoreThead];
-    
+    [self getCityData];
     //黑背景
     self.blackView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight)];
     self.blackView.backgroundColor = [UIColor colorWithRed:58.0/255.0 green:58.0/255.0 blue:58.0/255.0 alpha:0.5];
@@ -93,6 +96,7 @@
 }
 #pragma merk ------- 多线程实现数据同时请求
 - (void)MoreThead{
+    
     dispatch_queue_t mainThead = dispatch_queue_create("com.turn queue", DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
     dispatch_async(mainThead, ^{
@@ -107,10 +111,10 @@
     dispatch_async(mainThead, ^{
         [self getCellData];
     });
-    dispatch_async(mainThead, ^{
-        [self getCityData];
-    });
-    
+//    dispatch_async(mainThead, ^{
+//        [self getCityData];
+//    });
+
 }
 //轮播图
 - (void)settingTurn{
@@ -170,13 +174,13 @@
     youButton.frame = CGRectMake(5, kHeight/2+kWidth/3 + kWidth /4 + 7+ kWidth/13, kWidth / 2 + 30, kWidth/2);
     youButton.tag = 6;
     [youButton addTarget:self action:@selector(AllBottonAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    NSString *string =[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/%@",self.youDic[@"mainPicUrl"]];
+    NSDictionary *dic = self.youArray[0];
+    NSString *string =[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/%@",dic[@"mainPicUrl"]];
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, youButton.frame.size.width, youButton.frame.size.height)];
     [imageview sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
     [youButton addSubview:imageview];
     UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(0, youButton.frame.size.height - 40,youButton.frame.size.width ,40)];
-    lable.text = self.youDic[@"mallName"];
+    lable.text = dic[@"mallName"];
     lable.backgroundColor = [UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.6];
     lable.textAlignment = NSTextAlignmentCenter;
     lable.textColor = [UIColor whiteColor];
@@ -213,22 +217,21 @@
 - (void)getMainData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    /*
-          bf98a329000211e4b2bf00163e000dce
-     */
     NSString *sring = @"http://api.gjla.com/app_admin_v400/api/onlineActivity/list?cityId=";
     [manger GET:[NSString stringWithFormat:@"%@%@",sring,self.cityId]
  parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSArray *data = dic[@"datas"];
-        if (self.turnArray.count > 0) {
-            [self.turnArray removeAllObjects];
-        }
+            if(self.turnArray.count > 0) {
+                [self.turnArray removeAllObjects];
+            }
         for (NSDictionary *dics in data) {
             [self.turnArray addObject:dics];
         }
         [self.tableview reloadData];
+        [self.tableview tableViewDidFinishedLoading];
+        self.tableview.reachedTheEnd = NO;
         [self settingTurn];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -241,10 +244,15 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSArray *data = dic[@"datas"];
+            if (self.cellArray.count > 0) {
+                [self.cellArray removeAllObjects];
+            }
         for (NSDictionary *dics in data) {
             [self.cellArray addObject:dics];
         }
         [self.tableview reloadData];
+        [self.tableview tableViewDidFinishedLoading];
+        self.tableview.reachedTheEnd = NO;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
@@ -258,10 +266,16 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSArray *dataArray = dic[@"datas"];
+
+            if (self.toolArray.count > 0) {
+                [self.toolArray removeAllObjects];
+            }
         for (NSDictionary *dics in dataArray) {
             [self.toolArray addObject:dics];
         }
         [self.tableview reloadData];
+        [self.tableview tableViewDidFinishedLoading];
+        self.tableview.reachedTheEnd = NO;
         [self settingTools];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -273,8 +287,15 @@
     [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/home/LBSMall?longitude=112.426904&districtId=&latitude=34.618929&userId=&cityId=%@",self.cityId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
-        self.youDic = dic[@"datas"];
+        NSDictionary *dics = dic[@"datas"];
+
+            if (self.youArray.count > 0) {
+                [self.youArray removeAllObjects];
+            }
+        [self.youArray addObject:dics];
         [self.tableview reloadData];
+        [self.tableview tableViewDidFinishedLoading];
+        self.tableview.reachedTheEnd = NO;
         [self settingYourground];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -289,6 +310,9 @@
         NSDictionary *dic = responseObject;
         self.cityArray = dic[@"datas"];
         [self.tableview reloadData];
+        [self.tableview tableViewDidFinishedLoading];
+        self.tableview.reachedTheEnd = NO;
+//        [self leftBarButtonAction];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
@@ -382,6 +406,32 @@
     activityVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:activityVC animated:YES];
 }
+
+#pragma mark ------------- 刷新代理
+- (void)pullingTableViewDidStartRefreshing:(PullingRefreshTableView *)tableView{
+    self.refreshing = YES;
+    [self performSelector:@selector(MoreThead) withObject:nil afterDelay:1.0];
+}
+- (void)pullingTableViewDidStartLoading:(PullingRefreshTableView *)tableView{
+    self.refreshing = NO;
+//    [[self class] showAlertMessageWithMessage:@"已是最后数据" duration:1.0];
+    UIAlertController *alVC = [UIAlertController alertControllerWithTitle:nil message:@"已是最后数据"  preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.tableview setScrollsToTop:YES];
+    }];
+    [alVC addAction:action];
+    [self presentViewController:alVC animated:YES completion:nil];
+    [self.tableview tableViewDidFinishedLoading];
+}
+//手指开始拖动
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.tableview tableViewDidScroll:scrollView];
+}
+
+//下拉刷新开始时调用
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    [self.tableview tableViewDidEndDragging:scrollView];
+}
 #pragma mark --------- 点击方法
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
         NSString *urlsting = self.turnArray[index][@"linkUrl"];
@@ -389,7 +439,7 @@
         NSString *stinr = array[array.count-1];
         NSArray *typeArray = [stinr componentsSeparatedByString:@".html"];
         NSString *typestinr = typeArray[0];
-        if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"] ||[typestinr isEqualToString:@"brandinfo"] ) {
+        if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"]  ) {
             HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
             htmlVC.urlString = self.turnArray[index][@"fuliId"];
             htmlVC.hidesBottomBarWhenPushed = YES;
@@ -415,11 +465,22 @@
             avtivity.type = 1;
         
         [self.navigationController pushViewController:avtivity animated:YES];
+        
+    }
+    if ([typestinr isEqualToString:@"brandinfo"]) {
+        BrandDetailViewController *brandVC = [[BrandDetailViewController alloc] init];
+        
+        NSString *stinf = typeArray[1];
+        NSArray *aarray = [stinf componentsSeparatedByString:@"="];
+        NSString *csting = aarray[aarray.count - 1];
+        brandVC.brandId = csting;
+//        brandVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:brandVC animated:YES];
     }
     
 }
 - (void)leftBarButtonAction{
-    [self getCityData];
+
     self.blackView.hidden = NO;
     UIButton *buttona = [UIButton buttonWithType:UIButtonTypeCustom];
 
@@ -500,8 +561,9 @@
     if (button.tag == 6) {
         //广场详情
         ShopDetailViewController *shopVC = [[ShopDetailViewController alloc] init];
-        shopVC.title = self.youDic[@"mallName"];
-        shopVC.detailId = self.youDic[@"mallId"];
+        NSDictionary *dic = self.youArray[0];
+        shopVC.title = dic[@"mallName"];
+        shopVC.detailId = dic[@"mallId"];
         shopVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:shopVC animated:self];
     }
@@ -522,10 +584,10 @@
 }
 
 #pragma mark --------- 懒加载
-- (UITableView *)tableview{
+- (PullingRefreshTableView *)tableview{
     if (_tableview == nil) {
-        self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0,0, kWidth, kHeight -64) style:UITableViewStylePlain];
-        
+        self.tableview = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0,0, kWidth, kHeight -40) style:UITableViewStylePlain];
+        self.tableview.pullingDelegate = self;
         self.tableview.dataSource = self;
         self.tableview.delegate = self;
         //        self.tableview.backgroundColor = [UIColor cyanColor];
@@ -565,11 +627,11 @@
     return _toolArray;
 }
 
-- (NSDictionary *)youDic{
-    if (_youDic == nil) {
-        self.youDic = [NSDictionary new];
+- (NSMutableArray *)youArray{
+    if (_youArray == nil) {
+        self.youArray = [NSMutableArray new];
     }
-    return _youDic;
+    return _youArray;
 }
 
 - (NSMutableArray *)cityArray{
