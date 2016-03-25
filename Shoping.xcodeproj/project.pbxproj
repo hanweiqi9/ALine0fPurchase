@@ -41,7 +41,6 @@
 		7A2D55C41C9F7B6A002018F4 /* CenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55C31C9F7B6A002018F4 /* CenterTableViewCell.m */; };
 		7A2D55C61C9F7DA1002018F4 /* GlobalShop.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D55C51C9F7DA1002018F4 /* GlobalShop.storyboard */; };
 		7A2D55C81C9F7DD7002018F4 /* Nearby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D55C71C9F7DD7002018F4 /* Nearby.storyboard */; };
-		7A3939B11CA1281C00D5F3F7 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B01CA1281C00D5F3F7 /* MapViewController.m */; };
 		7A3939B41CA1412300D5F3F7 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B31CA1412200D5F3F7 /* SearchViewController.m */; };
 		7A3939B71CA143D900D5F3F7 /* CustomCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B61CA143D900D5F3F7 /* CustomCalloutView.m */; };
 		7A3939BA1CA147DE00D5F3F7 /* CustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B91CA147DE00D5F3F7 /* CustomAnnotationView.m */; };
@@ -163,6 +162,7 @@
 		7A94854D1CA2891E004E652E /* ShBrDetail.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A94854C1CA2891E004E652E /* ShBrDetail.plist */; };
 		7A9485541CA29D4A004E652E /* ShBraDetaiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9485521CA29D4A004E652E /* ShBraDetaiTableViewCell.m */; };
 		7A9485551CA29D4A004E652E /* ShBraDetaiTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9485531CA29D4A004E652E /* ShBraDetaiTableViewCell.xib */; };
+		7AA12B2B1CA5203C0007BDEE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA12B2A1CA5203B0007BDEE /* MapViewController.m */; };
 		878BDD405C63EC5BFCCF1F64 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E8722CE52D8272C529BF80 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -227,7 +227,6 @@
 		7A2D55C51C9F7DA1002018F4 /* GlobalShop.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GlobalShop.storyboard; sourceTree = "<group>"; };
 		7A2D55C71C9F7DD7002018F4 /* Nearby.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Nearby.storyboard; sourceTree = "<group>"; };
 		7A3939AF1CA1281C00D5F3F7 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		7A3939B01CA1281C00D5F3F7 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		7A3939B21CA1412200D5F3F7 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		7A3939B31CA1412200D5F3F7 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		7A3939B51CA143D900D5F3F7 /* CustomCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCalloutView.h; sourceTree = "<group>"; };
@@ -323,7 +322,7 @@
 		7A81B9AD1CA3DE8E00029E84 /* YouhuiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouhuiTableViewCell.h; sourceTree = "<group>"; };
 		7A81B9AE1CA3DE8E00029E84 /* YouhuiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouhuiTableViewCell.m; sourceTree = "<group>"; };
 		7A81B9AF1CA3DE8E00029E84 /* YouhuiTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YouhuiTableViewCell.xib; sourceTree = "<group>"; };
-		7A81B9B71CA3DF3600029E84 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
+		7A81B9B71CA3DF3600029E84 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMap.bundle; path = Shoping/Tools/AMap.bundle; sourceTree = "<group>"; };
 		7A81B9B91CA3DF3600029E84 /* JXBAdPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXBAdPageView.h; sourceTree = "<group>"; };
 		7A81B9BA1CA3DF3600029E84 /* JXBAdPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXBAdPageView.m; sourceTree = "<group>"; };
 		7A81B9BB1CA3DF3600029E84 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
@@ -439,6 +438,7 @@
 		7A9485511CA29D4A004E652E /* ShBraDetaiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShBraDetaiTableViewCell.h; sourceTree = "<group>"; };
 		7A9485521CA29D4A004E652E /* ShBraDetaiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShBraDetaiTableViewCell.m; sourceTree = "<group>"; };
 		7A9485531CA29D4A004E652E /* ShBraDetaiTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShBraDetaiTableViewCell.xib; sourceTree = "<group>"; };
+		7AA12B2A1CA5203B0007BDEE /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		E747211142BC7577B3EE2490 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -481,6 +481,7 @@
 		5C9BFE9262BF9451EACBE43D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7A81B9B71CA3DF3600029E84 /* AMap.bundle */,
 				7A5A955B1CA3F4A100C94BC1 /* MediaPlayer.framework */,
 				7A5A95591CA3F49300C94BC1 /* AVFoundation.framework */,
 				7A5A95571CA3F40600C94BC1 /* libicucore.tbd */,
@@ -804,7 +805,7 @@
 				7A81FD4A1C9FCCE00054A7FA /* ShopDetailViewController.m */,
 				7A81FD901C9FE9890054A7FA /* Shop.plist */,
 				7A3939AF1CA1281C00D5F3F7 /* MapViewController.h */,
-				7A3939B01CA1281C00D5F3F7 /* MapViewController.m */,
+				7AA12B2A1CA5203B0007BDEE /* MapViewController.m */,
 				7A3939BE1CA17F2700D5F3F7 /* ShopDetPicDetailViewController.h */,
 				7A3939BF1CA17F2700D5F3F7 /* ShopDetPicDetailViewController.m */,
 				7A3939C11CA1841500D5F3F7 /* ShopPicDetail.plist */,
@@ -915,7 +916,6 @@
 			isa = PBXGroup;
 			children = (
 				7A81BA331CA3DF9A00029E84 /* ProgressHUD */,
-				7A81B9B71CA3DF3600029E84 /* AMap.bundle */,
 				7A81B9B81CA3DF3600029E84 /* JXBAdPageView */,
 				7A81B9BB1CA3DF3600029E84 /* MAMapKit.framework */,
 				7A81B9BC1CA3DF3600029E84 /* PrefixHeader.pch */,
@@ -1309,7 +1309,6 @@
 				7A81BA321CA3DF3600029E84 /* ZLDropDownMenuUICalc.m in Sources */,
 				7A2D55A31C9F780B002018F4 /* LoginViewController.m in Sources */,
 				7A81BA301CA3DF3600029E84 /* ZLDropDownMenuCollectionViewCell.m in Sources */,
-				7A3939B11CA1281C00D5F3F7 /* MapViewController.m in Sources */,
 				7A81BA131CA3DF3600029E84 /* TADotView.m in Sources */,
 				7A81BA291CA3DF3600029E84 /* MASViewAttribute.m in Sources */,
 				7A81BA2F1CA3DF3600029E84 /* ZLDropDownMenu.m in Sources */,
@@ -1341,6 +1340,7 @@
 				7A81B9B41CA3DE8E00029E84 /* YouhuiTableViewCell.m in Sources */,
 				7A81BA161CA3DF3600029E84 /* SDCycleScrollView.m in Sources */,
 				7A2D55C41C9F7B6A002018F4 /* CenterTableViewCell.m in Sources */,
+				7AA12B2B1CA5203C0007BDEE /* MapViewController.m in Sources */,
 				7A81BA261CA3DF3600029E84 /* MASConstraint.m in Sources */,
 				7A81BA121CA3DF3600029E84 /* TAAnimatedDotView.m in Sources */,
 				7A2D55A41C9F780B002018F4 /* MineViewController.m in Sources */,
@@ -1481,7 +1481,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Shoping/Tools/PrefixHeader.pch";
 				INFOPLIST_FILE = Shoping/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1509,7 +1509,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Shoping/Tools/PrefixHeader.pch";
 				INFOPLIST_FILE = Shoping/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

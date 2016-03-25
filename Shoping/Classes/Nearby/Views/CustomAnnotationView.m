@@ -28,10 +28,10 @@
             
         }
 
+        
         MangoSingleton *mango = [MangoSingleton sharInstance];
         self.calloutView.title = mango.title;
         self.calloutView.address = mango.inputText;
-        self.calloutView.preAction = @"导航";
         [self addSubview:self.calloutView];
         
     } else {

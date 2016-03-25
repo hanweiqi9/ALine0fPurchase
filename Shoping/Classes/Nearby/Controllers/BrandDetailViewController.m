@@ -1,7 +1,7 @@
 //
 //  BrandDetailViewController.m
 //  Shoping
-//
+//   品牌详情
 //  Created by scjy on 16/3/20.
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
@@ -347,6 +347,12 @@
         self.datasDic = [NSDictionary dictionary];
     }
     return _datasDic;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+    
 }
 
 //在页面将要消失的时候去掉所有的圈圈

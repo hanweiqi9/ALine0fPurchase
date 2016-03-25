@@ -1,7 +1,7 @@
 //
 //  ShopDetailViewController.m
 //  Shoping
-//
+//  商场详情
 //  Created by scjy on 16/3/16.
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
@@ -133,7 +133,6 @@
     
     
 }
-
 
 #pragma mark ---------------------------  协议方法
 //返回分区有多少条目

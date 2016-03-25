@@ -11,6 +11,5 @@
 @interface CustomCalloutView : UIView
 @property (nonatomic, strong) NSString *title;  //地点
 @property (nonatomic, strong) NSString *address; //详细地址
-@property (nonatomic, strong) NSString *preAction;  //导航
 
 @end

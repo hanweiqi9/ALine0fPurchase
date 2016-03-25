@@ -1,7 +1,7 @@
 //
 //  ShopDetPicDetailViewController.m
 //  Shoping
-//
+//  商场详情cell图片点击详情
 //  Created by scjy on 16/3/22.
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
@@ -100,9 +100,6 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
-
-
-    
 
 }
 

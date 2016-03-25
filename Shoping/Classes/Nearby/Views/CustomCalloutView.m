@@ -83,25 +83,18 @@
 }
 
 - (void)configView {
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kPortraitMargin, 0, kTitleWidth, kTitleHeight + kPortraitMargin)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTitleWidth * 2, kTitleHeight + kPortraitMargin)];
     self.titleLabel.textColor = [UIColor whiteColor];
-    self.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    self.titleLabel.font = [UIFont systemFontOfSize:14.0];
     self.titleLabel.numberOfLines = 0;
     [self addSubview:self.titleLabel];
     
-    self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(kPortraitMargin, kTitleHeight - 2, kTitleWidth, kTitleHeight + kPortraitMargin)];
+    self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kTitleHeight - 2, kTitleWidth * 2, kTitleHeight + kPortraitMargin)];
     self.addressLabel.textColor = [UIColor whiteColor];
-    self.addressLabel.font = [UIFont systemFontOfSize:12.0];
+    self.addressLabel.font = [UIFont systemFontOfSize:14.0];
     self.addressLabel.numberOfLines = 0;
     [self addSubview:self.addressLabel];
     
-    self.preBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.preBtn.frame = CGRectMake(kPortraitMargin * 3 + kTitleWidth, kPortraitMargin + 5, kPortraitWidth - kPortraitMargin * 3, kPortraitHeight - kPortraitMargin - 5);
-    self.preBtn.backgroundColor = kColor;
-    self.preBtn.layer.masksToBounds = YES;
-    self.preBtn.layer.cornerRadius = 30 / 1.5;
-    [self addSubview:self.preBtn];
-
 }
 
 -(void)setTitle:(NSString *)title {
@@ -113,9 +106,6 @@
 }
 
 
--(void)setPreAction:(NSString *)preAction {
-    [self.preBtn setTitle:preAction forState:UIControlStateNormal];
-}
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -1,7 +1,7 @@
 //
 //  ShopBrandDetailViewController.m
 //  Shoping
-//
+//  商场-分类-品牌-详情页面
 //  Created by scjy on 16/3/23.
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //

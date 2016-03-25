@@ -2,7 +2,7 @@
 //
 //  BrandViewController.m
 //  Shoping
-//
+//  商场中的品牌分类
 //  Created by scjy on 16/3/18.
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
@@ -105,9 +105,6 @@
                 [self.lishtArray removeAllObjects];
             }
         }
-//        if (self.lishtArray.count > 0) {
-//            [self.lishtArray removeAllObjects];
-//        }
             for (NSDictionary *dic in array) {
                 BrandModel *braModel = [[BrandModel alloc] initWithDictionary:dic];
                 [self.lishtArray addObject:braModel];

@@ -1,7 +1,7 @@
 //
 //  SearchViewController.m
 //  Shoping
-//
+//  搜素页面
 //  Created by scjy on 16/3/21.
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
@@ -10,6 +10,7 @@
 #import "JCTagListView.h"
 #import "VOSegmentedControl.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
+#import "ShopDetailViewController.h"
 
 #define khotSearch @"http://api.gjla.com/app_admin_v400/api/searchkeywords/keywords?pageSize=6&cityId=391db7b8fdd211e3b2bf00163e000dce&searchType=2&pageNum=1"
 
@@ -24,7 +25,6 @@
 @property (nonatomic, strong) UISearchBar *mySearchBar;
 @property (nonatomic, strong) VOSegmentedControl *segmentControl;
 @property (nonatomic, strong) NSMutableArray *listArray;
-
 @end
 
 @implementation SearchViewController
@@ -54,7 +54,7 @@
     self.mySearchBar.layer.cornerRadius = 25.0f;
     
     [self.navigationController.navigationBar addSubview:self.mySearchBar];
-        [self.view addSubview:self.tagListView];
+    [self.view addSubview:self.tagListView];
     [self.view addSubview:self.hotListView];
     
     UILabel *hotSearLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 120, kWidth - 40, 30)];
@@ -93,7 +93,6 @@
         NSMutableArray *dataArray = dict[@"datas"];
         for (NSDictionary *dic in dataArray) {
             [self.listArray addObject:dic[@"keywordName"]];
-            NSLog(@"%@",self.listArray);
         }
         NSArray *arra1 = [NSArray arrayWithArray:self.listArray];
         [self.tagListView.tags addObjectsFromArray:arra1];
@@ -113,7 +112,7 @@
 }
 
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-
+    
     return YES;
 }
 
@@ -126,10 +125,38 @@
     return YES;
 }
 
+//编辑完成
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    
+}
+
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    //把输入内容添加到数组中
+    [self.dataArray addObject:searchText];
+    
+}
+
+//点击按钮
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    self.hotListView.canSelectTags = YES;
+    [self.hotListView.tags addObject:searchBar.text];
+    [self.hotListView.collectionView reloadData];
+    
+}
+
 -(JCTagListView *)tagListView {
     if (_tagListView == nil) {
         self.tagListView = [[JCTagListView alloc] initWithFrame:CGRectMake(20, 150, kWidth - 40, kHeight / 3)];
         self.tagListView.canSelectTags = YES;
+        //点击热门搜索
+            __block SearchViewController *weakself = self;
+            //点击搜索历史
+            [self.tagListView setCompletionBlockWithSelected:^(NSInteger index) {
+                if (index == 0) {
+                    ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
+                    [weakself.navigationController pushViewController:shopDetailVC animated:YES];
+                }
+            }];
 
     }
     return _tagListView;
@@ -151,24 +178,6 @@
 
 }
 
-//编辑完成
--(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    NSLog(@"jieshubianji");
-}
-
--(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    //把输入内容添加到数组中
-    [self.dataArray addObject:searchText];
-    
-}
-
-//点击按钮
--(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    self.hotListView.canSelectTags = YES;
-    [self.hotListView.tags addObject:searchBar.text];
-    [self.hotListView.collectionView reloadData];
- 
-}
 
 -(VOSegmentedControl *)segmentControl {
     if (!_segmentControl) {

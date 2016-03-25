@@ -18,10 +18,11 @@
 #import "WXApi.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MAMapKit/MAMapKit.h>
+#import <AMapSearchKit/AMapSearchKit.h>
+#import "MangoSingleton.h"
 
 
-
-@interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate,CLLocationManagerDelegate>
+@interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate,CLLocationManagerDelegate, AMapSearchDelegate>
 {
     //创建一个定位的CLLocationManager对象
     CLLocationManager *_locationManger;
@@ -57,7 +58,7 @@
     
     //配置用户key
     [MAMapServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
-    
+    [AMapSearchServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
     self.tablebarVC = [[UITabBarController alloc] init];
     //首页
     UIStoryboard *mainStory = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -188,7 +189,10 @@
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     [user setValue:[NSNumber numberWithDouble:coordinate.latitude] forKey:@"latitude"];
     [user setValue:[NSNumber numberWithDouble:coordinate.longitude] forKey:@"longitude"];
-    
+      NSLog(@"经度：%f 纬度：%f 海拔：%f 航向：%f 行走速度：%f ",coordinate.longitude,coordinate.latitude,location.altitude,location.course,location.speed);
+    MangoSingleton *mango = [MangoSingleton sharInstance];
+    mango.latValue = coordinate.latitude;
+    mango.lngValue = coordinate.longitude;
     //实现反地理编码
     [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         CLPlacemark *placemark = [placemarks firstObject];
