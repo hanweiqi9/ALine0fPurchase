@@ -152,12 +152,14 @@
     if ([type isEqual:@"1"]) {
         ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
         NSMutableArray *group = self.cellArray[indexPath.section][@"couponOrDiscounts"];
+        activityMianVC.cityID = self.cityID;
         activityMianVC.trunId  = group[indexPath.row][@"id"];
         [self.navigationController pushViewController:activityMianVC animated:YES];
     }
     if ([type isEqual:@"0"]) {
         PreferDetailViewController *preferVC = [[PreferDetailViewController alloc] init];
         preferVC.nameId = self.cellArray[indexPath.section][@"brandId"];
+        preferVC.cityID = self.cityID;
         NSMutableArray *group = self.cellArray[indexPath.section][@"couponOrDiscounts"];
         preferVC.preferId = group[indexPath.row][@"id"];
         preferVC.hidesBottomBarWhenPushed = YES;

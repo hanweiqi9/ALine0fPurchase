@@ -136,18 +136,18 @@
     }
     else{
         
-//        UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth / 8 ,kHeight /3+kWidth /6 + kHeight /20 *4, kWidth - kHeight / 8, 0.5)];
-//        titleView.image = [UIImage imageNamed:@"icon_tblack_a"];
-//        [self.headView addSubview:titleView
-//         ];
-//        UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/5*2,kHeight /3+kWidth /6 + kHeight /20 *3+15, kWidth/5,kHeight/20)];
-//        
-//        titleL.text = @"适用门店";
-//        
-//        titleL.textAlignment = NSTextAlignmentCenter;
-//        titleL.backgroundColor = [UIColor whiteColor];
-//        titleL.font = [UIFont systemFontOfSize:15.0];
-//        [self.headView addSubview:titleL];
+        UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth / 8 ,kHeight /3+kWidth /6 + kHeight /20 *4, kWidth - kHeight / 8, 0.5)];
+        titleView.image = [UIImage imageNamed:@"icon_tblack_a"];
+        [self.headView addSubview:titleView
+         ];
+        UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/5*2,kHeight /3+kWidth /6 + kHeight /20 *3+15, kWidth/5,kHeight/20)];
+        
+        titleL.text = @"适用门店";
+        
+        titleL.textAlignment = NSTextAlignmentCenter;
+        titleL.backgroundColor = [UIColor whiteColor];
+        titleL.font = [UIFont systemFontOfSize:15.0];
+        [self.headView addSubview:titleL];
         
         
         UILabel *eTitle = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/8 , kHeight /3+kWidth /6 + kHeight /20 *4+15, kWidth - kWidth /8*2, kHeight /20)];

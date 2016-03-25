@@ -39,9 +39,10 @@
 #pragma mark ========== 数据请求
 - (void)getActivityDetailData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+   
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [ProgressHUD show:@"加载中"];
-    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/detail?cityId=391db7b8fdd211e3b2bf00163e000dce&userId=fe8d0970f7d4469bb6a8d5fbb1a2bb6f&couponId=%@&longitude=112.426829&latitude=34.618749&source=1&salesId=",self.trunId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/detail?cityId=%@&userId=fe8d0970f7d4469bb6a8d5fbb1a2bb6f&couponId=%@&longitude=112.426829&latitude=34.618749&source=1&salesId=",self.cityID,self.trunId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [ProgressHUD showSuccess:@"加载完成"];
         NSDictionary *dic = responseObject;
@@ -162,12 +163,6 @@
         eTitle.text = name ;
         [distance setTitle:[NSString stringWithFormat:@"%.2fkm",[dis floatValue]/1000 ] forState:UIControlStateNormal];
         [weizhi setTitle:wei forState:UIControlStateNormal];
-        
-        
-        
-        
-        
-        
         CGFloat height = kHeight /3+kWidth /6 + kHeight /20 *7+15;
         CGRect frame = self.headView.frame;
         frame.size.height = height;
@@ -254,33 +249,33 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
         return 3;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return kWidth/13+10;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 5, kWidth, kWidth/13+5)];
-    //    view.backgroundColor = [UIColor cyanColor];
-    UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth / 8, 15, kWidth - kHeight / 8, 0.5)];
-    titleView.image = [UIImage imageNamed:@"icon_tblack_a"];
-    [view addSubview:titleView
-     ];
-    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/5*2 - 5,0 , kWidth/5,kWidth/13)];
-    if (section == 0) {
-        titleL.text = @"使用须知";
-    }
-    else{
-        titleL.text = @"其他优惠";
-    }
-    titleL.textAlignment = NSTextAlignmentCenter;
-    titleL.backgroundColor = [UIColor whiteColor];
-    titleL.font = [UIFont systemFontOfSize:15.0];
-    [view addSubview:titleL];
-    return view;
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return kWidth/13+10;
+//}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 5, kWidth, kWidth/13+5)];
+//    //    view.backgroundColor = [UIColor cyanColor];
+//    UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth / 8, 15, kWidth - kHeight / 8, 0.5)];
+//    titleView.image = [UIImage imageNamed:@"icon_tblack_a"];
+//    [view addSubview:titleView
+//     ];
+//    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/5*2 - 5,0 , kWidth/5,kWidth/13)];
+//    if (section == 0) {
+//        titleL.text = @"使用须知";
+//    }
+//    else{
+//        titleL.text = @"其他优惠";
+//    }
+//    titleL.textAlignment = NSTextAlignmentCenter;
+//    titleL.backgroundColor = [UIColor whiteColor];
+//    titleL.font = [UIFont systemFontOfSize:15.0];
+//    [view addSubview:titleL];
+//    return view;
+//}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//}
 #pragma mark ========== 懒加载
 
 - (UITableView *)DetailsTableView{
