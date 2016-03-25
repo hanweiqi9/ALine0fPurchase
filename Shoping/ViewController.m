@@ -562,15 +562,15 @@
             NSArray *aarray = [stinf componentsSeparatedByString:@"cid="];
             NSString *csting = aarray[1];
             NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
-            NSString *type = barray[1];
+//            NSString *type = barray[1];
             
-            if (self.cityId == @""  && [type isEqualToString:@"1"]) {
-                PreferDetailViewController *preferVC = [[PreferDetailViewController alloc] init];
-                preferVC.cityID = self.cityId;
-                preferVC.preferId = barray[0];
-                preferVC.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:preferVC animated:YES];
-            }
+//            if (self.cityId == @""  && [type isEqualToString:@"1"]) {
+//                PreferDetailViewController *preferVC = [[PreferDetailViewController alloc] init];
+//                preferVC.cityID = self.cityId;
+//                preferVC.preferId = barray[0];
+//                preferVC.hidesBottomBarWhenPushed = YES;
+//                [self.navigationController pushViewController:preferVC animated:YES];
+//            }
             
             
             ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
@@ -592,16 +592,7 @@
     }
     if (button.tag == 7) {
 //        附近商城
-        
-//         self.view.window.rootViewController = [[ShopDetailViewController alloc] init];//        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Nearby" bundle:nil];
-////        NearbyViewController *nearVC = [story instantiateViewControllerWithIdentifier:@"nearby"];
-//        UINavigationController *nav = story.instantiateInitialViewController;
-//        
-        self.appdelegate = [[AppDelegate alloc] init];
-        self.appdelegate.tablebarVC.selectedIndex = 1;
-//
-//        self.appdelegate.tablebarVC.delegate = self;
-//        [self tabBarController:self.appdelegate.tablebarVC didSelectViewController:self.appdelegate.tablebarVC.navigationController.];
+   
     }
     if (button.tag == 8) {
         //附近优惠

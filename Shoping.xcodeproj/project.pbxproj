@@ -42,6 +42,7 @@
 		7A2D55C81C9F7DD7002018F4 /* Nearby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D55C71C9F7DD7002018F4 /* Nearby.storyboard */; };
 		7A3011151CA5063C00A71CED /* nearpre.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A3011141CA5063C00A71CED /* nearpre.plist */; };
 		7A30111B1CA544F900A71CED /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A30111A1CA544F900A71CED /* TabViewController.m */; };
+		7A361D771CA5618B00767742 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A361D761CA5618B00767742 /* ViewController.m */; };
 		7A3939B11CA1281C00D5F3F7 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B01CA1281C00D5F3F7 /* MapViewController.m */; };
 		7A3939B41CA1412300D5F3F7 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B31CA1412200D5F3F7 /* SearchViewController.m */; };
 		7A3939B71CA143D900D5F3F7 /* CustomCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B61CA143D900D5F3F7 /* CustomCalloutView.m */; };
@@ -163,7 +164,6 @@
 		7A94854D1CA2891E004E652E /* ShBrDetail.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A94854C1CA2891E004E652E /* ShBrDetail.plist */; };
 		7A9485541CA29D4A004E652E /* ShBraDetaiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9485521CA29D4A004E652E /* ShBraDetaiTableViewCell.m */; };
 		7A9485551CA29D4A004E652E /* ShBraDetaiTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9485531CA29D4A004E652E /* ShBraDetaiTableViewCell.xib */; };
-		7AA5F42A1CA50C6200C3E07A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA5F4291CA50C6200C3E07A /* ViewController.m */; };
 		7ADC1E531CA41D5400145A8A /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E521CA41D5400145A8A /* blueArrow.png */; };
 		7ADC1E5D1CA41DD500145A8A /* activityMian.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E551CA41DD500145A8A /* activityMian.plist */; };
 		7ADC1E5E1CA41DD500145A8A /* guangzou.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E561CA41DD500145A8A /* guangzou.plist */; };
@@ -238,6 +238,7 @@
 		7A3011141CA5063C00A71CED /* nearpre.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = nearpre.plist; sourceTree = "<group>"; };
 		7A3011191CA544F900A71CED /* TabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController.h; sourceTree = "<group>"; };
 		7A30111A1CA544F900A71CED /* TabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
+		7A361D761CA5618B00767742 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7A3939AF1CA1281C00D5F3F7 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		7A3939B01CA1281C00D5F3F7 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		7A3939B21CA1412200D5F3F7 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
@@ -451,7 +452,6 @@
 		7A9485511CA29D4A004E652E /* ShBraDetaiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShBraDetaiTableViewCell.h; sourceTree = "<group>"; };
 		7A9485521CA29D4A004E652E /* ShBraDetaiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShBraDetaiTableViewCell.m; sourceTree = "<group>"; };
 		7A9485531CA29D4A004E652E /* ShBraDetaiTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShBraDetaiTableViewCell.xib; sourceTree = "<group>"; };
-		7AA5F4291CA50C6200C3E07A /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7ADC1E521CA41D5400145A8A /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
 		7ADC1E551CA41DD500145A8A /* activityMian.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = activityMian.plist; sourceTree = "<group>"; };
 		7ADC1E561CA41DD500145A8A /* guangzou.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = guangzou.plist; sourceTree = "<group>"; };
@@ -549,6 +549,7 @@
 		7A2D554E1C9F7148002018F4 /* Shoping */ = {
 			isa = PBXGroup;
 			children = (
+				7A361D761CA5618B00767742 /* ViewController.m */,
 				7A5A95111CA3F1BB00C94BC1 /* LPLevelView */,
 				7A5A95091CA3F18300C94BC1 /* SDK1.6-2.2 */,
 				7A5A94FA1CA3F16A00C94BC1 /* libWeiboSDK */,
@@ -558,7 +559,6 @@
 				7A2D55521C9F7148002018F4 /* AppDelegate.h */,
 				7A2D55531C9F7148002018F4 /* AppDelegate.m */,
 				7A2D55551C9F7148002018F4 /* ViewController.h */,
-				7A2D55561C9F7148002018F4 /* ViewController.m */,
 				7A2D55581C9F7148002018F4 /* Main.storyboard */,
 				7A2D555B1C9F7148002018F4 /* Assets.xcassets */,
 				7A2D555D1C9F7148002018F4 /* LaunchScreen.storyboard */,
@@ -1214,7 +1214,6 @@
 				7ADC1E5E1CA41DD500145A8A /* guangzou.plist in Resources */,
 				7A81FD501C9FCCE00054A7FA /* ShopDetail.plist in Resources */,
 				7A2D55A11C9F780A002018F4 /* MatchTableViewCell.xib in Resources */,
-				7A5A951F1CA3F1F200C94BC1 /* tu.png in Resources */,
 				7ADC1E601CA41DD500145A8A /* nearpre.plist in Resources */,
 				7A5A94F81CA3F15200C94BC1 /* Bmob_iOS_SDK更新历史.txt in Resources */,
 				7A81B9B11CA3DE8E00029E84 /* NearTableViewCell.xib in Resources */,
@@ -1227,7 +1226,6 @@
 				7A5A95211CA3F1F200C94BC1 /* CangTableViewCell.xib in Resources */,
 				7A2D559F1C9F780A002018F4 /* HotTableViewCell.xib in Resources */,
 				7A3011151CA5063C00A71CED /* nearpre.plist in Resources */,
-				7A81BA1D1CA3DF3600029E84 /* blueArrow.png in Resources */,
 				7A81FD4C1C9FCCE00054A7FA /* BrandDetail.plist in Resources */,
 				7A5A95081CA3F16A00C94BC1 /* WeiboSDK.bundle in Resources */,
 				7ADC1E5F1CA41DD500145A8A /* MainCell.plist in Resources */,
@@ -1354,6 +1352,7 @@
 				7A2D55A31C9F780B002018F4 /* LoginViewController.m in Sources */,
 				7A81BA301CA3DF3600029E84 /* ZLDropDownMenuCollectionViewCell.m in Sources */,
 				7A3939B11CA1281C00D5F3F7 /* MapViewController.m in Sources */,
+				7A361D771CA5618B00767742 /* ViewController.m in Sources */,
 				7A81BA131CA3DF3600029E84 /* TADotView.m in Sources */,
 				7A30111B1CA544F900A71CED /* TabViewController.m in Sources */,
 				7A81BA291CA3DF3600029E84 /* MASViewAttribute.m in Sources */,
@@ -1395,7 +1394,6 @@
 				7A81BA2C1CA3DF3600029E84 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				7A81BA211CA3DF3600029E84 /* VOIndicatorAnimation.m in Sources */,
 				7A81FD2E1C9FCCA50054A7FA /* OneBrandModel.m in Sources */,
-				7AA5F42A1CA50C6200C3E07A /* ViewController.m in Sources */,
 				7A2D55B51C9F7AD7002018F4 /* NearbyViewController.m in Sources */,
 				7A2D55981C9F780A002018F4 /* ActivityViewController.m in Sources */,
 				7A3939BA1CA147DE00D5F3F7 /* CustomAnnotationView.m in Sources */,
