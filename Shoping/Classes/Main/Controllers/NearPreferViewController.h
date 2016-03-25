@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NearPreferViewController : UIViewController
+@property (nonatomic, strong) NSString *cityID;
 
 @end

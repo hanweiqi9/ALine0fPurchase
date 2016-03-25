@@ -32,6 +32,7 @@
     [self showBackButtonWithImage:@"arrow_left_pink"];
     
     [self.view addSubview:self.pullTbaleView];
+    [self.pullTbaleView launchRefreshing];
     //注册cell
     [self.pullTbaleView registerNib:[UINib nibWithNibName:@"YouhuiTableViewCell"  bundle:nil] forCellReuseIdentifier:@"cell"];
     _pageNum = 1;
@@ -89,11 +90,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
     activityMianVC.title = self.YouArray[indexPath.row][@"couponName"];
+    activityMianVC.cityID = self.cityId;
     activityMianVC.trunId = self.YouArray[indexPath.row][@"couponId"];
     [self.navigationController pushViewController:activityMianVC animated:YES];
-
-    
-    
     
 }
 #pragma mark ------------- 刷新代理
@@ -121,7 +120,7 @@
 #pragma mark ------------- 懒加载
 -(PullingRefreshTableView *)pullTbaleView{
     if (_pullTbaleView == nil) {
-        _pullTbaleView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64) pullingDelegate:self];
+        _pullTbaleView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight) pullingDelegate:self];
         self.pullTbaleView.dataSource = self;
         self.pullTbaleView.delegate = self;
         self.pullTbaleView.rowHeight = kHeight/3+20;

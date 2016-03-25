@@ -1,50 +1,51 @@
 {
-	datas = (
-		{
-			brandId = "c68f79a234b711e4998d00163e0200e5";
-			latitude = "31.200392";
-			distance = 924162;
-			longitude = "121.444116";
-			storeAddress = "\U5f90\U6c47\U533a\U8679\U6865\U8def1\U53f73F";
-			storeId = "bb5f70688df411e5860600163e000dce";
-			storeName = "Jessica \U4e0a\U6d77\U6e2f\U6c47\U6052\U9686\U5e7f\U573a";
-			storePicUrl = "uploadtemp/brand/shop_pic/mall_c68f79a234b711e4998d00163e0200e5.jpg";
-			storeThumbUrl = "uploadtemp/brand/shop_pic/mall_c68f79a234b711e4998d00163e0200e5.jpg";
-		},
-		{
-			brandId = "c68f79a234b711e4998d00163e0200e5";
-			distance = 924338;
-			latitude = "31.201164";
-			longitude = "121.446632";
-			storeAddress = "\U5f90\U6c47\U533a\U8087\U5609\U6d5c\U8def1000\U53f73F";
-			storeId = "bceed5c38df411e5860600163e000dce";
-			storeName = "Jessica \U6c47\U91d1\U767e\U8d27\U5f90\U6c47\U5e97";
-			storePicUrl = "uploadtemp/brand/shop_pic/mall_c68f79a234b711e4998d00163e0200e5.jpg";
-			storeThumbUrl = "uploadtemp/brand/shop_pic/mall_c68f79a234b711e4998d00163e0200e5.jpg";
-		},
-		{
-			brandId = "c68f79a234b711e4998d00163e0200e5";
-			distance = 925808;
-			latitude = "31.22797";
-			longitude = "121.479573";
-			storeAddress = "\U9ec4\U6d66\U533a\U6dee\U6d77\U4e2d\U8def381\U53f72F";
-			storeId = "bb75b04d8df411e5860600163e000dce";
-			storeName = "Jessica\U4e2d\U73af\U5e7f\U573a\U5e97";
-			storePicUrl = "uploadtemp/brand/shop_pic/mall_c68f79a234b711e4998d00163e0200e5.jpg";
-			storeThumbUrl = "uploadtemp/brand/shop_pic/mall_c68f79a234b711e4998d00163e0200e5_thumb.jpg";
-		},
-		{
-			brandId = "c68f79a234b711e4998d00163e0200e5";
-			distance = 929388;
-			latitude = "31.232872";
-			longitude = "121.524413";
-			storeAddress = "\U6d66\U4e1c\U65b0\U533a\U5f20\U6768\U8def500\U53f73F";
-			storeId = "bbc2ea558df411e5860600163e000dce";
-			storeName = "Jessica \U534e\U6da6\U65f6\U4ee3\U5e7f\U573a";
-			storePicUrl = "uploadtemp/brand/shop_pic/mall_c68f79a234b711e4998d00163e0200e5.jpg";
-			storeThumbUrl = "uploadtemp/brand/shop_pic/mall_c68f79a234b711e4998d00163e0200e5.jpg";
-		},
-	);
-	errcode = 0;
-	errmsg = "";
+datas =     {
+address = "\U6caa\U9752\U5e73\U516c\U8def2888\U53f71F";
+beginDate = 1456761600000;
+brandId = 5b23615dbf1011e4ba1b00163e000dce;
+brandLogoUrl = "uploadtemp/brand/201602/brand_20160226163105_14564754656631_logo.jpg";
+brandNameEn = toonsland;
+brandNameZh = "<null>";
+couponOrDiscounts =         (
+{
+beginDate = 1456675200000;
+brandLogoUrl = "uploadtemp/brand/201602/brand_20160226163105_14564754656631_logo.jpg";
+costPrice = 0;
+couponType = 6;
+endDate = 1459353600000;
+id = fb27daaa670e48c84c37d37b0836db57;
+name = "9\U6298\U4f18\U60e0\U5238";
+price = 0;
+type = 1;
+},
+{
+beginDate = 1456761600000;
+brandLogoUrl = "uploadtemp/brand/201602/brand_20160226163105_14564754656631_logo.jpg";
+costPrice = "<null>";
+couponType = "<null>";
+endDate = 1459353600000;
+id = b9ccd039a655887227f1c174fa9959ff;
+name = "\U5168\U573a3\U6298\Uff08\U8d77\Uff09";
+price = "<null>";
+type = 0;
+}
+);
+discountDesc = "<null>";
+discountTitle = "\U5168\U573a3\U6298\Uff08\U8d77\Uff09";
+distance = 908299;
+endDate = 1459353600000;
+floor = 1F;
+isCollected = 0;
+isExpired = 0;
+latitude = "31.162206";
+longitude = "121.234298";
+mallId = bd3f84fd8df411e5860600163e000dce;
+mallName = "toonsland \U9752\U6d66\U5965\U7279\U83b1\U65af\U5e7f\U573a";
+otherPicUrls =         (
+"uploadtemp/brand/2015-10/brand_b7cb7820f64051299d018414e007d78f.jpg"
+);
+shareContent = "\U5168\U573a3\U6298\Uff08\U8d77\Uff09\U53c8\U6709\U65b0\U6298\U6263\U5566\Uff01\U8c01\U966a\U6211\U53bb\U901b\U901b\Uff1f";
+storeNum = 1;
+};
+errcode = 0;
 }

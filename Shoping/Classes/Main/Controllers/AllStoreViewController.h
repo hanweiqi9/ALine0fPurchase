@@ -10,5 +10,6 @@
 
 @interface AllStoreViewController : UIViewController
 @property (nonatomic, strong) NSString *storeId;
+@property (nonatomic, strong) NSString *cityID;
 
 @end

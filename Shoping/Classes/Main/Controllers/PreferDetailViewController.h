@@ -10,4 +10,8 @@
 
 @interface PreferDetailViewController : UIViewController
 
+@property (nonatomic, strong) NSString *preferId;
+@property (nonatomic, strong) NSString *nameId;
+@property (nonatomic, strong) NSString *cityID;
+
 @end

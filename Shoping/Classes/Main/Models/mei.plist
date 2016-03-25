@@ -1,0 +1,39 @@
+{
+beginDate = 1457625600000;
+brandId = bf22bc1ecb0ce19d1cc908ea5d8fce22;
+brandNameEn = "coni beauty";
+brandNameZh = "\U5eb7\U502a\U7f8e\U598d";
+brandPicUrl = "uploadtemp/brand/201603/brand_20160310123342_14575844222519_logo.jpg";
+costPrice = 0;
+couponDesc = "\U8bf7\U5728\U9886\U53d6\U8d60\U54c1\U65f6\U51fa\U793a\U6b64\U5238\Uff0c\U7531\U8425\U4e1a\U5458\U9a8c\U5238\Uff0c\U6d88\U8d39\U8005\U81ea\U884c\U70b9\U51fb\U4f7f\U7528\U65e0\U6548
+\n\U51ed\U6b64\U5238\U53ef\U9886\U53d6\U201d\U53f0\U6e7e\U7f8e\U5986\U5927\U8d4f\U5f97\U59562\U4ef6\U5957\U201d\U4e00\U4efd\Uff0c\U5185\U542b\U65e0\U9650\U808c\U81f4\U73bb\U5c3f\U9178\U773c\U819c1\U7247+ coni beauty\U9ed1\U6216\U767d\U51bb\U819c20ml1\U74f6\Uff08\U9ed1\U3001\U767d\U51bb\U819c\U7686\U4e3a\U968f\U673a\U53d1\U9001\Uff0c\U4e0d\U5f97\U81ea\U7531\U9009\U62e9\U6216\U66f4\U6362\Uff09
+\n\U6bcf\U4eba\U9650\U9886\U4e00\U4efd
+\n\U54c1\U724c\U65b9\U5bf9\U6b64\U5238\U4eab\U6709\U6700\U7ec8\U89e3\U91ca\U6743
+\n";
+couponId = 0dd535004ebe788e2110390fdc1f072f;
+couponIndividualNum = 0;
+couponIndividuals = "<null>";
+    couponLeft = 227;
+    couponName = "\U5230\U5e97\U793c-\U53f0\U6e7e\U7f8e\U5986\U5927\U8d4f\U5f97\U59562\U4ef6\U5957";
+    couponOrDiscounts = "<null>";
+        couponPicUrls =     (
+        "uploadtemp/coupon/201603/coupon_20160310145031_14575926315879_res.jpg"
+        );
+        couponStatus = 0;
+        couponType = 2;
+        currentUserReceiveCount = 0;
+        distance = "<null>";
+            endDate = 1460390340000;
+            externalLink = "<null>";
+                isCollected = 0;
+                latitude = "<null>";
+                    limitCountPerPerson = 1;
+                    longitude = "<null>";
+                        price = 0;
+                        storeAddress = "<null>";
+                            storeId = "<null>";
+                                storeName = "<null>";
+                                    storeNum = "<null>";
+                                        verificationDesc = "1.\U60a8\U53ef\U4ee5\U8bf7\U8425\U4e1a\U5458\U70b9\U51fb\U201c\U624b\U52a8\U786e\U8ba4\U201d\U6309\U94ae\U8fdb\U884c\U9a8c\U5238
+                                        \n2.\U60a8\U53ef\U4ee5\U5728\U5168\U57ce\U901b\U8857\U94f6\U8054\U9a8c\U5238\U673a\U4e0a\U8f93\U5165\U4f18\U60e0\U5238\U7f16\U7801\U8fdb\U884c\U9a8c\U5238";
+                                    }

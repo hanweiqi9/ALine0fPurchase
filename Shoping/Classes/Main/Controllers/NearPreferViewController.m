@@ -7,6 +7,7 @@
 //
 /*
  http://api.gjla.com/app_admin_v400/api/coupon/couponList?districtId=&cityId=391db7b8fdd211e3b2bf00163e000dce&categoryId=&sortType=&pageSize=20&longitude=112.426833&latitude=34.618754&pageNum=1
+
  */
 #import "NearPreferViewController.h"
 #import "PullingRefreshTableView.h"
@@ -14,6 +15,8 @@
 #import "UIViewController+Common.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "PreferDetailViewController.h"
+#import "ActivityMianViewController.h"
 
 @interface NearPreferViewController ()<PullingRefreshTableViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     
@@ -117,7 +120,7 @@
     return self.cellArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return kHeight / 13 ;
+    return kHeight / 13+10 ;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight / 13)];
@@ -144,7 +147,24 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    NSMutableArray *group = self.cellArray[indexPath.section][@"couponOrDiscounts"];
+    NSString *type = group[indexPath.row][@"type"];
+    if ([type isEqual:@"1"]) {
+        ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
+        NSMutableArray *group = self.cellArray[indexPath.section][@"couponOrDiscounts"];
+        activityMianVC.cityID = self.cityID;
+        activityMianVC.trunId  = group[indexPath.row][@"id"];
+        [self.navigationController pushViewController:activityMianVC animated:YES];
+    }
+    if ([type isEqual:@"0"]) {
+        PreferDetailViewController *preferVC = [[PreferDetailViewController alloc] init];
+        preferVC.nameId = self.cellArray[indexPath.section][@"brandId"];
+        preferVC.cityID = self.cityID;
+        NSMutableArray *group = self.cellArray[indexPath.section][@"couponOrDiscounts"];
+        preferVC.preferId = group[indexPath.row][@"id"];
+        preferVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:preferVC animated:YES];
+    }
 }
 #pragma mark ------------- 刷新代理
 - (void)pullingTableViewDidStartRefreshing:(PullingRefreshTableView *)tableView{

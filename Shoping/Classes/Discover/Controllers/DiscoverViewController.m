@@ -25,8 +25,6 @@
 #import "PullingRefreshTableView.h"
 #import "ActivityViewController.h"
 
-
-
 @interface DiscoverViewController ()<UITableViewDataSource,UITableViewDelegate,PullingRefreshTableViewDelegate>
 {
     NSInteger _pageNum;
@@ -38,6 +36,8 @@
 @property(nonatomic,strong) NSMutableArray *newsArray;
 @property(nonatomic,strong) UISwipeGestureRecognizer *leftSwipe;
 @property(nonatomic,strong) UISwipeGestureRecognizer *rightSwipe;
+@property(nonatomic,strong) UIButton *topBtn;
+
 
 @property(nonatomic,assign) BOOL refreshing;
 
@@ -51,8 +51,9 @@
     // Do any additional setup after loading the view.
     [self.navigationController.navigationBar.topItem setTitleView:self.segmentedController ];
     _pageNum = 1;
-    
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.topBtn];
+    [self.view bringSubviewToFront:self.topBtn];
     
     [self.tableView launchRefreshing];
    
@@ -109,6 +110,16 @@
 
 
 #pragma mark-------------Lazy
+
+-(UIButton *)topBtn{
+    if (_topBtn == nil) {
+        self.topBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.topBtn.frame = CGRectMake(kWidth-40, kHeight*4/5, 40, 40);
+        [self.topBtn setImage:[UIImage imageNamed:@"totop"] forState:UIControlStateNormal];
+        [self.topBtn addTarget:self action:@selector(upAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _topBtn;
+}
 
 -(NSMutableArray *)allArray{
     if (_allArray == nil) {
@@ -235,6 +246,7 @@
 }
 
 //#pragma mark -------------pullingDelegate
+
 //下拉
 -(void)pullingTableViewDidStartRefreshing:(PullingRefreshTableView *)tableView{
     self.refreshing = YES;
@@ -258,8 +270,12 @@
 
 
 
-
-
+#pragma mark----------置顶
+-(void)upAction{
+    
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

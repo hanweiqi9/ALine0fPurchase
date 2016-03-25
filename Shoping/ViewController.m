@@ -17,10 +17,16 @@
 #import "ActivityMianViewController.h"
 #import "ShopDetailViewController.h"
 #import "SDCycleScrollView.h"
+#import "PullingRefreshTableView.h"
+#import "BrandDetailViewController.h"
+#import "AppDelegate.h"
+#import "NearbyViewController.h"
+#import "PreferDetailViewController.h"
 
-@interface ViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate >
+
+@interface ViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate,PullingRefreshTableViewDelegate,UITabBarControllerDelegate>
 //UI控件
-@property (nonatomic, strong) UITableView *tableview;
+@property (nonatomic, strong) PullingRefreshTableView *tableview;
 @property (nonatomic, strong) UIView *HeadView;
 //@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIPageControl *pageC;
@@ -33,9 +39,13 @@
 @property (nonatomic, strong) NSMutableArray *turnArray;
 @property (nonatomic, strong) NSMutableArray *cellArray;
 @property (nonatomic, strong) NSMutableArray *toolArray;
-@property (nonatomic, strong) NSDictionary *youDic;
+@property (nonatomic, strong) NSMutableArray *youArray;
 @property (nonatomic, strong) NSMutableArray *cityArray;
 @property (nonatomic, strong) NSString *cityId;
+@property (nonatomic, assign) BOOL refreshing;
+
+@property (nonatomic, strong) AppDelegate *appdelegate;
+
 
 @end
 
@@ -53,8 +63,10 @@
     [self headSettingView];
     //数据请求
 //    [self startTimer];
+    [self.tableview launchRefreshing];
+
     [self MoreThead];
-    
+    [self getCityData];
     //黑背景
     self.blackView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight)];
     self.blackView.backgroundColor = [UIColor colorWithRed:58.0/255.0 green:58.0/255.0 blue:58.0/255.0 alpha:0.5];
@@ -93,6 +105,7 @@
 }
 #pragma merk ------- 多线程实现数据同时请求
 - (void)MoreThead{
+    
     dispatch_queue_t mainThead = dispatch_queue_create("com.turn queue", DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
     dispatch_async(mainThead, ^{
@@ -107,16 +120,16 @@
     dispatch_async(mainThead, ^{
         [self getCellData];
     });
-    dispatch_async(mainThead, ^{
-        [self getCityData];
-    });
-    
+//    dispatch_async(mainThead, ^{
+//        [self getCityData];
+//    });
+
 }
 //轮播图
 - (void)settingTurn{
     //使用第三方库
-    UIScrollView  *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight/2-50)];
-    scrollView.contentSize = CGSizeMake(kWidth, kHeight / 2-50);
+    UIScrollView  *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight/2-60)];
+    scrollView.contentSize = CGSizeMake(kWidth, kHeight / 2-60);
     
     NSMutableArray *group = [NSMutableArray new];
     for (int i = 0;i < self.turnArray.count; i++) {
@@ -124,11 +137,11 @@
         NSString *urlstinf = [NSString stringWithFormat:@"%@%@",kImageString,url];
         [group addObject:urlstinf];
     }
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake( 0, 0,scrollView.bounds.size.width, kHeight/ 2 -50) shouldInfiniteLoop:YES imageNamesGroup:group];
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake( 0, 0,scrollView.bounds.size.width, kHeight/ 2 -60) shouldInfiniteLoop:YES imageNamesGroup:group];
     cycleScrollView.delegate = self;
     cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
     //轮播时间，默认1秒
-    cycleScrollView.autoScrollTimeInterval = 2.0;
+    cycleScrollView.autoScrollTimeInterval = 3.0;
     
     [scrollView addSubview:cycleScrollView];
     [self.HeadView addSubview:scrollView];
@@ -136,7 +149,7 @@
 
 //列表的设置
 - (void)settingTools{
-    UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight/2-5, kWidth, kWidth/3+0.5)];
+    UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight/2-15, kWidth, kWidth/3+0.5)];
     toolView.backgroundColor = [UIColor grayColor];
     for (int i = 1 ; i < 6; i++) {
         
@@ -153,7 +166,7 @@
             [toolButton addSubview:imageview];
             [toolView addSubview:toolButton];
         }if (i > 2 && i < 6) {
-            toolButton.frame = CGRectMake(kWidth/4*(i- 3)+5,kHeight/2+kWidth/3, kWidth/4-10, kWidth/4-10);
+            toolButton.frame = CGRectMake(kWidth/4*(i- 3)+5,kHeight/2+kWidth/3-10, kWidth/4-10, kWidth/4-10);
             toolButton.tag = i;
             UIImageView *imageview= [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, toolButton.frame.size.width - 5, toolButton.frame.size.height - 5)];
             [imageview sd_setImageWithURL:[NSURL URLWithString:sting] placeholderImage:nil];
@@ -167,24 +180,25 @@
 - (void)settingYourground{
     UIButton *youButton = [UIButton buttonWithType:UIButtonTypeSystem];
     //    youButton.backgroundColor = [UIColor yellowColor];
-    youButton.frame = CGRectMake(5, kHeight/2+kWidth/3 + kWidth /4 + 7+ kWidth/13, kWidth / 2 + 30, kWidth/2);
+    youButton.frame = CGRectMake(5, kHeight/2+kWidth/3 + kWidth /4 -3+ kWidth/13, kWidth / 2 + 30, kWidth/2);
     youButton.tag = 6;
     [youButton addTarget:self action:@selector(AllBottonAction:) forControlEvents:UIControlEventTouchUpInside];
-    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(youButton.frame.size.width/8, youButton.frame.size.height - 40,youButton.frame.size.width/2 ,40)];
-    lable.text = self.youDic[@"mallName"];
-    lable.textAlignment = NSTextAlignmentCenter;
-    lable.textColor = [UIColor whiteColor];
-    [youButton addSubview:lable];
-    
-    NSString *string =[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/%@",self.youDic[@"mainPicUrl"]];
+    NSDictionary *dic = self.youArray[0];
+    NSString *string =[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/%@",dic[@"mainPicUrl"]];
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, youButton.frame.size.width, youButton.frame.size.height)];
     [imageview sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
     [youButton addSubview:imageview];
+    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(0, youButton.frame.size.height - 40,youButton.frame.size.width ,40)];
+    lable.text = dic[@"mallName"];
+    lable.backgroundColor = [UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.6];
+    lable.textAlignment = NSTextAlignmentCenter;
+    lable.textColor = [UIColor whiteColor];
+    [imageview addSubview:lable];
     [self.HeadView addSubview:youButton];
     for (int i = 0; i < 2; i++) {
         UIButton *Button = [UIButton buttonWithType:UIButtonTypeSystem];
         Button.backgroundColor = [UIColor orangeColor];
-        Button.frame = CGRectMake(kWidth /2+40, kHeight/2+kWidth/3 + kWidth /4 + 10 + kWidth/13 + kWidth/4*i, kWidth / 2 - 50, kWidth /4-3);
+        Button.frame = CGRectMake(kWidth /2+40, kHeight/2+kWidth/3 + kWidth /4  + kWidth/13 + kWidth/4*i, kWidth / 2 - 50, kWidth /4-3);
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(Button.frame.size.width/4-10, Button.frame.size.height-25,Button.frame.size.width/2+20, 20)];
         title.textColor = [UIColor whiteColor];
         title.textAlignment = NSTextAlignmentCenter;
@@ -212,22 +226,21 @@
 - (void)getMainData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    /*
-          bf98a329000211e4b2bf00163e000dce
-     */
     NSString *sring = @"http://api.gjla.com/app_admin_v400/api/onlineActivity/list?cityId=";
     [manger GET:[NSString stringWithFormat:@"%@%@",sring,self.cityId]
  parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSArray *data = dic[@"datas"];
-        if (self.turnArray.count > 0) {
-            [self.turnArray removeAllObjects];
-        }
+            if(self.turnArray.count > 0) {
+                [self.turnArray removeAllObjects];
+            }
         for (NSDictionary *dics in data) {
             [self.turnArray addObject:dics];
         }
         [self.tableview reloadData];
+        [self.tableview tableViewDidFinishedLoading];
+        self.tableview.reachedTheEnd = NO;
         [self settingTurn];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -240,10 +253,15 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSArray *data = dic[@"datas"];
+            if (self.cellArray.count > 0) {
+                [self.cellArray removeAllObjects];
+            }
         for (NSDictionary *dics in data) {
             [self.cellArray addObject:dics];
         }
         [self.tableview reloadData];
+        [self.tableview tableViewDidFinishedLoading];
+        self.tableview.reachedTheEnd = NO;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
@@ -252,14 +270,21 @@
 - (void)toolViewData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/recommend?appVersion=4.2.0&cityId=%@",self.cityId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    NSString *urlSting = [NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/recommend?appVersion=4.2.0&cityId=%@",self.cityId];
+    [manger GET:urlSting parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSArray *dataArray = dic[@"datas"];
+
+            if (self.toolArray.count > 0) {
+                [self.toolArray removeAllObjects];
+            }
         for (NSDictionary *dics in dataArray) {
             [self.toolArray addObject:dics];
         }
         [self.tableview reloadData];
+        [self.tableview tableViewDidFinishedLoading];
+        self.tableview.reachedTheEnd = NO;
         [self settingTools];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -271,8 +296,15 @@
     [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/home/LBSMall?longitude=112.426904&districtId=&latitude=34.618929&userId=&cityId=%@",self.cityId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
-        self.youDic = dic[@"datas"];
+        NSDictionary *dics = dic[@"datas"];
+
+            if (self.youArray.count > 0) {
+                [self.youArray removeAllObjects];
+            }
+        [self.youArray addObject:dics];
         [self.tableview reloadData];
+        [self.tableview tableViewDidFinishedLoading];
+        self.tableview.reachedTheEnd = NO;
         [self settingYourground];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -287,6 +319,9 @@
         NSDictionary *dic = responseObject;
         self.cityArray = dic[@"datas"];
         [self.tableview reloadData];
+        [self.tableview tableViewDidFinishedLoading];
+        self.tableview.reachedTheEnd = NO;
+//        [self leftBarButtonAction];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
@@ -294,7 +329,7 @@
 
 #pragma mark ---------- 设置区头
 - (void)headSettingView{
-    UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight /2 - 50, kWidth, 45)];
+    UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight /2 - 60, kWidth, 45)];
     toolView.backgroundColor = [UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.6];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [button setBackgroundImage:[UIImage imageNamed:@"main_search_bg.9"] forState:UIControlStateNormal];
@@ -307,7 +342,7 @@
     [self.HeadView addSubview:toolView];
     
     UIButton *guButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    guButton.frame = CGRectMake(kWidth/4*3+5,kHeight/2+kWidth/3+5, kWidth/4-10, kWidth/4-15);
+    guButton.frame = CGRectMake(kWidth/4*3+5,kHeight/2+kWidth/3-5, kWidth/4-10, kWidth/4-15);
     guButton.tag = 6;
     [guButton setBackgroundImage:[UIImage imageNamed:@"home_more.jpg"] forState:UIControlStateNormal];
     [guButton addTarget:self action:@selector(AllYouhuiShow) forControlEvents:UIControlEventTouchUpInside];
@@ -315,28 +350,26 @@
     
     
     // 在你周围
-    UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth/4-5, kHeight/2+kWidth/3 + kWidth/4 +15, kWidth /2 + 10, 0.5)];
+    UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth/4-5, kHeight/2+kWidth/3 + kWidth/4 +5, kWidth /2 + 10, 0.5)];
     //    titleView.backgroundColor = [UIColor redColor];
     titleView.image = [UIImage imageNamed:@"icon_tblack_a"];
     [self.HeadView addSubview:titleView
      ];
-    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/5*2,kHeight/2+kWidth/3 + kWidth/4 , kWidth/5,kWidth/13)];
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/5*2,kHeight/2+kWidth/3 + kWidth/4-10 , kWidth/5,kWidth/13)];
     titleL.text = @"在你周围";
     titleL.textAlignment = NSTextAlignmentCenter;
     titleL.backgroundColor = [UIColor whiteColor];
     titleL.font = [UIFont systemFontOfSize:15.0];
     [self.HeadView addSubview:titleL];
     
-    
-    
-    
+
     //每日精选
-    UIImageView *goodView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth/4-5, kHeight/2+kWidth/3 + kWidth /4 + 33+ kWidth/13 + kWidth / 2, kWidth /2 + 10, 0.5)];
+    UIImageView *goodView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth/4-5, kHeight/2+kWidth/3 + kWidth /4 + 23+ kWidth/13 + kWidth / 2, kWidth /2 + 10, 0.5)];
     //    titleView.backgroundColor = [UIColor redColor];
     goodView.image = [UIImage imageNamed:@"icon_tblack_a"];
     [self.HeadView addSubview:goodView
      ];
-    UILabel *titleLgood = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/5*2,kHeight/2+kWidth/3 +kWidth /2+ kWidth /4 + 18+ kWidth/13, kWidth/5,kWidth/13)];
+    UILabel *titleLgood = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/5*2,kHeight/2+kWidth/3 +kWidth /2+ kWidth /4 + 8+ kWidth/13, kWidth/5,kWidth/13)];
     titleLgood.text = @"每日精选";
     titleLgood.textAlignment = NSTextAlignmentCenter;
     titleLgood.backgroundColor = [UIColor whiteColor];
@@ -344,48 +377,7 @@
     [self.HeadView addSubview:titleLgood];
     
 }
-//圆点随着滑动变化
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView1{
-//    CGFloat pagenum = self.scrollView.frame.size.width;
-//    CGPoint offset =  self.scrollView.contentOffset;
-//    NSInteger num = offset.x / pagenum;
-//    self.pageC.currentPage = num;
-//}
-//
-//- (void)startTimer{
-//    
-//    //如果定时器存在的话， 不在执行
-//    if (_timer != nil) {
-//        return;
-//    }
-//    self.timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(rollScreen) userInfo:nil repeats:YES];
-//    
-//    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
-//    
-//}
-////每两秒执行一次图片自动轮播
-//- (void)rollScreen{
-//    if (self.turnArray.count > 0) {
-//        //当前页 +1
-//        //self.idArray.count的元素可能为0，当0时对取余的时候，没有意义
-//        NSInteger rollPage = (self.pageC.currentPage + 1) % self.turnArray.count;
-//        self.pageC.currentPage = rollPage;
-//        
-//        CGFloat offset = rollPage * kWidth;
-//        [self.scrollView setContentOffset:CGPointMake(offset, 0) animated:YES];
-//    }
-//    
-//}
-//
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-//    //    [self rollScreen];
-//    //停止定时器后，将定时器置为nil，再次启动时，定时器才能保证正常执行。
-//    //        self.timer = nil;
-//    //    [self startTimer];
-//}
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-//    [self startTimer];
-//}
+
 
 #pragma mark ---------- 代理
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -414,48 +406,47 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ActivityViewController *activityVC = [[ActivityViewController alloc] init];
-
+    
     activityVC.selectId = self.cellArray[indexPath.row][@"subjectId"] ;
     activityVC.type = [self.cellArray[indexPath.row][@"type"] integerValue];
     activityVC.userId = @"c649ac4bf87f43fea924f52a2639e533";
     activityVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:activityVC animated:YES];
 }
+
+#pragma mark ------------- 刷新代理
+- (void)pullingTableViewDidStartRefreshing:(PullingRefreshTableView *)tableView{
+    self.refreshing = YES;
+    [self performSelector:@selector(MoreThead) withObject:nil afterDelay:1.0];
+}
+- (void)pullingTableViewDidStartLoading:(PullingRefreshTableView *)tableView{
+    self.refreshing = NO;
+//    [[self class] showAlertMessageWithMessage:@"已是最后数据" duration:1.0];
+    UIAlertController *alVC = [UIAlertController alertControllerWithTitle:nil message:@"已是最后数据"  preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.tableview setScrollsToTop:YES];
+    }];
+    [alVC addAction:action];
+    [self presentViewController:alVC animated:YES completion:nil];
+    [self.tableview tableViewDidFinishedLoading];
+}
+//手指开始拖动
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.tableview tableViewDidScroll:scrollView];
+}
+
+//下拉刷新开始时调用
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    [self.tableview tableViewDidEndDragging:scrollView];
+}
 #pragma mark --------- 点击方法
-//- (void)TurnAction:(UIButton *)button{
-//    
-//    NSString *urlsting = self.turnArray[button.tag - 100][@"linkUrl"];
-//    NSArray *array = [urlsting componentsSeparatedByString:@"/"];
-//    NSString *stinr = array[array.count-1];
-//    NSArray *typeArray = [stinr componentsSeparatedByString:@".html"];
-//    NSString *typestinr = typeArray[0];
-//    if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"] ) {
-//        HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
-//        htmlVC.urlString = self.turnArray[button.tag - 100][@"fuliId"];
-//        htmlVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:htmlVC animated:YES];
-//    }
-//    if ([typestinr isEqualToString:@"brandcoupon"]) {
-//        ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
-//        activityMianVC.hidesBottomBarWhenPushed = YES;
-//        NSString *stinf = typeArray[1];
-//        NSArray *aarray = [stinf componentsSeparatedByString:@"?cid="];
-//        NSString *csting = aarray[1];
-//        NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
-//        activityMianVC.trunId = barray[0];
-//        activityMianVC.title = self.turnArray[button.tag - 100][@"description"];
-//        [self.navigationController pushViewController:activityMianVC animated:YES];
-//    }
-//}
-
-
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
         NSString *urlsting = self.turnArray[index][@"linkUrl"];
         NSArray *array = [urlsting componentsSeparatedByString:@"/"];
         NSString *stinr = array[array.count-1];
         NSArray *typeArray = [stinr componentsSeparatedByString:@".html"];
         NSString *typestinr = typeArray[0];
-        if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"] ) {
+        if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"]  ) {
             HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
             htmlVC.urlString = self.turnArray[index][@"fuliId"];
             htmlVC.hidesBottomBarWhenPushed = YES;
@@ -464,33 +455,44 @@
         if ([typestinr isEqualToString:@"brandcoupon"]) {
             ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
             activityMianVC.hidesBottomBarWhenPushed = YES;
+            activityMianVC.cityID = self.cityId;
             NSString *stinf = typeArray[1];
-            NSArray *aarray = [stinf componentsSeparatedByString:@"?cid="];
+            NSArray *aarray = [stinf componentsSeparatedByString:@"="];
             NSString *csting = aarray[1];
             NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
             activityMianVC.trunId = barray[0];
-            activityMianVC.title = self.turnArray[index][@"description"];
             [self.navigationController pushViewController:activityMianVC animated:YES];
         }
-//    if ([typestinr isEqualToString:@"subject"]) {
-//        ActivityViewController *activityVC = [[ActivityViewController alloc] init];
-//        activityVC.userId = @"c649ac4bf87f43fea924f52a2639e533";
-//        activityVC.type = 1;
-//        NSString *sting = typeArray[typeArray.count - 1];
-//        NSArray *arra = [sting componentsSeparatedByString:@"&detailId="];
-//        activityVC.selectId = arra[1];
-//        activityVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:activityVC animated:YES];
-//
-//    }
+    if ([typestinr isEqualToString:@"subject"]) {
+        ActivityViewController *avtivity = [[ActivityViewController alloc] init];
+        NSString *stinf = typeArray[1];
+        NSArray *aarray = [stinf componentsSeparatedByString:@"="];
+//        avtivity.cityId = self.cityId;
+        NSString *csting = aarray[aarray.count - 1];
+            avtivity.selectId = csting;
+            avtivity.userId = @"c649ac4bf87f43fea924f52a2639e533";
+            avtivity.type = 1;
+        
+        [self.navigationController pushViewController:avtivity animated:YES];
+        
+    }
+    if ([typestinr isEqualToString:@"brandinfo"]) {
+        BrandDetailViewController *brandVC = [[BrandDetailViewController alloc] init];
+//        brandVC.cityId = self.cityId;
+        NSString *stinf = typeArray[1];
+        NSArray *aarray = [stinf componentsSeparatedByString:@"="];
+        NSString *csting = aarray[aarray.count - 1];
+        brandVC.brandId = csting;
+        brandVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:brandVC animated:YES];
+    }
     
 }
-
-
 - (void)leftBarButtonAction{
-    [self getCityData];
+
     self.blackView.hidden = NO;
     UIButton *buttona = [UIButton buttonWithType:UIButtonTypeCustom];
+
     buttona.frame = CGRectMake(0, 30, kWidth, kHeight -30);
     [buttona addTarget:self action:@selector(BackMain) forControlEvents:UIControlEventTouchUpInside];
     [self.blackView addSubview:buttona];
@@ -499,8 +501,9 @@
     if (self.cityArray.count > 0) {
         for (int i = 0; i < self.cityArray.count; i++) {
             self.cityButton = [UIButton buttonWithType:UIButtonTypeSystem];
-            self.cityButton .backgroundColor = [UIColor cyanColor];
+            self.cityButton .backgroundColor =[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:1.0];
             self.cityButton .frame = CGRectMake(kWidth/3*i+ 10, 15, kWidth/3-20, 30);
+            [self.cityButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [self.cityButton  setTitle:self.cityArray[i][@"cityName"] forState:UIControlStateNormal];
             self.cityButton .tag = i;
             [self.cityButton  addTarget:self action:@selector(BackUpView:) forControlEvents:UIControlEventTouchUpInside];
@@ -513,6 +516,8 @@
 - (void)BackUpView:(UIButton *)button{
 //    [self.cityButton  setTitle:self.cityArray[button.tag][@"cityName"] forState:UIControlStateNormal];
     self.cityButton.titleLabel.text = self.cityArray[button.tag][@"cityName"];
+    self.cityButton.backgroundColor = [UIColor redColor];
+    self.cityButton.titleLabel.textColor = [UIColor whiteColor];
     self.blackView.hidden = YES;
     self.cityId = self.cityArray[button.tag][@"cityId"];
     [self MoreThead];
@@ -533,6 +538,7 @@
 
 - (void)AllYouhuiShow{
     YouhuiViewController *youhuiVC = [[YouhuiViewController alloc] init];
+    youhuiVC.cityId = self.cityId;
     youhuiVC.hidesBottomBarWhenPushed = YES;
     youhuiVC.title = @"全部优惠券";
     [self.navigationController pushViewController:youhuiVC animated:YES];
@@ -548,49 +554,61 @@
         if ([typestinr isEqualToString:@"index9"]) {
             HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
             htmlVC.urlString = self.toolArray[button.tag][@"recommendLink"];
+            htmlVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:htmlVC animated:YES];
         }
         if ([typestinr isEqualToString:@"brandcoupon"]) {
-            ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
-            activityMianVC.hidesBottomBarWhenPushed = YES;
             NSString *stinf = typeArray[1];
             NSArray *aarray = [stinf componentsSeparatedByString:@"cid="];
             NSString *csting = aarray[1];
             NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
+//            NSString *type = barray[1];
+            
+//            if (self.cityId == @""  && [type isEqualToString:@"1"]) {
+//                PreferDetailViewController *preferVC = [[PreferDetailViewController alloc] init];
+//                preferVC.cityID = self.cityId;
+//                preferVC.preferId = barray[0];
+//                preferVC.hidesBottomBarWhenPushed = YES;
+//                [self.navigationController pushViewController:preferVC animated:YES];
+//            }
+            
+            
+            ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
             activityMianVC.trunId = barray[0];
-            activityMianVC.type = barray[1];
+            activityMianVC.cityID = self.cityId;
+            activityMianVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:activityMianVC animated:YES];
         }
     }
     if (button.tag == 6) {
         //广场详情
         ShopDetailViewController *shopVC = [[ShopDetailViewController alloc] init];
-        shopVC.title = self.youDic[@"mallName"];
-        shopVC.detailId = self.youDic[@"mallId"];
+        NSDictionary *dic = self.youArray[0];
+        shopVC.title = dic[@"mallName"];
+        shopVC.detailId = dic[@"mallId"];
+//        shopVC.cityID = self.cityId;
         shopVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:shopVC animated:self];
     }
     if (button.tag == 7) {
-////        附近商城
-//        UIStoryboard *sort = [UIStoryboard storyboardWithName:@"Nearby" bundle:nil];
-//        UINavigationController *nav = sort.instantiateInitialViewController;
-//        [self presentModalViewController:nav animated:YES];
+//        附近商城
+   
     }
-    
     if (button.tag == 8) {
         //附近优惠
         NearPreferViewController *nearVC = [[NearPreferViewController alloc] init];
         nearVC.title = @"所有优惠";
+        nearVC.cityID = self.cityId;
         nearVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:nearVC animated:YES];
     }
 }
 
 #pragma mark --------- 懒加载
-- (UITableView *)tableview{
+- (PullingRefreshTableView *)tableview{
     if (_tableview == nil) {
-        self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0,0, kWidth, kHeight -64) style:UITableViewStylePlain];
-        
+        self.tableview = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0,64, kWidth, kHeight )pullingDelegate:self];
+//        self.tableview.pull≥/ingDelegate = self;
         self.tableview.dataSource = self;
         self.tableview.delegate = self;
         //        self.tableview.backgroundColor = [UIColor cyanColor];
@@ -630,11 +648,11 @@
     return _toolArray;
 }
 
-- (NSDictionary *)youDic{
-    if (_youDic == nil) {
-        self.youDic = [NSDictionary new];
+- (NSMutableArray *)youArray{
+    if (_youArray == nil) {
+        self.youArray = [NSMutableArray new];
     }
-    return _youDic;
+    return _youArray;
 }
 
 - (NSMutableArray *)cityArray{
@@ -651,53 +669,6 @@
 }
 
 @end
-/*
- //    self.pageC.numberOfPages = self.turnArray.count;
- //    for (int i = 0; i < self.turnArray.count; i++) {
- //        self.scrollView.contentSize = CGSizeMake(kWidth * self.turnArray.count, kHeight / 2-50);
- //        UIImageView *images = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth*i, 0, kWidth, kHeight/2-50)];
- //        //        images.backgroundColor = [UIColor redColor];
- //        [images sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/%@",self.turnArray[i][@"mainPicUrl"]]] placeholderImage:nil];
- //        [self.scrollView addSubview:images];
- //        self.HeadView.userInteractionEnabled = YES;
- //        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
- //        button.frame = images.frame;
- //        button.tag = 100 +i;
- //        [button addTarget:self action:@selector(TurnAction:) forControlEvents:UIControlEventTouchUpInside];
- //        [self.scrollView addSubview:button];
- //    }
- //    [self.HeadView addSubview:self.scrollView];
- //    [self.HeadView addSubview:self.pageC];
+
  
- 
- 
- 
- 
- 
- //- (UIScrollView *)scrollView{
- //    if (_scrollView == nil) {
- //        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight/2-50)];
- //        //        self.scrollView.backgroundColor = [UIColor orangeColor];
- //        self.scrollView.delegate = self;
- //        //显示滚动条
- //        self.scrollView.showsHorizontalScrollIndicator = NO;
- //        self.scrollView.showsVerticalScrollIndicator = NO;
- //        //垂直滑动
- //        self.scrollView.alwaysBounceHorizontal = NO;
- //        //整屏滑动
- //        self.scrollView.pagingEnabled = YES;
- //    }
- //    return _scrollView;
- //}
- //- (UIPageControl *)pageC{
- //    if (_pageC == nil) {
- //        self.pageC = [[UIPageControl alloc] initWithFrame:CGRectMake(kWidth / 3, kHeight / 2 - 80, kWidth / 3, 30)];
- //        self.pageC.pageIndicatorTintColor = [UIColor whiteColor];
- //        self.pageC.currentPageIndicatorTintColor = [UIColor redColor];
- //    }
- //    return _pageC;
- //}
- 
- 
- 
- */
+

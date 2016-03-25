@@ -14,7 +14,7 @@
     NSString *wbCurrentUserID;
 }
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, strong) UITabBarController *tablebarVC;
+//@property (nonatomic, strong) UITabBarController *tablebarVC;
 @property (strong, nonatomic) NSString *wbtoken;
 @property (strong, nonatomic) NSString *wbRefreshToken;
 @property (strong, nonatomic) NSString *wbCurrentUserID;
