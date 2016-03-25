@@ -13,6 +13,8 @@
 #import "UIViewController+Common.h"
 #import "AllStoreViewController.h"
 #import "ProgressHUD.h"
+#import "MapViewController.h"
+#import "MangoSingleton.h"
 @interface ActivityMianViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *DetailsTableView;
@@ -32,9 +34,6 @@
     
     [self showBackButtonWithImage:@"titlebarback"];
     [self.view addSubview:self.DetailsTableView];
-    
-    
-    
     [self getActivityDetailData];
 }
 #pragma mark ========== 数据请求
@@ -178,7 +177,22 @@
     self.DetailsTableView.tableHeaderView = self.headView;
 }
 - (void)dituLook{
-    
+    MapViewController *mapVC = [[MapViewController alloc] init];
+    NSString *latitude = self.datasDic[@"latitude"];
+    NSString *longitude = self.datasDic[@"longitude"];
+    mapVC.lat = [latitude floatValue];
+    mapVC.lng = [longitude floatValue];
+    NSString *name = self.datasDic[@"mallName"];
+    NSString *address = self.datasDic[@"address"];
+    //使用单例传值
+    MangoSingleton *mango = [MangoSingleton sharInstance];
+    //如果获取到的经纬度值不为空，就传到地图页面
+    if ([name isEqual:[NSNull null]] && [address isEqual:[NSNull null]]) {
+        mango.title = name;
+        mango.inputText = address;
+        
+    }
+    [self.navigationController pushViewController:mapVC animated:YES];
 }
 #pragma mark ========== 代理
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

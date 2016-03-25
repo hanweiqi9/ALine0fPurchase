@@ -8,6 +8,7 @@
 
 #import "InviteViewController.h"
 #import "UIViewController+Common.h"
+
 @interface InviteViewController ()
 
 @end
