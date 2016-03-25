@@ -15,6 +15,7 @@
 #import "QuanchnegViewController.h"
 #import "TuiJianView.h"
 #import "AppDelegate.h"
+#import "TabViewController.h"
 
 
 @interface ShezhiViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -31,11 +32,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"设置";
-     self.view.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight/2) style:UITableViewStylePlain];
+     self.view.backgroundColor = [UIColor whiteColor];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight *2/3) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.rowHeight = 40;
     self.tableView.scrollEnabled = NO;//设置tableview不滚动
+    
     [self.view addSubview:self.tableView];
     
     self.titleArray = [[NSMutableArray alloc] initWithObjects:@"清除缓存", nil];
@@ -50,14 +53,15 @@
     
     
     UIButton *removeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    removeBtn.frame = CGRectMake(kWidth/3, kHeight/2+10, kWidth/3, 44);
+    removeBtn.frame = CGRectMake(kWidth/5, kHeight/2, kWidth-kWidth*2/5, 44);
     removeBtn.backgroundColor = kColor;
     [removeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [removeBtn setTitle:@"退出当前账户" forState:UIControlStateNormal];
     [removeBtn addTarget:self action:@selector(removeAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:removeBtn];
+    [self.tableView addSubview:removeBtn];
     
 }
+
 
 -(void)removeAction{
     UIAlertController *alert =[UIAlertController alertControllerWithTitle:@"确定退出" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -71,8 +75,13 @@
         [userDefault removeObjectForKey:@"headImage"];
         [userDefault synchronize];
         
-//        self.appdelegate = (AppDelegate *)[UIApplication sharedApplication];
-//        [self presentViewController:self.appdelegate.window.rootViewController animated:YES completion:nil];
+        UITabBarController *tabBar =[TabViewController new];
+        tabBar.tabBar.tintColor = kColor;
+        self.view.window.rootViewController = tabBar;
+        
+        
+        
+
         
         
         
@@ -112,7 +121,7 @@
     }else{
         cell.textLabel.text = self.titArray[indexPath.row];
     }
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.textLabel.backgroundColor = [UIColor whiteColor];
     
     return cell;
 }
@@ -129,9 +138,14 @@
     return 2;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 15;
+    
+    return 10;
 }
-
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
+    return view;
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         SDImageCache *imageCache = [SDImageCache sharedImageCache];

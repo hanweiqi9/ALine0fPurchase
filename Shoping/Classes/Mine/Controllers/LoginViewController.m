@@ -39,13 +39,17 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"个人中心";
+    
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
     [backBtn setImage:[UIImage imageNamed:@"arrow_left_pink"] forState:UIControlStateNormal];
     [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 5)];
     [backBtn addTarget:self action:@selector(backBtnActivity) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
+     backBtn.hidden = YES;
     self.navigationItem.leftBarButtonItem = leftBarBtn;
+    
+   
     
     self.setBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.setBtn.frame = CGRectMake(kWidth*6/7, 0, kWidth/7, 44);
@@ -53,6 +57,8 @@
     [self.setBtn addTarget:self action:@selector(setAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithCustomView:self.setBtn];
     self.navigationItem.rightBarButtonItem = rightBtn;
+    
+    
     
     
     self.titleArray = [[NSMutableArray alloc] initWithObjects:@"我的关注",@"我的收藏",@"我的评论",@"客服中心", nil];
@@ -76,7 +82,6 @@
     self.headBtn.clipsToBounds = YES;
     [self.headBtn addTarget:self action:@selector(headimageAction) forControlEvents:UIControlEventTouchUpInside];
     self.headBtn.backgroundColor = [UIColor whiteColor];
-//    [self.headBtn setImage:[UIImage imageNamed:@"defult_avatar"] forState:UIControlStateNormal];
     [self.headBtn setImage:self.image1 forState:UIControlStateNormal];
     [heardView addSubview:self.headBtn];
     
