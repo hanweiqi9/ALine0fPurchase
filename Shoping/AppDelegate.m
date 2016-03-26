@@ -15,14 +15,9 @@
 #import <MAMapKit/MAMapKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 #import "MangoSingleton.h"
-
-
-@interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate,CLLocationManagerDelegate, AMapSearchDelegate>
-
 #import "TabViewController.h"
 
-@interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate>
-
+@interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate,CLLocationManagerDelegate, AMapSearchDelegate, UITabBarControllerDelegate>
 {
     //创建一个定位的CLLocationManager对象
     CLLocationManager *_locationManger;

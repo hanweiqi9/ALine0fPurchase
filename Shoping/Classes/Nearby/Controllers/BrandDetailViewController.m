@@ -219,7 +219,7 @@
     [addressBtn addTarget:self action:@selector(addressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     //设置图片和内容的间距
     [addressBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
-    [addressBtn setImage:[UIImage imageNamed:@"address_ico"] forState:UIControlStateNormal];
+    [addressBtn setImage:[UIImage imageNamed:@"address11.png"] forState:UIControlStateNormal];
     [addressBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [self.headerView addSubview:addressBtn];
     [self.headerView addSubview:distanceBtn];

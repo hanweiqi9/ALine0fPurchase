@@ -175,13 +175,14 @@
     [distanceBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     //地址导航
     UIButton *addressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //设置图片和内容的间距
+    [addressBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [addressBtn setImage:[UIImage imageNamed:@"address11.png"] forState:UIControlStateNormal];
+    [addressBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     addressBtn.frame = CGRectMake(20, kWidth / 3 + kWidth / 3 + 130, kWidth - 40, 30);
     [addressBtn setTitle:[NSString stringWithFormat:@"%@",self.datasDic[@"address"]] forState:UIControlStateNormal];
     [addressBtn addTarget:self action:@selector(addressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    //设置图片和内容的间距
-    [addressBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
-    [addressBtn setImage:[UIImage imageNamed:@"address_ico"] forState:UIControlStateNormal];
-    [addressBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+   
     [self.headerView addSubview:addressBtn];
     [self.headerView addSubview:distanceBtn];
     [self.headerView addSubview:nameLabel];

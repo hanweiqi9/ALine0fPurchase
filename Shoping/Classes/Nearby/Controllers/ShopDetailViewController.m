@@ -280,14 +280,14 @@
     [addressBtn addTarget:self action:@selector(addressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     //设置图片和内容的间距
     [addressBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
-    [addressBtn setImage:[UIImage imageNamed:@"address_ico"] forState:UIControlStateNormal];
+    [addressBtn setImage:[UIImage imageNamed:@"address11.png"] forState:UIControlStateNormal];
     [addressBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     //入住商户
     UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(40, kWidth * 0.335 + 160, kWidth / 3 - 30, 2)];
     label1.alpha = 0.1;
     
     label1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 + 32 , kWidth * 0.335 + 145, kWidth / 3 - 10, 30)];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 + 30 , kWidth * 0.335 + 145, kWidth / 3 - 10, 30)];
     label2.text = @"入住商户";
     UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5 , kWidth * 0.335 + 160, kWidth / 3 - 30, 2)];
     label3.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];

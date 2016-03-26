@@ -6,6 +6,10 @@
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
 
+
+
+
+
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
 #import "NearbyViewController.h"
@@ -15,6 +19,7 @@
 #import "LoginViewController.h"
 
 @interface TabViewController : UITabBarController
+
 @property(nonatomic,strong)UINavigationController *MineNav;
 @property(nonatomic,strong)UINavigationController *MainNav;
 @property(nonatomic,strong)UINavigationController *nearNav;
