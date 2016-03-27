@@ -19,6 +19,7 @@
 #import "MineViewController.h"
 #import "ShareView.h"
 #import "GuanCang.h"
+#import "TabViewController.h"
 
 @interface ActivityViewController ()<UIWebViewDelegate>
 @property(nonatomic,strong) NSDictionary *dict;
@@ -50,6 +51,7 @@
         self.navigationItem.leftBarButtonItem = leftBarBtn;
     
     self.zanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.zanBtn.tag = 1;
     self.zanBtn.frame = CGRectMake(kWidth*2/3, 0, kWidth/8, 20);
     [self.zanBtn setImage:[UIImage imageNamed:@"favor_no1"] forState:UIControlStateNormal];
     
@@ -146,18 +148,19 @@
 }
 
 -(void)zanActivity{
+   
     [self.zanBtn setImage:[UIImage imageNamed:@"favor_yes1"] forState:UIControlStateNormal];
-//    UIStoryboard *mine = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
-//    UINavigationController *nav = mine.instantiateInitialViewController;
-//    [self.navigationController presentViewController:nav animated:YES completion:nil];
     
-    GuanCang *manager =[GuanCang sharedInstance];
-    GuanModel *model = [[GuanModel alloc] init];
-    model.title = self.titleStr;
-    model.subTitle = self.subTit;
-    model.titImage = self.image;
-//    model.timeText = self.support;
-    [manager insertIntoNewModel:model];
+            GuanCang *manager =[GuanCang sharedInstance];
+            GuanModel *model = [[GuanModel alloc] init];
+            model.title = self.titleStr;
+            model.subTitle = self.subTit;
+            model.titImage = self.image;
+    
+            [manager insertIntoNewModel:model];
+    
+    
+   
     
 }
 -(void)shareBtn{

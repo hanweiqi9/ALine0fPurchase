@@ -11,5 +11,6 @@
 @interface LoginViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property(nonatomic ,strong) NSString *userStr;
 @property(nonatomic,strong) UIImage *image1;
+@property(nonatomic,assign) NSInteger tagBtn;
 
 @end
