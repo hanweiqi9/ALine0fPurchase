@@ -11,7 +11,6 @@
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
 #import "QuickLoginViewController.h"
-#import "UserViewController.h"
 #import <BmobSDK/BmobUser.h>
 #import <BmobSDK/BmobSMS.h>
 #import "LoginViewController.h"
@@ -124,14 +123,6 @@
     }
 }
 
-
-
-
-- (IBAction)agreementAction:(id)sender {
-    UserViewController *user =[[UserViewController alloc] init];
-    [self.navigationController pushViewController:user animated:YES];
-    
-}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];

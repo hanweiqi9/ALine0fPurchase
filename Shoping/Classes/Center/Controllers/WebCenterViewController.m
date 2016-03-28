@@ -1,29 +1,24 @@
 //
-//  UserViewController.m
+//  WebCenterViewController.m
 //  Shoping
 //
-//  Created by scjy on 16/3/20.
+//  Created by scjy on 16/3/28.
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
-#define kWidth [UIScreen mainScreen].bounds.size.width
-#define kHeight [UIScreen mainScreen].bounds.size.height
 
+#import "WebCenterViewController.h"
 
-#import "UserViewController.h"
-
-@interface UserViewController ()
+@interface WebCenterViewController ()
 @property(nonatomic,strong) UIWebView *webView;
 
 @end
 
-@implementation UserViewController
+@implementation WebCenterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"用户协议";
+    self.navigationItem.title = @"详情攻略";
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
     [backBtn setImage:[UIImage imageNamed:@"arrow_left_pink"] forState:UIControlStateNormal];
@@ -31,25 +26,30 @@
     [backBtn addTarget:self action:@selector(backBtnActivity) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = leftBarBtn;
-
     
-    self.webView =[[UIWebView alloc]initWithFrame:self.view.frame];
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, -50, kWidth, kHeight+44)];
     self.webView.dataDetectorTypes = UIDataDetectorTypeAll;
     self.webView.scalesPageToFit = YES;
-    [self.view addSubview:self.webView];
-    NSString *str = @"http://115.28.144.229:8080/app_web/xieyi?datetime=1458443351087";
-    NSURL *url = [NSURL URLWithString:str];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    self.webView.opaque = NO;
-    self.webView.scrollView.bounces = NO;
+    self.webView.opaque = YES;
     self.webView.backgroundColor = [UIColor whiteColor];
-    [self.webView loadRequest:request];
+    self.webView.scrollView.bounces = NO;
+    [self.view addSubview:self.webView];
+    [self loadString:self.urlString];
     
     
 }
 
 -(void)backBtnActivity{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+-(void)loadString:(NSString *)str{
+    NSURL *urlStr = [NSURL URLWithString:str];
+    NSURLRequest *request = [NSURLRequest requestWithURL:urlStr];
+    [self.webView loadRequest:request];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

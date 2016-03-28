@@ -13,7 +13,7 @@
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "PullingRefreshTableView.h"
-#import "HtmlViewController.h"
+#import "WebCenterViewController.h"
 
 @interface CenterViewController ()<UITableViewDataSource,UITableViewDelegate,PullingRefreshTableViewDelegate>
 {
@@ -82,8 +82,8 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    HtmlViewController *html = [[HtmlViewController alloc] init];
-    html.type = @"2";
+    WebCenterViewController *html = [[WebCenterViewController alloc] init];
+//    self.tabBarController.tabBar.hidden = YES;
     html.urlString = self.allArray[indexPath.row][@"url"];
     [self.navigationController pushViewController:html animated:YES];
     

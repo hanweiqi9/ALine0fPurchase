@@ -300,12 +300,9 @@
                                     <constraint firstAttribute="height" constant="24" id="kS1-en-FIe"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="全程逛街用户协议">
+                                <state key="normal" title="时尚逛吧用户协议">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="activityAction:" destination="inh-yC-QKf" eventType="touchUpInside" id="mM8-WX-CQG"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXd-n9-MW8">
                                 <rect key="frame" x="0.0" y="182" width="375" height="50"/>
@@ -544,12 +541,9 @@
                                     <constraint firstAttribute="height" constant="13" id="f0Q-rR-hkB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="全程逛街用户协议">
+                                <state key="normal" title="时尚逛吧用户协议">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="agreementAction:" destination="fbW-gj-L6o" eventType="touchUpInside" id="BgY-Pg-ARj"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

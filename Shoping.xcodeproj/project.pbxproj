@@ -92,6 +92,7 @@
 		7A5A95581CA3F40600C94BC1 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A5A95571CA3F40600C94BC1 /* libicucore.tbd */; };
 		7A5A955A1CA3F49300C94BC1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A5A95591CA3F49300C94BC1 /* AVFoundation.framework */; };
 		7A5A955C1CA3F4A100C94BC1 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A5A955B1CA3F4A100C94BC1 /* MediaPlayer.framework */; };
+		7A63BCD51CA8C2CB00F5D568 /* WebCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A63BCD41CA8C2CB00F5D568 /* WebCenterViewController.m */; };
 		7A7430F21CA36ED200DB5DE4 /* mei.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A7430F11CA36ED200DB5DE4 /* mei.plist */; };
 		7A7CC8C51CA3947F00B77F98 /* beijingtool.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A7CC8C41CA3947F00B77F98 /* beijingtool.plist */; };
 		7A81B99D1CA3DE3900029E84 /* ActivityMianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A81B9901CA3DE3900029E84 /* ActivityMianViewController.m */; };
@@ -325,6 +326,8 @@
 		7A5A95591CA3F49300C94BC1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7A5A955B1CA3F4A100C94BC1 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		7A5E4FCC1C9FA4C2003EF725 /* youhui.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = youhui.plist; sourceTree = "<group>"; };
+		7A63BCD31CA8C2CB00F5D568 /* WebCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebCenterViewController.h; sourceTree = "<group>"; };
+		7A63BCD41CA8C2CB00F5D568 /* WebCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebCenterViewController.m; sourceTree = "<group>"; };
 		7A7430F11CA36ED200DB5DE4 /* mei.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mei.plist; sourceTree = "<group>"; };
 		7A7CC8C41CA3947F00B77F98 /* beijingtool.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = beijingtool.plist; sourceTree = "<group>"; };
 		7A81B98F1CA3DE3900029E84 /* ActivityMianViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityMianViewController.h; sourceTree = "<group>"; };
@@ -621,6 +624,8 @@
 			children = (
 				7A2D55BC1C9F7B43002018F4 /* CenterViewController.h */,
 				7A2D55BD1C9F7B43002018F4 /* CenterViewController.m */,
+				7A63BCD31CA8C2CB00F5D568 /* WebCenterViewController.h */,
+				7A63BCD41CA8C2CB00F5D568 /* WebCenterViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1422,6 +1427,7 @@
 				7A81FD3B1C9FCCCC0054A7FA /* BrandTableViewCell.m in Sources */,
 				7A81BA2E1CA3DF3600029E84 /* ViewController+MASAdditions.m in Sources */,
 				7A81BA2C1CA3DF3600029E84 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				7A63BCD51CA8C2CB00F5D568 /* WebCenterViewController.m in Sources */,
 				7A81BA211CA3DF3600029E84 /* VOIndicatorAnimation.m in Sources */,
 				7A81FD2E1C9FCCA50054A7FA /* OneBrandModel.m in Sources */,
 				7A2D55B51C9F7AD7002018F4 /* NearbyViewController.m in Sources */,

@@ -12,7 +12,7 @@
 #import "RegistViewController.h"
 #import <BmobSDK/Bmob.h>
 #import <BmobSDK/BmobSMS.h>
-#import "UserViewController.h"
+
 
 @interface RegistViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneText;
@@ -141,12 +141,6 @@
         }];
     }
     
-    
-}
-//全程逛街用户协议
-- (IBAction)activityAction:(id)sender {
-    UserViewController *user = [[UserViewController alloc] init];
-    [self.navigationController pushViewController:user animated:YES];
     
 }
 

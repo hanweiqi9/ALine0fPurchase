@@ -75,6 +75,7 @@
     self.webView.scalesPageToFit = YES;
     self.webView.delegate = self;
     self.webView.opaque = NO;//不设置这个，背景颜色默认为黑
+    self.webView.scrollView.bounces = NO;//禁止滑动
     self.webView.backgroundColor =[UIColor whiteColor];
     [self.view addSubview:self.webView];
     
