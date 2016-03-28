@@ -83,6 +83,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     HtmlViewController *html = [[HtmlViewController alloc] init];
+    html.type = @"2";
     html.urlString = self.allArray[indexPath.row][@"url"];
     [self.navigationController pushViewController:html animated:YES];
     
