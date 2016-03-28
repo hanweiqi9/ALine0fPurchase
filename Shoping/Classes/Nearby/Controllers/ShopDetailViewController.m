@@ -105,7 +105,6 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *datasDic = responseObject;
         self.headerDic = datasDic[@"datas"];
-        
         //第一个cell需要显示的数据
         NSMutableArray *couponArray = self.headerDic[@"couponOrDiscounts"];
         for (NSDictionary *dic in couponArray) {
@@ -276,12 +275,13 @@
     //地址导航
     UIButton *addressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     addressBtn.frame = CGRectMake(20, kWidth * 0.335 + 110, kWidth - 40, 30);
-    [addressBtn setTitle:[NSString stringWithFormat:@"%@",self.headerDic[@"address"]] forState:UIControlStateNormal];
-    [addressBtn addTarget:self action:@selector(addressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     //设置图片和内容的间距
     [addressBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
-    [addressBtn setImage:[UIImage imageNamed:@"address11.png"] forState:UIControlStateNormal];
+    [addressBtn setImage:[UIImage imageNamed:@"address22"] forState:UIControlStateNormal];
     [addressBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+
+    [addressBtn setTitle:[NSString stringWithFormat:@"%@",self.headerDic[@"address"]] forState:UIControlStateNormal];
+    [addressBtn addTarget:self action:@selector(addressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     //入住商户
     UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(40, kWidth * 0.335 + 160, kWidth / 3 - 30, 2)];
     label1.alpha = 0.1;
@@ -364,6 +364,9 @@
 
 //返回按钮
 - (void)backLeftAction:(UIButton *)btn {
+    //获取分类id
+    MangoSingleton *mango = [MangoSingleton sharInstance];
+    mango.idArray = self.headerDic[@"category"];
     [self.navigationController popViewControllerAnimated:YES];
 
 }
@@ -384,9 +387,6 @@
     
 
 }
-
-
-
 
 #pragma mark ---------------------------- 懒加载
 

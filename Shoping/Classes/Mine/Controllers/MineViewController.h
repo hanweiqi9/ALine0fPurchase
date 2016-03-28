@@ -10,4 +10,6 @@
 
 @interface MineViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
+@property(nonatomic,assign) NSUInteger tagNum;
+
 @end

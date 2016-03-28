@@ -110,7 +110,9 @@ static NSString *cellString = @"cellsting";
     /*
      http://api.gjla.com/app_admin_v400/api/coupon/couponList?districtId=1933&cityId=bf98a329000211e4b2bf00163e000dce&categoryId=&sortType=&pageSize=20&longitude=112.426793&latitude=34.618715&pageNum=1
      */
-    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/couponList?districtId=&cityId=391db7b8fdd211e3b2bf00163e000dce&categoryId=&sortType=&pageSize=20&longitude=112.426833&latitude=34.618754&pageNum=%ld",_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+
+    
+    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/couponList?districtId=&cityId=391db7b8fdd211e3b2bf00163e000dce&categoryId=&sortType=&pageSize=20&longitude=112.426833&latitude=34.618754&pageNum=%ld",(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSArray *data = dic[@"datas"];

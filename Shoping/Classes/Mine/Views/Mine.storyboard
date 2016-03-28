@@ -9,7 +9,7 @@
         <!--登陆-->
         <scene sceneID="tqH-0U-dCN">
             <objects>
-                <viewController id="KYf-7T-gbo" customClass="MineViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mine" id="KYf-7T-gbo" customClass="MineViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="f62-Jf-so5"/>
                         <viewControllerLayoutGuide type="bottom" id="x6A-L2-Cz2"/>

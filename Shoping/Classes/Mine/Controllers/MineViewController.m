@@ -16,10 +16,12 @@
 #import "LoginViewController.h"
 
 
+
 @interface MineViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *userPhoneText;
 @property (weak, nonatomic) IBOutlet UITextField *userPassText;
+
 
 
 
@@ -58,10 +60,11 @@
            [userDefaults synchronize];
            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"登陆成功" preferredStyle:UIAlertControllerStyleAlert];
            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-               //登陆后
+            //登陆后
                LoginViewController *login = [[LoginViewController alloc] init];
                login.userStr = self.userPhoneText.text;
                [self.navigationController pushViewController:login animated:YES];
+            
                
            }];
            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

@@ -22,5 +22,13 @@ static MangoSingleton *mango = nil;
     return mango;
 }
 
+-(NSMutableArray *)idArray {
+    if (_idArray == nil) {
+        self.idArray = [NSMutableArray new];
+    }
+    return _idArray;
+
+}
+
 
 @end
