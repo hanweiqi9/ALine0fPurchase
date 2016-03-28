@@ -13,6 +13,7 @@
 @property(nonatomic,retain) NSString *subTitle;
 @property(nonatomic,retain) NSString *titImage;
 //@property(nonatomic,retain) NSString *timeText;
+@property(nonatomic,retain) NSString *titId;
 
 -(instancetype)initWithDictionary:(NSMutableDictionary *)dic;
 

@@ -2,7 +2,7 @@
 //  CenterTableViewCell.m
 //  Shoping
 //
-//  Created by scjy on 16/3/21.
+//  Created by scjy on 16/3/27.
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
 
@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

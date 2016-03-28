@@ -78,7 +78,7 @@ static sqlite3 *database = nil;
         sqlite3_bind_text(stmt, 1, [model.title UTF8String], -1, NULL);
         sqlite3_bind_text(stmt, 2, [model.subTitle UTF8String], -1, NULL);
         sqlite3_bind_text(stmt, 3, [model.titImage UTF8String],-1 , NULL);
-//        sqlite3_bind_text(stmt, 4, [model.timeText UTF8String], -1, NULL);
+        sqlite3_bind_text(stmt, 4, [model.titId UTF8String], -1, NULL);
         sqlite3_step(stmt);
         NSLog(@"语句没有问题");
     }else{
@@ -117,17 +117,17 @@ static sqlite3 *database = nil;
             NSString *modelTit = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 0)];
              NSString *modelsubtit = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 1)];
              NSString *modelimage = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 2)];
-//             NSString *modeltime = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 3)];
+//             NSString *modelId = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 3)];
             GuanModel *model = [[GuanModel alloc] init];
             model.title = modelTit;
             model.subTitle = modelsubtit;
             model.titImage = modelimage;
-//            model.timeText = modeltime;
+//            model.titId = modelId;
             
             [dic setObject:model.title forKey:@"title"];
             [dic setObject:model.subTitle forKey:@"shareContent"];
             [dic setObject:model.titImage forKey:@"mainPicUrl"];
-//            [dic setObject:model.timeText forKey:@"isSupport"];
+//            [dic setObject:model.titId forKey:@"brandId"];
             [arr addObject:dic];
             
         }

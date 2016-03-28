@@ -18,6 +18,8 @@
         self.titImage = dic[@"mainPicUrl"];
 //        self.timeText = dic[@"isSupport"];
         self.subTitle = dic[@"shareContent"];
+//        self.titId = dic[@"brandId"];
+        
     }
     return self;
 }
