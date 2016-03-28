@@ -385,7 +385,6 @@
         [polylines addObject:polyline];
         
         free(coordinates), coordinates = NULL;
-        NSLog(@"画出路线问问吾问无为谓");
     }];
     
     return polylines;

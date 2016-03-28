@@ -148,16 +148,16 @@
     if (_tagListView == nil) {
         self.tagListView = [[JCTagListView alloc] initWithFrame:CGRectMake(20, 150, kWidth - 40, kHeight / 3)];
         self.tagListView.canSelectTags = YES;
-        //点击热门搜索
-            __block SearchViewController *weakself = self;
-            //点击搜索历史
-            [self.tagListView setCompletionBlockWithSelected:^(NSInteger index) {
-                if (index == 0) {
-                    ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
-                    [weakself.navigationController pushViewController:shopDetailVC animated:YES];
-                }
-            }];
-
+//        //点击热门搜索
+//            __block SearchViewController *weakself = self;
+//            //点击搜索历史
+//            [self.tagListView setCompletionBlockWithSelected:^(NSInteger index) {
+//                if (index == 0) {
+//                    ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
+//                    [weakself.navigationController pushViewController:shopDetailVC animated:YES];
+//                }
+//            }];
+//
     }
     return _tagListView;
 }
