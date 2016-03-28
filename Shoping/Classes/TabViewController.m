@@ -45,7 +45,7 @@
     //设置图片
     self.globalNav.tabBarItem.image = [UIImage imageNamed:@"tab_mall_normal"];
     self.globalNav.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -2, 0);
-    self.globalNav.tabBarItem.title = @"全球购";
+    self.globalNav.tabBarItem.title = @"逛逛";
     //设置选中图片
     UIImage *globalImage = [UIImage imageNamed:@"tab_mall_selected"];
     self.globalNav.tabBarItem.selectedImage = [globalImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
