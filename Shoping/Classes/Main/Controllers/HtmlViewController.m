@@ -21,7 +21,12 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = YES;
+    if ([self.type isEqualToString:@"1"]) {
+        self.navigationController.navigationBarHidden = YES;
+    }
+    else
+        self.navigationController.navigationBarHidden = NO;
+    [super viewWillAppear:animated];
     [ProgressHUD show:@"正在加载……"];
 }
 - (void)viewDidLoad {
@@ -33,6 +38,7 @@
     NSURL *url = [NSURL URLWithString:self.urlString];
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+    self.webView.backgroundColor = [UIColor whiteColor];
     
     self.webView.delegate = self;
     

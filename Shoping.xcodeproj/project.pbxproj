@@ -43,7 +43,7 @@
 		7A3011151CA5063C00A71CED /* nearpre.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A3011141CA5063C00A71CED /* nearpre.plist */; };
 		7A30111B1CA544F900A71CED /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A30111A1CA544F900A71CED /* TabViewController.m */; };
 		7A361D771CA5618B00767742 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A361D761CA5618B00767742 /* ViewController.m */; };
-		7A3939B11CA1281C00D5F3F7 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B01CA1281C00D5F3F7 /* MapViewController.m */; };
+		7A3939B11CA1281C00D5F3F7 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7A3939B41CA1412300D5F3F7 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B31CA1412200D5F3F7 /* SearchViewController.m */; };
 		7A3939B71CA143D900D5F3F7 /* CustomCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B61CA143D900D5F3F7 /* CustomCalloutView.m */; };
 		7A3939BA1CA147DE00D5F3F7 /* CustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B91CA147DE00D5F3F7 /* CustomAnnotationView.m */; };
@@ -165,6 +165,7 @@
 		7A9485541CA29D4A004E652E /* ShBraDetaiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9485521CA29D4A004E652E /* ShBraDetaiTableViewCell.m */; };
 		7A9485551CA29D4A004E652E /* ShBraDetaiTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9485531CA29D4A004E652E /* ShBraDetaiTableViewCell.xib */; };
 		7AA12B2B1CA5203C0007BDEE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA12B2A1CA5203B0007BDEE /* MapViewController.m */; };
+		7AB392FC1CA816CD0008FBB1 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AB392FB1CA816CD0008FBB1 /* city.plist */; };
 		7ADC1E531CA41D5400145A8A /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E521CA41D5400145A8A /* blueArrow.png */; };
 		7ADC1E5D1CA41DD500145A8A /* activityMian.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E551CA41DD500145A8A /* activityMian.plist */; };
 		7ADC1E5E1CA41DD500145A8A /* guangzou.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E561CA41DD500145A8A /* guangzou.plist */; };
@@ -453,6 +454,7 @@
 		7A9485521CA29D4A004E652E /* ShBraDetaiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShBraDetaiTableViewCell.m; sourceTree = "<group>"; };
 		7A9485531CA29D4A004E652E /* ShBraDetaiTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShBraDetaiTableViewCell.xib; sourceTree = "<group>"; };
 		7AA12B2A1CA5203B0007BDEE /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		7AB392FB1CA816CD0008FBB1 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
 		7ADC1E521CA41D5400145A8A /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
 		7ADC1E551CA41DD500145A8A /* activityMian.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = activityMian.plist; sourceTree = "<group>"; };
 		7ADC1E561CA41DD500145A8A /* guangzou.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = guangzou.plist; sourceTree = "<group>"; };
@@ -462,7 +464,6 @@
 		7ADC1E5A1CA41DD500145A8A /* Tool.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Tool.plist; sourceTree = "<group>"; };
 		7ADC1E5B1CA41DD500145A8A /* Turn.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Turn.plist; sourceTree = "<group>"; };
 		7ADC1E5C1CA41DD500145A8A /* you.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = you.plist; sourceTree = "<group>"; };
-
 		E747211142BC7577B3EE2490 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -552,7 +553,6 @@
 		7A2D554E1C9F7148002018F4 /* Shoping */ = {
 			isa = PBXGroup;
 			children = (
-				7A361D761CA5618B00767742 /* ViewController.m */,
 				7A5A95111CA3F1BB00C94BC1 /* LPLevelView */,
 				7A5A95091CA3F18300C94BC1 /* SDK1.6-2.2 */,
 				7A5A94FA1CA3F16A00C94BC1 /* libWeiboSDK */,
@@ -562,6 +562,7 @@
 				7A2D55521C9F7148002018F4 /* AppDelegate.h */,
 				7A2D55531C9F7148002018F4 /* AppDelegate.m */,
 				7A2D55551C9F7148002018F4 /* ViewController.h */,
+				7A361D761CA5618B00767742 /* ViewController.m */,
 				7A2D55581C9F7148002018F4 /* Main.storyboard */,
 				7A2D555B1C9F7148002018F4 /* Assets.xcassets */,
 				7A2D555D1C9F7148002018F4 /* LaunchScreen.storyboard */,
@@ -726,6 +727,7 @@
 				7ADC1E591CA41DD500145A8A /* stroALLL.plist */,
 				7ADC1E5A1CA41DD500145A8A /* Tool.plist */,
 				7ADC1E5B1CA41DD500145A8A /* Turn.plist */,
+				7AB392FB1CA816CD0008FBB1 /* city.plist */,
 				7ADC1E5C1CA41DD500145A8A /* you.plist */,
 				7A2D55AD1C9F79D8002018F4 /* MainModel.h */,
 				7A2D55AE1C9F79D8002018F4 /* MainModel.m */,
@@ -1252,6 +1254,7 @@
 				7A2D555A1C9F7148002018F4 /* Main.storyboard in Resources */,
 				7ADC1E531CA41D5400145A8A /* blueArrow.png in Resources */,
 				7ADC1E631CA41DD500145A8A /* Turn.plist in Resources */,
+				7AB392FC1CA816CD0008FBB1 /* city.plist in Resources */,
 				7A81FD911C9FE98A0054A7FA /* Shop.plist in Resources */,
 				7A2D559D1C9F780A002018F4 /* Hot1.plist in Resources */,
 			);
@@ -1353,8 +1356,7 @@
 				7A81BA321CA3DF3600029E84 /* ZLDropDownMenuUICalc.m in Sources */,
 				7A2D55A31C9F780B002018F4 /* LoginViewController.m in Sources */,
 				7A81BA301CA3DF3600029E84 /* ZLDropDownMenuCollectionViewCell.m in Sources */,
-
-				7A3939B11CA1281C00D5F3F7 /* MapViewController.m in Sources */,
+				7A3939B11CA1281C00D5F3F7 /* (null) in Sources */,
 				7A361D771CA5618B00767742 /* ViewController.m in Sources */,
 				7A81BA131CA3DF3600029E84 /* TADotView.m in Sources */,
 				7A30111B1CA544F900A71CED /* TabViewController.m in Sources */,

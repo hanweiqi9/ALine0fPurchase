@@ -81,10 +81,6 @@
         
         
         
-
-        
-        
-        
     }];
     [alert addAction:action1];
     [alert addAction:action2];

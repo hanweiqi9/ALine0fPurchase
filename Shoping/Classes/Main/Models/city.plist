@@ -1,0 +1,70 @@
+{
+datas =     (
+{
+districtId = 1;
+districtName = "\U4e1c\U57ce\U533a";
+},
+{
+districtId = 10;
+districtName = "\U623f\U5c71\U533a";
+},
+{
+districtId = 11;
+districtName = "\U901a\U5dde\U533a";
+},
+{
+districtId = 12;
+districtName = "\U987a\U4e49\U533a";
+},
+{
+districtId = 13;
+districtName = "\U660c\U5e73\U533a";
+},
+{
+districtId = 14;
+districtName = "\U5927\U5174\U533a";
+},
+{
+districtId = 15;
+districtName = "\U6000\U67d4\U533a";
+},
+{
+districtId = 16;
+districtName = "\U5e73\U8c37\U533a";
+},
+{
+districtId = 2;
+districtName = "\U897f\U57ce\U533a";
+},
+{
+districtId = 5;
+districtName = "\U671d\U9633\U533a";
+},
+{
+districtId = 6;
+districtName = "\U4e30\U53f0\U533a";
+},
+{
+districtId = 7;
+districtName = "\U77f3\U666f\U5c71\U533a";
+},
+{
+districtId = 8;
+districtName = "\U6d77\U6dc0\U533a";
+},
+{
+districtId = 9;
+districtName = "\U95e8\U5934\U6c9f\U533a";
+},
+{
+districtId = 17;
+districtName = "\U5bc6\U4e91\U53bf";
+},
+{
+districtId = 18;
+districtName = "\U5ef6\U5e86\U53bf";
+}
+);
+errcode = 0;
+errmsg = "";
+}

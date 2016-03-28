@@ -153,6 +153,7 @@
         UIButton *weizhi = [UIButton buttonWithType:UIButtonTypeCustom];
         weizhi.frame = CGRectMake(kWidth /6 ,kHeight /3+kWidth /6 + kHeight /20 *6+15, kWidth - kWidth /3, kHeight /20);
         [weizhi setImage:[UIImage imageNamed:@"address"] forState:UIControlStateNormal];
+        weizhi.titleLabel.adjustsFontSizeToFitWidth =YES;
         [weizhi setImageEdgeInsets:UIEdgeInsetsMake(2,2, 2, 5)];
         [weizhi setTitleEdgeInsets:UIEdgeInsetsMake(2, 5, 2, 2)];
         [weizhi setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
@@ -223,12 +224,12 @@
             }
             if (indexPath.row == 2) {
                 CGFloat height = [[self class] getTextHeightWithText:self.datasDic[@"couponDesc"]];
-                UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, kWidth-20, height + 80)];
+                UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, kWidth-20, height)];
+                title.font = [UIFont systemFontOfSize:13.0];
                 title.text = self.datasDic[@"couponDesc"];
-
                 title.numberOfLines = 0;
                 [cells addSubview:title];
-                self.DetailsTableView.rowHeight = height + 80;
+                self.DetailsTableView.rowHeight = title.frame.size.height+10;
             }
             
         }
@@ -243,7 +244,7 @@
 }
 + (CGFloat)getTextHeightWithText:(NSString *)introl{
     
-    CGRect rect = [introl boundingRectWithSize:CGSizeMake(kWidth - 30, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]} context:nil];
+    CGRect rect = [introl boundingRectWithSize:CGSizeMake(kWidth - 30, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13.0]} context:nil];
     return rect.size.height;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

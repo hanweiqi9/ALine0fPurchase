@@ -5,11 +5,6 @@
 //  Created by scjy on 16/3/25.
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
-
-
-
-
-
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
 #import "NearbyViewController.h"

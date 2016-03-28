@@ -37,13 +37,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self showBackButtonWithImage:@"titlebarback"];
-    
+    [self.StartBtn setTitle:@"开始扫描" forState:UIControlStateNormal];
     _captureSession = nil;
     _isReading = NO;
 }
 - (BOOL)startReading {
     NSError *error;
-    
     //1.初始化捕捉设备（AVCaptureDevice），类型为AVMediaTypeVideo
     AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
@@ -140,7 +139,6 @@
             } ];
             [alertVC addAction:action];
             [self presentViewController:alertVC animated:YES completion:nil];
-            
             [self performSelectorOnMainThread:@selector(stopReading) withObject:nil waitUntilDone:NO];
             _isReading = NO;
         }
@@ -148,18 +146,9 @@
 }
 
 - (IBAction)syartStopReading:(id)sender {
-    if (!_isReading) {
-        if ([self startReading]) {
-            [_StartBtn setTitle:@"Stop" forState:UIControlStateNormal];
-        }
-    }
-    else{
         [self stopReading];
-        [_StartBtn setTitle:@"Start!" forState:UIControlStateNormal];
-    }
-    
+        [_StartBtn setTitle:@"开始扫描" forState:UIControlStateNormal];
     _isReading = !_isReading;
-    
 }
 
 - (void)moveScanLayer:(NSTimer *)timer
@@ -169,7 +158,6 @@
         frame.origin.y = 0;
         _scanLayer.frame = frame;
     }else{
-        
         frame.origin.y += 5;
         
         [UIView animateWithDuration:0.1 animations:^{
@@ -182,11 +170,6 @@
 {
     return NO;
 }
-
-
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

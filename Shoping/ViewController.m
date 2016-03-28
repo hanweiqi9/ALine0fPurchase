@@ -19,7 +19,7 @@
 #import "SDCycleScrollView.h"
 #import "PullingRefreshTableView.h"
 #import "BrandDetailViewController.h"
-#import "AppDelegate.h"
+#import "TabViewController.h"
 #import "NearbyViewController.h"
 #import "PreferDetailViewController.h"
 
@@ -28,11 +28,11 @@
 //UI控件
 @property (nonatomic, strong) PullingRefreshTableView *tableview;
 @property (nonatomic, strong) UIView *HeadView;
-//@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIPageControl *pageC;
 @property (nonatomic, strong) UIView *blackView;
 @property (nonatomic, strong) UIView *whiteView;
-@property (nonatomic, strong) UIButton *cityButton;
+@property (nonatomic, strong) UIButton *selectButton;
+@property (nonatomic, strong) UIButton *leftButton;
 //数据
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSString *cityName;
@@ -44,17 +44,12 @@
 @property (nonatomic, strong) NSString *cityId;
 @property (nonatomic, assign) BOOL refreshing;
 
-@property (nonatomic, strong) AppDelegate *appdelegate;
-
-
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-
     self.title = @"精选";
     
     self.cityId =@"391db7b8fdd211e3b2bf00163e000dce";
@@ -62,9 +57,8 @@
     
     [self headSettingView];
     //数据请求
-//    [self startTimer];
     [self.tableview launchRefreshing];
-
+    
     [self MoreThead];
     [self getCityData];
     //黑背景
@@ -80,18 +74,17 @@
     [self.view addSubview:self.whiteView];
     
     //设置左导航栏
-    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    leftButton.frame =CGRectMake(5, 30, 30, 20);
-    //    leftButton.backgroundColor = [UIColor cyanColor];
-    [leftButton setImage:[UIImage imageNamed:@"home_page_lbs_icon"] forState:UIControlStateNormal];
-    [leftButton setImageEdgeInsets:UIEdgeInsetsMake(-10, 5, 5, 5)];
+    self.leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.leftButton.frame =CGRectMake(5, 30, 30, 20);
+    [self.leftButton setImage:[UIImage imageNamed:@"home_page_lbs_icon"] forState:UIControlStateNormal];
+    [self.leftButton setImageEdgeInsets:UIEdgeInsetsMake(-10, 5, 5, 5)];
     
-    [leftButton setTitle:@"上海" forState:UIControlStateNormal];
-    [leftButton setTintColor:[UIColor redColor]];
-    leftButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [leftButton setTitleEdgeInsets:UIEdgeInsetsMake(17, -16, 5, 5)];
-    [leftButton addTarget:self action:@selector(leftBarButtonAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    [self.leftButton setTitle:@"上海" forState:UIControlStateNormal];
+    [self.leftButton setTintColor:[UIColor redColor]];
+    self.leftButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    [self.leftButton setTitleEdgeInsets:UIEdgeInsetsMake(17, -16, 5, 5)];
+    [self.leftButton addTarget:self action:@selector(leftBarButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftButton];
     self.navigationItem.leftBarButtonItem = leftItem;
     
     
@@ -120,17 +113,12 @@
     dispatch_async(mainThead, ^{
         [self getCellData];
     });
-//    dispatch_async(mainThead, ^{
-//        [self getCityData];
-//    });
-
 }
 //轮播图
 - (void)settingTurn{
     //使用第三方库
     UIScrollView  *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight/2-60)];
     scrollView.contentSize = CGSizeMake(kWidth, kHeight / 2-60);
-    
     NSMutableArray *group = [NSMutableArray new];
     for (int i = 0;i < self.turnArray.count; i++) {
         NSString *url =self.turnArray[i][@"mainPicUrl"];
@@ -142,17 +130,13 @@
     cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
     //轮播时间，默认1秒
     cycleScrollView.autoScrollTimeInterval = 3.0;
-    
     [scrollView addSubview:cycleScrollView];
     [self.HeadView addSubview:scrollView];
 }
-
 //列表的设置
 - (void)settingTools{
     UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight/2-15, kWidth, kWidth/3+0.5)];
-    toolView.backgroundColor = [UIColor grayColor];
     for (int i = 1 ; i < 6; i++) {
-        
         [self.HeadView addSubview:toolView];
         UIButton *toolButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [toolButton addTarget:self action:@selector(AllBottonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -179,7 +163,6 @@
 //在你周围的设置
 - (void)settingYourground{
     UIButton *youButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    //    youButton.backgroundColor = [UIColor yellowColor];
     youButton.frame = CGRectMake(5, kHeight/2+kWidth/3 + kWidth /4 -3+ kWidth/13, kWidth / 2 + 30, kWidth/2);
     youButton.tag = 6;
     [youButton addTarget:self action:@selector(AllBottonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -190,15 +173,17 @@
     [youButton addSubview:imageview];
     UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(0, youButton.frame.size.height - 40,youButton.frame.size.width ,40)];
     lable.text = dic[@"mallName"];
-    lable.backgroundColor = [UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.6];
+    lable.shadowColor = [UIColor grayColor];
+    lable.shadowOffset = CGSizeMake(0.5, 0.5);
     lable.textAlignment = NSTextAlignmentCenter;
     lable.textColor = [UIColor whiteColor];
+    lable.highlighted = YES;
     [imageview addSubview:lable];
     [self.HeadView addSubview:youButton];
     for (int i = 0; i < 2; i++) {
         UIButton *Button = [UIButton buttonWithType:UIButtonTypeSystem];
         Button.backgroundColor = [UIColor orangeColor];
-        Button.frame = CGRectMake(kWidth /2+40, kHeight/2+kWidth/3 + kWidth /4  + kWidth/13 + kWidth/4*i, kWidth / 2 - 50, kWidth /4-3);
+        Button.frame = CGRectMake(kWidth /2+43, kHeight/2+kWidth/3 + kWidth /4  + kWidth/13 + kWidth/4*i, kWidth / 2 - 50, kWidth /4-3);
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(Button.frame.size.width/4-10, Button.frame.size.height-25,Button.frame.size.width/2+20, 20)];
         title.textColor = [UIColor whiteColor];
         title.textAlignment = NSTextAlignmentCenter;
@@ -228,23 +213,23 @@
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     NSString *sring = @"http://api.gjla.com/app_admin_v400/api/onlineActivity/list?cityId=";
     [manger GET:[NSString stringWithFormat:@"%@%@",sring,self.cityId]
- parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dic = responseObject;
-        NSArray *data = dic[@"datas"];
-            if(self.turnArray.count > 0) {
-                [self.turnArray removeAllObjects];
-            }
-        for (NSDictionary *dics in data) {
-            [self.turnArray addObject:dics];
-        }
-        [self.tableview reloadData];
-        [self.tableview tableViewDidFinishedLoading];
-        self.tableview.reachedTheEnd = NO;
-        [self settingTurn];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-    }];
+     parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+         NSDictionary *dic = responseObject;
+         NSArray *data = dic[@"datas"];
+         if(self.turnArray.count > 0) {
+             [self.turnArray removeAllObjects];
+         }
+         for (NSDictionary *dics in data) {
+             [self.turnArray addObject:dics];
+         }
+         [self.tableview reloadData];
+         [self.tableview tableViewDidFinishedLoading];
+         self.tableview.reachedTheEnd = NO;
+         [self settingTurn];
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+         NSLog(@"%@",error);
+     }];
 }
 - (void)getCellData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
@@ -253,9 +238,9 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSArray *data = dic[@"datas"];
-            if (self.cellArray.count > 0) {
-                [self.cellArray removeAllObjects];
-            }
+        if (self.cellArray.count > 0) {
+            [self.cellArray removeAllObjects];
+        }
         for (NSDictionary *dics in data) {
             [self.cellArray addObject:dics];
         }
@@ -275,10 +260,10 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSArray *dataArray = dic[@"datas"];
-
-            if (self.toolArray.count > 0) {
-                [self.toolArray removeAllObjects];
-            }
+        
+        if (self.toolArray.count > 0) {
+            [self.toolArray removeAllObjects];
+        }
         for (NSDictionary *dics in dataArray) {
             [self.toolArray addObject:dics];
         }
@@ -297,10 +282,10 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSDictionary *dics = dic[@"datas"];
-
-            if (self.youArray.count > 0) {
-                [self.youArray removeAllObjects];
-            }
+        
+        if (self.youArray.count > 0) {
+            [self.youArray removeAllObjects];
+        }
         [self.youArray addObject:dics];
         [self.tableview reloadData];
         [self.tableview tableViewDidFinishedLoading];
@@ -321,7 +306,6 @@
         [self.tableview reloadData];
         [self.tableview tableViewDidFinishedLoading];
         self.tableview.reachedTheEnd = NO;
-//        [self leftBarButtonAction];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
@@ -338,7 +322,6 @@
     button.frame = CGRectMake(20, 5, kWidth - 40, 35);
     
     [toolView addSubview:button];
-    
     [self.HeadView addSubview:toolView];
     
     UIButton *guButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -351,7 +334,6 @@
     
     // 在你周围
     UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth/4-5, kHeight/2+kWidth/3 + kWidth/4 +5, kWidth /2 + 10, 0.5)];
-    //    titleView.backgroundColor = [UIColor redColor];
     titleView.image = [UIImage imageNamed:@"icon_tblack_a"];
     [self.HeadView addSubview:titleView
      ];
@@ -362,10 +344,8 @@
     titleL.font = [UIFont systemFontOfSize:15.0];
     [self.HeadView addSubview:titleL];
     
-
     //每日精选
     UIImageView *goodView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth/4-5, kHeight/2+kWidth/3 + kWidth /4 + 23+ kWidth/13 + kWidth / 2, kWidth /2 + 10, 0.5)];
-    //    titleView.backgroundColor = [UIColor redColor];
     goodView.image = [UIImage imageNamed:@"icon_tblack_a"];
     [self.HeadView addSubview:goodView
      ];
@@ -375,9 +355,7 @@
     titleLgood.backgroundColor = [UIColor whiteColor];
     titleLgood.font = [UIFont systemFontOfSize:15.0];
     [self.HeadView addSubview:titleLgood];
-    
 }
-
 
 #pragma mark ---------- 代理
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -406,7 +384,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ActivityViewController *activityVC = [[ActivityViewController alloc] init];
-    
     activityVC.selectId = self.cellArray[indexPath.row][@"subjectId"] ;
     activityVC.type = [self.cellArray[indexPath.row][@"type"] integerValue];
     activityVC.userId = @"c649ac4bf87f43fea924f52a2639e533";
@@ -421,10 +398,9 @@
 }
 - (void)pullingTableViewDidStartLoading:(PullingRefreshTableView *)tableView{
     self.refreshing = NO;
-//    [[self class] showAlertMessageWithMessage:@"已是最后数据" duration:1.0];
     UIAlertController *alVC = [UIAlertController alertControllerWithTitle:nil message:@"已是最后数据"  preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self.tableview setScrollsToTop:YES];
+        [self.tableview scrollRectToVisible:CGRectMake(0, 0, kWidth, kHeight) animated:NO];
     }];
     [alVC addAction:action];
     [self presentViewController:alVC animated:YES completion:nil];
@@ -441,44 +417,45 @@
 }
 #pragma mark --------- 点击方法
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-        NSString *urlsting = self.turnArray[index][@"linkUrl"];
-        NSArray *array = [urlsting componentsSeparatedByString:@"/"];
-        NSString *stinr = array[array.count-1];
-        NSArray *typeArray = [stinr componentsSeparatedByString:@".html"];
-        NSString *typestinr = typeArray[0];
-        if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"]  ) {
-            HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
-            htmlVC.urlString = self.turnArray[index][@"fuliId"];
-            htmlVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:htmlVC animated:YES];
-        }
-        if ([typestinr isEqualToString:@"brandcoupon"]) {
-            ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
-            activityMianVC.hidesBottomBarWhenPushed = YES;
-            activityMianVC.cityID = self.cityId;
-            NSString *stinf = typeArray[1];
-            NSArray *aarray = [stinf componentsSeparatedByString:@"="];
-            NSString *csting = aarray[1];
-            NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
-            activityMianVC.trunId = barray[0];
-            [self.navigationController pushViewController:activityMianVC animated:YES];
-        }
+    NSString *urlsting = self.turnArray[index][@"linkUrl"];
+    NSArray *array = [urlsting componentsSeparatedByString:@"/"];
+    NSString *stinr = array[array.count-1];
+    NSArray *typeArray = [stinr componentsSeparatedByString:@".html"];
+    NSString *typestinr = typeArray[0];
+    if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"]  ) {
+        HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
+        htmlVC.type = @"1";
+        htmlVC.urlString = self.turnArray[index][@"fuliId"];
+        htmlVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:htmlVC animated:YES];
+    }
+    if ([typestinr isEqualToString:@"brandcoupon"]) {
+        ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
+        activityMianVC.hidesBottomBarWhenPushed = YES;
+        activityMianVC.cityID = self.cityId;
+        NSString *stinf = typeArray[1];
+        NSArray *aarray = [stinf componentsSeparatedByString:@"="];
+        NSString *csting = aarray[1];
+        NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
+        activityMianVC.trunId = barray[0];
+        [self.navigationController pushViewController:activityMianVC animated:YES];
+    }
     if ([typestinr isEqualToString:@"subject"]) {
         ActivityViewController *avtivity = [[ActivityViewController alloc] init];
         NSString *stinf = typeArray[1];
         NSArray *aarray = [stinf componentsSeparatedByString:@"="];
-//        avtivity.cityId = self.cityId;
+        //        avtivity.cityId = self.cityId;
         NSString *csting = aarray[aarray.count - 1];
-            avtivity.selectId = csting;
-            avtivity.userId = @"c649ac4bf87f43fea924f52a2639e533";
-            avtivity.type = 1;
+        avtivity.selectId = csting;
+        avtivity.userId = @"c649ac4bf87f43fea924f52a2639e533";
+        avtivity.type = 1;
         
         [self.navigationController pushViewController:avtivity animated:YES];
         
     }
     if ([typestinr isEqualToString:@"brandinfo"]) {
         BrandDetailViewController *brandVC = [[BrandDetailViewController alloc] init];
-//        brandVC.cityId = self.cityId;
+        //        brandVC.cityId = self.cityId;
         NSString *stinf = typeArray[1];
         NSArray *aarray = [stinf componentsSeparatedByString:@"="];
         NSString *csting = aarray[aarray.count - 1];
@@ -489,10 +466,8 @@
     
 }
 - (void)leftBarButtonAction{
-
     self.blackView.hidden = NO;
     UIButton *buttona = [UIButton buttonWithType:UIButtonTypeCustom];
-
     buttona.frame = CGRectMake(0, 30, kWidth, kHeight -30);
     [buttona addTarget:self action:@selector(BackMain) forControlEvents:UIControlEventTouchUpInside];
     [self.blackView addSubview:buttona];
@@ -500,28 +475,30 @@
     cityView.backgroundColor = [UIColor whiteColor];
     if (self.cityArray.count > 0) {
         for (int i = 0; i < self.cityArray.count; i++) {
-            self.cityButton = [UIButton buttonWithType:UIButtonTypeSystem];
-            self.cityButton .backgroundColor =[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:1.0];
-            self.cityButton .frame = CGRectMake(kWidth/3*i+ 10, 15, kWidth/3-20, 30);
-            [self.cityButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [self.cityButton  setTitle:self.cityArray[i][@"cityName"] forState:UIControlStateNormal];
-            self.cityButton .tag = i;
-            [self.cityButton  addTarget:self action:@selector(BackUpView:) forControlEvents:UIControlEventTouchUpInside];
-            [cityView addSubview:self.cityButton ];
+            UIButton *cityButton = [UIButton buttonWithType:UIButtonTypeSystem];
+            cityButton .frame = CGRectMake(kWidth/3*i+ 10, 15, kWidth/3-20, 30);
+            if ([self.leftButton.titleLabel.text isEqualToString:cityButton.titleLabel.text]) {
+                [cityButton setBackgroundColor:[UIColor redColor]];
+                [cityButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            }
+            [cityButton  setTitle:self.cityArray[i][@"cityName"] forState:UIControlStateNormal];
+            cityButton .tag = i;
+            [cityButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            cityButton .backgroundColor =[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:1.0];
+            [cityButton  addTarget:self action:@selector(BackUpView:) forControlEvents:UIControlEventTouchUpInside];
+            [cityView addSubview:cityButton ];
         }
     }
     [self.blackView addSubview:cityView];
 }
 
 - (void)BackUpView:(UIButton *)button{
-//    [self.cityButton  setTitle:self.cityArray[button.tag][@"cityName"] forState:UIControlStateNormal];
-    self.cityButton.titleLabel.text = self.cityArray[button.tag][@"cityName"];
-    self.cityButton.backgroundColor = [UIColor redColor];
-    self.cityButton.titleLabel.textColor = [UIColor whiteColor];
+
     self.blackView.hidden = YES;
     self.cityId = self.cityArray[button.tag][@"cityId"];
+    NSString *name = self.cityArray[button.tag][@"cityName"];
     [self MoreThead];
- 
+    [self.leftButton setTitle:name forState:UIControlStateNormal];
 }
 - (void)BackMain{
     self.blackView.hidden = YES;
@@ -554,6 +531,7 @@
         if ([typestinr isEqualToString:@"index9"]) {
             HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
             htmlVC.urlString = self.toolArray[button.tag][@"recommendLink"];
+            htmlVC.type = @"1";
             htmlVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:htmlVC animated:YES];
         }
@@ -562,17 +540,15 @@
             NSArray *aarray = [stinf componentsSeparatedByString:@"cid="];
             NSString *csting = aarray[1];
             NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
-//            NSString *type = barray[1];
+            //            NSString *type = barray[1];
             
-//            if (self.cityId == @""  && [type isEqualToString:@"1"]) {
-//                PreferDetailViewController *preferVC = [[PreferDetailViewController alloc] init];
-//                preferVC.cityID = self.cityId;
-//                preferVC.preferId = barray[0];
-//                preferVC.hidesBottomBarWhenPushed = YES;
-//                [self.navigationController pushViewController:preferVC animated:YES];
-//            }
-            
-            
+            //            if (self.cityId == @""  && [type isEqualToString:@"1"]) {
+            //                PreferDetailViewController *preferVC = [[PreferDetailViewController alloc] init];
+            //                preferVC.cityID = self.cityId;
+            //                preferVC.preferId = barray[0];
+            //                preferVC.hidesBottomBarWhenPushed = YES;
+            //                [self.navigationController pushViewController:preferVC animated:YES];
+            //            }
             ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
             activityMianVC.trunId = barray[0];
             activityMianVC.cityID = self.cityId;
@@ -586,13 +562,17 @@
         NSDictionary *dic = self.youArray[0];
         shopVC.title = dic[@"mallName"];
         shopVC.detailId = dic[@"mallId"];
-//        shopVC.cityID = self.cityId;
+        //        shopVC.cityID = self.cityId;
         shopVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:shopVC animated:self];
     }
     if (button.tag == 7) {
-//        附近商城
-   
+        //        附近商城
+        TabViewController *tabbarVC = [[TabViewController alloc] init];
+        tabbarVC.tabBar.tintColor = [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
+        tabbarVC.selectedIndex = 1;
+        
+        self.view.window.rootViewController = tabbarVC.selectedViewController;
     }
     if (button.tag == 8) {
         //附近优惠
@@ -607,11 +587,9 @@
 #pragma mark --------- 懒加载
 - (PullingRefreshTableView *)tableview{
     if (_tableview == nil) {
-        self.tableview = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0,64, kWidth, kHeight )pullingDelegate:self];
-//        self.tableview.pull≥/ingDelegate = self;
+        self.tableview = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0,64, kWidth, kHeight-104) pullingDelegate:self];
         self.tableview.dataSource = self;
         self.tableview.delegate = self;
-        //        self.tableview.backgroundColor = [UIColor cyanColor];
         self.tableview.tableHeaderView = self.HeadView;
         //隐藏滚动条
         self.tableview.showsVerticalScrollIndicator =
@@ -622,7 +600,6 @@
 - (UIView *)HeadView{
     if (_HeadView == nil) {
         _HeadView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight/2+kWidth/3 +kWidth /2+ kWidth /4 + 18+ kWidth/13*2)];
-        //        self.HeadView.backgroundColor = [UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.6];;
     }
     return _HeadView;
 }
@@ -662,6 +639,12 @@
     return _cityArray;
 }
 
+- (UIButton *)selectButton{
+    if (_selectButton == nil) {
+        self.selectButton = nil;
+    }
+    return _selectButton;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -670,5 +653,5 @@
 
 @end
 
- 
+
 

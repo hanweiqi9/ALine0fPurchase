@@ -11,4 +11,5 @@
 @interface HtmlViewController : UIViewController
 
 @property (nonatomic, strong) NSString *urlString;
+@property (nonatomic, strong) NSString *type;
 @end

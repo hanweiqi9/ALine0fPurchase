@@ -174,7 +174,7 @@
         [weizhi setTitleEdgeInsets:UIEdgeInsetsMake(2, 5, 2, 2)];
         [weizhi setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         weizhi.titleLabel.font = [UIFont systemFontOfSize:15.0];
-        [weizhi addTarget:self action:@selector(dituLook) forControlEvents:UIControlEventTouchUpInside];
+        [weizhi addTarget:self action:@selector(appMapAction) forControlEvents:UIControlEventTouchUpInside];
         [self.headView addSubview:weizhi];
         
         eTitle.text = name ;
@@ -205,7 +205,7 @@
     }
     self.DetailsTableView.tableHeaderView = self.headView;
 }
-- (void)dituLook{
+- (void)appMapAction{
     MapViewController *mapVC = [[MapViewController alloc] init];
     NSString *latitude = self.datasDic[@"latitude"];
     NSString *longitude = self.datasDic[@"longitude"];
@@ -216,11 +216,11 @@
     //使用单例传值
     MangoSingleton *mango = [MangoSingleton sharInstance];
     //如果获取到的经纬度值不为空，就传到地图页面
-    if ([name isEqual:[NSNull null]] && [address isEqual:[NSNull null]]) {
+    if (![name isEqual:[NSNull null]] && ![address isEqual:[NSNull null]]) {
         mango.title = name;
         mango.inputText = address;
-        
     }
+    
     [self.navigationController pushViewController:mapVC animated:YES];
 }
 #pragma mark ========== 代理
