@@ -152,7 +152,7 @@
         //位置
         UIButton *weizhi = [UIButton buttonWithType:UIButtonTypeCustom];
         weizhi.frame = CGRectMake(kWidth /6 ,kHeight /3+kWidth /6 + kHeight /20 *6+15, kWidth - kWidth /3, kHeight /20);
-        [weizhi setImage:[UIImage imageNamed:@"address"] forState:UIControlStateNormal];
+        [weizhi setImage:[UIImage imageNamed:@"address22"] forState:UIControlStateNormal];
         weizhi.titleLabel.adjustsFontSizeToFitWidth =YES;
         [weizhi setImageEdgeInsets:UIEdgeInsetsMake(2,2, 2, 5)];
         [weizhi setTitleEdgeInsets:UIEdgeInsetsMake(2, 5, 2, 2)];

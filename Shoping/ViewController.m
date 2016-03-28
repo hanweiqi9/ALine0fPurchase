@@ -572,7 +572,7 @@
         tabbarVC.tabBar.tintColor = [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
         tabbarVC.selectedIndex = 1;
         
-        self.view.window.rootViewController = tabbarVC.selectedViewController;
+        self.view.window.rootViewController = tabbarVC;
     }
     if (button.tag == 8) {
         //附近优惠

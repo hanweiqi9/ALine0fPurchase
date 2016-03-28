@@ -10,5 +10,5 @@
 
 @interface NearPreferViewController : UIViewController
 @property (nonatomic, strong) NSString *cityID;
-
+@property (nonatomic, strong) NSString *distitucrd;
 @end

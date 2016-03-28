@@ -7,7 +7,7 @@
 //
 /*
  http://api.gjla.com/app_admin_v400/api/coupon/couponList?districtId=&cityId=391db7b8fdd211e3b2bf00163e000dce&categoryId=&sortType=&pageSize=20&longitude=112.426833&latitude=34.618754&pageNum=1
-
+ 
  */
 #import "NearPreferViewController.h"
 #import "PullingRefreshTableView.h"
@@ -17,7 +17,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "PreferDetailViewController.h"
 #import "ActivityMianViewController.h"
-
 static NSString *collection = @"collectionView";
 static NSString *cellString = @"cellsting";
 
@@ -31,7 +30,9 @@ static NSString *cellString = @"cellsting";
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIView *blankView;
 @property (nonatomic, strong) NSMutableArray *cityArray;
-
+@property (nonatomic, strong) NSMutableArray *cityClassArray;
+@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) UIButton *leftButton;
 @end
 
 @implementation NearPreferViewController
@@ -42,6 +43,7 @@ static NSString *cellString = @"cellsting";
     [ self showBackButtonWithImage:@"arrow_left_pink"];
     self.view.backgroundColor = [UIColor whiteColor];
     _pageNum = 1;
+    self.distitucrd = @"";
     //注册cell
     [self.pullTbaleView registerNib:[UINib nibWithNibName:@"NearTableViewCell" bundle:nil] forCellReuseIdentifier:@"nearCell"];
     [self getCityDownData];
@@ -49,14 +51,10 @@ static NSString *cellString = @"cellsting";
     [self.pullTbaleView launchRefreshing];
     
     [self.view addSubview:self.pullTbaleView];
-    
-    
-    
     //黑背景
     self.blankView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
     self.blankView.backgroundColor = [UIColor colorWithRed:29.0/255.0 green:29.0/255.0 blue:29.0/255.0 alpha:0.6];
     self.blankView.hidden = YES;
-    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = self.blankView.frame;
     [button addTarget:self action:@selector(backView) forControlEvents:UIControlEventTouchUpInside];
@@ -64,12 +62,12 @@ static NSString *cellString = @"cellsting";
     [self.view addSubview:self.blankView];
     //左导航栏
     //设置左导航栏
-    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    leftButton.frame =CGRectMake(kWidth - 80, 30, 80, 30);
-    [leftButton setTitle:@"全部分类" forState:UIControlStateNormal];
-    [leftButton setTintColor:[UIColor redColor]];
-    [leftButton addTarget:self action:@selector(leftBarButtonAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.leftButton.frame =CGRectMake(kWidth - 80, 30, 80, 30);
+    [self.leftButton setTitle:@"全部分类" forState:UIControlStateNormal];
+    [self.leftButton setTintColor:[UIColor redColor]];
+    [self.leftButton addTarget:self action:@selector(leftBarButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftButton];
     self.navigationItem.rightBarButtonItem = leftItem;
 }
 - (void)backView{
@@ -77,9 +75,12 @@ static NSString *cellString = @"cellsting";
 }
 - (void)leftBarButtonAction{
     self.blankView.hidden = NO;
-    self.collectionView.frame = CGRectMake(0, 64, kWidth, (self.cityArray.count + 1)* kHeight/16/3);
-    [self.blankView addSubview:self.collectionView];
-
+    UIView *white = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, (self.cityArray.count + 1)* kHeight/16/3+70)];
+    white.backgroundColor = [UIColor whiteColor];
+    self.collectionView.frame = CGRectMake(0, 75, kWidth, (self.cityArray.count + 1)* kHeight/16/3);
+    [white addSubview:self.collectionView];
+    [self.blankView addSubview:white];
+    
 }
 - (void)getCityDownData{
     //
@@ -102,74 +103,76 @@ static NSString *cellString = @"cellsting";
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
-
+    
 }
 - (void)getNearbyData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    /*
-     http://api.gjla.com/app_admin_v400/api/coupon/couponList?districtId=1933&cityId=bf98a329000211e4b2bf00163e000dce&categoryId=&sortType=&pageSize=20&longitude=112.426793&latitude=34.618715&pageNum=1
-     */
-
-    
-    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/couponList?districtId=&cityId=391db7b8fdd211e3b2bf00163e000dce&categoryId=&sortType=&pageSize=20&longitude=112.426833&latitude=34.618754&pageNum=%ld",(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/couponList?districtId=%@&cityId=391db7b8fdd211e3b2bf00163e000dce&categoryId=&sortType=&pageSize=20&longitude=112.426833&latitude=34.618754&pageNum=%ld",self.distitucrd,(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
-        NSArray *data = dic[@"datas"];
-        if (self.refreshing) {
-            if (self.cellArray.count > 0) {
-                [self.cellArray removeAllObjects];
+        self.dataArray = dic[@"datas"];
+        if(self.dataArray.count == 0){
+            UIAlertController *aletVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"本区域暂无相关内容,请返回重新选择" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+            [aletVC addAction:action];
+            [self.navigationController presentViewController:aletVC animated:YES completion:nil];
+            
+        }
+        else{
+            if (self.refreshing) {
+                if (self.cellArray.count > 0) {
+                    [self.cellArray removeAllObjects];
+                }
             }
+            for (NSDictionary *dic in self.dataArray) {
+                [self.cellArray addObject:dic];
+            }
+            [self.pullTbaleView reloadData];
+            [self.pullTbaleView tableViewDidFinishedLoading];
+            self.pullTbaleView.reachedTheEnd = NO;
         }
-        for (NSDictionary *dic in data) {
-            [self.cellArray addObject:dic];
-        }
-        [self.pullTbaleView reloadData];
-        [self.pullTbaleView tableViewDidFinishedLoading];
-        self.pullTbaleView.reachedTheEnd = NO;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
     
 }
-
 #pragma mark ------------- 代理
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NearTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"nearCell" forIndexPath:indexPath];
-    NSMutableArray *group = self.cellArray[indexPath.section][@"couponOrDiscounts"];
-    //    NSInteger type = 0;
-    NSString *typesting =group[indexPath.row][@"type"];
-    if (group.count > 0) {
-        if ([typesting compare:@"0"] == NSOrderedSame) {
-            cell.imageView.image = [UIImage imageNamed:@"discount_bg.9"];
-            //时间日期转换
-            //开始日期
-            NSTimeInterval start =[ group[indexPath.row][@"beginDate"] integerValue] /1000;
-            NSDateFormatter *matter = [[NSDateFormatter alloc] init];
-            [matter setDateFormat:@"YYYY/MM/dd"];
-            NSDate *timeSter = [NSDate dateWithTimeIntervalSince1970:start ];
-            NSString *timeSting = [matter stringFromDate:timeSter];
+    if (self.dataArray.count > 0) {
+        NSMutableArray *group = self.cellArray[indexPath.section][@"couponOrDiscounts"];
+        NSString *typesting =group[indexPath.row][@"type"];
+        if (group.count > 0) {
+            if ([typesting compare:@"0"] == NSOrderedSame) {
+                cell.imageView.image = [UIImage imageNamed:@"discount_bg.9"];
+                //时间日期转换
+                //开始日期
+                NSTimeInterval start =[ group[indexPath.row][@"beginDate"] integerValue] /1000;
+                NSDateFormatter *matter = [[NSDateFormatter alloc] init];
+                [matter setDateFormat:@"YYYY/MM/dd"];
+                NSDate *timeSter = [NSDate dateWithTimeIntervalSince1970:start ];
+                NSString *timeSting = [matter stringFromDate:timeSter];
+                //结束
+                NSTimeInterval end = [group[indexPath.row][@"endDate"]integerValue] / 1000;
+                
+                NSDate *timeEnd = [NSDate dateWithTimeIntervalSince1970:end];
+                NSDateFormatter *endmatter = [[NSDateFormatter alloc] init];
+                [endmatter setDateFormat:@"YYYY/MM/dd"];
+                NSString *timeEndSting = [endmatter stringFromDate:timeEnd];
+                
+                NSString *timeLabels = [NSString stringWithFormat:@"有效期 %@-%@",timeSting,timeEndSting];
+                cell.timeLable.text = timeLabels;
+            }
             
-            //结束
-            NSTimeInterval end = [group[indexPath.row][@"endDate"]integerValue] / 1000;
-            
-            NSDate *timeEnd = [NSDate dateWithTimeIntervalSince1970:end];
-            NSDateFormatter *endmatter = [[NSDateFormatter alloc] init];
-            [endmatter setDateFormat:@"YYYY/MM/dd"];
-            NSString *timeEndSting = [endmatter stringFromDate:timeEnd];
-            
-            NSString *timeLabels = [NSString stringWithFormat:@"有效期 %@-%@",timeSting,timeEndSting];
-            cell.timeLable.text = timeLabels;
+            else{
+                cell.imageView.image = [UIImage imageNamed:@"coupon_bg.9"];
+                cell.timeLable.text = @"免费";
+            }
+            cell.backgroundColor = [UIColor whiteColor];
+            cell.titleLable.text = group[indexPath.row][@"name"];
         }
         
-        
-        else{
-            
-            cell.imageView.image = [UIImage imageNamed:@"coupon_bg.9"];
-            cell.timeLable.text = @"免费";
-        }
-        cell.backgroundColor = [UIColor whiteColor];
-        cell.titleLable.text = group[indexPath.row][@"name"];
     }
     //点击cell时的颜色效果取消
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -232,20 +235,28 @@ static NSString *cellString = @"cellsting";
 }
 #pragma mark ------------- 分类代理
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-     UICollectionViewCell *cellCollection = [collectionView dequeueReusableCellWithReuseIdentifier:collection forIndexPath:indexPath];
-
+    UICollectionViewCell *cellCollection = [collectionView dequeueReusableCellWithReuseIdentifier:collection forIndexPath:indexPath];
     if (indexPath.row == 0) {
-        UILabel *title = [[UILabel alloc] initWithFrame:cellCollection.contentView.frame];
-        title.text = @"全部";
+        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, cellCollection.frame.size.width  -10, cellCollection.frame.size.height-10)];
         title.textAlignment = NSTextAlignmentCenter;
+        title.adjustsFontSizeToFitWidth = YES;
+        title.layer.cornerRadius = 5;
+        title.backgroundColor = cellCollection.selected?[UIColor redColor]:[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.9];
+        title.textColor = cellCollection.selected?[UIColor whiteColor]:[UIColor blackColor];
+        title.layer.masksToBounds = YES;
+        title.text = @"全部";
         [cellCollection addSubview:title];
         
     }
-    if (indexPath.row > 0 &&indexPath.row<self.cityArray.count + 1) {
-        
-        UILabel *title = [[UILabel alloc] initWithFrame:cellCollection.contentView.frame];
+    if (indexPath.row > 0 && indexPath.row<self.cityArray.count + 1) {
+        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, cellCollection.frame.size.width  -10, cellCollection.frame.size.height-10)];
         title.textAlignment = NSTextAlignmentCenter;
-        title.text = self.cityArray[indexPath.row-1][@"districtName"];
+        title.adjustsFontSizeToFitWidth = YES;
+        title.layer.cornerRadius = 5;
+        title.backgroundColor = cellCollection.selected?[UIColor redColor]:[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.9];
+        title.textColor = cellCollection.selected?[UIColor whiteColor]:[UIColor blackColor];
+        title.layer.masksToBounds = YES;
+        title.text =  self.cityArray[indexPath.row-1][@"districtName"];
         [cellCollection addSubview:title];
     }
     return cellCollection;
@@ -253,6 +264,21 @@ static NSString *cellString = @"cellsting";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.cityArray.count + 1;
 }
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 0) {
+        self.distitucrd = @"";
+        [self getNearbyData];
+        self.blankView.hidden = YES;
+        [self.leftButton setTitle:@"全部地区" forState:UIControlStateNormal];
+    }
+    else{
+        self.distitucrd = self.cityArray[indexPath.row - 1][@"districtId"];
+        [self getNearbyData];
+        self.blankView.hidden = YES;
+        [self.leftButton setTitle:self.cityArray[indexPath.row - 1][@"districtName"] forState:UIControlStateNormal];
+    }
+}
+
 #pragma mark ------------- 刷新代理
 - (void)pullingTableViewDidStartRefreshing:(PullingRefreshTableView *)tableView{
     self.refreshing = YES;
@@ -332,7 +358,18 @@ static NSString *cellString = @"cellsting";
     }
     return _cityArray;
 }
-
+- (NSMutableArray *)cityClassArray{
+    if (_cityClassArray == nil) {
+        self.cityClassArray = [NSMutableArray new];
+    }
+    return _cityClassArray;
+}
+- (NSMutableArray *)dataArray{
+    if (_dataArray == nil) {
+        self.dataArray = [NSMutableArray new];
+    }
+    return _dataArray;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
