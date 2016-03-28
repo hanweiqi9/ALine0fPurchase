@@ -25,6 +25,7 @@
 #import "MangoSingleton.h"
 #import "MapViewController.h"
 #import "ProgressHUD.h"
+#import "SelectCityViewController.h"
 
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
@@ -35,7 +36,7 @@
 #define kBrand @"http://api.gjla.com/app_admin_v400/api/brand/screening?categoryIds=&cityId=391db7b8fdd211e3b2bf00163e000dce&userId=2ff0ab3508b24d20a87092b06f056c1e&styleIds=&pageSize=20&sortType=1&longitude=112.426851&latitude=34.618758"
 #define kShop @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426904&latitude=34.618939&districtId=&cityId=bd21203d001c11e4b2bf00163e000dce"
 
-@interface NearbyViewController ()<PullingRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate, ZLDropDownMenuDataSource, ZLDropDownMenuDelegate>
+@interface NearbyViewController ()<PullingRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate, ZLDropDownMenuDataSource, ZLDropDownMenuDelegate, SelectCityDelegate>
 {
     //定义请求的页面
     NSInteger _pageCount;
@@ -96,8 +97,9 @@
     _subTitleArray = @[@[@"全部",@"中性",@"休闲",@"复古",@"日韩",@"欧美",@"民族",@"白领",@"运动",],@[@"全部",@"女士服装",@"女士鞋包",@"美容美妆",@"钟表配饰",@"母婴亲子",@"男士服装",@"男士鞋包",@"生活家居"],@[@"离我最近",@"人气最高",@"字母排序",@"独家券",@"所有折扣"]];
     
     //网络请求
-    [self moreThead];
+    [self requestData];
     [self.tableView launchRefreshing];
+    [self requestBrandData];
     //添加轻扫手势
     //向左滑动
     UISwipeGestureRecognizer *recognizer;
@@ -108,17 +110,6 @@
     
 }
 
-//多线程同步请求网络数据
-- (void)moreThead{
-    dispatch_queue_t myConcurrentQueue = dispatch_queue_create("com.mango.myConcurrentQueue", DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    dispatch_async(myConcurrentQueue, ^{
-        [self requestData];
-    });
-    dispatch_async(myConcurrentQueue, ^{
-        [self requestBrandData];
-    });
-    
-}
 
 //添加向右滑动的轻扫手势
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recoginer {
@@ -134,7 +125,7 @@
 - (void)requestData {
     [ProgressHUD show:@"正在加载..."];
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    [manger GET:[NSString stringWithFormat:@"%@&pageNum=%ld",kShop, _pageCount] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    [manger GET:[NSString stringWithFormat:@"%@&pageNum=%ld",kShop, (long)_pageCount] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *responDic = responseObject;
         NSArray *datasArray = responDic[@"datas"];
@@ -257,13 +248,22 @@
     clickCount += 1;
     if (clickCount % 2 != 0) {
         [self.cityButton setImage:[UIImage imageNamed:@"sanjiao_down"] forState:UIControlStateNormal];
+        SelectCityViewController *selectVC = [[SelectCityViewController alloc] init];
+        selectVC.delegate = self;
+        [self.navigationController pushViewController:selectVC animated:YES];
     } else {
         [self.cityButton setImage:[UIImage imageNamed:@"sanjiao_up"] forState:UIControlStateNormal];
     }
     
-    
-    
-    
+}
+
+//实现城市协议方法
+-(void)getCityName:(NSString *)name cityId:(NSString *)cityId {
+    _cityId = cityId;
+    NSLog(@"%@",_cityId);
+    [self requestBrandData];
+    [self requestData];
+
 }
 
 //导航栏右侧搜索按钮
@@ -403,44 +403,43 @@
     
 }
 
-- (void)requestMenueData{
-    AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    [sessionManger GET:[NSString stringWithFormat:@"%@&categoryId=%@&pageNum=%ld",kMenuBrand,categoryIds,(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        self.nameIdDic = responseObject;
-        //如果是下拉刷新，则清除数组中所有数据
-        if (self.refreshing) {
-            if (self.listArray.count > 0) {
-                [self.listArray removeAllObjects];
-            }
-        }
-        NSMutableArray *array = self.nameIdDic[@"datas"];
-        //判断取出的数组是否为空
-        if (![array isEqual:[NSNull null]]) {
-            for (NSDictionary *dic in array) {
-                OneBrandModel *model = [[OneBrandModel alloc] initWithDictionary:dic];
-                [self.listArray addObject:model];
-            }
-            
-        }
-        //rightTableView加载完成
-        [self.rightTableView tableViewDidFinishedLoading];
-        self.rightTableView.reachedTheEnd = NO;
-        [self.rightTableView reloadData];
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-    }];
-    
-    
-}
-
+//- (void)requestMenueData{
+//    AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
+//    [sessionManger GET:[NSString stringWithFormat:@"%@&categoryId=%@&pageNum=%ld",kMenuBrand,categoryIds,(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+//        
+//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        self.nameIdDic = responseObject;
+//        //如果是下拉刷新，则清除数组中所有数据
+//        if (self.refreshing) {
+//            if (self.listArray.count > 0) {
+//                [self.listArray removeAllObjects];
+//            }
+//        }
+//        NSMutableArray *array = self.nameIdDic[@"datas"];
+//        //判断取出的数组是否为空
+//        if (![array isEqual:[NSNull null]]) {
+//            for (NSDictionary *dic in array) {
+//                OneBrandModel *model = [[OneBrandModel alloc] initWithDictionary:dic];
+//                [self.listArray addObject:model];
+//            }
+//            
+//        }
+//        //rightTableView加载完成
+//        [self.rightTableView tableViewDidFinishedLoading];
+//        self.rightTableView.reachedTheEnd = NO;
+//        [self.rightTableView reloadData];
+//        
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        
+//    }];
+//    
+//    
+//}
+//
 
 - (void)handleSwipeFromRight:(UISwipeGestureRecognizer *)recognier {
     if (recognier.direction == UISwipeGestureRecognizerDirectionRight) {
         [self.rightTableView removeFromSuperview];
-        [self moreThead];
         self.segMentControl.selectedSegmentIndex = 0;
         
     }
@@ -473,35 +472,27 @@
 //菜单选择方法
 - (void)menu:(ZLDropDownMenu *)menu didSelectRowAtIndexPath:(ZLIndexPath *)indexPath
 {
-    NSArray *array = self.subTitleArray[indexPath.column];
-    NSString *nameStr = array[indexPath.row];
-    NSArray *arrayValues = [NSArray new];
-    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] valueForKey:@"dic"];
-    NSLog(@"%@",dict);
     
-    
-    //通过属性传值传过来的数组，遍历数组
-    if (![self.cateId isEqual:[NSNull null]]) {
-        for (NSDictionary *dic in self.cateId) {
-            //获取到字典中所有的值
-            arrayValues = [dic allValues];
-            for (NSString *name in arrayValues) {
-                //判断当前选中的字符串是否存储在字典中
-                if ([nameStr isEqualToString:name]) {
-                    categoryIds = dic[@"categoryId"];
-                }
-            }
+    NSDictionary *dict = @{@"女士服装":@"37ca9c6f213011e4b2bf00163e000dce",@"女士鞋包":@"5927b7a1213011e4b2bf00163e000dce",@"美容美妆":@"55581a9334b711e4998d00163e0200e5",@"钟表配饰":@"5558185534b711e4998d00163e0200e5",@"母婴亲子":@"55581a1834b711e4998d00163e0200e5",@"男士服装":@"5558192234b711e4998d00163e0200e5",@"男士鞋包":@"55581b7d34b711e4998d00163e0200e5",@"生活家居":@"55581b0a34b711e4998d00163e0200e5"};
+    NSArray  *tranlArray = dict.allKeys;
+
+    for (NSString *name in tranlArray) {
+        NSArray *array = self.subTitleArray[indexPath.column];
+        NSString *nameStr = array[indexPath.row];
+        NSLog(@"nameStr = %@",nameStr);
+        //判断当前选中字符串是否存储在字典中
+        if ([nameStr isEqualToString:name]) {
+            categoryIds = [dict valueForKey:name];
+            NSLog(@"%@",categoryIds);
+//            [self requestMenueData];
             
         }
+    
     }
-    
-    //接收通知
-    //提前创建观察者
-    NSNotificationCenter *notifationc = [NSNotificationCenter defaultCenter];
-    [notifationc addObserver:self selector:@selector(accpetNotifactionId:) name:@"数据Id" object:nil];
-    [self requestMenueData];
+    [self requestBrandData];
     [self.rightTableView reloadData];
-    
+//    NSLog(@"%@&categoryId=%@&pageNum=%ld",kMenuBrand,categoryIds,(long)_pageNum);
+   
 }
 
 -(NSMutableArray *)cateId {

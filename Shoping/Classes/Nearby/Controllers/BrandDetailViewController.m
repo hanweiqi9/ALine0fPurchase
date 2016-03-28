@@ -215,12 +215,13 @@
     //地址导航
     UIButton *addressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     addressBtn.frame = CGRectMake(20, kWidth / 3 + kWidth / 3 + 130, kWidth - 40, 30);
-    [addressBtn setTitle:[NSString stringWithFormat:@"%@",self.datasDic[@"storeAddress"]] forState:UIControlStateNormal];
-    [addressBtn addTarget:self action:@selector(addressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     //设置图片和内容的间距
     [addressBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
-    [addressBtn setImage:[UIImage imageNamed:@"address11.png"] forState:UIControlStateNormal];
+    [addressBtn setImage:[UIImage imageNamed:@"address22"] forState:UIControlStateNormal];
     [addressBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [addressBtn setTitle:[NSString stringWithFormat:@"%@",self.datasDic[@"storeAddress"]] forState:UIControlStateNormal];
+    [addressBtn addTarget:self action:@selector(addressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+
     [self.headerView addSubview:addressBtn];
     [self.headerView addSubview:distanceBtn];
     [self.headerView addSubview:nameLabel];
