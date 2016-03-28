@@ -61,17 +61,18 @@
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
         self.tableView.rowHeight = kWidth/3-20;
+        self.tableView.separatorColor = [UIColor clearColor];
     }
     return _tableView;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CangTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cellIden" forIndexPath:indexPath];
-    GuanModel *model = self.allArray[indexPath.row];
-    cell.titLabel.text = model.title;
-    cell.subLabel.text = model.subTitle;
-    [cell.headView sd_setImageWithURL:[NSURL URLWithString:model.titImage] placeholderImage:nil];
-    cell.backgroundColor = [UIColor whiteColor];
+//    GuanModel *model = self.allArray[indexPath.row];
+//    cell.titLabel.text = model.title;
+//    cell.subLabel.text = model.subTitle;
+//    [cell.headView sd_setImageWithURL:[NSURL URLWithString:model.titImage] placeholderImage:nil];
+//    cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -79,14 +80,14 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    CangDetailViewController *guan = [[CangDetailViewController alloc] init];
-    GuanModel *model = self.allArray[indexPath.row];
-    guan.titleLabel = model.title;
-    guan.headImage = model.titImage;
-    guan.titImage = model.titImage;
-    guan.subLabel = model.subTitle;
-    
-    [self.navigationController pushViewController:guan animated:YES];
+//    CangDetailViewController *guan = [[CangDetailViewController alloc] init];
+//    GuanModel *model = self.allArray[indexPath.row];
+//    guan.titleLabel = model.title;
+//    guan.headImage = model.titImage;
+//    guan.titImage = model.titImage;
+//    guan.subLabel = model.subTitle;
+//    
+//    [self.navigationController pushViewController:guan animated:YES];
     
     
     

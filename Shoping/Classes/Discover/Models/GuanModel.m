@@ -16,10 +16,8 @@
     if (self) {
         self.title = dic[@"title"];
         self.titImage = dic[@"mainPicUrl"];
-//        self.timeText = dic[@"isSupport"];
         self.subTitle = dic[@"shareContent"];
-//        self.titId = dic[@"brandId"];
-        
+        self.headImage = dic[@"image"];
     }
     return self;
 }

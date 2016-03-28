@@ -150,6 +150,7 @@
         self.tableView.pullingDelegate = self;
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
+        self.tableView.separatorColor = [UIColor clearColor];
        
         self.leftSwipe =[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handSwipes:)];
         self.rightSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handSwipes:)];

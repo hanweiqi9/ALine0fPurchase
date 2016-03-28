@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.imageHead.layer.cornerRadius = 10;
+    self.imageHead.layer.masksToBounds = YES;
     
 }
 

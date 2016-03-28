@@ -53,6 +53,12 @@ static sqlite3 *database = nil;
 
 //创建数据库表
 -(void)createDataBaseTable{
+    NSString *sql = @"create table guanzhu(title text,subTitle text,titImage text,headImage text)";
+    char *error = nil;
+    sqlite3_exec(database, [sql UTF8String], NULL, NULL, &error);
+}
+
+-(void)createCangTable{
     NSString *sql = @"create table guanCang(title text,subTitle text,titImage text)";
     char *error = nil;
     sqlite3_exec(database, [sql UTF8String], NULL, NULL, &error);
@@ -72,13 +78,31 @@ static sqlite3 *database = nil;
 -(void)insertIntoNewModel:(GuanModel *)model{
     [self openDataBase];
     sqlite3_stmt *stmt = nil;
+    NSString *sql = @"insert into guanzhu(title,subTitle,titImage,headImage) values(?,?,?,?)";
+    int result = sqlite3_prepare_v2(database, [sql UTF8String], -1, &stmt, NULL);
+    if (result == SQLITE_OK) {
+        sqlite3_bind_text(stmt, 1, [model.title UTF8String], -1, NULL);
+        sqlite3_bind_text(stmt, 2, [model.subTitle UTF8String], -1, NULL);
+        sqlite3_bind_text(stmt, 3, [model.titImage UTF8String],-1 , NULL);
+        sqlite3_bind_text(stmt, 4, [model.headImage UTF8String], -1, NULL);
+        sqlite3_step(stmt);
+        NSLog(@"语句没有问题");
+    }else{
+        NSLog(@"语句有问题");
+    }
+    //释放
+    sqlite3_finalize(stmt);
+}
+
+-(void)insertIntoCang:(GuanModel *)model{
+    [self openDataBase];
+    sqlite3_stmt *stmt = nil;
     NSString *sql = @"insert into guanCang(title,subTitle,titImage) values(?,?,?)";
     int result = sqlite3_prepare_v2(database, [sql UTF8String], -1, &stmt, NULL);
     if (result == SQLITE_OK) {
         sqlite3_bind_text(stmt, 1, [model.title UTF8String], -1, NULL);
         sqlite3_bind_text(stmt, 2, [model.subTitle UTF8String], -1, NULL);
         sqlite3_bind_text(stmt, 3, [model.titImage UTF8String],-1 , NULL);
-        sqlite3_bind_text(stmt, 4, [model.titId UTF8String], -1, NULL);
         sqlite3_step(stmt);
         NSLog(@"语句没有问题");
     }else{
@@ -90,6 +114,21 @@ static sqlite3 *database = nil;
 
 //删除
 -(void)deleteModelTitle:(NSString *)title{
+    [self openDataBase];
+    sqlite3_stmt *stmt = nil;
+    NSString *sql = @"delete from guanzhu where title = ?";
+    int result = sqlite3_prepare_v2(database, [sql UTF8String], -1, &stmt, NULL);
+    if (result == SQLITE_OK) {
+        NSLog(@"删除成功");
+        sqlite3_bind_text(stmt, 1, [title UTF8String], -1, NULL);
+        sqlite3_step(stmt);
+    }else{
+        NSLog(@"删除失败");
+    }
+    sqlite3_finalize(stmt);
+}
+
+-(void)deleteCangTitle:(NSString *)title{
     [self openDataBase];
     sqlite3_stmt *stmt = nil;
     NSString *sql = @"delete from guanCang where title = ?";
@@ -107,7 +146,7 @@ static sqlite3 *database = nil;
 //查询
 -(NSMutableArray *)select{
     [self openDataBase];
-    NSString *sql = @"select *from guanCang";
+    NSString *sql = @"select *from guanzhu";
     sqlite3_stmt *stmt = nil;
     int result = sqlite3_prepare_v2(database, [sql UTF8String], -1, &stmt, NULL);
     NSMutableArray *arr = [NSMutableArray new];
@@ -117,32 +156,53 @@ static sqlite3 *database = nil;
             NSString *modelTit = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 0)];
              NSString *modelsubtit = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 1)];
              NSString *modelimage = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 2)];
-//             NSString *modelId = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 3)];
+             NSString *modelhead = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 3)];
             GuanModel *model = [[GuanModel alloc] init];
             model.title = modelTit;
             model.subTitle = modelsubtit;
             model.titImage = modelimage;
-//            model.titId = modelId;
-            
+            model.headImage = modelhead;
             [dic setObject:model.title forKey:@"title"];
             [dic setObject:model.subTitle forKey:@"shareContent"];
             [dic setObject:model.titImage forKey:@"mainPicUrl"];
-//            [dic setObject:model.titId forKey:@"brandId"];
+            [dic setObject:model.headImage forKey:@"image"];
             [arr addObject:dic];
-            
+        }
+    }else{
+        NSLog(@"查询失败");
+    }
+    sqlite3_finalize(stmt);
+    return 0;
+    
+}
+
+-(NSMutableArray *)selectCang{
+    [self openDataBase];
+    NSString *sql = @"select *from guanCang";
+    sqlite3_stmt *stmt = nil;
+    int result = sqlite3_prepare_v2(database, [sql UTF8String], -1, &stmt, NULL);
+    NSMutableArray *arr = [NSMutableArray new];
+    if (result == SQLITE_OK) {
+        while (sqlite3_step(stmt)== SQLITE_ROW) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+            NSString *modelTit = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 0)];
+            NSString *modelsubtit = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 1)];
+            NSString *modelimage = [NSString stringWithUTF8String:(const char*) sqlite3_column_text(stmt, 2)];
+            GuanModel *model = [[GuanModel alloc] init];
+            model.title = modelTit;
+            model.subTitle = modelsubtit;
+            model.titImage = modelimage;
+            [dic setObject:model.title forKey:@"title"];
+            [dic setObject:model.subTitle forKey:@"shareContent"];
+            [dic setObject:model.titImage forKey:@"mainPicUrl"];
+            [arr addObject:dic];
         }
     }else{
         NSLog(@"查询失败");
     }
     sqlite3_finalize(stmt);
     return arr;
-    
+
 }
-
-
-
-
-
-
 
 @end
