@@ -25,6 +25,10 @@
 #import "MangoSingleton.h"
 #import "MapViewController.h"
 #import "ProgressHUD.h"
+
+#import "GuanCang.h"
+#import "GuanModel.h"
+
 #import "JCTagListView.h"
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
@@ -37,7 +41,8 @@
 
 #define kShop @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426904&latitude=34.618939&districtId="
 #define kShopCity @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426774&latitude=34.618731&cityId=391db7b8fdd211e3b2bf00163e000dce"
-@interface NearbyViewController ()<PullingRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate, ZLDropDownMenuDataSource, ZLDropDownMenuDelegate>
+@interface NearbyViewController ()<PullingRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate, ZLDropDownMenuDataSource, ZLDropDownMenuDelegate, likeCollectionDelegate>
+
 {
     //定义请求的页面
     NSInteger _pageCount;
@@ -237,6 +242,13 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.oneModel = self.listArray[indexPath.row];
+        cell.btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        cell.btn.frame = CGRectMake(kWidth *0.75 +25, kWidth/8+13, kWidth*0.1-13, kWidth*0.1-13);
+        [cell.btn setImage:[UIImage imageNamed:@"brand_favor_no"] forState:UIControlStateNormal];
+        cell.btn.tag = indexPath.row;
+        [cell.btn addTarget:self action:@selector(likeAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.btn];
+
         return cell;
         
     }
@@ -350,6 +362,47 @@
     }];
     
     
+}
+
+//实现点击收藏的代理方法
+-(void)likeAction:(UIButton *)btn {
+           clickCount += 1;
+            if (clickCount % 2 != 0) {
+                [btn setImage:[UIImage imageNamed:@"brand_favor_yes"] forState:UIControlStateNormal];
+                GuanCang *manager =[GuanCang sharedInstance];
+                manager.btnTag = btn.tag;
+                GuanModel *model = [[GuanModel alloc] init];
+                OneBrandModel *model1 = self.listArray[btn.tag];
+                if ([model1.brandNameZh isEqualToString:@""]) {
+                    model.title = model1.brandNameEn;
+                    NSLog(@"%@",model.title);
+                }else{
+                    model.title = model1.brandNameZh;
+                }
+                for (NSDictionary *dic in model1.categoryName) {
+                    model.subTitle = dic[@"categoryName"];
+
+                }
+                model.titImage = model1.brandLogoUrl;
+                model.selectId = model1.brandId;
+                [manager insertIntoNewModel:model];
+                
+            } else {
+                [btn setImage:[UIImage imageNamed:@"brand_favor_no"] forState:UIControlStateNormal];
+                GuanCang *manager =[GuanCang sharedInstance];
+                manager.btnTag = btn.tag;
+                GuanModel *model = [[GuanModel alloc] init];
+                OneBrandModel *model1 = self.listArray[btn.tag];
+                if ([model1.brandNameZh isEqualToString:@""]) {
+                    model.title = model1.brandNameEn;
+                    [manager deleteModelTitle:model.title];
+                }else{
+                    model.title = model1.brandNameZh;
+                    [manager deleteModelTitle:model.title];
+                }
+            
+            }
+
 }
 
 //导航栏右侧搜索按钮

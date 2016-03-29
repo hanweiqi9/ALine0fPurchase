@@ -51,18 +51,27 @@ static sqlite3 *database = nil;
     }
 }
 
+
+
 //创建数据库表
 -(void)createDataBaseTable{
-    NSString *sql = @"create table guanzhu(title text,subTitle text,titImage text,headImage text)";
+    if (self.btnTag==1) {
+        NSString *sql1 = @"create table guan(title text,subTitle text,titImage text)";
+        char *error = nil;
+        sqlite3_exec(database, [sql1 UTF8String], NULL, NULL, &error);
+
+    }else{
+    NSString *sql = @"create table zhu(title text,subTitle text,titImage text,selectId text)";
     char *error = nil;
     sqlite3_exec(database, [sql UTF8String], NULL, NULL, &error);
+    }
 }
 
--(void)createCangTable{
-    NSString *sql = @"create table guanCang(title text,subTitle text,titImage text)";
-    char *error = nil;
-    sqlite3_exec(database, [sql UTF8String], NULL, NULL, &error);
-}
+//-(void)createCangTable{
+//    NSString *sql = @"create table guan(title text,subTitle text,titImage text)";
+//    char *error = nil;
+//    sqlite3_exec(database, [sql UTF8String], NULL, NULL, &error);
+//}
 
 //关闭数据库表
 -(void)closeDataBase{
@@ -75,16 +84,20 @@ static sqlite3 *database = nil;
     }
 }
 
--(void)insertIntoNewModel:(GuanModel *)model{
+-(void)insertIntoNewModel:(GuanModel *)model1{
     [self openDataBase];
     sqlite3_stmt *stmt = nil;
-    NSString *sql = @"insert into guanzhu(title,subTitle,titImage,headImage) values(?,?,?,?)";
+    NSString *sql = @"insert into zhu(title,subTitle,titImage,selectId) values(?,?,?,?)";
     int result = sqlite3_prepare_v2(database, [sql UTF8String], -1, &stmt, NULL);
     if (result == SQLITE_OK) {
-        sqlite3_bind_text(stmt, 1, [model.title UTF8String], -1, NULL);
-        sqlite3_bind_text(stmt, 2, [model.subTitle UTF8String], -1, NULL);
-        sqlite3_bind_text(stmt, 3, [model.titImage UTF8String],-1 , NULL);
-        sqlite3_bind_text(stmt, 4, [model.headImage UTF8String], -1, NULL);
+        NSString *title = [NSString stringWithFormat:@"%@",model1.title];
+        NSString *subTit = [NSString stringWithFormat:@"%@",model1.subTitle];
+        NSString *titImage = [NSString stringWithFormat:@"%@",model1.titImage];
+        NSString *selectId = [NSString stringWithFormat:@"%@",model1.selectId];
+        sqlite3_bind_text(stmt, 1, [title UTF8String], -1, NULL);
+        sqlite3_bind_text(stmt, 2, [subTit UTF8String], -1, NULL);
+        sqlite3_bind_text(stmt, 3, [titImage UTF8String],-1 , NULL);
+        sqlite3_bind_text(stmt, 4, [selectId UTF8String], -1, NULL);
         sqlite3_step(stmt);
         NSLog(@"语句没有问题");
     }else{
@@ -97,12 +110,15 @@ static sqlite3 *database = nil;
 -(void)insertIntoCang:(GuanModel *)model{
     [self openDataBase];
     sqlite3_stmt *stmt = nil;
-    NSString *sql = @"insert into guanCang(title,subTitle,titImage) values(?,?,?)";
+    NSString *sql = @"insert into guan(title,subTitle,titImage) values(?,?,?)";
     int result = sqlite3_prepare_v2(database, [sql UTF8String], -1, &stmt, NULL);
     if (result == SQLITE_OK) {
-        sqlite3_bind_text(stmt, 1, [model.title UTF8String], -1, NULL);
-        sqlite3_bind_text(stmt, 2, [model.subTitle UTF8String], -1, NULL);
-        sqlite3_bind_text(stmt, 3, [model.titImage UTF8String],-1 , NULL);
+        NSString *tit = [NSString stringWithFormat:@"%@",model.title];
+        NSString *subtit =[NSString stringWithFormat:@"%@",model.subTitle];
+        NSString *ima = [NSString stringWithFormat:@"%@",model.titImage];
+        sqlite3_bind_text(stmt, 1, [tit UTF8String], -1, NULL);
+        sqlite3_bind_text(stmt, 2, [subtit UTF8String], -1, NULL);
+        sqlite3_bind_text(stmt, 3, [ima UTF8String],-1 , NULL);
         sqlite3_step(stmt);
         NSLog(@"语句没有问题");
     }else{
@@ -113,14 +129,14 @@ static sqlite3 *database = nil;
 }
 
 //删除
--(void)deleteModelTitle:(NSString *)title{
+-(void)deleteModelTitle:(NSString *)title1{
     [self openDataBase];
     sqlite3_stmt *stmt = nil;
-    NSString *sql = @"delete from guanzhu where title = ?";
+    NSString *sql = @"delete from zhu where title = ?";
     int result = sqlite3_prepare_v2(database, [sql UTF8String], -1, &stmt, NULL);
     if (result == SQLITE_OK) {
         NSLog(@"删除成功");
-        sqlite3_bind_text(stmt, 1, [title UTF8String], -1, NULL);
+        sqlite3_bind_text(stmt, 1, [title1 UTF8String], -1, NULL);
         sqlite3_step(stmt);
     }else{
         NSLog(@"删除失败");
@@ -131,7 +147,7 @@ static sqlite3 *database = nil;
 -(void)deleteCangTitle:(NSString *)title{
     [self openDataBase];
     sqlite3_stmt *stmt = nil;
-    NSString *sql = @"delete from guanCang where title = ?";
+    NSString *sql = @"delete from guan where title = ?";
     int result = sqlite3_prepare_v2(database, [sql UTF8String], -1, &stmt, NULL);
     if (result == SQLITE_OK) {
         NSLog(@"删除成功");
@@ -146,7 +162,7 @@ static sqlite3 *database = nil;
 //查询
 -(NSMutableArray *)select{
     [self openDataBase];
-    NSString *sql = @"select *from guanzhu";
+    NSString *sql = @"select *from zhu";
     sqlite3_stmt *stmt = nil;
     int result = sqlite3_prepare_v2(database, [sql UTF8String], -1, &stmt, NULL);
     NSMutableArray *arr = [NSMutableArray new];
@@ -161,24 +177,24 @@ static sqlite3 *database = nil;
             model.title = modelTit;
             model.subTitle = modelsubtit;
             model.titImage = modelimage;
-            model.headImage = modelhead;
+            model.selectId = modelhead;
             [dic setObject:model.title forKey:@"title"];
             [dic setObject:model.subTitle forKey:@"shareContent"];
             [dic setObject:model.titImage forKey:@"mainPicUrl"];
-            [dic setObject:model.headImage forKey:@"image"];
+            [dic setObject:model.selectId forKey:@"id"];
             [arr addObject:dic];
         }
     }else{
         NSLog(@"查询失败");
     }
     sqlite3_finalize(stmt);
-    return 0;
+    return arr;
     
 }
 
 -(NSMutableArray *)selectCang{
     [self openDataBase];
-    NSString *sql = @"select *from guanCang";
+    NSString *sql = @"select *from guan";
     sqlite3_stmt *stmt = nil;
     int result = sqlite3_prepare_v2(database, [sql UTF8String], -1, &stmt, NULL);
     NSMutableArray *arr = [NSMutableArray new];

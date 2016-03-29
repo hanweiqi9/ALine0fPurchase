@@ -153,6 +153,7 @@
     [self.zanBtn setImage:[UIImage imageNamed:@"favor_yes1"] forState:UIControlStateNormal];
     
     GuanCang *manager =[GuanCang sharedInstance];
+    manager.btnTag = self.zanBtn.tag;
     GuanModel *model = [[GuanModel alloc] init];
     model.title = self.titleStr;
     model.subTitle = self.subTit;

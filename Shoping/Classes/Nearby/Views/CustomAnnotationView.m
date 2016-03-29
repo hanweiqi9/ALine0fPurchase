@@ -22,7 +22,7 @@
     }
     if (selected) {
         if (self.calloutView == nil) {
-            self.calloutView = [[CustomCalloutView alloc] initWithFrame:CGRectMake(0, 2.5, kCalloutWidth, kCalloutHeight)];
+            self.calloutView = [[CustomCalloutView alloc] initWithFrame:CGRectMake(5, 2.5, kCalloutWidth, kCalloutHeight)];
             self.calloutView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.f + self.calloutOffset.x,
                                                   -CGRectGetHeight(self.calloutView.bounds) / 2.f + self.calloutOffset.y);
             

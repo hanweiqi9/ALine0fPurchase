@@ -117,24 +117,6 @@
     self.mySearchBar.hidden = YES;
 }
 
--(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-    
-    return YES;
-}
-
--(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    NSLog(@"123");
-}
-
--(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
-    NSLog(@"结束编辑");
-    return YES;
-}
-
-//编辑完成
--(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    
-}
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     //把输入内容添加到数组中
@@ -161,6 +143,11 @@
     if (_tagListView == nil) {
         self.tagListView = [[JCTagListView alloc] initWithFrame:CGRectMake(20, 150, kWidth - 40, kHeight / 3)];
         self.tagListView.canSelectTags = YES;
+        __block SearchViewController *weakSelf = self;
+        [weakSelf.tagListView setCompletionBlockWithSelected:^(NSInteger index) {
+            self.mySearchBar.text = self.listArray[index];
+          
+        }];
 
     }
     return _tagListView;
