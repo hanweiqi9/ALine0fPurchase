@@ -30,7 +30,10 @@
     }
     
     self.strreNameLabel.text = searchModel.mallOrStoreName;
-    self.addressLabel.text = searchModel.mallOrStoreAddress;
+    if (searchModel.mallOrStoreAddress.length > 0) {
+        self.addressLabel.text = searchModel.mallOrStoreAddress;
+    }
+    
     if (![searchModel.distance isEqual:[NSNull null]]) {
         CGFloat distan = [searchModel.distance floatValue] / 1000;
          [self.distanceBtn setTitle:[NSString stringWithFormat:@"%.2fkm", distan] forState:UIControlStateNormal];
@@ -40,6 +43,8 @@
 
 //type= 1
 -(void)setBeiModel:(SearchBeij *)beiModel {
+    self.strreNameLabel.frame  = CGRectMake(kWidth / 3, 60, kWidth - kWidth / 3, 40);
+    self.strreNameLabel.numberOfLines = 0;
     if (beiModel.brandLogoUrl != nil) {
         [self.storeImage sd_setImageWithURL:[NSURL URLWithString:beiModel.brandLogoUrl] placeholderImage:nil];
     }

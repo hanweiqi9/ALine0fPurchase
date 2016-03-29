@@ -5,14 +5,7 @@
 //  Created by scjy on 16/3/28.
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
-/**
- *  万达 商场 @“http://api.gjla.com/app_admin_v400/api/searchkeywords/searchList?pageSize=10&longitude=112.42679&latitude=34.618716&searchType=2&keywords=%E4%B8%87%E8%BE%BE&cityId=391db7b8fdd211e3b2bf00163e000dce&pageNum=1”
-        品牌 @“http://api.gjla.com/app_admin_v400/api/searchkeywords/searchList?pageSize=10&longitude=112.42679&latitude=34.618716&searchType=1&keywords=%E4%B8%87%E8%BE%BE&cityId=391db7b8fdd211e3b2bf00163e000dce&pageNum=1”
-        门店@“http://api.gjla.com/app_admin_v400/api/searchkeywords/searchList?pageSize=10&longitude=112.42679&latitude=34.618716&searchType=3&keywords=%E4%B8%87%E8%BE%BE&cityId=391db7b8fdd211e3b2bf00163e000dce&pageNum=1”
- 
- *
- *  @return <#return value description#>
- */
+
 #import "SearchResultViewController.h"
 #import "ResultTableViewCell.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
@@ -22,7 +15,9 @@
 
 #define kSearchShop @"http://api.gjla.com/app_admin_v400/api/searchkeywords/searchList?pageSize=10&longitude=112.426781&latitude=34.618738&cityId=391db7b8fdd211e3b2bf00163e000dce&pageNum=1"
 #define kBeiJIng @"http://api.gjla.com/app_admin_v400/api/searchkeywords/searchList?pageSize=10&longitude=112.42679&latitude=34.618716&searchType=1&keywords=%E5%8C%97%E4%BA%AC&cityId=391db7b8fdd211e3b2bf00163e000dce&pageNum=1"
-
+/*
+ http://api.gjla.com/app_admin_v400/api/searchkeywords/searchList?pageSize=10&longitude=112.426774&latitude=34.618737&searchType=3&keywords=%E5%90%89%E7%9B%9B%E4%BC%9F%E9%82%A6%E8%99%B9%E6%A1%A5%E8%BF%9B%E5%8F%A3%E5%AE%B6%E4%BF%AC%E9%A6%86&cityId=391db7b8fdd211e3b2bf00163e000dce&pageNum=1
+ */
 
 @interface SearchResultViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
@@ -65,7 +60,6 @@
 
 - (void)requestData {
         AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    NSLog(@"%@&searchType=%ld&keywords=%@",kSearchShop, (long)type,self.result);
         [sessionManger GET:[NSString stringWithFormat:@"%@&searchType=%ld&keywords=%@",kSearchShop, (long)type,self.result] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -122,7 +116,7 @@
 - (UITableView *)tableView {
     if (_tableView == nil) {
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, kWidth, kHeight-104) style:UITableViewStylePlain];
-        self.tableView.rowHeight = 115;
+        self.tableView.rowHeight = 100;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.separatorColor = [UIColor clearColor];
@@ -141,6 +135,7 @@
         self.segmentControl.selectedBackgroundColor = self.segmentControl.backgroundColor;
         self.segmentControl.allowNoSelection = NO;
         self.segmentControl.frame = CGRectMake(80, 60, kWidth - 160, 44);
+        self.segmentControl.backgroundColor = [UIColor whiteColor];
         self.segmentControl.indicatorThickness = 2;
         [self.segmentControl addTarget:self action:@selector(segeMentrolAction:) forControlEvents:UIControlEventValueChanged];
     
@@ -152,13 +147,11 @@
     
     if (seg.selectedSegmentIndex == 0) {
         type = 2;
-        NSLog(@"1");
         [self.dataArray removeAllObjects];
         [self requestData];
         
     } else if (seg.selectedSegmentIndex == 1) {
         type = 1;
-        NSLog(@"2");
         [self.dataArray removeAllObjects];
         [self requestData];
 
