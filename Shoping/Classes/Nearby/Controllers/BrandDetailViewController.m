@@ -50,6 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.tabBarController.tabBar.hidden = YES;
     self.title = self.titleId;
     [self.view addSubview:self.tableView];
     //自定义导航栏左侧返回按钮

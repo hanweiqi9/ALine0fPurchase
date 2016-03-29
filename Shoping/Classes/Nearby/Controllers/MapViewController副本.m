@@ -263,7 +263,8 @@
     request.origin = [AMapGeoPoint locationWithLatitude:self.lat longitude:self.lng];
     request.destination = [AMapGeoPoint locationWithLatitude:_distanAnnotation.coordinate.latitude longitude:_distanAnnotation.coordinate.longitude];
     [_search AMapWalkingRouteSearch:request];
-    
+    _mapView.compassOrigin = CGPointMake(_mapView.compassOrigin.x, 22);
+    _mapView.scaleOrigin = CGPointMake(_mapView.scaleOrigin.x, 22);
 
 }
 
@@ -280,9 +281,6 @@
     self.pois = @[_distanAnnotation, _mapView.userLocation];
     [_mapView showAnnotations:self.pois animated:YES];
     [_mapView addOverlays:_pathPolylines];
-    _mapView.compassOrigin = CGPointMake(_mapView.compassOrigin.x, 22);
-    _mapView.scaleOrigin = CGPointMake(_mapView.scaleOrigin.x, 22);
-    [_mapView setZoomLevel:10.1 animated:YES];
     
 }
 

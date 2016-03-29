@@ -11,8 +11,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "HtmlViewController.h"
 @interface ScanViewController ()<AVCaptureMetadataOutputObjectsDelegate>
-
-@property (weak, nonatomic) IBOutlet UIButton *StartBtn;
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 
 @property (strong, nonatomic) UIView *boxView;
@@ -20,7 +18,7 @@
 @property (strong, nonatomic) CALayer *scanLayer;
 
 
--(BOOL)startReading;
+//-(BOOL)startReading;
 -(void)stopReading;
 
 //捕捉会话
@@ -32,26 +30,21 @@
 
 @implementation ScanViewController
 
-
+//- (void)viewDidAppear:(BOOL)animated{
+//    [_captureSession startRunning];
+//}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self showBackButtonWithImage:@"titlebarback"];
-    [self.StartBtn setTitle:@"开始扫描" forState:UIControlStateNormal];
     _captureSession = nil;
     _isReading = NO;
-}
-- (BOOL)startReading {
     NSError *error;
     //1.初始化捕捉设备（AVCaptureDevice），类型为AVMediaTypeVideo
     AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
     //2.用captureDevice创建输入流
     AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&error];
-    if (!input) {
-        NSLog(@"%@", [error localizedDescription]);
-        return NO;
-    }
     
     //3.创建媒体数据输出流
     AVCaptureMetadataOutput *captureMetadataOutput = [[AVCaptureMetadataOutput alloc] init];
@@ -81,7 +74,7 @@
     [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     
     //8.设置图层的frame
-    [_videoPreviewLayer setFrame:_viewPreview.layer.bounds];
+    [_videoPreviewLayer setFrame:_viewPreview.layer.frame];
     
     //9.将图层添加到预览view的图层上
     [_viewPreview.layer addSublayer:_videoPreviewLayer];
@@ -90,7 +83,7 @@
     captureMetadataOutput.rectOfInterest = CGRectMake(0.2f, 0.2f, 0.8f, 0.8f);
     _viewPreview.backgroundColor = [UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.6];
     //10.1.扫描框
-    _boxView = [[UIView alloc] initWithFrame:CGRectMake(_viewPreview.bounds.size.width/8, _viewPreview.bounds.size.height * 0.2f, _viewPreview.bounds.size.height - _viewPreview.bounds.size.height * 0.4f, _viewPreview.bounds.size.height - _viewPreview.bounds.size.height * 0.4f)];
+    _boxView = [[UIView alloc] initWithFrame:CGRectMake(kWidth/6.,kHeight/6,kWidth -kWidth/6* 2+10,kHeight / 2)];
     _boxView.layer.borderColor = [UIColor greenColor].CGColor;
     _boxView.layer.borderWidth = 1.0f;
     
@@ -106,21 +99,14 @@
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(moveScanLayer:) userInfo:nil repeats:YES];
     
     [timer fire];
-    
-    //10.开始扫描
     [_captureSession startRunning];
-    
-    
-    return YES;
 }
-
 -(void)stopReading{
-    [_captureSession stopRunning];
+//    [_captureSession stopRunning];
     _captureSession = nil;
-    [_scanLayer removeFromSuperlayer];
-    [_videoPreviewLayer removeFromSuperlayer];
+//    [_scanLayer removeFromSuperlayer];
+//    [_videoPreviewLayer removeFromSuperlayer];
 }
-
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
@@ -143,14 +129,11 @@
             _isReading = NO;
         }
     }
+//    else{
+//        _isReading = YES;
+//        [_captureSession startRunning];
+//    }
 }
-
-- (IBAction)syartStopReading:(id)sender {
-        [self stopReading];
-        [_StartBtn setTitle:@"开始扫描" forState:UIControlStateNormal];
-    _isReading = !_isReading;
-}
-
 - (void)moveScanLayer:(NSTimer *)timer
 {
     CGRect frame = _scanLayer.frame;

@@ -15,6 +15,7 @@
 #import "ActivityMianViewController.h"
 #import "MapViewController.h"
 #import "MangoSingleton.h"
+#import "ShareView.h"
 @interface PreferDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *DetailsTableView;
@@ -35,9 +36,18 @@
     [self.view addSubview:self.DetailsTableView];
     
     [self.DetailsTableView registerNib:[UINib nibWithNibName:@"NearTableViewCell" bundle:nil] forCellReuseIdentifier:@"preferCell"];
-    
-    
     [self getActivityDetailData];
+
+    UIBarButtonItem *Item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"shareicon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(ShareAction)];
+    Item.tintColor  = [UIColor redColor];
+    self.navigationItem.rightBarButtonItem = Item;
+}
+
+- (void)ShareAction{
+    ShareView *view = [[ShareView alloc] init];
+    view.urlStr = [NSString stringWithFormat:@"%@%@",kImageString,self.datasDic[@"brandPicUrl"]];
+    view.titStr = self.datasDic[@"brandNameEn"];
+    [self.view addSubview:view];
 }
 #pragma mark ========== 数据请求
 - (void)getActivityDetailData{
