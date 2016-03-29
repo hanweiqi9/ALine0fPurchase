@@ -10,6 +10,7 @@
 #import "GuanModel.h"
 
 @interface GuanCang : NSObject
+@property(nonatomic,assign) NSInteger btnTag;
 //用单例创建数据库对象
 +(GuanCang *)sharedInstance;
 
@@ -18,7 +19,7 @@
 -(void)createDataBase;
 //创建数据库表
 - (void)createDataBaseTable;
--(void)createCangTable;
+//-(void)createCangTable;
 //打开数据库表
 - (void)openDataBase;
 //关闭数据库表
@@ -26,7 +27,7 @@
 
 #pragma mark------数据库常用操作
 //插入一个新的联系人
--(void)insertIntoNewModel:(GuanModel *)model;
+-(void)insertIntoNewModel:(GuanModel *)model1;
 -(void)insertIntoCang:(GuanModel *)model;
 
 
@@ -35,7 +36,7 @@
 -(NSMutableArray *)selectCang;
 
 //删除
--(void)deleteModelTitle:(NSString *)title;
+-(void)deleteModelTitle:(NSString *)title1;
 -(void)deleteCangTitle:(NSString *)title;
 
 

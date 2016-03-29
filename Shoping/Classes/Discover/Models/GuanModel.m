@@ -17,7 +17,7 @@
         self.title = dic[@"title"];
         self.titImage = dic[@"mainPicUrl"];
         self.subTitle = dic[@"shareContent"];
-        self.headImage = dic[@"image"];
+        self.selectId = dic[@"id"];
     }
     return self;
 }

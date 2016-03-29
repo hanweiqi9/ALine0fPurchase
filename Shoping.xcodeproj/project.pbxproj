@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A0D19AE1CAA2F0C00007268 /* en.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D19AD1CAA2F0C00007268 /* en.png */; };
 		7A2A7ABE1CA80403005253B0 /* SelectCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2A7ABD1CA80403005253B0 /* SelectCityViewController.m */; };
 		7A2A7AC01CA80758005253B0 /* City.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A2A7ABF1CA80758005253B0 /* City.plist */; };
 		7A2D55511C9F7148002018F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55501C9F7148002018F4 /* main.m */; };
@@ -187,6 +188,7 @@
 /* Begin PBXFileReference section */
 		01A0D5C6BB4AC833914A9774 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		63E8722CE52D8272C529BF80 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A0D19AD1CAA2F0C00007268 /* en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = en.png; sourceTree = "<group>"; };
 		7A2A7ABC1CA80403005253B0 /* SelectCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCityViewController.h; sourceTree = "<group>"; };
 		7A2A7ABD1CA80403005253B0 /* SelectCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCityViewController.m; sourceTree = "<group>"; };
 		7A2A7ABF1CA80758005253B0 /* City.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = City.plist; sourceTree = "<group>"; };
@@ -830,6 +832,7 @@
 				7A5A951B1CA3F1F200C94BC1 /* CangTableViewCell.xib */,
 				7A5A951C1CA3F1F200C94BC1 /* TuiJianView.h */,
 				7A5A951D1CA3F1F200C94BC1 /* TuiJianView.m */,
+				7A0D19AD1CAA2F0C00007268 /* en.png */,
 				7A2D55931C9F780A002018F4 /* Mine.storyboard */,
 			);
 			path = Views;
@@ -1233,6 +1236,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0D19AE1CAA2F0C00007268 /* en.png in Resources */,
 				7A2D555F1C9F7148002018F4 /* LaunchScreen.storyboard in Resources */,
 				7A81B9B51CA3DE8E00029E84 /* YouhuiTableViewCell.xib in Resources */,
 				7A2D559A1C9F780A002018F4 /* Activity.plist in Resources */,

@@ -107,11 +107,12 @@
     
     UIImage* image = [UIImage imageWithData:ext.imageData];
     ext.imageData = UIImagePNGRepresentation(image);
+    
+    
     message.mediaObject = ext;
     
     SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;
-    req.text = @"一线购，带你逛意想不到的商品！";
     req.message = message;
     req.scene = WXSceneTimeline;
     

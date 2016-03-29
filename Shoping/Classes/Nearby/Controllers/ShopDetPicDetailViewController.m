@@ -10,6 +10,9 @@
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ProgressHUD.h"
+#import "GuanCang.h"
+#import "GuanModel.h"
+#import "ShareView.h"
 #define kPicUrl @"http://api.gjla.com/app_admin_v400/"
 #define kPicDetail @"http://api.gjla.com/app_admin_v400/api/subject/detail?userId=2ff0ab3508b24d20a87092b06f056c1e&type=1&audit="
 
@@ -26,6 +29,11 @@
 @property (nonatomic, strong) UIBarButtonItem *rightLikeBtn;
 @property (nonatomic, strong) NSMutableArray *keyArray;
 @property (nonatomic, strong) NSDictionary *dic;
+
+//收藏
+@property(nonatomic,strong) NSString *title1;
+@property(nonatomic,strong) NSString *subTit;
+@property(nonatomic,strong) NSString *imageUrl;
 
 
 @end
@@ -85,6 +93,8 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *responsDic = responseObject;
         self.dic = responsDic[@"datas"];
+        self.title1 = self.dic[@"title"];
+        self.subTit = self.dic[@"shareContent"];
         //将字典中取出的字符串进行查找替换
         NSString *conStr = self.dic[@"content"];
         NSString *urlStr = [conStr stringByReplacingOccurrencesOfString:@"ueditorUpload" withString:@"http://api.gjla.com/app_admin_v400/ueditorUpload"];
@@ -92,8 +102,8 @@
         [self.webView loadHTMLString:urlStr baseURL:nil];
         //初始化一个ImageView
         UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.headView.frame.size.width, self.headView.frame.size.height)];
-        NSString *imageUrl = [NSString stringWithFormat:@"%@%@",kPicUrl, self.twoModel.mainPicUrl];
-        [imageView1 sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
+        self.imageUrl = [NSString stringWithFormat:@"%@%@",kPicUrl, self.twoModel.mainPicUrl];
+        [imageView1 sd_setImageWithURL:[NSURL URLWithString:self.imageUrl] placeholderImage:nil];
         [self.headView addSubview:imageView1];
         [ProgressHUD showSuccess:@"数据加载完成"];
         
@@ -143,11 +153,33 @@
         clickCount += 1;
         if (clickCount % 2 != 0) {
             [self.likeButton setImage:[UIImage imageNamed:@"favoryes"] forState:UIControlStateNormal];
+            GuanCang *shoucang = [GuanCang sharedInstance];
+            shoucang.btnTag == btn.tag;
+            GuanModel *model = [[GuanModel alloc] init];
+            model.title = self.title1;
+            model.subTitle = self.subTit;
+            model.titImage = self.imageUrl;
+            [shoucang insertIntoCang:model];
+            
         } else {
             [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
+            GuanCang *shoucang = [GuanCang sharedInstance];
+            GuanModel *model = [[GuanModel alloc] init];
+            model.title = self.title1;
+            [shoucang deleteCangTitle:model.title];
+            
+            
         }
     }
     //点击分享
+    else{
+        ShareView *views = [[ShareView alloc] init];
+        views.urlStr = self.imageUrl;
+        views.titStr = self.title1;
+        [self.view addSubview:views];
+        
+        
+    }
     
     
     

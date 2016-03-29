@@ -12,7 +12,8 @@
 @property(nonatomic,retain) NSString *title;
 @property(nonatomic,retain) NSString *subTitle;
 @property(nonatomic,retain) NSString *titImage;
-@property(nonatomic,retain) NSString *headImage;
+@property(nonatomic,retain) NSString *selectId;
+
 
 
 -(instancetype)initWithDictionary:(NSMutableDictionary *)dic;
