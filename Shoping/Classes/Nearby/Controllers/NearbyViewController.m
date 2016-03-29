@@ -25,19 +25,19 @@
 #import "MangoSingleton.h"
 #import "MapViewController.h"
 #import "ProgressHUD.h"
-#import "SelectCityViewController.h"
-
+#import "JCTagListView.h"
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
 #define kWidth [UIScreen mainScreen].bounds.size.width
 #define kHeight [UIScreen mainScreen].bounds.size.height
 
+#define kCityList @"http://api.gjla.com/app_admin_v400/api/city/cityDistrictList?cityId=391db7b8fdd211e3b2bf00163e000dce"
 #define kBrand @"http://api.gjla.com/app_admin_v400/api/brand/screening?categoryIds=&cityId=391db7b8fdd211e3b2bf00163e000dce&userId=2ff0ab3508b24d20a87092b06f056c1e&styleIds=&pageSize=20&sortType=1&longitude=112.426851&latitude=34.618758"
 #define kBrandClassfiy @"http://api.gjla.com/app_admin_v400/api/brand/screening?cityId=391db7b8fdd211e3b2bf00163e000dce&userId=2ff0ab3508b24d20a87092b06f056c1e&styleIds=&pageSize=20&sortType=1&longitude=112.426781&latitude=34.618738"
 
 #define kShop @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426904&latitude=34.618939&districtId=&cityId=391db7b8fdd211e3b2bf00163e000dce"
 #define kShopCity @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426774&latitude=34.618731&cityId=391db7b8fdd211e3b2bf00163e000dce"
-@interface NearbyViewController ()<PullingRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate, ZLDropDownMenuDataSource, ZLDropDownMenuDelegate, SelectCityDelegate>
+@interface NearbyViewController ()<PullingRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate, ZLDropDownMenuDataSource, ZLDropDownMenuDelegate>
 {
     //定义请求的页面
     NSInteger _pageCount;
@@ -58,8 +58,10 @@
 @property (nonatomic, strong) NSArray *mainTitleArray;
 @property (nonatomic, strong) NSArray *subTitleArray;
 @property (nonatomic, strong) NSDictionary *nameIdDic;
-
-
+@property (nonatomic, strong) UIView *selectView;
+@property (nonatomic, strong) NSMutableArray *cityArray;
+@property (nonatomic, strong) JCTagListView *tagListView;
+@property (nonatomic, strong) NSMutableArray *idArray;
 @end
 
 @implementation NearbyViewController
@@ -82,7 +84,7 @@
     [self.cityButton setTitle:@"上海" forState:UIControlStateNormal];
     [self.cityButton setImageEdgeInsets:UIEdgeInsetsMake(0, self.cityButton.frame.size.width - 10, 0, 0)];
     [self.cityButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -25, 0, 10)];
-    [self.cityButton addTarget:self action:@selector(selectCityBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.cityButton addTarget:self action:@selector(selectCityBtnAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *cityBtnItem = [[UIBarButtonItem alloc] initWithCustomView:self.cityButton];
     self.navigationItem.leftBarButtonItem = cityBtnItem;
     
@@ -104,6 +106,8 @@
     [self requestData];
     [self.tableView launchRefreshing];
     [self requestBrandData];
+    [self requesCityName];
+    
     //添加轻扫手势
     //向左滑动
     UISwipeGestureRecognizer *recognizer;
@@ -133,6 +137,14 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *responDic = responseObject;
         NSArray *datasArray = responDic[@"datas"];
+        if(datasArray.count == 0){
+            UIAlertController *aletVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"本区域暂无相关内容,请返回重新选择" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+            [aletVC addAction:action];
+            [self.navigationController presentViewController:aletVC animated:YES completion:nil];
+            
+        }
+        else{
         for (NSDictionary *dic in datasArray) {
             ShopModel *model = [[ShopModel alloc] initWithDistionary:dic];
             [self.dataArray addObject:model];
@@ -141,6 +153,7 @@
         [self.tableView tableViewDidFinishedLoading];
         self.tableView.reachedTheEnd = NO;
         [self.tableView reloadData];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
@@ -148,10 +161,38 @@
     
     
 }
-//选择城市区域
+
+//获取城市区域选择id和name
+- (void)requesCityName {
+    AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
+    [sessionManger GET:kCityList parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *resDic = responseObject;
+        NSMutableArray *listArray = resDic[@"datas"];
+        if (self.idArray.count > 0 || self.cityArray.count > 0) {
+            [self.idArray removeAllObjects];
+            [self.cityArray removeAllObjects];
+        }
+        for (NSDictionary *dic in listArray) {
+            NSString *districtId = dic[@"districtId"];
+            NSString *districtName = dic[@"districtName"];
+            [self.idArray addObject:districtId];
+            [self.cityArray addObject:districtName];
+        }
+       
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+    
+    
+    
+}
+
+
+//重新选择城市
 - (void)requestDataCity {
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    NSLog(@"%@&districtId=%@&pageNum=%ld",kShopCity, _cityId, (long)_pageCount);
     [manger GET:[NSString stringWithFormat:@"%@&districtId=%@&pageNum=%ld",kShopCity, _cityId, (long)_pageCount] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *responDic = responseObject;
@@ -174,7 +215,6 @@
 
 
 }
-
 
 #pragma mark -------------------------- 协议方法
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -274,25 +314,36 @@
 }
 
 //选择城市按钮
-- (void)selectCityBtnAction:(UIButton *)btn {
-    clickCount += 1;
-    if (clickCount % 2 != 0) {
-        [self.cityButton setImage:[UIImage imageNamed:@"sanjiao_down"] forState:UIControlStateNormal];
-        SelectCityViewController *selectVC = [[SelectCityViewController alloc] init];
-        selectVC.delegate = self;
-        [self.navigationController pushViewController:selectVC animated:YES];
-    } else {
-        [self.cityButton setImage:[UIImage imageNamed:@"sanjiao_up"] forState:UIControlStateNormal];
+- (void)selectCityBtnAction{
+    [self.cityButton setImage:[UIImage imageNamed:@"sanjiao_down"] forState:UIControlStateNormal];
+    self.selectView.hidden = NO;
+    [self.view addSubview:self.selectView];
+    self.tagListView = [[JCTagListView alloc] initWithFrame:CGRectMake(0, 20, kWidth, kWidth- 30)];
+    self.tagListView.canSelectTags = YES;
+    self.tagListView.backgroundColor = [UIColor whiteColor];
+    [self.selectView addSubview:self.tagListView];
+    NSArray *array;
+    if (self.tagListView.tags > 0 || array.count > 0) {
+        [self.tagListView.tags removeAllObjects];
+        array = nil;
     }
+    //把可变数组转换成不可变数组
+    array = [NSArray arrayWithArray:self.cityArray];
+    //然后添加到tagView上
+    [self.tagListView.tags addObjectsFromArray:array];
+    //刷新collectionView
+    [self.tagListView.collectionView reloadData];
+    __block NearbyViewController *weakSelf = self;
+    //点击方法
+    [self.tagListView setCompletionBlockWithSelected:^(NSInteger index) {
+        _cityId = self.idArray[index];
+        weakSelf.selectView.hidden = YES;
+        [weakSelf requestDataCity];
+        [weakSelf.cityButton setImage:[UIImage imageNamed:@"sanjiao_up"] forState:UIControlStateNormal];
+        
+    }];
     
-}
-
-//实现城市协议方法
--(void)getCityName:(NSString *)name cityId:(NSString *)cityId {
-    _cityId = cityId;
-    NSLog(@"%@",_cityId);
-    [self requestDataCity];
-
+    
 }
 
 //导航栏右侧搜索按钮
@@ -416,12 +467,11 @@
     NSArray  *tranlArray = dict.allKeys;
     NSArray *array = self.subTitleArray[indexPath.column];
     NSString *nameStr = array[indexPath.row];
-    NSLog(@"nameStr = %@",nameStr);
     for (NSString *name in tranlArray) {
         //判断当前选中字符串是否存储在字典中
         if ([nameStr isEqualToString:name]) {
             categoryIds1 = [dict valueForKey:name];
-            NSLog(@"%@",categoryIds1);
+
         }
     }
     [self requestMenueData];
@@ -431,7 +481,6 @@
 //菜单栏选择网络请求
 - (void)requestMenueData{
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    NSLog(@"%@&categoryIds=%@&pageNum=%ld",kBrandClassfiy,categoryIds1,(long)_pageNum1);
     [sessionManger GET:[NSString stringWithFormat:@"%@&categoryIds=%@&pageNum=%ld",kBrandClassfiy,categoryIds1,(long)_pageNum1] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
@@ -491,7 +540,7 @@
 
 -(PullingRefreshTableView *)rightTableView {
     if (_rightTableView == nil) {
-        self.rightTableView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 120, kWidth, kHeight - 140) pullingDelegate:self];
+        self.rightTableView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 110, kWidth, kHeight - 140) pullingDelegate:self];
         self.rightTableView.dataSource = self;
         self.rightTableView.delegate = self;
         self.rightTableView.rowHeight = kWidth / 4 + 10;
@@ -530,6 +579,29 @@
         self.nameIdDic = [NSDictionary dictionary];
     }
     return _nameIdDic;
+}
+
+-(UIView *)selectView {
+    if (_selectView == nil) {
+        self.selectView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, kWidth, kWidth - 30)];
+        self.selectView.backgroundColor = [UIColor whiteColor];
+    }
+    return _selectView;
+}
+
+-(NSMutableArray *)cityArray {
+    if (_cityArray == nil) {
+        self.cityArray = [NSMutableArray new];
+    }
+    return _cityArray;
+}
+
+-(NSMutableArray *)idArray {
+    if (_idArray == nil) {
+        self.idArray = [NSMutableArray new];
+    }
+    return _idArray;
+    
 }
 
 

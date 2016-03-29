@@ -15,6 +15,7 @@
 #import "GuanCang.h"
 #import "GuanModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "CangDetailViewController.h"
 
 @interface ShoucangViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong) UITableView *tableView;
@@ -44,7 +45,7 @@
     
     GuanCang *cang =[GuanCang sharedInstance ];
     self.array = [NSMutableArray new];
-    self.array = [cang select];
+    self.array = [cang selectCang];
     self.allArray = [NSMutableArray new];
     for (NSMutableDictionary *dic in self.array) {
         GuanModel *model =[[GuanModel alloc] initWithDictionary:dic];
@@ -64,6 +65,7 @@
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
         self.tableView.rowHeight = kWidth/3-20;
+        self.tableView.separatorColor = [UIColor clearColor];
     }
     return _tableView;
 }
@@ -83,11 +85,16 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    CangDetailViewController *guan = [[CangDetailViewController alloc] init];
+    GuanModel *model = self.allArray[indexPath.row];
+    guan.titleLabel = model.title;
+    guan.headImage = model.titImage;
+    guan.titImage = model.titImage;
+    guan.subLabel = model.subTitle;
     
-    
-    
-    
-    
+    [self.navigationController pushViewController:guan animated:YES];
+
+
     
 }
 

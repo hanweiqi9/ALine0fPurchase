@@ -43,7 +43,7 @@
 @property (nonatomic, strong) MAPolylineView *polylineView;
 @property (nonatomic, strong) MAPointAnnotation *endPointAnnotation;
 @property (nonatomic, strong) MAPointAnnotation *currentPointAnotion;
-
+@property (nonatomic, strong) NSArray *pois;
 
 @end
 
@@ -131,6 +131,7 @@
     if (response.pois.count == 0) {
         return;
     }
+    self.pois = response.pois;
      //通过 AMapPOISearchResponse 对象处理搜索结果
     NSString *strCount = [NSString stringWithFormat:@"count:%ld",(long)response.count];
     NSString *strSuggestion = [NSString stringWithFormat:@"Suggestion:%@",response.suggestion];
@@ -243,6 +244,8 @@
     
 }
 
+//搜索回调函数
+
 //导航栏返回按钮
 - (void)backLeftAction:(UIButton *)btn {
     [self.navigationController popViewControllerAnimated:YES];
@@ -273,7 +276,7 @@
     return YES;
 }
 
-//点击方法
+//长按手势点击方法
 - (void)longTapAction:(UILongPressGestureRecognizer *)tap {
     
         CLLocationCoordinate2D corrnitate = [_mapView convertPoint:[tap locationInView:_mapView] toCoordinateFromView:_mapView];
@@ -288,8 +291,6 @@
         
     
 }
-
-
 
 #pragma mark ----------------- 懒加载
 
@@ -306,6 +307,7 @@
 
 }
 
+//路径规划按钮 懒加载
 -(UIButton *)rotePlayBtn {
     if (_rotePlayBtn == nil) {
         self.rotePlayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -319,6 +321,7 @@
     return _rotePlayBtn;
 }
 
+//初始化大头针数组
 - (NSMutableArray *)annotations{
     if (_annotations == nil) {
         self.annotations = [NSMutableArray array];

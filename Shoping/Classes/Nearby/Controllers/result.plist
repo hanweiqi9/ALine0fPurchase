@@ -1,0 +1,51 @@
+{
+datas =     (
+{
+brandId = "<null>";
+    distance = 912122;
+    mallOrStoreAddress = "\U91d1\U6c99\U6c5f\U897f\U8def1051\U5f04";
+    mallOrStoreId = 3c33ca575f4e4a73dbdc487aaa7c89c9;
+    mallOrStoreName = "\U4e07\U8fbe\U5e7f\U573a\U6c5f\U6865\U5e97";
+    mallOrStorePicUrl = "uploadtemp/mall/2015-07/mall_63093fb56548d8facae2bb103f7a34f9.jpg";
+    mallOrStoreThumbUrl = "uploadtemp/brand/2015-07/brand_bdeb1a7e94b8c4e849ebb0b931c2559a.jpg";
+    },
+    {
+    brandId = "<null>";
+        distance = 914729;
+        mallOrStoreAddress = "\U5e7f\U5bcc\U6797\U8def658\U5f04";
+        mallOrStoreId = beca177ac7802443fc726c5ab96a7fa8;
+        mallOrStoreName = "\U4e07\U8fbe\U5e7f\U573a\U677e\U6c5f\U5e97";
+        mallOrStorePicUrl = "uploadtemp/mall/2015-07/mall_631fd860fe9992662154e607e2b1e79f.jpg";
+        mallOrStoreThumbUrl = "uploadtemp/brand/2015-07/brand_2210185e98d19683cc7be14a2af75cd5.jpg";
+        },
+        {
+        brandId = "<null>";
+            distance = 918487;
+            mallOrStoreAddress = "\U4e00\U4e8c\U516b\U7eaa\U5ff5\U8def988\U53f7";
+            mallOrStoreId = 35348cdf62184368d2e1478d6ccf9966;
+            mallOrStoreName = "\U4e07\U8fbe\U5e7f\U573a\U5b9d\U5c71\U5e97";
+            mallOrStorePicUrl = "uploadtemp/mall/2015-07/mall_8264ff98208489dec30417a6acd2c173.jpg";
+            mallOrStoreThumbUrl = "uploadtemp/brand/2015-07/brand_beac8c867de9a66b50a6208444e05dca.jpg";
+            },
+            {
+            brandId = "<null>";
+                distance = 925446;
+                mallOrStoreAddress = "\U90af\U90f8\U8def600\U53f7";
+                mallOrStoreId = 0bc8161c435d0e159329c988e3d80752;
+                mallOrStoreName = "\U4e07\U8fbe\U5e7f\U573a\U4e94\U89d2\U573a\U5e97";
+                mallOrStorePicUrl = "uploadtemp/mall/2015-07/mall_3200bc0d5335cd6b9b66bbaf78fce956.jpg";
+                mallOrStoreThumbUrl = "uploadtemp/brand/2015-07/brand_dabd55031930c248f6554d37f33122d1.jpg";
+                },
+                {
+                brandId = "<null>";
+                    distance = 939379;
+                    mallOrStoreAddress = "\U5e74\U5bb6\U6d5c\U8def518\U53f7";
+                    mallOrStoreId = 55d776aacaf59f1f59a4cc659766711d;
+                    mallOrStoreName = "\U4e07\U8fbe\U5e7f\U573a\U5468\U6d66\U5e97";
+                    mallOrStorePicUrl = "uploadtemp/mall/2015-07/mall_87e53875ebad691415f25e65faa77bf5.jpg";
+                    mallOrStoreThumbUrl = "uploadtemp/brand/2015-07/brand_198314f8704025733c2ba35564388f2d.jpg";
+                    }
+                    );
+                    errcode = 0;
+                    errmsg = "";
+                }

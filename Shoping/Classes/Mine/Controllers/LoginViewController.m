@@ -61,7 +61,7 @@
     
     
     
-    self.titleArray = [[NSMutableArray alloc] initWithObjects:@"我的关注",@"我的收藏",@"我的评论",@"客服中心", nil];
+    self.titleArray = [[NSMutableArray alloc] initWithObjects:@"我的关注",@"我的收藏",@"我的评分",@"客服中心", nil];
     self.imageArray = [[NSMutableArray alloc] initWithObjects:@"my_attention_icon",@"my_favor_icon",@"my_comment_icon",@"my_kefuzhongxin", nil];
     [self.view addSubview:self.tableView];
     [self tableViewHeadView];

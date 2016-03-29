@@ -120,6 +120,7 @@
         self.tableView.pullingDelegate = self;
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
+        self.tableView.separatorColor = [UIColor clearColor];
         self.tableView.rowHeight = 180;
     }
     return _tableView;

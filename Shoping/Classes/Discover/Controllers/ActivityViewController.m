@@ -42,13 +42,13 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     [self titles];
-        UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
-        [backBtn setImage:[UIImage imageNamed:@"arrow_left_pink"] forState:UIControlStateNormal];
-        [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 5)];
-        [backBtn addTarget:self action:@selector(backBtnActivity) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
-        self.navigationItem.leftBarButtonItem = leftBarBtn;
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(0, 0, kWidth/7, 44);
+    [backBtn setImage:[UIImage imageNamed:@"arrow_left_pink"] forState:UIControlStateNormal];
+    [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 5)];
+    [backBtn addTarget:self action:@selector(backBtnActivity) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
+    self.navigationItem.leftBarButtonItem = leftBarBtn;
     
     self.zanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.zanBtn.tag = 1;
@@ -93,7 +93,7 @@
     }else if ([self.userId isEqualToString:@"fe8d0970f7d4469bb6a8d5fbb1a2bb6f"]){
         self.navigationItem.title = @"搭配详情";
     }
-
+    
 }
 
 #pragma mark-----------Lazy
@@ -119,7 +119,7 @@
     message.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [message GET:[NSString stringWithFormat:@"%@&objId=%@&type=%ld&userId=%@",kActivity,self.selectId,self.type,self.userId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSLog(@"%@",responseObject);
+        //        NSLog(@"%@",responseObject);
         NSDictionary *dic = responseObject;
         self.dict = dic[@"datas"];
         self.titleStr = self.dict[@"title"];
@@ -129,14 +129,14 @@
         self.support = self.dict[@"id"];
         NSString *imStr = @"http://api.gjla.com/app_admin_v400/";
         self.image = [NSString stringWithFormat:@"%@%@",imStr,self.dict[@"mainPicUrl"]];
-       
-//        self.str = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='300%'";
+        
+        //        self.str = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='300%'";
         [self.webView loadHTMLString:self.str baseURL:nil];
         
         UIImageView *image1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.headView.frame.size.width, self.headView.frame.size.height)];
-            [image1 sd_setImageWithURL:[NSURL URLWithString:self.image]placeholderImage:nil];
+        [image1 sd_setImageWithURL:[NSURL URLWithString:self.image]placeholderImage:nil];
         [self.headView addSubview:image1];
-    
+        
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
@@ -149,19 +149,18 @@
 }
 
 -(void)zanActivity{
-   
+    
     [self.zanBtn setImage:[UIImage imageNamed:@"favor_yes1"] forState:UIControlStateNormal];
     
-            GuanCang *manager =[GuanCang sharedInstance];
-            GuanModel *model = [[GuanModel alloc] init];
-            model.title = self.titleStr;
-            model.subTitle = self.subTit;
-            model.titImage = self.image;
+    GuanCang *manager =[GuanCang sharedInstance];
+    GuanModel *model = [[GuanModel alloc] init];
+    model.title = self.titleStr;
+    model.subTitle = self.subTit;
+    model.titImage = self.image;
+    [manager insertIntoCang:model];
     
-            [manager insertIntoNewModel:model];
     
     
-   
     
 }
 -(void)shareBtn{
@@ -180,13 +179,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
