@@ -16,6 +16,7 @@
 #import <AMapSearchKit/AMapSearchKit.h>
 #import "MangoSingleton.h"
 #import "TabViewController.h"
+#import "GuidePageViewController.h"
 
 @interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate,CLLocationManagerDelegate, AMapSearchDelegate, UITabBarControllerDelegate>
 {
@@ -35,10 +36,24 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    //状态栏颜色
-//    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
 
-    
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"firstLaunch"] isEqualToString:@"firstLaunch"]){
+        //如果归档标记存在，直接进入主页面
+        self.tabbarVC =[TabViewController new];
+        self.tabbarVC.tabBar.tintColor = kColor;
+        self.window.rootViewController = self.tabbarVC;;
+        //删除归档
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstLaunch"];
+    }else{
+        //归档标记不存在，归档标记后，进入引导页
+        [[NSUserDefaults standardUserDefaults] setObject:@"firstLaunch" forKey:@"firstLaunch"];
+        GuidePageViewController *guidePageVC = [[GuidePageViewController alloc] init];
+        self.window.rootViewController = guidePageVC;
+        self.window.backgroundColor = [UIColor whiteColor];
+      
+    }
+
+    self.tabbarVC.tabBar.tintColor = kColor;
     
     //bmob
     [Bmob registerWithAppKey:@"413557b216c3e5c7ef5e11008d0c6b26"];
@@ -52,11 +67,6 @@
     //配置用户key
     [MAMapServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
     [AMapSearchServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
-
-    
-    self.tabbarVC =[TabViewController new];
-    self.tabbarVC.tabBar.tintColor = kColor;
-    self.window.rootViewController = self.tabbarVC;
 
     //设置window的背景
     [self.window makeKeyAndVisible];
