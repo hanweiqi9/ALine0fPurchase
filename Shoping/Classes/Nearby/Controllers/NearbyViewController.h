@@ -11,6 +11,6 @@
 @interface NearbyViewController : UIViewController
 @property (nonatomic, strong) NSMutableArray *cateId;
 @property (nonatomic, strong) NSString *cityId;
-
+@property (nonatomic, strong) NSString *cityName;
 
 @end

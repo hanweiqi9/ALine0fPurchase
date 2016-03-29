@@ -31,11 +31,11 @@
 #define kWidth [UIScreen mainScreen].bounds.size.width
 #define kHeight [UIScreen mainScreen].bounds.size.height
 
-#define kCityList @"http://api.gjla.com/app_admin_v400/api/city/cityDistrictList?cityId=391db7b8fdd211e3b2bf00163e000dce"
-#define kBrand @"http://api.gjla.com/app_admin_v400/api/brand/screening?categoryIds=&cityId=391db7b8fdd211e3b2bf00163e000dce&userId=2ff0ab3508b24d20a87092b06f056c1e&styleIds=&pageSize=20&sortType=1&longitude=112.426851&latitude=34.618758"
-#define kBrandClassfiy @"http://api.gjla.com/app_admin_v400/api/brand/screening?cityId=391db7b8fdd211e3b2bf00163e000dce&userId=2ff0ab3508b24d20a87092b06f056c1e&styleIds=&pageSize=20&sortType=1&longitude=112.426781&latitude=34.618738"
+#define kCityList @"http://api.gjla.com/app_admin_v400/api/city/cityDistrictList"
+#define kBrand @"http://api.gjla.com/app_admin_v400/api/brand/screening?categoryIds=&userId=2ff0ab3508b24d20a87092b06f056c1e&styleIds=&pageSize=20&sortType=1&longitude=112.426851&latitude=34.618758"
+#define kBrandClassfiy @"http://api.gjla.com/app_admin_v400/api/brand/screening&userId=2ff0ab3508b24d20a87092b06f056c1e?&styleIds=&pageSize=20&sortType=1&longitude=112.426781&latitude=34.618738"
 
-#define kShop @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426904&latitude=34.618939&districtId=&cityId=391db7b8fdd211e3b2bf00163e000dce"
+#define kShop @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426904&latitude=34.618939&districtId="
 #define kShopCity @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426774&latitude=34.618731&cityId=391db7b8fdd211e3b2bf00163e000dce"
 @interface NearbyViewController ()<PullingRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate, ZLDropDownMenuDataSource, ZLDropDownMenuDelegate>
 {
@@ -73,6 +73,8 @@
     
     _pageCount = 1;
     _pageNum1 = 1;
+    self.cityId =@"391db7b8fdd211e3b2bf00163e000dce";
+    self.cityName = @"上海";
     [self.view addSubview:self.tableView];
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"ShopTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellID"];
@@ -81,7 +83,9 @@
     [self.cityButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.cityButton.frame = CGRectMake(0, 0, 60, 44);
     [self.cityButton setImage:[UIImage imageNamed:@"sanjiao_up"] forState:UIControlStateNormal];
-    [self.cityButton setTitle:@"上海" forState:UIControlStateNormal];
+    MangoSingleton *mangos = [MangoSingleton sharInstance];
+    self.cityName = mangos.nameCity;
+    [self.cityButton setTitle:self.cityName forState:UIControlStateNormal];
     [self.cityButton setImageEdgeInsets:UIEdgeInsetsMake(0, self.cityButton.frame.size.width - 10, 0, 0)];
     [self.cityButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -25, 0, 10)];
     [self.cityButton addTarget:self action:@selector(selectCityBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -133,7 +137,9 @@
 - (void)requestData {
     [ProgressHUD show:@"正在加载..."];
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    [manger GET:[NSString stringWithFormat:@"%@&pageNum=%ld",kShop, (long)_pageCount] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    MangoSingleton *mogao = [MangoSingleton sharInstance];
+    self.cityId = mogao.cityId;
+    [manger GET:[NSString stringWithFormat:@"%@&cityId=%@&pageNum=%ld",kShop,self.cityId, (long)_pageCount] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *responDic = responseObject;
         NSArray *datasArray = responDic[@"datas"];
@@ -165,7 +171,9 @@
 //获取城市区域选择id和name
 - (void)requesCityName {
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    [sessionManger GET:kCityList parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    MangoSingleton *mango = [MangoSingleton sharInstance];
+    self.cityId = mango.cityId;
+    [sessionManger GET:[NSString stringWithFormat:@"%@?cityId=%@",kCityList,self.cityId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *resDic = responseObject;
@@ -182,17 +190,15 @@
         }
        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
     }];
-    
-    
-    
 }
 
 
 //重新选择城市
 - (void)requestDataCity {
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+//    MangoSingleton *mango = [MangoSingleton sharInstance];
+//    self.cityId = mango.cityId;
     [manger GET:[NSString stringWithFormat:@"%@&districtId=%@&pageNum=%ld",kShopCity, _cityId, (long)_pageCount] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *responDic = responseObject;
@@ -381,10 +387,7 @@
             [self requestBrandData];
             [self requestMenueData];
             [self.rightTableView launchRefreshing];
-           
-            
         }
-            
         default:
             break;
     }
@@ -395,7 +398,9 @@
 - (void)requestBrandData{
     [ProgressHUD show:@"正在加载中"];
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    [sessionManger GET:[NSString stringWithFormat:@"%@&pageNum=%ld",kBrand,(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    MangoSingleton *mango = [MangoSingleton sharInstance];
+    self.cityId = mango.cityId;
+    [sessionManger GET:[NSString stringWithFormat:@"%@&cityId=%@&pageNum=%ld",kBrand,self.cityId,(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         self.nameIdDic = responseObject;
@@ -412,7 +417,6 @@
                 OneBrandModel *model = [[OneBrandModel alloc] initWithDictionary:dic];
                 [self.listArray addObject:model];
             }
-            
         }
         //rightTableView加载完成
         [self.rightTableView tableViewDidFinishedLoading];
@@ -481,7 +485,9 @@
 //菜单栏选择网络请求
 - (void)requestMenueData{
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    [sessionManger GET:[NSString stringWithFormat:@"%@&categoryIds=%@&pageNum=%ld",kBrandClassfiy,categoryIds1,(long)_pageNum1] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    MangoSingleton *mango = [MangoSingleton sharInstance];
+    self.cityId = mango.cityId;
+    [sessionManger GET:[NSString stringWithFormat:@"%@cityId=%@&categoryIds=%@&pageNum=%ld",kBrandClassfiy,self.cityId,categoryIds1,(long)_pageNum1] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
         self.nameIdDic = responseObject;
@@ -603,7 +609,6 @@
     return _idArray;
     
 }
-
 
 -(void)viewWillAppear:(BOOL)animated {
     self.tabBarController.tabBar.hidden = NO;

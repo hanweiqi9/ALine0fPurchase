@@ -120,6 +120,7 @@
             UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 HtmlViewController *htmlVc = [[HtmlViewController alloc] init];
                 htmlVc.urlString = [metadataObj stringValue];
+                htmlVc.type = @"1";
                 htmlVc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:htmlVc animated:YES];
             } ];
