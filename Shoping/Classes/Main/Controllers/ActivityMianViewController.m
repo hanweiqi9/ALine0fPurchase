@@ -15,6 +15,7 @@
 #import "ProgressHUD.h"
 #import "MapViewController.h"
 #import "MangoSingleton.h"
+#import "ShareView.h"
 @interface ActivityMianViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *DetailsTableView;
@@ -35,7 +36,19 @@
     [self showBackButtonWithImage:@"titlebarback"];
     [self.view addSubview:self.DetailsTableView];
     [self getActivityDetailData];
+
+    UIBarButtonItem *Item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"shareicon"] style:UIBarButtonItemStylePlain target:self action:@selector(ShareAction)];
+    Item.tintColor  = [UIColor redColor];
+  self.navigationItem.rightBarButtonItem = Item;
 }
+
+- (void)ShareAction{
+    ShareView *view = [[ShareView alloc] init];
+    view.urlStr = [NSString stringWithFormat:@"%@%@",kImageString,self.datasDic[@"brandPicUrl"]];
+    view.titStr = self.datasDic[@"brandNameEn"];
+    [self.view addSubview:view];
+}
+
 #pragma mark ========== 数据请求
 - (void)getActivityDetailData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
@@ -86,12 +99,10 @@
     title.font = [UIFont systemFontOfSize:14.0];
     title.text = self.datasDic[@"brandNameEn"];
     title.textColor = [UIColor grayColor];
-//    title.backgroundColor = [UIColor redColor];
     title.textAlignment = NSTextAlignmentCenter;
     [self.headView addSubview:title];
     
     UILabel *enTitle = [[UILabel alloc] initWithFrame:CGRectMake(kWidth /8, kHeight /3-10+kWidth /6+kHeight /20, kWidth-kWidth/8*2 , kHeight /20)];
-//    enTitle.backgroundColor = [UIColor cyanColor];
     enTitle.text = self.datasDic[@"couponName"];
     enTitle.font = [UIFont systemFontOfSize:16.0];
     enTitle.textAlignment = NSTextAlignmentCenter;

@@ -277,6 +277,7 @@ static NSString *cellString = @"cellsting";
         self.blankView.hidden = YES;
         [self.leftButton setTitle:self.cityArray[indexPath.row - 1][@"districtName"] forState:UIControlStateNormal];
     }
+    _pageNum = 1;
 }
 
 #pragma mark ------------- 刷新代理
