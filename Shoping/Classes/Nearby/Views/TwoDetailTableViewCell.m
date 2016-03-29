@@ -33,6 +33,7 @@
     NSString *str = @"http://api.gjla.com/app_admin_v400/";
     NSString *urlStr = twoModel.mainPicUrl;
     [self.mainPicUrl sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",str,urlStr]] placeholderImage:nil];
+   
     
 }
 

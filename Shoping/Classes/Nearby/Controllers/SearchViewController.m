@@ -11,6 +11,11 @@
 #import "VOSegmentedControl.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import "ShopDetailViewController.h"
+#import "SearchResultViewController.h"
+
+
+//商场
+//万达@"http://api.gjla.com/app_admin_v400/api/searchkeywords/searchList?pageSize=10&longitude=112.426781&latitude=34.618738&searchType=2&keywords=%E4%B8%87%E8%BE%BE&cityId=391db7b8fdd211e3b2bf00163e000dce&pageNum=1"
 
 #define khotSearch @"http://api.gjla.com/app_admin_v400/api/searchkeywords/keywords?pageSize=6&cityId=391db7b8fdd211e3b2bf00163e000dce&searchType=2&pageNum=1"
 
@@ -25,6 +30,7 @@
 @property (nonatomic, strong) UISearchBar *mySearchBar;
 @property (nonatomic, strong) VOSegmentedControl *segmentControl;
 @property (nonatomic, strong) NSMutableArray *listArray;
+
 @end
 
 @implementation SearchViewController
@@ -134,6 +140,7 @@
     //把输入内容添加到数组中
     [self.dataArray addObject:searchText];
     
+    
 }
 
 //点击按钮
@@ -141,6 +148,12 @@
     self.hotListView.canSelectTags = YES;
     [self.hotListView.tags addObject:searchBar.text];
     [self.hotListView.collectionView reloadData];
+    [self.mySearchBar resignFirstResponder];
+    NSString *encodingString = [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    SearchResultViewController *resultVC = [[SearchResultViewController alloc] init];
+    resultVC.result = encodingString;
+    [self.navigationController pushViewController:resultVC animated:YES];
+    
     
 }
 
@@ -148,16 +161,7 @@
     if (_tagListView == nil) {
         self.tagListView = [[JCTagListView alloc] initWithFrame:CGRectMake(20, 150, kWidth - 40, kHeight / 3)];
         self.tagListView.canSelectTags = YES;
-//        //点击热门搜索
-//            __block SearchViewController *weakself = self;
-//            //点击搜索历史
-//            [self.tagListView setCompletionBlockWithSelected:^(NSInteger index) {
-//                if (index == 0) {
-//                    ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
-//                    [weakself.navigationController pushViewController:shopDetailVC animated:YES];
-//                }
-//            }];
-//
+
     }
     return _tagListView;
 }
