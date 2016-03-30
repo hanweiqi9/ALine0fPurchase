@@ -23,7 +23,6 @@
     self.view.backgroundColor = [UIColor greenColor];
     [self guidePage];
     
-    
 }
 
 - (void)guidePage {

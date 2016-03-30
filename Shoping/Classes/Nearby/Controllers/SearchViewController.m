@@ -40,6 +40,26 @@
     // Do any additional setup after loading the view.
     [self.view addSubview:self.segmentControl];
     self.view.backgroundColor = [UIColor whiteColor];
+    //导航栏添加按钮
+    [self initButton];
+    //添加searchBar
+    [self initSearchBar];
+    [self.view addSubview:self.tagListView];
+    [self.view addSubview:self.hotListView];
+    //添加label
+    [self initLabel];
+    //网络请求
+    [self requestData];
+    
+    UITapGestureRecognizer *tapGer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(returnKeyAction:)];
+    tapGer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapGer];
+    
+  
+}
+
+//导航栏添加按钮
+- (void)initButton {
     //自定义导航栏左侧返回按钮
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 0, 44, 44);
@@ -49,6 +69,10 @@
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = leftBtn;
 
+}
+
+//添加searchBar
+- (void)initSearchBar {
     self.mySearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(60, 4, kWidth - 100, 40)];
     self.mySearchBar.placeholder = @"搜索品牌、商场、门店";
     
@@ -60,9 +84,10 @@
     self.mySearchBar.layer.cornerRadius = 25.0f;
     
     [self.navigationController.navigationBar addSubview:self.mySearchBar];
-    [self.view addSubview:self.tagListView];
-    [self.view addSubview:self.hotListView];
-    
+}
+
+//添加搜索历史label
+- (void)initLabel {
     UILabel *hotSearLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 120, kWidth - 40, 30)];
     hotSearLabel.textColor = [UIColor grayColor];
     hotSearLabel.text = @"热门搜索";
@@ -71,15 +96,7 @@
     searHosLabel.textColor = [UIColor grayColor];
     searHosLabel.text = @"搜索历史";
     [self.view addSubview:searHosLabel];
-    
-    //网络请求
-    [self requestData];
-    
-    UITapGestureRecognizer *tapGer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(returnKeyAction:)];
-    tapGer.cancelsTouchesInView = NO;
-    [self.view addGestureRecognizer:tapGer];
-    
-  
+
 }
 
 - (void)returnKeyAction:(UITapGestureRecognizer *)tap {

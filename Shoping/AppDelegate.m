@@ -18,6 +18,8 @@
 #import "TabViewController.h"
 #import "GuidePageViewController.h"
 
+#define kYouMengAppKey @"56fa417fe0f55a6972001497"
+
 @interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate,CLLocationManagerDelegate, AMapSearchDelegate, UITabBarControllerDelegate>
 {
     //创建一个定位的CLLocationManager对象

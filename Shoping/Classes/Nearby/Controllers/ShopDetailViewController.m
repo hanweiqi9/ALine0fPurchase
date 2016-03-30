@@ -59,7 +59,16 @@
     label.textColor = [UIColor grayColor];
     label.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = label;
+    //初始化按钮
+    [self initButton];
     
+    [self.view addSubview:self.tableView];
+    //网络请求
+    [self requestData];
+
+}
+
+- (void)initButton {
     //自定义导航栏左侧返回按钮
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 0, 44, 44);
@@ -87,13 +96,8 @@
     [shareButton addTarget:self action:@selector(rightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *shareBtn = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
     self.navigationItem.rightBarButtonItems = @[shareBtn, rightLikeBtn];
-    
-    [self.view addSubview:self.tableView];
-    //网络请求
-    [self requestData];
 
 }
-
 
 //网络请求
 - (void)requestData {
@@ -287,7 +291,7 @@
     label1.alpha = 0.1;
     
     label1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 + 30 , kWidth * 0.335 + 145, kWidth / 3 - 10, 30)];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 + 20 , kWidth * 0.335 + 145, kWidth / 3 - 10, 30)];
     label2.text = @"入住商户";
     UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5 , kWidth * 0.335 + 160, kWidth / 3 - 30, 2)];
     label3.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
@@ -369,6 +373,18 @@
     mango.idArray = self.headerDic[@"category"];
     [self.navigationController popViewControllerAnimated:YES];
 
+}
+
+//取消tableview 区头的粘性
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    CGFloat sectionHeaderHeight = 60.0;
+    if (scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y> 0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    }else if(scrollView.contentOffset.y >= sectionHeaderHeight){
+            
+            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+        }
 }
 
 //导航栏右侧按钮点击方法
