@@ -22,6 +22,10 @@
 #import "VOSegmentedControl.h"
 #import "ProgressHUD.h"
 
+#import "GuanCang.h"
+#import "GuanModel.h"
+#import "ShareView.h"
+
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
 #define kWidth [UIScreen mainScreen].bounds.size.width
@@ -42,6 +46,10 @@
 @property (nonatomic, strong) NSMutableArray *discountsArray;
 @property (nonatomic, strong) NSDictionary *headerDic;
 @property (nonatomic, strong) UIButton *likeButton;
+
+//收藏
+@property(nonatomic,strong) NSString *mallUrl;
+@property(nonatomic,strong) NSString *headImage1;
 
 @end
 
@@ -245,10 +253,12 @@
     //图片需要拼接的URl
     NSString *str = @"http://api.gjla.com/app_admin_v400/";
     NSArray *picUrlArray = self.headerDic[@"mallPirUrl"];
-    NSString *mallUrl = picUrlArray[0];
+    self.mallUrl = picUrlArray[0];
+    self.headImage1 = [NSString stringWithFormat:@"%@%@",str,self.mallUrl];
+    
     //头部图片
     UIImageView *headerView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 2, kWidth -10, kWidth * 0.335)];
-    [headerView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",str, mallUrl]] placeholderImage:nil];
+    [headerView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",str, self.mallUrl]] placeholderImage:nil];
     //标题
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, kWidth * 0.335 + 5, kWidth - 10, 30)];
     titleLabel.text = [NSString stringWithFormat:@"%@",self.headerDic[@"mallName"]];
@@ -394,12 +404,32 @@
         clickCount += 1;
         if (clickCount % 2 != 0) {
             [self.likeButton setImage:[UIImage imageNamed:@"favoryes"] forState:UIControlStateNormal];
+            GuanCang *manager =[GuanCang sharedInstance];
+            manager.btnTag = btn.tag;
+            GuanModel *model = [[GuanModel alloc] init];
+            model.title = [NSString stringWithFormat:@"%@",self.headerDic[@"mallName"]];
+            model.subTitle = [NSString stringWithFormat:@"营业时间：%@~%@",self.headerDic[@"openTime"],self.headerDic[@"closeTime"]] ;
+            model.titImage = self.headImage1;
+            [manager insertIntoCang:model];
+
         } else {
         [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
+            GuanCang *manager =[GuanCang sharedInstance];
+            GuanModel *model = [[GuanModel alloc] init];
+            model.title = [NSString stringWithFormat:@"%@",self.headerDic[@"mallName"]];
+            [manager deleteCangTitle:model.title];
+
+            
         }
     }
     //点击分享
-    
+    else if (btn.tag == 2){
+        ShareView *views = [[ShareView alloc] init];
+        views.urlStr = self.headImage1;
+        views.titStr = [NSString stringWithFormat:@"%@",self.headerDic[@"mallName"]];
+        [self.view addSubview:views];
+        
+    }
     
 
 }

@@ -16,6 +16,10 @@
 #import "MangoSingleton.h"
 #import "ProgressHUD.h"
 
+#import "GuanCang.h"
+#import "GuanModel.h"
+#import "ShareView.h"
+
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
 #define kWidth [UIScreen mainScreen].bounds.size.width
@@ -36,6 +40,9 @@
 @property (nonatomic, strong) UIButton *likeButton;
 @property (nonatomic, strong) UIBarButtonItem *shareBtn;
 @property (nonatomic, strong) UIBarButtonItem *rightLikeBtn;
+
+
+@property(nonatomic,strong) NSString *headImage1;
 @end
 
 @implementation BrandDetailViewController
@@ -143,6 +150,7 @@
 - (void)configHeaderTableView {
      NSString *str = @"http://api.gjla.com/app_admin_v400/";
     NSString *brandUrl;
+    self.headImage1 = [NSString stringWithFormat:@"%@%@",str,self.datasDic[@"brandPicUrl"]];
     if (![self.datasDic[@"brandPicUrl"] isEqual:[NSNull null]]) {
         brandUrl = self.datasDic[@"brandPicUrl"];
     }
@@ -305,11 +313,32 @@
         clickCount += 1;
         if (clickCount % 2 != 0) {
             [self.likeButton setImage:[UIImage imageNamed:@"favoryes"] forState:UIControlStateNormal];
+            
+            GuanCang *manager = [GuanCang sharedInstance];
+            manager.btnTag = btn.tag;
+            GuanModel *model = [[GuanModel alloc] init];
+            model.title = [NSString stringWithFormat:@"%@%@",self.datasDic[@"brandNameEn"],self.datasDic[@"brandNameZh"]];
+            model.titImage = self.headImage1;
+            model.subTitle = self.datasDic[@"brandDesc"];
+            [manager insertIntoCang:model];
         } else {
             [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
+            
+            GuanCang *manager = [GuanCang sharedInstance];
+            manager.btnTag = btn.tag;
+            GuanModel *model = [[GuanModel alloc] init];
+            model.title = [NSString stringWithFormat:@"%@%@",self.datasDic[@"brandNameEn"],self.datasDic[@"brandNameZh"]];
+            [manager deleteCangTitle:model.title];
+            
         }
     }
     //点击分享
+    else if(btn.tag == 2){
+        ShareView *views = [[ShareView alloc] init];
+        views.titStr = [NSString stringWithFormat:@"%@%@",self.datasDic[@"brandNameEn"],self.datasDic[@"brandNameZh"]];
+        views.urlStr = self.headImage1;
+        [self.view addSubview:views];
+    }
     
     
     

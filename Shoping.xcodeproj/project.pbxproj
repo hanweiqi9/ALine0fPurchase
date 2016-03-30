@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A0D19AE1CAA2F0C00007268 /* en.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D19AD1CAA2F0C00007268 /* en.png */; };
 		7A2A7AC01CA80758005253B0 /* City.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A2A7ABF1CA80758005253B0 /* City.plist */; };
 		7A2D55511C9F7148002018F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55501C9F7148002018F4 /* main.m */; };
 		7A2D55541C9F7148002018F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55531C9F7148002018F4 /* AppDelegate.m */; };
@@ -43,7 +44,6 @@
 		7A3011151CA5063C00A71CED /* nearpre.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A3011141CA5063C00A71CED /* nearpre.plist */; };
 		7A30111B1CA544F900A71CED /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A30111A1CA544F900A71CED /* TabViewController.m */; };
 		7A361D771CA5618B00767742 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A361D761CA5618B00767742 /* ViewController.m */; };
-		7A3939B11CA1281C00D5F3F7 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7A3939B41CA1412300D5F3F7 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B31CA1412200D5F3F7 /* SearchViewController.m */; };
 		7A3939B71CA143D900D5F3F7 /* CustomCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B61CA143D900D5F3F7 /* CustomCalloutView.m */; };
 		7A3939BA1CA147DE00D5F3F7 /* CustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3939B91CA147DE00D5F3F7 /* CustomAnnotationView.m */; };
@@ -196,6 +196,7 @@
 /* Begin PBXFileReference section */
 		01A0D5C6BB4AC833914A9774 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		63E8722CE52D8272C529BF80 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A0D19AD1CAA2F0C00007268 /* en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = en.png; sourceTree = "<group>"; };
 		7A2A7ABF1CA80758005253B0 /* City.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = City.plist; sourceTree = "<group>"; };
 		7A2D554C1C9F7148002018F4 /* Shoping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shoping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A2D55501C9F7148002018F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -852,6 +853,7 @@
 				7A5A951B1CA3F1F200C94BC1 /* CangTableViewCell.xib */,
 				7A5A951C1CA3F1F200C94BC1 /* TuiJianView.h */,
 				7A5A951D1CA3F1F200C94BC1 /* TuiJianView.m */,
+				7A0D19AD1CAA2F0C00007268 /* en.png */,
 				7A2D55931C9F780A002018F4 /* Mine.storyboard */,
 			);
 			path = Views;
@@ -1268,6 +1270,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0D19AE1CAA2F0C00007268 /* en.png in Resources */,
 				7A2D555F1C9F7148002018F4 /* LaunchScreen.storyboard in Resources */,
 				7A81B9B51CA3DE8E00029E84 /* YouhuiTableViewCell.xib in Resources */,
 				7A2D559A1C9F780A002018F4 /* Activity.plist in Resources */,
@@ -1427,7 +1430,6 @@
 				7A81BA321CA3DF3600029E84 /* ZLDropDownMenuUICalc.m in Sources */,
 				7A2D55A31C9F780B002018F4 /* LoginViewController.m in Sources */,
 				7A81BA301CA3DF3600029E84 /* ZLDropDownMenuCollectionViewCell.m in Sources */,
-				7A3939B11CA1281C00D5F3F7 /* (null) in Sources */,
 				7A361D771CA5618B00767742 /* ViewController.m in Sources */,
 				7A81BA131CA3DF3600029E84 /* TADotView.m in Sources */,
 				7A30111B1CA544F900A71CED /* TabViewController.m in Sources */,

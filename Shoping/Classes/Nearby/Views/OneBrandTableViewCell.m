@@ -51,12 +51,7 @@
     self.discountImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth / 4 + 20, kWidth / 12 + 13 + kWidth / 12 , (kWidth - (kWidth / 4 + 5)) / 2 - 90, kWidth / 12 - 10)];
     self.discountImageView.image = [UIImage imageNamed:@"brand_discount"];
     [self.contentView addSubview:self.discountImageView];
-    //关注
-    self.likeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.likeBtn.frame = CGRectMake(kWidth * 0.75 + 25, kWidth / 8 + 13, kWidth * 0.1 - 13, kWidth * 0.1 - 13);
-    [self.likeBtn setImage:[UIImage imageNamed:@"brand_favor_no"] forState:UIControlStateNormal];
-    [self.likeBtn addTarget:self action:@selector(likeBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.likeBtn];
+   
     //分割线
     UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, kWidth / 8 + 23 + kWidth / 12, kWidth - 4, 2)];
     lineLabel.backgroundColor = [UIColor grayColor];
@@ -97,17 +92,6 @@
 
 }
 
-//点击关注按钮响应事件
-- (void)likeBtnAction:(UIButton *)btn {
-    _clickCount += 1;
-    if (_clickCount % 2 != 0) {
-        [self.likeBtn setImage:[UIImage imageNamed:@"brand_favor_yes"] forState:UIControlStateNormal];
-    } else {
-         [self.likeBtn setImage:[UIImage imageNamed:@"brand_favor_no"] forState:UIControlStateNormal];
-    
-    }
-
-}
 
 - (void)awakeFromNib {
     // Initialization code

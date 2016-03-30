@@ -42,7 +42,10 @@
     Item.tintColor  = [UIColor redColor];
     self.navigationItem.rightBarButtonItem = Item;
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [ProgressHUD dismiss];
+}
 - (void)ShareAction{
     ShareView *view = [[ShareView alloc] init];
     view.urlStr = [NSString stringWithFormat:@"%@%@",kImageString,self.datasDic[@"brandPicUrl"]];
@@ -54,7 +57,8 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [ProgressHUD show:@"加载中"];
-    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/discount/detail?cityId=391db7b8fdd211e3b2bf00163e000dce&userId=c649ac4bf87f43fea924f52a2639e533&discountId=%@&longitude=112.426796&latitude=34.618748",self.preferId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    NSString *sting =[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/discount/detail?cityId=%@&userId=c649ac4bf87f43fea924f52a2639e533&discountId=%@&longitude=112.426833&latitude=34.618754",self.cityID,self.preferId];
+    [manger GET:sting parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [ProgressHUD showSuccess:@"加载完成"];
         NSDictionary *dic = responseObject;
@@ -62,7 +66,6 @@
         NSArray *array =self.datasDic[@"couponOrDiscounts"];
         for (NSDictionary *dics in array) {
             [self.cellArray addObject:dics];
-
         }
         [self.DetailsTableView reloadData];
         [self settingHeadView];

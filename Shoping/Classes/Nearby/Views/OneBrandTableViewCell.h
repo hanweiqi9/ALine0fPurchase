@@ -9,7 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "OneBrandModel.h"
 
-@interface OneBrandTableViewCell : UITableViewCell
-@property (nonatomic, strong) OneBrandModel *oneModel;
+@protocol likeCollectionDelegate <NSObject>
 
+
+- (void)likeCollection:(UIButton *)btn;
+
+@end
+
+@interface OneBrandTableViewCell : UITableViewCell
+@property(nonatomic,strong) UIButton *btn;
+
+@property (nonatomic, strong) OneBrandModel *oneModel;
+@property (nonatomic, assign) id<likeCollectionDelegate>delegate;
 @end

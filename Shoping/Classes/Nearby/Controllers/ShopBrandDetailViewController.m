@@ -15,6 +15,11 @@
 #import "ShBraDetaiTableViewCell.h"
 #import "ProgressHUD.h"
 
+
+#import "GuanCang.h"
+#import "GuanModel.h"
+#import "ShareView.h"
+
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 
 #define kWidth [UIScreen mainScreen].bounds.size.width
@@ -34,6 +39,8 @@
 @property (nonatomic, strong) UIButton *likeButton;
 @property (nonatomic, strong) UIBarButtonItem *shareBtn;
 @property (nonatomic, strong) UIBarButtonItem *rightLikeBtn;
+
+@property(nonatomic,strong) NSString *headImage1;
 
 
 @end
@@ -136,6 +143,7 @@
 - (void)configHeaderTableView {
     NSString *str = @"http://api.gjla.com/app_admin_v400/";
     NSString *brandUrl = self.datasDic[@"storePicUrl"];
+    self.headImage1 = [NSString stringWithFormat:@"%@%@",str,brandUrl];
         UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth * 0.335)];
         [self.headerView addSubview:headImage];
         NSString *brandUrl1 = [str stringByAppendingString:brandUrl];
@@ -262,11 +270,29 @@
         clickCount += 1;
         if (clickCount % 2 != 0) {
             [self.likeButton setImage:[UIImage imageNamed:@"favoryes"] forState:UIControlStateNormal];
+            GuanCang *manager =[GuanCang sharedInstance];
+            manager.btnTag = btn.tag;
+            GuanModel *model = [[GuanModel alloc] init];
+            model.title = self.datasDic[@"storeName"];
+            model.subTitle = [NSString stringWithFormat:@"地址：%@ 营业时间：%@~%@",self.datasDic[@"storeName"],self.datasDic[@"storeOpenTime"],self.datasDic[@"storeCloseTime"]];
+            model.titImage = self.headImage1;
+            [manager insertIntoCang:model];
+            
         } else {
             [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
+            GuanCang *manager =[GuanCang sharedInstance];
+            GuanModel *model = [[GuanModel alloc] init];
+            model.title = self.datasDic[@"storeName"];
+            [manager deleteCangTitle:model.title];
         }
     }
     //点击分享
+    else{
+        ShareView *views = [[ShareView alloc] init];
+        views.titStr = self.datasDic[@"storeName"];
+        views.urlStr = self.headImage1;
+        [self.view addSubview:views];
+    }
     
     
     
