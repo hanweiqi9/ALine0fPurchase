@@ -16,24 +16,24 @@
 
 
 
+#define kAppKey @"4cbda1b412f083f404b754fb1efa0910"
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 #define kWidth [UIScreen mainScreen].bounds.size.width
 #define kHeight [UIScreen mainScreen].bounds.size.height
 
-@interface MapViewController ()<MAMapViewDelegate,AMapSearchDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate>
+@interface MapViewController ()<MAMapViewDelegate,AMapSearchDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     MAMapView *_mapView;
     AMapSearchAPI *_search;
     AMapSearchAPI *_searchRoad;
     UILongPressGestureRecognizer *_longTapGesture;
     MAPointAnnotation *_distanAnnotation;  //目的地坐标
-    
+    MAPointAnnotation *_anotitaon;  //点击tableView得到的大头针
    
 
 }
 
 @property (nonatomic, strong) UIView *barView;
-@property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UIButton *rotePlayBtn;  //路径规划
 @property (nonatomic, strong) MAPointAnnotation *pointAnnotation;
@@ -44,6 +44,7 @@
 @property (nonatomic, strong) MAPointAnnotation *endPointAnnotation;
 @property (nonatomic, strong) MAPointAnnotation *currentPointAnotion;
 @property (nonatomic, strong) NSArray *pois;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -53,9 +54,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    //自定义导航栏标题
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 4, 0, kWidth / 4, 44)];
+    label.text =  @"地址详情";
+    label.textColor = [UIColor grayColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    self.navigationItem.titleView = label;    [self.view addSubview:self.tableView];
+    _pois = [[NSArray alloc] init];
     //配置用户key
-    [MAMapServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
-    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 30, kWidth, kHeight - 80)];
+    [MAMapServices sharedServices].apiKey = kAppKey;
+    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 44, kWidth, kHeight - 190)];
     _mapView.delegate = self;
     _mapView.showsUserLocation = YES;
     _mapView.userTrackingMode = MAUserTrackingModeNone;
@@ -66,7 +74,7 @@
     //开始定位
     _mapView.showsUserLocation = YES;
     
-    [AMapSearchServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
+    [AMapSearchServices sharedServices].apiKey = kAppKey;
     //初始化检索对象
     _search = [[AMapSearchAPI alloc] init];
     _search.delegate = self;
@@ -86,6 +94,12 @@
     _longTapGesture.delegate = self;
     [_mapView addGestureRecognizer:_longTapGesture];
     
+    //初始化按钮
+    [self initButton];
+    
+}
+
+- (void)initButton {
     //自定义导航栏左侧返回按钮
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 0, 44, 44);
@@ -94,18 +108,51 @@
     [backButton addTarget:self action:@selector(backLeftAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = leftBtn;
-    //将textField添加到导航栏
-    [self.navigationController.navigationBar addSubview:self.textField];
+
     [self.view addSubview:self.rotePlayBtn];
     //初始化搜索按钮
     self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.searchBtn.frame = CGRectMake(kWidth / 2 + 15 + kWidth / 4, 6, 60, 30);
     [self.searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+    [self.searchBtn setTitleColor:[UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+    [self.searchBtn setImage:[UIImage imageNamed:@"search_icon1"] forState:UIControlStateNormal];
     self.searchBtn.layer.cornerRadius = 30 / 2;
     self.searchBtn.clipsToBounds = YES;
-    self.searchBtn.backgroundColor = kColor;
     [self.searchBtn addTarget:self action:@selector(searchAroundAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationController.navigationBar addSubview:self.searchBtn];
+}
+
+#pragma mark ---------------------- tableView协议方法
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellId = @"cellId";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+        
+    }
+    AMapAOI *poi = _pois[indexPath.row];
+    cell.textLabel.text = poi.name;
+//    cell.detailTextLabel.text = poi.address;
+
+    return cell;
+    
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _pois.count;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //为点击的poi点添加标注
+    AMapAOI *poi = _pois[indexPath.row];
+//    AMapStreetNumber *poiRoad = _pois[indexPath.row];
+    _anotitaon = [[MAPointAnnotation alloc] init];
+    _anotitaon.coordinate = CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude);
+    _anotitaon.title = poi.name;
+//    _anotitaon.subtitle = poiRoad.street;
+    [_mapView addAnnotation:_anotitaon];
+    
     
 }
 
@@ -126,38 +173,18 @@
 
 //实现POI搜索对应的回调函数
 -(void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response {
-    if (response.pois.count == 0) {
-        return;
+    if (response.pois.count > 0) {
+        _pois = response.pois;
+        [_tableView reloadData];
+        
+        //清空标注
+        [_mapView removeAnnotations:_annotations];
+        [_annotations removeAllObjects];
     }
-    self.pois = response.pois;
-     //通过 AMapPOISearchResponse 对象处理搜索结果
-    NSString *strCount = [NSString stringWithFormat:@"count:%ld",(long)response.count];
-    NSString *strSuggestion = [NSString stringWithFormat:@"Suggestion:%@",response.suggestion];
-    NSString *strPoi = @"";
-    for (AMapPOI *p in response.pois) {
-        strPoi = [NSString stringWithFormat:@"%@\nPOI:%@",strPoi, p.description];
-    }
-    NSString *result = [NSString stringWithFormat:@"%@ \n %@ \n %@",strCount, strSuggestion, strPoi];
-    NSLog(@"place: %@",result);
-
-}
-
-
-//实现输入提示回调函数
--(void)onInputTipsSearchDone:(AMapInputTipsSearchRequest *)request response:(AMapInputTipsSearchResponse *)response {
-    if (response.tips.count == 0) {
-        return;
-    }
-    //通过AMapInputTipsSearchResponse对象处理搜索结果
-    NSString *strCount = [NSString stringWithFormat:@"count: %ld",(long)response.count];
-    NSString *strTips = @"";
-    for (AMapTip *p in response.tips) {
-        strTips = [NSString stringWithFormat:@"%@\nTip:%@",strTips,p.description];
-    }
-    NSString *result = [NSString stringWithFormat:@"%@ \n %@",strCount, strTips];
-    NSLog(@"result = %@",result);
     
+
 }
+
 
 //大头针标注
 -(MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
@@ -166,6 +193,11 @@
         _distanAnnotation.title = @"目的地";
         annotationView.canShowCallout = YES;
            
+        return annotationView;
+    }
+    if (annotation == _anotitaon) {
+        MAPinAnnotationView *annotationView = (MAPinAnnotationView *)[_mapView viewForAnnotation:annotation];
+        annotationView.canShowCallout = YES;
         return annotationView;
     }
     
@@ -212,63 +244,8 @@
 
 }
 
-
-#pragma mark ---------------------- 点击方法
-//搜索按钮点击方法
-- (void)searchAroundAction:(UIButton *)btn {
-    //回收键盘
-    [self.textField resignFirstResponder];
-    //周边搜索
-    [AMapSearchServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
-    //初始化检索对象
-    _search = [[AMapSearchAPI alloc] init];
-    _search.delegate = self;
-    //构造AMapPOIAroundSearchRequest对象，设置周边请求参数
-    AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
-    //经纬度
-    request.location = [AMapGeoPoint locationWithLatitude:self.lat longitude:self.lng];
-    request.keywords = self.textField.text;
-    request.types = @"餐饮服务|购物服务|生活服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体";
-    request.sortrule = 0;
-    request.requireExtension = YES;
-    //输入提示
-    AMapInputTipsSearchRequest *tipRequest = [[AMapInputTipsSearchRequest alloc] init];
-    tipRequest.keywords = self.textField.text;
-    tipRequest.city = @"北京";
-    [_search AMapInputTipsSearch:tipRequest];
-    //发起周边搜索
-    [_search AMapPOIAroundSearch:request];
-    
-    
-}
-
-//搜索回调函数
-
-//导航栏返回按钮
-- (void)backLeftAction:(UIButton *)btn {
-    [self.navigationController popViewControllerAnimated:YES];
-    [self.textField resignFirstResponder];
-    self.searchBtn.hidden = YES;
-}
-
-//点击 绘制路线 按钮方法
-- (void)rotePlayBtnAndNavBtnAction:(UIButton *)btn {
-    if (_distanAnnotation == nil || _search == nil) {
-        NSLog(@"规划路线失败");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"长按屏幕选择目的地" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-        [alert show];
-        return;
-    }
-    AMapWalkingRouteSearchRequest  *request = [[AMapWalkingRouteSearchRequest alloc] init];
-    request.origin = [AMapGeoPoint locationWithLatitude:self.lat longitude:self.lng];
-    request.destination = [AMapGeoPoint locationWithLatitude:_distanAnnotation.coordinate.latitude longitude:_distanAnnotation.coordinate.longitude];
-    [_search AMapWalkingRouteSearch:request];
-    
-
-}
-
+//路线规划完成
 - (void)onRouteSearchDone:(AMapRouteSearchBaseRequest *)request response:(AMapRouteSearchResponse *)response{
-    
     if (response.route == nil) {
         return;
     }
@@ -277,12 +254,16 @@
     _pathPolylines = nil;
     _pathPolylines = [self polylinesForPath:response.route.paths[0]];
     //让地图显示两个大头针
-    self.pois = @[_distanAnnotation, _mapView.userLocation];
-    [_mapView showAnnotations:self.pois animated:YES];
+    if (_anotitaon == nil) {
+        [_mapView showAnnotations:@[_distanAnnotation, _mapView.userLocation] animated:YES];
+
+    } else if (_distanAnnotation == nil){
+         [_mapView showAnnotations:@[_anotitaon, _mapView.userLocation] animated:YES];
+    }
     [_mapView addOverlays:_pathPolylines];
     _mapView.compassOrigin = CGPointMake(_mapView.compassOrigin.x, 22);
     _mapView.scaleOrigin = CGPointMake(_mapView.scaleOrigin.x, 22);
-    [_mapView setZoomLevel:10.1 animated:YES];
+    [_mapView setZoomLevel:11.5 animated:YES];
     
 }
 
@@ -324,24 +305,64 @@
     return nil;
 }
 
-- (void)zoomToMapPoints:(MAMapView*)mapView annotations:(NSArray*)annotations
-{
-    double minLat = 360.0f, maxLat = -360.0f;
-    double minLon = 360.0f, maxLon = -360.0f;
-    for (MAPointAnnotation *annotation in self.pois) {
-        if ( annotation.coordinate.latitude  < minLat ) minLat = annotation.coordinate.latitude;
-        if ( annotation.coordinate.latitude  > maxLat ) maxLat = annotation.coordinate.latitude;
-        if ( annotation.coordinate.longitude < minLon ) minLon = annotation.coordinate.longitude;
-        if ( annotation.coordinate.longitude > maxLon ) maxLon = annotation.coordinate.longitude;
-    }
-    CLLocationCoordinate2D center = CLLocationCoordinate2DMake((minLat + maxLat) / 2.0, (minLon + maxLon) / 2.0);
+
+
+#pragma mark ---------------------- 按钮点击方法
+//搜索按钮点击方法
+- (void)searchAroundAction:(UIButton *)btn {
+    //周边搜索
+    [AMapSearchServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
+    //初始化检索对象
+    _search = [[AMapSearchAPI alloc] init];
+    _search.delegate = self;
+    //构造AMapPOIAroundSearchRequest对象，设置周边请求参数
+    AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
+    //经纬度
+    request.location = [AMapGeoPoint locationWithLatitude:self.lat longitude:self.lng];
+    request.types = @"餐饮服务|购物服务|生活服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体";
+    request.sortrule = 0;
+    request.requireExtension = YES;
+    //输入提示
+    AMapInputTipsSearchRequest *tipRequest = [[AMapInputTipsSearchRequest alloc] init];
+    [_search AMapInputTipsSearch:tipRequest];
+    //发起周边搜索
+    [_search AMapPOIAroundSearch:request];
     
-    MACoordinateSpan span = MACoordinateSpanMake(maxLat - minLat, maxLon - minLon);
-    MACoordinateRegion region = MACoordinateRegionMake(center, span);
     
-    [_mapView setRegion:region animated:YES];
 }
 
+//点击 绘制路线 按钮方法
+- (void)rotePlayBtnAndNavBtnAction:(UIButton *)btn {
+    if (_distanAnnotation) {
+        if (_distanAnnotation == nil || _search == nil) {
+            NSLog(@"规划路线失败");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"长按屏幕选择目的地" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+            [alert show];
+            return;
+        } else {
+            AMapWalkingRouteSearchRequest  *request = [[AMapWalkingRouteSearchRequest alloc] init];
+            request.origin = [AMapGeoPoint locationWithLatitude:self.lat longitude:self.lng];
+            request.destination = [AMapGeoPoint locationWithLatitude:_distanAnnotation.coordinate.latitude longitude:_distanAnnotation.coordinate.longitude];
+            [_search AMapWalkingRouteSearch:request];
+        }
+
+        
+    } else if (_anotitaon){
+        if (_anotitaon == nil || _search == nil) {
+        NSLog(@"规划路线失败");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择您要去的地方" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        [alert show];
+        return;
+    } else {
+        AMapWalkingRouteSearchRequest  *request = [[AMapWalkingRouteSearchRequest alloc] init];
+        request.origin = [AMapGeoPoint locationWithLatitude:self.lat longitude:self.lng];
+        request.destination = [AMapGeoPoint locationWithLatitude:_anotitaon.coordinate.latitude longitude:_anotitaon.coordinate.longitude];
+        [_search AMapWalkingRouteSearch:request];
+
+    }
+  }
+    
+}
 
 #pragma mark --------- 字符串解析
 
@@ -412,28 +433,16 @@
 
 #pragma mark ----------------- 懒加载
 
--(UITextField *)textField {
-    if (_textField == nil) {
-        self.textField = [[UITextField alloc] initWithFrame:CGRectMake(kWidth / 4 - 15, 6, kWidth / 2 + 20, 35)];
-        self.textField.backgroundColor = [UIColor whiteColor];
-        self.textField.borderStyle = UITextBorderStyleRoundedRect;
-        self.textField.placeholder = @"请输入您要查找的内容";
-        self.textField.clearButtonMode = UITextFieldViewModeAlways;
-        
-    }
-    return _textField;
-
-}
-
 //路径规划按钮 懒加载
 -(UIButton *)rotePlayBtn {
     if (_rotePlayBtn == nil) {
         self.rotePlayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.rotePlayBtn.frame = CGRectMake(0, kHeight - 50, kWidth, 60);
+        self.rotePlayBtn.frame = CGRectMake(10, kHeight - 145, kWidth - 20, 25);
+        self.rotePlayBtn.layer.cornerRadius = 25 / 2;
+        self.rotePlayBtn.clipsToBounds = YES;
         [self.rotePlayBtn setTitle:@"路径规划" forState:UIControlStateNormal];
         self.rotePlayBtn.tag = 1;
-        [self.rotePlayBtn setTitleColor:[UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0] forState:UIControlStateNormal];
-        self.rotePlayBtn.backgroundColor = [UIColor whiteColor];
+        self.rotePlayBtn.backgroundColor = kColor;
         [self.rotePlayBtn addTarget:self action:@selector(rotePlayBtnAndNavBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rotePlayBtn;
@@ -445,9 +454,6 @@
         self.annotations = [NSMutableArray array];
     }
     return _annotations;
-    
-    
-    
 }
 
 - (NSArray *)pathPolylines{
@@ -457,11 +463,23 @@
     return _pathPolylines;
 }
 
+-(UITableView *)tableView {
+    if (_tableView == nil) {
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kHeight - 200, kWidth, 260) style:UITableViewStylePlain];
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+        
+    }
+    return _tableView;
+}
+//导航栏返回按钮
+- (void)backLeftAction:(UIButton *)btn {
+    [self.navigationController popViewControllerAnimated:YES];
+    self.searchBtn.hidden = YES;
+}
+
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.textField.hidden = YES;
-    
-
 }
 
 -(void)viewWillAppear:(BOOL)animated {

@@ -51,8 +51,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tabBarController.tabBar.hidden = YES;
-    self.title = self.titleId;
+    //自定义导航栏标题
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 4, 0, kWidth / 4, 44)];
+    label.text =  self.titleId;
+    label.textColor = [UIColor grayColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    self.navigationItem.titleView = label;
     [self.view addSubview:self.tableView];
+    //创建按钮
+    [self initButton];
+    //网络请求
+    [self requestDataFromNet];
+}
+
+//创建导航栏按钮
+- (void)initButton {
     //自定义导航栏左侧返回按钮
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 0, 44, 44);
@@ -77,10 +90,11 @@
     [shareButton setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     shareButton.tag = 2;
     [shareButton addTarget:self action:@selector(rightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-   self.shareBtn = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
-   self.navigationItem.rightBarButtonItems = @[self.shareBtn, self.rightLikeBtn];
-    //网络请求
-    [self requestDataFromNet];
+    self.shareBtn = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+    self.navigationItem.rightBarButtonItems = @[self.shareBtn, self.rightLikeBtn];
+
+
+
 }
 
 //网络请求
@@ -249,6 +263,19 @@
 //返回区头的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 50.0;
+}
+
+//取消tableview 区头的粘性
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    CGFloat sectionHeaderHeight = 50.0;
+    if (scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y> 0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    }else
+        if(scrollView.contentOffset.y >= sectionHeaderHeight){
+            
+            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+        }
 }
 
 //自定义分区头部

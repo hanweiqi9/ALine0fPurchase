@@ -43,7 +43,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"热门详情";
+    //自定义导航栏标题
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 4, 0, kWidth / 4, 44)];
+    label.text =  @"热门详情";
+    label.textColor = [UIColor grayColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    self.navigationItem.titleView = label;
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.webView.backgroundColor = [UIColor whiteColor];
     self.webView.dataDetectorTypes = UIDataDetectorTypeAll;
@@ -51,34 +56,8 @@
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
     [self.webView.scrollView addSubview:self.headView];
-    //自定义导航栏左侧返回按钮
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(0, 0, 44, 44);
-    [backButton setImage:[UIImage imageNamed:@"titlebarback"] forState:UIControlStateNormal];
-    [backButton setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
-    [backButton addTarget:self action:@selector(backLeftAction:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem = leftBtn;
-    //自定义导航栏右侧按钮
-    //喜爱
-    self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.likeButton.frame = CGRectMake(kWidth * 0.75 + 35, 0, 30, 30);
-    self.likeButton.tag = 1;
-    [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
-    [self.likeButton setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
-    [self.likeButton addTarget:self action:@selector(rightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.rightLikeBtn = [[UIBarButtonItem alloc] initWithCustomView:self.likeButton];
-    //分享
-    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    shareButton.frame = CGRectMake(kWidth * 0.75, 0, 30, 30);
-    [shareButton setImage:[UIImage imageNamed:@"shareicon"] forState:UIControlStateNormal];
-    [shareButton setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
-    shareButton.tag = 2;
-    [shareButton addTarget:self action:@selector(rightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.shareBtn = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
-    self.navigationItem.rightBarButtonItems = @[self.shareBtn, self.rightLikeBtn];
-
-    
+    //添加导航栏按钮
+    [self initButton];
     //网络请求
     [self requestData];
     
@@ -110,6 +89,37 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
+
+}
+
+- (void)initButton {
+    //自定义导航栏左侧返回按钮
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(0, 0, 44, 44);
+    [backButton setImage:[UIImage imageNamed:@"titlebarback"] forState:UIControlStateNormal];
+    [backButton setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [backButton addTarget:self action:@selector(backLeftAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = leftBtn;
+    //自定义导航栏右侧按钮
+    //喜爱
+    self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.likeButton.frame = CGRectMake(kWidth * 0.75 + 35, 0, 30, 30);
+    self.likeButton.tag = 1;
+    [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
+    [self.likeButton setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [self.likeButton addTarget:self action:@selector(rightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.rightLikeBtn = [[UIBarButtonItem alloc] initWithCustomView:self.likeButton];
+    //分享
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    shareButton.frame = CGRectMake(kWidth * 0.75, 0, 30, 30);
+    [shareButton setImage:[UIImage imageNamed:@"shareicon"] forState:UIControlStateNormal];
+    [shareButton setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    shareButton.tag = 2;
+    [shareButton addTarget:self action:@selector(rightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.shareBtn = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+    self.navigationItem.rightBarButtonItems = @[self.shareBtn, self.rightLikeBtn];
+    
 
 }
 

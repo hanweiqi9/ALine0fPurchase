@@ -17,13 +17,16 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "PreferDetailViewController.h"
 #import "ActivityMianViewController.h"
+#import "ProgressHUD.h"
 static NSString *collection = @"collectionView";
 static NSString *cellString = @"cellsting";
 
 @interface NearPreferViewController ()<PullingRefreshTableViewDelegate,UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     
     NSInteger _pageNum;
+    NSString *_disId;
 }
+
 @property (nonatomic, strong) PullingRefreshTableView *pullTbaleView;
 @property (nonatomic, strong) NSMutableArray *cellArray;
 @property (nonatomic, assign) BOOL refreshing;
@@ -36,7 +39,6 @@ static NSString *cellString = @"cellsting";
 @end
 
 @implementation NearPreferViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -44,6 +46,7 @@ static NSString *cellString = @"cellsting";
     self.view.backgroundColor = [UIColor whiteColor];
     _pageNum = 1;
     self.distitucrd = @"";
+    _disId = @"";
     //注册cell
     [self.pullTbaleView registerNib:[UINib nibWithNibName:@"NearTableViewCell" bundle:nil] forCellReuseIdentifier:@"nearCell"];
     [self getCityDownData];
@@ -87,7 +90,7 @@ static NSString *cellString = @"cellsting";
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     /* [ NSString stringWithFormat:@"",self.cityID] */
-    [manger GET:@"http://api.gjla.com/app_admin_v400/api/city/cityDistrictList?cityId=391db7b8fdd211e3b2bf00163e000dce" parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/city/cityDistrictList?cityId=%@",self.cityID] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSArray *data = dic[@"datas"];
@@ -108,16 +111,23 @@ static NSString *cellString = @"cellsting";
 - (void)getNearbyData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/couponList?districtId=%@&cityId=391db7b8fdd211e3b2bf00163e000dce&categoryId=&sortType=&pageSize=20&longitude=112.426833&latitude=34.618754&pageNum=%ld",self.distitucrd,(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/couponList?districtId=%@&cityId=%@&categoryId=&sortType=&pageSize=20&longitude=112.426833&latitude=34.618754&pageNum=%ld",self.distitucrd,self.cityID,(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         self.dataArray = dic[@"datas"];
-        if(self.dataArray.count == 0){
+        if(self.dataArray.count == 0 ){
+            if (_pageNum != 1) {
+                UIAlertController *aletVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"已是所有数据" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+                [aletVC addAction:action];
+            [self.navigationController presentViewController:aletVC animated:YES completion:nil];
+            }
+            else{
             UIAlertController *aletVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"本区域暂无相关内容,请返回重新选择" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
             [aletVC addAction:action];
             [self.navigationController presentViewController:aletVC animated:YES completion:nil];
-            
+            }
         }
         else{
             if (self.refreshing) {
@@ -267,12 +277,14 @@ static NSString *cellString = @"cellsting";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         self.distitucrd = @"";
+        _disId = self.distitucrd;
         [self getNearbyData];
         self.blankView.hidden = YES;
         [self.leftButton setTitle:@"全部地区" forState:UIControlStateNormal];
     }
     else{
         self.distitucrd = self.cityArray[indexPath.row - 1][@"districtId"];
+        _disId = self.distitucrd;
         [self getNearbyData];
         self.blankView.hidden = YES;
         [self.leftButton setTitle:self.cityArray[indexPath.row - 1][@"districtName"] forState:UIControlStateNormal];
@@ -284,6 +296,7 @@ static NSString *cellString = @"cellsting";
 - (void)pullingTableViewDidStartRefreshing:(PullingRefreshTableView *)tableView{
     self.refreshing = YES;
     _pageNum = 1;
+    self.distitucrd = _disId;
     [self performSelector:@selector(getNearbyData) withObject:nil afterDelay:1.0];
 }
 - (void)pullingTableViewDidStartLoading:(PullingRefreshTableView *)tableView{
@@ -291,9 +304,19 @@ static NSString *cellString = @"cellsting";
     _pageNum +=1;
     [self performSelector:@selector(getNearbyData) withObject:nil afterDelay:1.0];
 }
-//手指开始拖动
+//手指开始拖动  //取消tableview 区头的粘性
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self.pullTbaleView tableViewDidScroll:scrollView];
+    
+    CGFloat sectionHeaderHeight = kHeight / 13+10;
+    if (scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y> 0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    }else
+        if(scrollView.contentOffset.y >= sectionHeaderHeight){
+            
+            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+        }
 }
 
 //下拉刷新开始时调用
@@ -310,7 +333,7 @@ static NSString *cellString = @"cellsting";
         self.pullTbaleView.rowHeight = 90;
         self.pullTbaleView.separatorColor = [UIColor clearColor];
         //隐藏滚动条
-        self.pullTbaleView.showsVerticalScrollIndicator =
+//        self.pullTbaleView.showsVerticalScrollIndicator =
         NO;
     }
     return _pullTbaleView;

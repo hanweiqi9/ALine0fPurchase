@@ -44,6 +44,12 @@
     type = 2;
     [self requestData];
     [self.view addSubview:self.segmentControl];
+    [self initButton];
+
+    
+}
+
+- (void)initButton {
     //自定义导航栏左侧返回按钮
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 0, 44, 44);
@@ -52,12 +58,12 @@
     [backButton addTarget:self action:@selector(backLeftAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = leftBtn;
-    
 
-    
+
+
 }
 
-
+//网络请求
 - (void)requestData {
         AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
         [sessionManger GET:[NSString stringWithFormat:@"%@&searchType=%ld&keywords=%@",kSearchShop, (long)type,self.result] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {

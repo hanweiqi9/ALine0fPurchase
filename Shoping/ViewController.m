@@ -22,7 +22,7 @@
 #import "TabViewController.h"
 #import "NearbyViewController.h"
 #import "PreferDetailViewController.h"
-
+#import "MangoSingleton.h"
 
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate,PullingRefreshTableViewDelegate,UITabBarControllerDelegate>
 //UI控件
@@ -51,8 +51,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"精选";
-    
     self.cityId =@"391db7b8fdd211e3b2bf00163e000dce";
+    MangoSingleton *mango = [MangoSingleton sharInstance];
+    mango.nameCity = @"上海";
+    mango.cityId = self.cityId;
+    
     [self.view addSubview:self.tableview];
     
     [self headSettingView];
@@ -497,6 +500,10 @@
     self.blackView.hidden = YES;
     self.cityId = self.cityArray[button.tag][@"cityId"];
     NSString *name = self.cityArray[button.tag][@"cityName"];
+    MangoSingleton *mango = [MangoSingleton sharInstance];
+    mango.nameCity = name;
+    mango.cityId = self.cityId;
+    
     [self MoreThead];
     [self.leftButton setTitle:name forState:UIControlStateNormal];
 }
@@ -530,7 +537,7 @@
         NSString *typestinr = typeArray[0];
         if ([typestinr isEqualToString:@"index9"]) {
             HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
-            htmlVC.urlString = self.toolArray[button.tag][@"recommendLink"];
+            htmlVC.urlString = self.toolArray[button.tag-1][@"recommendLink"];
             htmlVC.type = @"1";
             htmlVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:htmlVC animated:YES];
@@ -540,15 +547,7 @@
             NSArray *aarray = [stinf componentsSeparatedByString:@"cid="];
             NSString *csting = aarray[1];
             NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
-            //            NSString *type = barray[1];
-            
-            //            if (self.cityId == @""  && [type isEqualToString:@"1"]) {
-            //                PreferDetailViewController *preferVC = [[PreferDetailViewController alloc] init];
-            //                preferVC.cityID = self.cityId;
-            //                preferVC.preferId = barray[0];
-            //                preferVC.hidesBottomBarWhenPushed = YES;
-            //                [self.navigationController pushViewController:preferVC animated:YES];
-            //            }
+        
             ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
             activityMianVC.trunId = barray[0];
             activityMianVC.cityID = self.cityId;

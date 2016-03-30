@@ -50,27 +50,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    self.mySearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(60, 4, kWidth - 100, 40)];
-    self.mySearchBar.placeholder = @"搜索品牌、商场、门店";
-    self.mySearchBar.backgroundColor = [UIColor clearColor];
-    self.mySearchBar.delegate = self;
-    self.mySearchBar.keyboardType = UIKeyboardAppearanceDefault;
-    self.mySearchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.mySearchBar.layer.masksToBounds = YES;
-    self.mySearchBar.layer.cornerRadius = 25.0f;
-    
-    [self.navigationController.navigationBar addSubview:self.mySearchBar];
-
-    
-    //自定义导航栏左侧返回按钮
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(0, 0, 44, 44);
-    [backButton setImage:[UIImage imageNamed:@"titlebarback"] forState:UIControlStateNormal];
-    [backButton setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
-    [backButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem = leftBtn;
-    
+    //seartchBar
+    [self initSearchBar];
+    [self initButton];
     categoryId = self.catId;
     //添加主标题选项
     _mainTitleArray = @[@"全部楼层",@"全部类型",@"智能排序"];
@@ -87,6 +69,33 @@
     //网络请求
     [self requestdata];
     [self.tableView launchRefreshing];
+}
+
+- (void)initButton {
+    //自定义导航栏左侧返回按钮
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(0, 0, 44, 44);
+    [backButton setImage:[UIImage imageNamed:@"titlebarback"] forState:UIControlStateNormal];
+    [backButton setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [backButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = leftBtn;
+
+
+}
+
+- (void)initSearchBar {
+    self.mySearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(60, 4, kWidth - 100, 40)];
+    self.mySearchBar.placeholder = @"搜索品牌、商场、门店";
+    self.mySearchBar.backgroundColor = [UIColor clearColor];
+    self.mySearchBar.delegate = self;
+    self.mySearchBar.keyboardType = UIKeyboardAppearanceDefault;
+    self.mySearchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.mySearchBar.layer.masksToBounds = YES;
+    self.mySearchBar.layer.cornerRadius = 25.0f;
+    
+    [self.navigationController.navigationBar addSubview:self.mySearchBar];
+
 }
 
 //网络请求

@@ -42,7 +42,7 @@
 - (void)getYouData{
     AFHTTPSessionManager *manage = [[AFHTTPSessionManager alloc] init];
     manage.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
-    [manage GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/exclusiveCouponList?pageSize=10&cityId=391db7b8fdd211e3b2bf00163e000dce&pageNum=%ld",_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    [manage GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/exclusiveCouponList?pageSize=10&cityId=%@&pageNum=%ld",self.cityId,_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *root = responseObject;
         NSArray *datas = root[@"datas"];

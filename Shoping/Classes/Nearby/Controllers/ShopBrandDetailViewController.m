@@ -50,9 +50,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"门店详情";
+    //自定义导航栏标题
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 4, 0, kWidth / 4, 44)];
+    label.text =  @"门店详情";
+    label.textColor = [UIColor grayColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    self.navigationItem.titleView = label;
     [self.view addSubview:self.tableView];
-    //    [self configHeaderTableView];
+    //注册cell
+    [self.tableView registerNib:[UINib nibWithNibName:@"ShBraDetaiTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
+    //初始化按钮
+    [self initButton];
+    //网络请求
+    [self requestDataFromNet];
+
+}
+
+- (void)initButton {
     //自定义导航栏左侧返回按钮
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 0, 44, 44);
@@ -61,8 +75,6 @@
     [backButton addTarget:self action:@selector(backLeftAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = leftBtn;
-    //注册cell
-    [self.tableView registerNib:[UINib nibWithNibName:@"ShBraDetaiTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
     //自定义导航栏右侧按钮
     //喜爱
     self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -81,8 +93,8 @@
     [shareButton addTarget:self action:@selector(rightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.shareBtn = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
     self.navigationItem.rightBarButtonItems = @[self.shareBtn, self.rightLikeBtn];
-    //网络请求
-    [self requestDataFromNet];
+
+
 
 }
 
@@ -230,6 +242,19 @@
     return headerView;
     
 }
+
+//取消tableview 区头的粘性
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    CGFloat sectionHeaderHeight = 60.0;
+    if (scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y> 0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    }else if(scrollView.contentOffset.y >= sectionHeaderHeight){
+        
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+    }
+}
+
 
 - (void)setWebImage:(UIImageView *)imgView imgUrl:(NSString *)imgUrl {
     if (imgUrl != nil) {
