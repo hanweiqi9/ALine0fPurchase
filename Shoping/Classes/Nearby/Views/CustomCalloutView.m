@@ -83,13 +83,13 @@
 }
 
 - (void)configView {
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTitleWidth * 2, kTitleHeight + kPortraitMargin)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, kTitleWidth * 2, kTitleHeight + kPortraitMargin)];
     self.titleLabel.textColor = [UIColor whiteColor];
     self.titleLabel.font = [UIFont systemFontOfSize:14.0];
     self.titleLabel.numberOfLines = 0;
     [self addSubview:self.titleLabel];
     
-    self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kTitleHeight - 2, kTitleWidth * 2, kTitleHeight + kPortraitMargin)];
+    self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, kTitleHeight - 5, kTitleWidth * 2, kTitleHeight + kPortraitMargin)];
     self.addressLabel.textColor = [UIColor whiteColor];
     self.addressLabel.font = [UIFont systemFontOfSize:14.0];
     self.addressLabel.numberOfLines = 0;

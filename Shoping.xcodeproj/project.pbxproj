@@ -862,11 +862,11 @@
 		7A2D55941C9F780A002018F4 /* Nearby */ = {
 			isa = PBXGroup;
 			children = (
+				7AD1EFCF1CAA5D2E000718D1 /* GuidePageViewController.h */,
+				7AD1EFD01CAA5D2F000718D1 /* GuidePageViewController.m */,
 				7A2D55951C9F780A002018F4 /* Controllers */,
 				7A2D55961C9F780A002018F4 /* Models */,
 				7A2D55971C9F780A002018F4 /* Views */,
-				7AD1EFCF1CAA5D2E000718D1 /* GuidePageViewController.h */,
-				7AD1EFD01CAA5D2F000718D1 /* GuidePageViewController.m */,
 			);
 			path = Nearby;
 			sourceTree = "<group>";

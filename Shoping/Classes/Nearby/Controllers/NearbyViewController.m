@@ -85,6 +85,30 @@
     [self.view addSubview:self.tableView];
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"ShopTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellID"];
+    //添加导航栏按钮
+    [self initButton];
+    //将自定义segMentControl作为导航栏的title
+    self.navigationItem.titleView = self.segMentControl;
+    //添加主标题选项
+    _mainTitleArray = @[@"全部",@"类型",@"离我最近"];
+    _subTitleArray = @[@[@"全部",@"中性",@"休闲",@"复古",@"日韩",@"欧美",@"民族",@"白领",@"运动",],@[@"全部",@"女士服装",@"女士鞋包",@"美容美妆",@"钟表配饰",@"母婴亲子",@"男士服装",@"男士鞋包",@"生活家居"],@[@"离我最近",@"人气最高",@"字母排序",@"独家券",@"所有折扣"]];
+    //网络请求
+    [self requestData];
+    [self.tableView launchRefreshing];
+    [self requestBrandData];
+    [self requesCityName];
+    //添加轻扫手势
+    //向左滑动
+    UISwipeGestureRecognizer *recognizer;
+    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+    [self.tableView addGestureRecognizer:recognizer];
+    
+    
+}
+
+//添加导航栏按钮
+- (void)initButton {
     //自定义导航栏左侧选择城市按钮
     self.cityButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.cityButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -105,28 +129,7 @@
     [searchButton addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *searchBtn = [[UIBarButtonItem alloc] initWithCustomView:searchButton];
     self.navigationItem.rightBarButtonItem = searchBtn;
-    //将自定义segMentControl作为导航栏的title
-    self.navigationItem.titleView = self.segMentControl;
-    //添加主标题选项
-    _mainTitleArray = @[@"全部",@"类型",@"离我最近"];
-    _subTitleArray = @[@[@"全部",@"中性",@"休闲",@"复古",@"日韩",@"欧美",@"民族",@"白领",@"运动",],@[@"全部",@"女士服装",@"女士鞋包",@"美容美妆",@"钟表配饰",@"母婴亲子",@"男士服装",@"男士鞋包",@"生活家居"],@[@"离我最近",@"人气最高",@"字母排序",@"独家券",@"所有折扣"]];
-    
-    //网络请求
-    [self requestData];
-    [self.tableView launchRefreshing];
-    [self requestBrandData];
-    [self requesCityName];
-    
-    //添加轻扫手势
-    //向左滑动
-    UISwipeGestureRecognizer *recognizer;
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-    [self.tableView addGestureRecognizer:recognizer];
-    
-    
 }
-
 
 //添加向右滑动的轻扫手势
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recoginer {
