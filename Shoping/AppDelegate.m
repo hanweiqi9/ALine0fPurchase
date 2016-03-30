@@ -41,9 +41,7 @@
         //如果归档标记存在，直接进入主页面
         self.tabbarVC =[TabViewController new];
         self.tabbarVC.tabBar.tintColor = kColor;
-        self.window.rootViewController = self.tabbarVC;;
-        //删除归档
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstLaunch"];
+        self.window.rootViewController = self.tabbarVC;
     }else{
         //归档标记不存在，归档标记后，进入引导页
         [[NSUserDefaults standardUserDefaults] setObject:@"firstLaunch" forKey:@"firstLaunch"];
