@@ -327,6 +327,7 @@
 
 - (void)backLeftAction:(UIButton *)btn {
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 

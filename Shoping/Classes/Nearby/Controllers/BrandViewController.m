@@ -278,6 +278,7 @@
 - (void)backAction:(UIButton *)btn {
     [self.navigationController popViewControllerAnimated:YES];
     self.mySearchBar.hidden = YES;
+    [self.mySearchBar resignFirstResponder];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

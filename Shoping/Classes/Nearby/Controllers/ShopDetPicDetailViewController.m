@@ -164,7 +164,7 @@
         if (clickCount % 2 != 0) {
             [self.likeButton setImage:[UIImage imageNamed:@"favoryes"] forState:UIControlStateNormal];
             GuanCang *shoucang = [GuanCang sharedInstance];
-            shoucang.btnTag == btn.tag;
+            shoucang.btnTag = btn.tag;
             GuanModel *model = [[GuanModel alloc] init];
             model.title = self.title1;
             model.subTitle = self.subTit;
