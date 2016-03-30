@@ -277,6 +277,8 @@
             model.subTitle = [NSString stringWithFormat:@"地址：%@ 营业时间：%@~%@",self.datasDic[@"storeName"],self.datasDic[@"storeOpenTime"],self.datasDic[@"storeCloseTime"]];
             model.titImage = self.headImage1;
             [manager insertIntoCang:model];
+            [ProgressHUD showSuccess:@"收藏成功"];
+
             
         } else {
             [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
@@ -284,6 +286,8 @@
             GuanModel *model = [[GuanModel alloc] init];
             model.title = self.datasDic[@"storeName"];
             [manager deleteCangTitle:model.title];
+            [ProgressHUD showSuccess:@"收藏成功"];
+
         }
     }
     //点击分享

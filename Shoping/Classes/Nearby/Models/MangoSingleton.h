@@ -11,8 +11,11 @@
 
 @interface MangoSingleton : NSObject
 //5.声明一个属性,接收传递值
-@property (nonatomic, strong) NSString *inputText;
-@property (nonatomic, strong) NSString *title;
+//大头针内容
+@property (nonatomic, strong) NSString *inputText;   //副标题
+@property (nonatomic, strong) NSString *title;       //标题
+@property (nonatomic, strong) NSString *imageUrl;    //图片
+//字典
 @property (nonatomic, strong) NSDictionary *dic;
 @property (nonatomic, assign) double latValue;
 @property (nonatomic, assign) double lngValue;

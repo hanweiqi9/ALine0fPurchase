@@ -170,14 +170,16 @@
             model.subTitle = self.subTit;
             model.titImage = self.imageUrl;
             [shoucang insertIntoCang:model];
-            
+            [ProgressHUD showSuccess:@"收藏成功"];
+
         } else {
             [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
             GuanCang *shoucang = [GuanCang sharedInstance];
             GuanModel *model = [[GuanModel alloc] init];
             model.title = self.title1;
             [shoucang deleteCangTitle:model.title];
-            
+            [ProgressHUD showSuccess:@"取消收藏"];
+
             
         }
     }

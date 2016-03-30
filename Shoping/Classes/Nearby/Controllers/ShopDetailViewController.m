@@ -411,6 +411,8 @@
             model.subTitle = [NSString stringWithFormat:@"营业时间：%@~%@",self.headerDic[@"openTime"],self.headerDic[@"closeTime"]] ;
             model.titImage = self.headImage1;
             [manager insertIntoCang:model];
+            [ProgressHUD showSuccess:@"收藏成功"];
+
 
         } else {
         [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
@@ -418,6 +420,8 @@
             GuanModel *model = [[GuanModel alloc] init];
             model.title = [NSString stringWithFormat:@"%@",self.headerDic[@"mallName"]];
             [manager deleteCangTitle:model.title];
+            [ProgressHUD showSuccess:@"取消收藏"];
+
 
             
         }

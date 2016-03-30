@@ -34,6 +34,7 @@
 }
 
 @property (nonatomic, strong) UIView *barView;
+@property (nonatomic, strong) NSString *titles;
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UIButton *rotePlayBtn;  //路径规划
 @property (nonatomic, strong) MAPointAnnotation *pointAnnotation;
@@ -96,6 +97,8 @@
     
     //初始化按钮
     [self initButton];
+    //地理编码
+     [self reGeoAction];
     
 }
 
@@ -130,9 +133,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         
     }
-    AMapAOI *poi = _pois[indexPath.row];
+    AMapPOI *poi = _pois[indexPath.row];
     cell.textLabel.text = poi.name;
-//    cell.detailTextLabel.text = poi.address;
+    cell.detailTextLabel.text = poi.address;
 
     return cell;
     
@@ -145,17 +148,15 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //为点击的poi点添加标注
-    AMapAOI *poi = _pois[indexPath.row];
-//    AMapStreetNumber *poiRoad = _pois[indexPath.row];
+    AMapPOI *poi = _pois[indexPath.row];
     _anotitaon = [[MAPointAnnotation alloc] init];
     _anotitaon.coordinate = CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude);
     _anotitaon.title = poi.name;
-//    _anotitaon.subtitle = poiRoad.street;
+    _anotitaon.subtitle = poi.address;
     [_mapView addAnnotation:_anotitaon];
     
     
 }
-
 
 #pragma mark ---------------------------- 协议方法
 //当位置更新时，会进位置回调函数
@@ -222,8 +223,6 @@
     return annotationView;
 }
 
-
-
 //添加大头针
 -(void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views {
     MAAnnotationView *view = views[0];
@@ -240,8 +239,16 @@
         view.canShowCallout = NO;
     } else if (view.annotation == _distanAnnotation) {
         view.canShowCallout = YES;
+    } else if (view.annotation == _anotitaon) {
+        view.canShowCallout = YES;
     }
 
+}
+
+-(void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view {
+    if ([view.annotation isKindOfClass:[MAUserLocation class]]) {
+        [self reGeoAction];
+    }
 }
 
 //路线规划完成
@@ -408,6 +415,31 @@
     return coordinates;
 }
 
+//地理编码
+- (void)reGeoAction{
+    if (_anotitaon) {
+        AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
+        request.location = [AMapGeoPoint locationWithLatitude:_anotitaon.coordinate.latitude longitude:_anotitaon.coordinate.longitude];
+        [_search AMapReGoecodeSearch:request];
+    }
+}
+
+
+//解析地理编码
+- (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response{
+    
+    //城市地址
+    self.titles = response.regeocode.addressComponent.city;
+    if (self.titles.length == 0) {
+        //详细地址
+        self.titles = response.regeocode.addressComponent.province;
+    }
+    
+    _mapView.userLocation.title = self.titles;
+    _mapView.userLocation.subtitle = response.regeocode.formattedAddress;
+    NSLog(@"%@", _mapView.userLocation);
+    
+}
 
 
 #pragma mark ------------- 手指协议

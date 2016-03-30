@@ -321,6 +321,7 @@
             model.titImage = self.headImage1;
             model.subTitle = self.datasDic[@"brandDesc"];
             [manager insertIntoCang:model];
+            [ProgressHUD showSuccess:@"收藏成功"];
         } else {
             [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
             
@@ -329,6 +330,8 @@
             GuanModel *model = [[GuanModel alloc] init];
             model.title = [NSString stringWithFormat:@"%@%@",self.datasDic[@"brandNameEn"],self.datasDic[@"brandNameZh"]];
             [manager deleteCangTitle:model.title];
+            [ProgressHUD showSuccess:@"取消收藏"];
+
             
         }
     }

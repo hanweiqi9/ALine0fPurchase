@@ -12,4 +12,5 @@
 @property (nonatomic, strong) NSString *title;  //地点
 @property (nonatomic, strong) NSString *address; //详细地址
 
+
 @end
