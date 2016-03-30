@@ -52,10 +52,6 @@
     [super viewDidLoad];
     self.title = @"精选";
     self.cityId =@"391db7b8fdd211e3b2bf00163e000dce";
-    MangoSingleton *mango = [MangoSingleton sharInstance];
-    mango.nameCity = @"上海";
-    mango.cityId = self.cityId;
-    
     [self.view addSubview:self.tableview];
     
     [self headSettingView];
@@ -500,13 +496,16 @@
     self.blackView.hidden = YES;
     self.cityId = self.cityArray[button.tag][@"cityId"];
     NSString *name = self.cityArray[button.tag][@"cityName"];
-    MangoSingleton *mango = [MangoSingleton sharInstance];
-    mango.nameCity = name;
-    mango.cityId = self.cityId;
-    
+    NSUserDefaults *cityID = [NSUserDefaults standardUserDefaults];
+    [cityID setObject:self.cityId forKey:@"cityId"];
+    [cityID setObject:name forKey:@"cityName"];
+    [cityID synchronize];
+
     [self MoreThead];
     [self.leftButton setTitle:name forState:UIControlStateNormal];
 }
+
+
 - (void)BackMain{
     self.blackView.hidden = YES;
 }

@@ -67,19 +67,21 @@
 @property (nonatomic, strong) NSMutableArray *cityArray;
 @property (nonatomic, strong) JCTagListView *tagListView;
 @property (nonatomic, strong) NSMutableArray *idArray;
+@property (nonatomic, strong) NSString *cityId;
+@property (nonatomic, strong) NSString *cityName;
 @end
 
 @implementation NearbyViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    
     _pageCount = 1;
     _pageNum1 = 1;
-    self.cityId =@"391db7b8fdd211e3b2bf00163e000dce";
-    self.cityName = @"上海";
+
+    
     [self.view addSubview:self.tableView];
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"ShopTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellID"];
@@ -88,8 +90,6 @@
     [self.cityButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.cityButton.frame = CGRectMake(0, 0, 60, 44);
     [self.cityButton setImage:[UIImage imageNamed:@"sanjiao_up"] forState:UIControlStateNormal];
-    MangoSingleton *mangos = [MangoSingleton sharInstance];
-    self.cityName = mangos.nameCity;
     [self.cityButton setTitle:self.cityName forState:UIControlStateNormal];
     [self.cityButton setImageEdgeInsets:UIEdgeInsetsMake(0, self.cityButton.frame.size.width - 10, 0, 0)];
     [self.cityButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -25, 0, 10)];
@@ -142,8 +142,6 @@
 - (void)requestData {
     [ProgressHUD show:@"正在加载..."];
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    MangoSingleton *mogao = [MangoSingleton sharInstance];
-    self.cityId = mogao.cityId;
     [manger GET:[NSString stringWithFormat:@"%@&cityId=%@&pageNum=%ld",kShop,self.cityId, (long)_pageCount] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *responDic = responseObject;
@@ -176,8 +174,6 @@
 //获取城市区域选择id和name
 - (void)requesCityName {
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    MangoSingleton *mango = [MangoSingleton sharInstance];
-    self.cityId = mango.cityId;
     [sessionManger GET:[NSString stringWithFormat:@"%@?cityId=%@",kCityList,self.cityId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -202,8 +198,7 @@
 //重新选择城市
 - (void)requestDataCity {
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-//    MangoSingleton *mango = [MangoSingleton sharInstance];
-//    self.cityId = mango.cityId;
+
     [manger GET:[NSString stringWithFormat:@"%@&districtId=%@&pageNum=%ld",kShopCity, _cityId, (long)_pageCount] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *responDic = responseObject;
@@ -451,8 +446,6 @@
 - (void)requestBrandData{
     [ProgressHUD show:@"正在加载中"];
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    MangoSingleton *mango = [MangoSingleton sharInstance];
-    self.cityId = mango.cityId;
     [sessionManger GET:[NSString stringWithFormat:@"%@&cityId=%@&pageNum=%ld",kBrand,self.cityId,(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -538,8 +531,6 @@
 //菜单栏选择网络请求
 - (void)requestMenueData{
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    MangoSingleton *mango = [MangoSingleton sharInstance];
-    self.cityId = mango.cityId;
     [sessionManger GET:[NSString stringWithFormat:@"%@cityId=%@&categoryIds=%@&pageNum=%ld",kBrandClassfiy,self.cityId,categoryIds1,(long)_pageNum1] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
@@ -665,6 +656,9 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     self.tabBarController.tabBar.hidden = NO;
+    NSUserDefaults *cityID = [NSUserDefaults standardUserDefaults];
+    self.cityId = [cityID valueForKey:@"cityId"];
+    self.cityName = [cityID valueForKey:@"cityName"];
     [self.tableView launchRefreshing];
 }
 
