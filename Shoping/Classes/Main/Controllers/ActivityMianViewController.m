@@ -52,10 +52,9 @@
 #pragma mark ========== 数据请求
 - (void)getActivityDetailData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-   
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [ProgressHUD show:@"加载中"];
-    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/detail?cityId=%@&userId=fe8d0970f7d4469bb6a8d5fbb1a2bb6f&couponId=%@&longitude=112.426829&latitude=34.618749&source=1&salesId=",self.cityID,self.trunId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    [manger GET:[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/coupon/detail?cityId=%@&userId=fe8d0970f7d4469bb6a8d5fbb1a2bb6f&couponId=%@&source=1&salesId=&longitude=112.42675&latitude=34.618929",self.cityID,self.trunId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [ProgressHUD showSuccess:@"加载完成"];
         NSDictionary *dic = responseObject;

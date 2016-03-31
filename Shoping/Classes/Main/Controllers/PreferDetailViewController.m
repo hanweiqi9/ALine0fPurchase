@@ -57,11 +57,12 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [ProgressHUD show:@"加载中"];
-    NSString *sting =[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/discount/detail?cityId=%@&userId=c649ac4bf87f43fea924f52a2639e533&discountId=%@&longitude=112.426833&latitude=34.618754",self.cityID,self.preferId];
+    NSString *sting =[NSString stringWithFormat:@"http://api.gjla.com/app_admin_v400/api/discount/detail?cityId=%@&userId=c649ac4bf87f43fea924f52a2639e533&discountId=%@&longitude=112.42675&latitude=34.618749",self.cityID,self.preferId];
     [manger GET:sting parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [ProgressHUD showSuccess:@"加载完成"];
         NSDictionary *dic = responseObject;
+        NSLog(@"%@",dic);
         self.datasDic = dic[@"datas"];
         NSArray *array =self.datasDic[@"couponOrDiscounts"];
         for (NSDictionary *dics in array) {
@@ -282,12 +283,13 @@
     if ([type isEqual:@"1"]) {
         ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
         activityMianVC.trunId  =  self.cellArray[indexPath.row][@"id"];
+        activityMianVC.cityID = self.cityID;
         [self.navigationController pushViewController:activityMianVC animated:YES];
     }
     if ([type isEqual:@"0"]) {
         PreferDetailViewController *preferVC = [[PreferDetailViewController alloc] init];
-//        preferVC.nameId = self.cellArray[indexPath.section][@"brandId"];
         preferVC.preferId = self.cellArray[indexPath.row][@"id"];
+        preferVC.cityID = self.cityID;
         preferVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:preferVC animated:YES];
     }

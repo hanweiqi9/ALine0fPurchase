@@ -256,7 +256,6 @@ static NSString *cellString = @"cellsting";
         title.layer.masksToBounds = YES;
         title.text = @"全部";
         [cellCollection addSubview:title];
-        
     }
     if (indexPath.row > 0 && indexPath.row<self.cityArray.count + 1) {
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, cellCollection.frame.size.width  -10, cellCollection.frame.size.height-10)];

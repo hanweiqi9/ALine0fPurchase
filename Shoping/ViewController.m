@@ -23,7 +23,6 @@
 #import "NearbyViewController.h"
 #import "PreferDetailViewController.h"
 #import "MangoSingleton.h"
-
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate,PullingRefreshTableViewDelegate,UITabBarControllerDelegate>
 //UI控件
 @property (nonatomic, strong) PullingRefreshTableView *tableview;
@@ -52,7 +51,6 @@
     [super viewDidLoad];
     self.title = @"精选";
     self.cityId = [[NSUserDefaults standardUserDefaults]valueForKey:@"cityId"];
-    
     [self.view addSubview:self.tableview];
     
     [self headSettingView];
@@ -86,15 +84,10 @@
     [self.leftButton addTarget:self action:@selector(leftBarButtonAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftButton];
     self.navigationItem.leftBarButtonItem = leftItem;
-    
-    
-    
     //设置右导航栏
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"main_more"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAction)];
     rightItem.tintColor = [UIColor redColor];
     self.navigationItem.rightBarButtonItem = rightItem;
-    
-    
 }
 #pragma merk ------- 多线程实现数据同时请求
 - (void)MoreThead{
@@ -303,6 +296,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         self.cityArray = dic[@"datas"];
+//        NSLog(@"%@",self.cityArray);
         [self.tableview reloadData];
         [self.tableview tableViewDidFinishedLoading];
         self.tableview.reachedTheEnd = NO;
@@ -455,7 +449,6 @@
     }
     if ([typestinr isEqualToString:@"brandinfo"]) {
         BrandDetailViewController *brandVC = [[BrandDetailViewController alloc] init];
-        //        brandVC.cityId = self.cityId;
         NSString *stinf = typeArray[1];
         NSArray *aarray = [stinf componentsSeparatedByString:@"="];
         NSString *csting = aarray[aarray.count - 1];
@@ -501,7 +494,6 @@
     [cityID setObject:self.cityId forKey:@"cityId"];
     [cityID setObject:name forKey:@"cityName"];
     [cityID synchronize];
-
     [self MoreThead];
     [self.leftButton setTitle:name forState:UIControlStateNormal];
 }
@@ -519,7 +511,6 @@
     scanVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:scanVC animated:YES];
 }
-
 - (void)AllYouhuiShow{
     YouhuiViewController *youhuiVC = [[YouhuiViewController alloc] init];
     youhuiVC.cityId = self.cityId;
@@ -547,9 +538,9 @@
             NSArray *aarray = [stinf componentsSeparatedByString:@"cid="];
             NSString *csting = aarray[1];
             NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
-        
             ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
-            activityMianVC.trunId = barray[0];
+            activityMianVC.hidesBottomBarWhenPushed = YES;
+                        activityMianVC.trunId = barray[0];
             activityMianVC.cityID = self.cityId;
             activityMianVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:activityMianVC animated:YES];
@@ -578,6 +569,7 @@
         NearPreferViewController *nearVC = [[NearPreferViewController alloc] init];
         nearVC.title = @"所有优惠";
         nearVC.cityID = self.cityId;
+        nearVC.cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"cityName"] ;
         nearVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:nearVC animated:YES];
     }
