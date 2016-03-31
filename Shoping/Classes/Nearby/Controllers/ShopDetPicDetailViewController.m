@@ -56,6 +56,8 @@
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
     [self.webView.scrollView addSubview:self.headView];
+    //上下滑动tableView时不让导航栏遮盖
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     //添加导航栏按钮
     [self initButton];
     //网络请求
@@ -164,20 +166,22 @@
         if (clickCount % 2 != 0) {
             [self.likeButton setImage:[UIImage imageNamed:@"favoryes"] forState:UIControlStateNormal];
             GuanCang *shoucang = [GuanCang sharedInstance];
-            shoucang.btnTag == btn.tag;
+            shoucang.btnTag = btn.tag;
             GuanModel *model = [[GuanModel alloc] init];
             model.title = self.title1;
             model.subTitle = self.subTit;
             model.titImage = self.imageUrl;
             [shoucang insertIntoCang:model];
-            
+            [ProgressHUD showSuccess:@"收藏成功"];
+
         } else {
             [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
             GuanCang *shoucang = [GuanCang sharedInstance];
             GuanModel *model = [[GuanModel alloc] init];
             model.title = self.title1;
             [shoucang deleteCangTitle:model.title];
-            
+            [ProgressHUD showSuccess:@"取消收藏"];
+
             
         }
     }

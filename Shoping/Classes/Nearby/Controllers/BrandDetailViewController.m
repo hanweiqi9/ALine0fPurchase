@@ -36,12 +36,10 @@
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) NSDictionary *datasDic;
-@property (nonatomic,strong) JXBAdPageView *adView;
+@property (nonatomic, strong) JXBAdPageView *adView;
 @property (nonatomic, strong) UIButton *likeButton;
 @property (nonatomic, strong) UIBarButtonItem *shareBtn;
 @property (nonatomic, strong) UIBarButtonItem *rightLikeBtn;
-
-
 @property(nonatomic,strong) NSString *headImage1;
 @end
 
@@ -50,6 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.tabBar.hidden = YES;
     //自定义导航栏标题
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 4, 0, kWidth / 4, 44)];
@@ -58,10 +57,13 @@
     label.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = label;
     [self.view addSubview:self.tableView];
+    //上下滑动tableView时不让导航栏遮盖
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     //创建按钮
     [self initButton];
     //网络请求
     [self requestDataFromNet];
+//    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 //创建导航栏按钮
@@ -91,7 +93,6 @@
     shareButton.tag = 2;
     [shareButton addTarget:self action:@selector(rightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.shareBtn = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
-    self.navigationItem.rightBarButtonItems = @[self.shareBtn, self.rightLikeBtn];
 
 
 
@@ -113,7 +114,7 @@
             [self.dataArray addObject:model];
         }
         [ProgressHUD showSuccess:@"数据加载完成"];
-        [self configHeaderTableView];
+        [self configheaderTableView];
         [self.tableView reloadData];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
@@ -129,9 +130,12 @@
     OneDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellI];
     if (cell == nil) {
         cell = [[OneDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellI];
-        cell.detailModel = self.dataArray[indexPath.row];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
+    cell.detailModel = self.dataArray[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    
     return cell;
     
 }
@@ -145,12 +149,17 @@
     [self.tableView reloadData];
     self.navigationItem.rightBarButtonItems = @[self.shareBtn, self.rightLikeBtn];
 }
+//自动开启
+//- (void)NSTreadone{
+//    @autoreleasepool {
+//        [NSThread detachNewThreadSelector:@selector(configheaderTableView) toTarget:self withObject:nil];
+//    }
+//}
 
 //tableView头部视图
-- (void)configHeaderTableView {
-     NSString *str = @"http://api.gjla.com/app_admin_v400/";
+- (void)configheaderTableView {
+    NSString *str = @"http://api.gjla.com/app_admin_v400/";
     NSString *brandUrl;
-    self.headImage1 = [NSString stringWithFormat:@"%@%@",str,self.datasDic[@"brandPicUrl"]];
     if (![self.datasDic[@"brandPicUrl"] isEqual:[NSNull null]]) {
         brandUrl = self.datasDic[@"brandPicUrl"];
     }
@@ -160,10 +169,12 @@
     if ([brandUrl rangeOfString:@"|"].location != NSNotFound) {
         //如果存在，先将字符串以"|"分割存储到数组
         NSArray *array = [brandUrl componentsSeparatedByString:@"|"];
+        NSLog(@"以 | 分割 %@",array);
         for (NSString *str1 in array) {
             //判断数组中的字符串长度，若长度>5，将字符串以”,“分割存储到数组
             if (str1.length > 5) {
                 NSArray *array1 = [str1 componentsSeparatedByString:@","];
+                NSLog(@"以 ， 分割 %@",array1);
                 for (NSString *str2 in array1) {
                     //遍历分隔好的字符串，将字符串长度大于5的字符串存储到数组中
                     if (str2.length > 5) {
@@ -171,22 +182,34 @@
                         [strArray1 addObject:str3];
                     }
                 }
+        }
+            //如果数组里面是一个url，并且带有 | |分隔符
+            if (strArray1.count == 1) {
+                //直接取出进行拼接
+                NSString *strUrl = [str stringByAppendingString:strArray1[0]];
+                UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth * 0.335)];
+                [headImage sd_setImageWithURL:[NSURL URLWithString:strUrl] placeholderImage:nil];
+                [self.headerView addSubview:headImage];
             }
-        }
+            
+    }
         //图片
-        self.adView = [[JXBAdPageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth * 0.335)];
-        _adView.contentMode = UIViewContentModeScaleAspectFill;
-        _adView.iDisplayTime = 2;
-        _adView.bWebImage = YES;
-        _adView.delegate = self;
-        if (strArray1.count > 1) {
-            [_adView startAdsWithBlock:strArray1 block:^(NSInteger clickIndex){
-            }];
-
-        }
-        [self.headerView addSubview:_adView];
+        
+    self.adView = [[JXBAdPageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth * 0.335)];
+            self.adView.contentMode = UIViewContentModeScaleAspectFill;
+            self.adView.iDisplayTime = 2;
+            self.adView.bWebImage = YES;
+            self.adView.delegate = self;
+            if (strArray1.count > 1) {
+                [self.adView startAdsWithBlock:strArray1 block:^(NSInteger clickIndex){
+                }];
+                
+            }
+            [self.headerView addSubview:self.adView];
     } else {
+        //里面有一个url，且没有带 | |分隔符
         NSString *brandUrl1 = [str stringByAppendingString:brandUrl];
+        NSLog(@"%@",brandUrl1);
         UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth * 0.335)];
             [headImage sd_setImageWithURL:[NSURL URLWithString:brandUrl1] placeholderImage:nil];
             [self.headerView addSubview:headImage];
@@ -207,8 +230,11 @@
     //descripLab
     UILabel *decripLabel = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 4 + 10, kWidth * 0.35 + kWidth / 12 + 5, kWidth - kWidth / 4 - 20 , kWidth * 0.35 - kWidth / 12)];
     decripLabel.numberOfLines = 0;
-    if (self.datasDic[@"brandDesc"] != nil) {
+    if (![self.datasDic[@"brandDesc"] isEqual:[NSNull null]]) {
          decripLabel.text = [NSString stringWithFormat:@"%@",self.datasDic[@"brandDesc"]];
+    } else {
+       decripLabel.text = @"亲，暂时没有预告哦，请稍后...";
+    
     }
    
     //附近门店
@@ -224,13 +250,24 @@
     label3.alpha = 0.1;
     //门店label
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, kWidth / 3 + kWidth / 3 + 60, kWidth - 20, 30)];
-    nameLabel.text = [NSString stringWithFormat:@"%@",self.datasDic[@"storeName"]];
+    if (![self.datasDic[@"storeName"] isEqual:[NSNull null]]) {
+        nameLabel.text = [NSString stringWithFormat:@"%@",self.datasDic[@"storeName"]];
+    } else {
+    nameLabel.text = @"每个地方都有分店哦";;
+    }
+    
     nameLabel.textAlignment = NSTextAlignmentCenter;
     //距离
     UIButton *distanceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     distanceBtn.frame = CGRectMake(100, kWidth / 3 + kWidth / 3 + 95, kWidth - 200, 30);
-    CGFloat distan = [self.datasDic[@"distance"] floatValue] / 1000;
-    [distanceBtn setTitle:[NSString stringWithFormat:@"%.2fkm",distan] forState:UIControlStateNormal];
+    if (![self.datasDic[@"distance"] isEqual:[NSNull null]]) {
+        CGFloat distan = [self.datasDic[@"distance"] floatValue] / 1000;
+        [distanceBtn setTitle:[NSString stringWithFormat:@"%.2fkm",distan] forState:UIControlStateNormal];
+    } else {
+        [distanceBtn setTitle:@"768.80km" forState:UIControlStateNormal];
+    
+    }
+    
     //设置图片和内容的间距
     [distanceBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [distanceBtn setImage:[UIImage imageNamed:@"address_icon"] forState:UIControlStateNormal];
@@ -242,7 +279,12 @@
     [addressBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [addressBtn setImage:[UIImage imageNamed:@"address22"] forState:UIControlStateNormal];
     [addressBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [addressBtn setTitle:[NSString stringWithFormat:@"%@",self.datasDic[@"storeAddress"]] forState:UIControlStateNormal];
+    if (![self.datasDic[@"storeAddress"] isEqual:[NSNull null]]) {
+        [addressBtn setTitle:[NSString stringWithFormat:@"%@",self.datasDic[@"storeAddress"]] forState:UIControlStateNormal];
+    } else {
+    [addressBtn setTitle:@"点击此处查看地图" forState:UIControlStateNormal];
+    }
+    
     [addressBtn addTarget:self action:@selector(addressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
 
     [self.headerView addSubview:addressBtn];
@@ -257,8 +299,16 @@
     
     self.tableView.tableHeaderView = self.headerView;
     
-
+ NSLog(@"是否是主线程：%d 当前线程：%@",[NSThread isMainThread],[NSThread mainThread]);
 }
+
+//_adView的代理方法
+- (void)setWebImage:(UIImageView *)imgView imgUrl:(NSString *)imgUrl {
+    if (![imgUrl isEqual:[NSNull null]]) {
+        [imgView sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
+    }
+}
+
 
 //返回区头的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -298,13 +348,10 @@
     return headerView;
     
 }
-
-- (void)setWebImage:(UIImageView *)imgView imgUrl:(NSString *)imgUrl {
-    if (imgUrl != nil) {
-        [imgView sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
-    }
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.adView removeFromSuperview];
 }
-
 
 //导航栏右侧按钮点击方法
 - (void)rightBtnAction:(UIButton *)btn {
@@ -321,6 +368,7 @@
             model.titImage = self.headImage1;
             model.subTitle = self.datasDic[@"brandDesc"];
             [manager insertIntoCang:model];
+            [ProgressHUD showSuccess:@"收藏成功"];
         } else {
             [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
             
@@ -329,6 +377,8 @@
             GuanModel *model = [[GuanModel alloc] init];
             model.title = [NSString stringWithFormat:@"%@%@",self.datasDic[@"brandNameEn"],self.datasDic[@"brandNameZh"]];
             [manager deleteCangTitle:model.title];
+            [ProgressHUD showSuccess:@"取消收藏"];
+            
             
         }
     }
@@ -350,31 +400,41 @@
     MapViewController *mapVC = [[MapViewController alloc] init];
     NSString *latitude = self.datasDic[@"latitude"];
     NSString *longitude = self.datasDic[@"longitude"];
-    mapVC.lat = [latitude floatValue];
-    mapVC.lng = [longitude floatValue];
-    NSString *name = self.datasDic[@"storeName"];
-    NSString *address = self.datasDic[@"storeAddress"];
-    //使用单例传值
     MangoSingleton *mango = [MangoSingleton sharInstance];
-    mango.title = name;
-    mango.inputText = address;
+    if ([latitude isEqual:[NSNull null]] || [longitude isEqual:[NSNull null]]) {
+        mapVC.lat = mango.latValue;
+        mapVC.lng = mango.lngValue;
+        mango.title = @"每个地方都有分店哦";
+        mango.inputText = @"当前位置";
+    } else {
+        mapVC.lat = [latitude floatValue];
+        mapVC.lng = [longitude floatValue];
+        NSString *name = self.datasDic[@"storeName"];
+        NSString *address = self.datasDic[@"storeAddress"];
+        //使用单例传值
+        mango.title = name;
+        mango.inputText = address;
+    }
+    
+    
     [self.navigationController pushViewController:mapVC animated:YES];
-
-
+    
+    
 }
 
 - (void)backLeftAction:(UIButton *)btn {
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
-
 
 
 #pragma mark ---------------------------- 懒加载
 -(UITableView *)tableView {
     if (_tableView == nil) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight - 40) style:UITableViewStylePlain];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight - 65) style:UITableViewStylePlain];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
+        self.tableView.backgroundColor = [UIColor whiteColor];
         self.tableView.rowHeight = kHeight * 0.1 + 10;
         self.tableView.separatorColor = [UIColor clearColor];
 
@@ -386,7 +446,7 @@
 
 -(UIView *)headerView {
     if (_headerView == nil) {
-        self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth / 3 + kWidth / 3 + 190)];
+        self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth / 3 + kWidth / 3 + 170)];
     }
     return _headerView;
 
@@ -409,7 +469,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = NO;
+    self.tabBarController.tabBar.hidden = YES;
     
 }
 

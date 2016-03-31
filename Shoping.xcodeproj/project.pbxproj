@@ -796,22 +796,22 @@
 		7A2D55801C9F780A002018F4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7A81B98F1CA3DE3900029E84 /* ActivityMianViewController.h */,
-				7A81B9901CA3DE3900029E84 /* ActivityMianViewController.m */,
-				7A81B9911CA3DE3900029E84 /* AllStoreViewController.h */,
-				7A81B9921CA3DE3900029E84 /* AllStoreViewController.m */,
-				7A81B9931CA3DE3900029E84 /* HtmlViewController.h */,
-				7A81B9941CA3DE3900029E84 /* HtmlViewController.m */,
-				7A81B9951CA3DE3900029E84 /* InviteViewController.h */,
-				7A81B9961CA3DE3900029E84 /* InviteViewController.m */,
 				7A81B9971CA3DE3900029E84 /* NearPreferViewController.h */,
 				7A81B9981CA3DE3900029E84 /* NearPreferViewController.m */,
 				7A81B9991CA3DE3900029E84 /* PreferDetailViewController.h */,
 				7A81B99A1CA3DE3900029E84 /* PreferDetailViewController.m */,
 				7A81B99B1CA3DE3900029E84 /* YouhuiViewController.h */,
 				7A81B99C1CA3DE3900029E84 /* YouhuiViewController.m */,
+				7A81B98F1CA3DE3900029E84 /* ActivityMianViewController.h */,
+				7A81B9901CA3DE3900029E84 /* ActivityMianViewController.m */,
 				7A2D55AA1C9F79B9002018F4 /* ScanViewController.h */,
 				7A2D55AB1C9F79B9002018F4 /* ScanViewController.m */,
+				7A81B9931CA3DE3900029E84 /* HtmlViewController.h */,
+				7A81B9941CA3DE3900029E84 /* HtmlViewController.m */,
+				7A81B9911CA3DE3900029E84 /* AllStoreViewController.h */,
+				7A81B9921CA3DE3900029E84 /* AllStoreViewController.m */,
+				7A81B9951CA3DE3900029E84 /* InviteViewController.h */,
+				7A81B9961CA3DE3900029E84 /* InviteViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

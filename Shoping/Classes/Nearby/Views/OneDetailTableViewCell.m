@@ -36,17 +36,19 @@
     self.typeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (kWidth - 20) / 8, kHeight * 0.1)];
     [label addSubview:self.typeImageView];
     //内容图片
-    self.logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake((kWidth - 20) / 8 + 20, 6, kHeight * 0.1 - 10, kHeight * 0.1 - 10)];
+    self.logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake((kWidth - 20) / 8 + 15, 6, kHeight * 0.1 - 10, kHeight * 0.1 - 10)];
     [label addSubview:self.logoImageView];
     //内容label
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake((kWidth - 20) / 8 + 10 + kHeight * 0.1, 2, kWidth - 20 - kHeight * 0.1 - 20, kHeight * 0.1 / 2)];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake((kWidth - 20) / 8 + 5 + kHeight * 0.1, 2, kWidth - 20 - kHeight * 0.1 - 20, kHeight * 0.1 / 2)];
+    self.nameLabel.numberOfLines = 0;
      self.nameLabel.textAlignment = NSTextAlignmentCenter;
     [label addSubview:self.nameLabel];
     //时间label
-    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake((kWidth - 20) / 8 + 5 + kHeight * 0.1, kHeight * 0.1 / 2 + 7, kWidth - 20 - kHeight * 0.1 - 20, kHeight * 0.1 / 2)];
+    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake((kWidth - 20) / 8 + kHeight * 0.1, kHeight * 0.1 / 2 + 7, kWidth - 20 - kHeight * 0.1 - 20, kHeight * 0.1 / 2)];
     self.timeLabel.textColor = [UIColor grayColor];
     self.timeLabel.font = [UIFont systemFontOfSize:13.0];
     self.timeLabel.textAlignment = NSTextAlignmentCenter;
+    self.timeLabel.numberOfLines = 0;
     [label addSubview:self.timeLabel];
     
     //创建分割线

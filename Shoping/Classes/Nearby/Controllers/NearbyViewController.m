@@ -37,11 +37,16 @@
 
 #define kCityList @"http://api.gjla.com/app_admin_v400/api/city/cityDistrictList"
 #define kBrand @"http://api.gjla.com/app_admin_v400/api/brand/screening?categoryIds=&userId=2ff0ab3508b24d20a87092b06f056c1e&styleIds=&pageSize=20&sortType=1&longitude=112.426851&latitude=34.618758"
-#define kBrandClassfiy @"http://api.gjla.com/app_admin_v400/api/brand/screening&userId=2ff0ab3508b24d20a87092b06f056c1e?&styleIds=&pageSize=20&sortType=1&longitude=112.426781&latitude=34.618738"
+#define kBrandClassfiy @"http://api.gjla.com/app_admin_v400/api/brand/screening?&userId=2ff0ab3508b24d20a87092b06f056c1e&styleIds=&pageSize=20&sortType=1&longitude=112.426781&latitude=34.618738"
 
-#define kShop @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426904&latitude=34.618939&districtId="
-#define kShopCity @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426774&latitude=34.618731&cityId=391db7b8fdd211e3b2bf00163e000dce"
-@interface NearbyViewController ()<PullingRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate, ZLDropDownMenuDataSource, ZLDropDownMenuDelegate, likeCollectionDelegate>
+#define kShop @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426904&latitude=34.618939"
+
+#define kShopCity @"http://api.gjla.com/app_admin_v400/api/mall/list?pageSize=10&longitude=112.426774&latitude=34.618731"
+
+//获取品牌分类的八个id
+#define kCategoryld @"http://api.gjla.com/app_admin_v400/api/mall/mallDetail?userId=2ff0ab3508b24d20a87092b06f056c1e&mallId=e744ef6b518711e5860600163e000dce&longitude=112.426808&latitude=34.618725&audit="
+
+@interface NearbyViewController ()<PullingRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate, ZLDropDownMenuDataSource, ZLDropDownMenuDelegate>
 
 {
     //定义请求的页面
@@ -67,22 +72,28 @@
 @property (nonatomic, strong) NSMutableArray *cityArray;
 @property (nonatomic, strong) JCTagListView *tagListView;
 @property (nonatomic, strong) NSMutableArray *idArray;
+@property (nonatomic, strong) NSString *cityId;
+@property (nonatomic, strong) NSString *cityName;
+@property (nonatomic, strong) NSString *distituId;
+@property (nonatomic, strong) NSMutableArray *categoryIdArray;
+@property (nonatomic, assign) BOOL selectMenu;//判断选择的是商场or品牌
 @end
 
 @implementation NearbyViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    
     _pageCount = 1;
     _pageNum1 = 1;
-    self.cityId =@"391db7b8fdd211e3b2bf00163e000dce";
-    self.cityName = @"上海";
+    self.selectMenu = YES;
+    self.distituId = @"";
     [self.view addSubview:self.tableView];
-    //注册cell
-    [self.tableView registerNib:[UINib nibWithNibName:@"ShopTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellID"];
+    NSUserDefaults *cityID = [NSUserDefaults standardUserDefaults];
+    self.cityId = [cityID valueForKey:@"cityId"];
+    self.cityName = [cityID valueForKey:@"cityName"];
     //添加导航栏按钮
     [self initButton];
     //将自定义segMentControl作为导航栏的title
@@ -91,29 +102,22 @@
     _mainTitleArray = @[@"全部",@"类型",@"离我最近"];
     _subTitleArray = @[@[@"全部",@"中性",@"休闲",@"复古",@"日韩",@"欧美",@"民族",@"白领",@"运动",],@[@"全部",@"女士服装",@"女士鞋包",@"美容美妆",@"钟表配饰",@"母婴亲子",@"男士服装",@"男士鞋包",@"生活家居"],@[@"离我最近",@"人气最高",@"字母排序",@"独家券",@"所有折扣"]];
     //网络请求
-    [self requestData];
     [self.tableView launchRefreshing];
-    [self requestBrandData];
-    [self requesCityName];
-    //添加轻扫手势
-    //向左滑动
-    UISwipeGestureRecognizer *recognizer;
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-    [self.tableView addGestureRecognizer:recognizer];
+    [self requestCategotyIdData];
+//    [self requesCityName];
+   
     
     
 }
 
 //添加导航栏按钮
 - (void)initButton {
+    
     //自定义导航栏左侧选择城市按钮
     self.cityButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.cityButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.cityButton.frame = CGRectMake(0, 0, 60, 44);
     [self.cityButton setImage:[UIImage imageNamed:@"sanjiao_up"] forState:UIControlStateNormal];
-    MangoSingleton *mangos = [MangoSingleton sharInstance];
-    self.cityName = mangos.nameCity;
     [self.cityButton setTitle:self.cityName forState:UIControlStateNormal];
     [self.cityButton setImageEdgeInsets:UIEdgeInsetsMake(0, self.cityButton.frame.size.width - 10, 0, 0)];
     [self.cityButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -25, 0, 10)];
@@ -136,29 +140,42 @@
     if (recoginer.direction == UISwipeGestureRecognizerDirectionLeft) {
         self.segMentControl.selectedSegmentIndex = 1;
         [self.tableView removeFromSuperview];
+        self.tableView = nil;
         [self.view addSubview:self.rightTableView];
         
     }
 }
 
-//开始网络请求
+#pragma mark -------------------------------- 网络请求
+
+//商场-开始网络请求
 - (void)requestData {
     [ProgressHUD show:@"正在加载..."];
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    MangoSingleton *mogao = [MangoSingleton sharInstance];
-    self.cityId = mogao.cityId;
-    [manger GET:[NSString stringWithFormat:@"%@&cityId=%@&pageNum=%ld",kShop,self.cityId, (long)_pageCount] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    NSString *string = [NSString stringWithFormat:@"%@&cityId=%@&pageNum=%ld&districtId=%@",kShop,self.cityId, (long)_pageCount,_distituId];
+    [manger GET:string parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *responDic = responseObject;
         NSArray *datasArray = responDic[@"datas"];
         if(datasArray.count == 0){
-            UIAlertController *aletVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"本区域暂无相关内容,请返回重新选择" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-            [aletVC addAction:action];
-            [self.navigationController presentViewController:aletVC animated:YES completion:nil];
-            
+//            if (_pageCount == 1) {
+            [ProgressHUD dismiss];
+                UIAlertController *aletVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"本区域暂无相关内容,请返回重新选择" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+                [aletVC addAction:action];
+                [self.navigationController presentViewController:aletVC animated:YES completion:nil];
+//            }
         }
         else{
+            if (self.refreshing) {
+                if (self.dataArray.count > 0) {
+                    [self.dataArray removeAllObjects];
+                }
+            }
+            
+            if (self.dataArray.count > 0) {
+                [self.dataArray removeAllObjects];
+            }
         for (NSDictionary *dic in datasArray) {
             ShopModel *model = [[ShopModel alloc] initWithDistionary:dic];
             [self.dataArray addObject:model];
@@ -176,12 +193,11 @@
     
 }
 
-//获取城市区域选择id和name
+//根据城市获取城市区域id和name
 - (void)requesCityName {
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    MangoSingleton *mango = [MangoSingleton sharInstance];
-    self.cityId = mango.cityId;
-    [sessionManger GET:[NSString stringWithFormat:@"%@?cityId=%@",kCityList,self.cityId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    NSString *string = [NSString stringWithFormat:@"%@?cityId=%@",kCityList,self.cityId];
+    [sessionManger GET:string parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *resDic = responseObject;
@@ -201,45 +217,104 @@
     }];
 }
 
-
-//重新选择城市
-- (void)requestDataCity {
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-//    MangoSingleton *mango = [MangoSingleton sharInstance];
-//    self.cityId = mango.cityId;
-    [manger GET:[NSString stringWithFormat:@"%@&districtId=%@&pageNum=%ld",kShopCity, _cityId, (long)_pageCount] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+//获取品牌分类的八个id
+- (void)requestCategotyIdData {
+    AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
+    [sessionManger GET:kCategoryld parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *responDic = responseObject;
-        NSArray *datasArray = responDic[@"datas"];
-        if (self.dataArray.count > 0) {
-            [self.dataArray removeAllObjects];
+        NSDictionary *dict = responseObject;
+        NSDictionary *datasDic = dict[@"datas"];
+        self.categoryIdArray = datasDic[@"category"];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+
+
+}
+
+//品牌菜单栏选择网络请求
+- (void)requestMenueData{
+    AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
+    [sessionManger GET:[NSString stringWithFormat:@"%@&cityId=%@&categoryIds=%@&pageNum=%ld",kBrandClassfiy,self.cityId,categoryIds1,(long)_pageNum1] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        self.nameIdDic = responseObject;
+        if (self.listArray.count > 0) {
+            [self.listArray removeAllObjects];
         }
-        for (NSDictionary *dic in datasArray) {
-            ShopModel *model = [[ShopModel alloc] initWithDistionary:dic];
-            [self.dataArray addObject:model];
+        NSMutableArray *array = self.nameIdDic[@"datas"];
+        //判断取出的数组是否为空
+        if (![array isEqual:[NSNull null]]) {
+            for (NSDictionary *dic in array) {
+                OneBrandModel *model = [[OneBrandModel alloc] initWithDictionary:dic];
+                [self.listArray addObject:model];
+                
+            }
+            
         }
-        [self.tableView tableViewDidFinishedLoading];
-        self.tableView.reachedTheEnd = NO;
-        [self.tableView reloadData];
+        //rightTableView加载完成
+        [self.rightTableView tableViewDidFinishedLoading];
+        self.rightTableView.reachedTheEnd = NO;
+        [self.rightTableView reloadData];
         [ProgressHUD dismiss];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
     
+    
+}
 
 
+//第二种tableView
+//网路请求
+- (void)requestBrandData{
+    [ProgressHUD show:@"正在加载中"];
+    AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
+    [sessionManger GET:[NSString stringWithFormat:@"%@&cityId=%@&pageNum=%ld",kBrand,self.cityId,(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        self.nameIdDic = responseObject;
+        //如果是下拉刷新，则清除数组中所有数据
+        if (self.refreshing) {
+            if (self.listArray.count > 0) {
+                [self.listArray removeAllObjects];
+            }
+        }
+        NSMutableArray *array = self.nameIdDic[@"datas"];
+        //判断取出的数组是否为空
+        if (![array isEqual:[NSNull null]]) {
+            for (NSDictionary *dic in array) {
+                OneBrandModel *model = [[OneBrandModel alloc] initWithDictionary:dic];
+                [self.listArray addObject:model];
+            }
+        }
+        //rightTableView加载完成
+        [self.rightTableView tableViewDidFinishedLoading];
+        self.rightTableView.reachedTheEnd = NO;
+        [self.rightTableView reloadData];
+        [ProgressHUD dismiss];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+    
+    
 }
 
 #pragma mark -------------------------- 协议方法
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView isEqual:self.tableView]) {
-        ShopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID" forIndexPath:indexPath];
+        ShopTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"shopCell" forIndexPath:indexPath];
+        if (cell == nil) {
+            cell = [[ShopTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"shopCell"];
+        }
         cell.shopModel = self.dataArray[indexPath.row];
         return cell;
-    } else if ([tableView isEqual:self.rightTableView]) {
+    }
+    if ([tableView isEqual:self.rightTableView]) {
         //第二种tableView
         static NSString *cellId = @"cellId";
-        OneBrandTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        OneBrandTableViewCell *cell = [self.rightTableView dequeueReusableCellWithIdentifier:cellId];
         if (cell == nil) {
             cell = [[OneBrandTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
@@ -276,18 +351,26 @@
         [self.navigationController pushViewController:shopDetailVC animated:YES];
     } else if ([tableView isEqual:self.rightTableView]){
         //点击按钮进入详情页面，把对应的id传过去
-        BrandDetailViewController *brandDetailVC = [[BrandDetailViewController alloc] init];
-        OneBrandModel *oneModel = self.listArray[indexPath.row];
-        brandDetailVC.brandId = oneModel.brandId;
-        if ([oneModel.brandNameEn isEqualToString:@""]) {
-            brandDetailVC.titleId = oneModel.brandNameZh;
+        BrandDetailViewController *vc = [[BrandDetailViewController alloc] init];
+        OneBrandModel *model = self.listArray[indexPath.row];
+        vc.brandId = model.brandId;
+        if ([model.brandNameEn isEqualToString:@""]) {
+            vc.titleId = model.brandNameZh;
         } else {
-            brandDetailVC.titleId = oneModel.brandNameEn;
+            vc.titleId = model.brandNameEn;
         }
-        [self.navigationController pushViewController:brandDetailVC animated:YES];
+        [self.navigationController pushViewController:vc animated:YES];
         
     }
     
+}
+
+//返回分区头部标题
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if ([tableView isEqual:self.rightTableView]) {
+        return @">5km";
+    }
+    return nil;
 }
 
 //下拉刷新
@@ -321,9 +404,17 @@
     
 }
 
-//手指开始拖动
+
+//取消tableview 区头的粘性
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
+    CGFloat sectionHeaderHeight = 30.0;
+    if (scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y> 0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    }else if(scrollView.contentOffset.y >= sectionHeaderHeight){
+        
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+    }
     [self.tableView tableViewDidScroll:scrollView];
     [self.rightTableView tableViewDidScroll:scrollView];
 }
@@ -334,15 +425,23 @@
     [self.rightTableView tableViewDidEndDragging:scrollView];
 }
 
+- (void)hiddenSelectView{
+    self.selectView.hidden = YES;
+}
 //选择城市按钮
 - (void)selectCityBtnAction{
     [self.cityButton setImage:[UIImage imageNamed:@"sanjiao_down"] forState:UIControlStateNormal];
     self.selectView.hidden = NO;
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 0, self.selectView.frame.size.width, self.selectView.frame.size.height);
+    [button addTarget:self action:@selector(hiddenSelectView) forControlEvents:UIControlEventTouchUpInside];
+    [self.selectView addSubview:button];
     [self.view addSubview:self.selectView];
     self.tagListView = [[JCTagListView alloc] initWithFrame:CGRectMake(0, 20, kWidth, kWidth- 30)];
     self.tagListView.canSelectTags = YES;
     self.tagListView.backgroundColor = [UIColor whiteColor];
     [self.selectView addSubview:self.tagListView];
+    [self requesCityName];
     NSArray *array;
     if (self.tagListView.tags > 0 || array.count > 0) {
         [self.tagListView.tags removeAllObjects];
@@ -357,14 +456,13 @@
     __block NearbyViewController *weakSelf = self;
     //点击方法
     [self.tagListView setCompletionBlockWithSelected:^(NSInteger index) {
-        _cityId = self.idArray[index];
+       _distituId = self.idArray[index];
         weakSelf.selectView.hidden = YES;
-        [weakSelf requestDataCity];
+        _pageCount = 1;
+        [weakSelf requestData];
         [weakSelf.cityButton setImage:[UIImage imageNamed:@"sanjiao_up"] forState:UIControlStateNormal];
         
     }];
-    
-    
 }
 
 //实现点击收藏的代理方法
@@ -378,7 +476,6 @@
                 OneBrandModel *model1 = self.listArray[btn.tag];
                 if ([model1.brandNameZh isEqualToString:@""]) {
                     model.title = model1.brandNameEn;
-                    NSLog(@"%@",model.title);
                 }else{
                     model.title = model1.brandNameZh;
                 }
@@ -389,7 +486,7 @@
                 model.titImage = model1.brandLogoUrl;
                 model.selectId = model1.brandId;
                 [manager insertIntoNewModel:model];
-                
+                [ProgressHUD showSuccess:@"收藏成功"];
             } else {
                 [btn setImage:[UIImage imageNamed:@"brand_favor_no"] forState:UIControlStateNormal];
                 GuanCang *manager =[GuanCang sharedInstance];
@@ -403,6 +500,7 @@
                     model.title = model1.brandNameZh;
                     [manager deleteModelTitle:model.title];
                 }
+                [ProgressHUD showSuccess:@"取消收藏"];
             
             }
 
@@ -420,11 +518,20 @@
 - (void)segeMentrolAction:(VOSegmentedControl *)segMent {
     switch (segMent.selectedSegmentIndex) {
         case 0:
-            [self viewDidLoad];
+            self.selectMenu = YES;
+            if (self.rightTableView) {
+                [self.rightTableView removeFromSuperview];
+                self.rightTableView = nil;
+            }
+            [self.view addSubview:self.tableView];
             break;
         case 1: {
+            self.selectMenu = NO;
             //第二种tableView
-            [self.tableView removeFromSuperview];
+            if (self.tableView) {
+                [self.tableView removeFromSuperview];
+                self.tableView = nil;
+            }
             [self.view addSubview:self.rightTableView];
             _pageNum = 1;
             //往右滑动
@@ -449,51 +556,14 @@
     }
 }
 
-//第二种tableView
-//网路请求
-- (void)requestBrandData{
-    [ProgressHUD show:@"正在加载中"];
-    AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    MangoSingleton *mango = [MangoSingleton sharInstance];
-    self.cityId = mango.cityId;
-    [sessionManger GET:[NSString stringWithFormat:@"%@&cityId=%@&pageNum=%ld",kBrand,self.cityId,(long)_pageNum] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        self.nameIdDic = responseObject;
-        //如果是下拉刷新，则清除数组中所有数据
-        if (self.refreshing) {
-            if (self.listArray.count > 0) {
-                [self.listArray removeAllObjects];
-            }
-        }
-        NSMutableArray *array = self.nameIdDic[@"datas"];
-        //判断取出的数组是否为空
-        if (![array isEqual:[NSNull null]]) {
-            for (NSDictionary *dic in array) {
-                OneBrandModel *model = [[OneBrandModel alloc] initWithDictionary:dic];
-                [self.listArray addObject:model];
-            }
-        }
-        //rightTableView加载完成
-        [self.rightTableView tableViewDidFinishedLoading];
-        self.rightTableView.reachedTheEnd = NO;
-        [self.rightTableView reloadData];
-        [ProgressHUD dismiss];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-    }];
-    
-    
-}
 
 //向右的轻扫手势
 - (void)handleSwipeFromRight:(UISwipeGestureRecognizer *)recognier {
     if (recognier.direction == UISwipeGestureRecognizerDirectionRight) {
         [self.rightTableView removeFromSuperview];
+        self.rightTableView = nil;
         self.segMentControl.selectedSegmentIndex = 0;
-        
     }
-    
 }
 
 #pragma mark ----------------------- 菜单栏代理方法
@@ -522,55 +592,25 @@
 //菜单选择方法
 - (void)menu:(ZLDropDownMenu *)menu didSelectRowAtIndexPath:(ZLIndexPath *)indexPath
 {
-    
-    NSDictionary *dict = @{@"女士服装":@"37ca9c6f213011e4b2bf00163e000dce",@"女士鞋包":@"5927b7a1213011e4b2bf00163e000dce",@"美容美妆":@"55581a9334b711e4998d00163e0200e5",@"钟表配饰":@"5558185534b711e4998d00163e0200e5",@"母婴亲子":@"55581a1834b711e4998d00163e0200e5",@"男士服装":@"5558192234b711e4998d00163e0200e5",@"男士鞋包":@"5558192234b711e4998d00163e0200e5",@"生活家居":@"55581b0a34b711e4998d00163e0200e5"};
-    NSArray  *tranlArray = dict.allKeys;
+    //初始化数组，用来接收字典的所有 Values
+//    NSArray  *tranlArray = [NSArray array];
     NSArray *array = self.subTitleArray[indexPath.column];
+    //当前选中的字符串
     NSString *nameStr = array[indexPath.row];
-    for (NSString *name in tranlArray) {
-        //判断当前选中字符串是否存储在字典中
-        if ([nameStr isEqualToString:name]) {
-            categoryIds1 = [dict valueForKey:name];
-
+    for (NSDictionary *dic in self.categoryIdArray) {
+        NSArray  *tranlArray = [dic allValues];
+        //取出数组中对应的每一个values值
+        for (NSString *name in tranlArray) {
+            //判断当前选中字符串是否存储在字典中
+            if ([nameStr isEqualToString:name]) {
+                categoryIds1 = dic[@"categoryId"];
+            }
         }
+        
     }
     [self requestMenueData];
-   
 }
 
-//菜单栏选择网络请求
-- (void)requestMenueData{
-    AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    MangoSingleton *mango = [MangoSingleton sharInstance];
-    self.cityId = mango.cityId;
-    [sessionManger GET:[NSString stringWithFormat:@"%@cityId=%@&categoryIds=%@&pageNum=%ld",kBrandClassfiy,self.cityId,categoryIds1,(long)_pageNum1] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-    
-        self.nameIdDic = responseObject;
-        if (self.listArray.count > 0) {
-            [self.listArray removeAllObjects];
-        }
-        NSMutableArray *array = self.nameIdDic[@"datas"];
-        //判断取出的数组是否为空
-        if (![array isEqual:[NSNull null]]) {
-            for (NSDictionary *dic in array) {
-                OneBrandModel *model = [[OneBrandModel alloc] initWithDictionary:dic];
-                [self.listArray addObject:model];
-                
-            }
-            
-        }
-        //rightTableView加载完成
-        [self.rightTableView tableViewDidFinishedLoading];
-        self.rightTableView.reachedTheEnd = NO;
-        [self.rightTableView reloadData];
-        [ProgressHUD dismiss];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-    }];
-    
-    
-}
 
 #pragma mark ---------------------- 懒加载
 -(NSMutableArray *)dataArray {
@@ -591,10 +631,20 @@
 -(PullingRefreshTableView *)tableView {
     if (_tableView == nil) {
         self.tableView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 60, kWidth , kHeight - 100) pullingDelegate:self];
-        self.tableView.rowHeight = 250;
+        self.tableView.rowHeight = kHeight/3;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.separatorColor = [UIColor clearColor];
+        
+        //注册cell
+        [self.tableView registerNib:[UINib nibWithNibName:@"ShopTableViewCell" bundle:nil] forCellReuseIdentifier:@"shopCell"];
+        //添加轻扫手势
+        //向左滑动
+        UISwipeGestureRecognizer *recognizer;
+        recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
+        [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+        [self.tableView addGestureRecognizer:recognizer];
+        
     }
     return _tableView;
     
@@ -645,8 +695,8 @@
 
 -(UIView *)selectView {
     if (_selectView == nil) {
-        self.selectView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, kWidth, kWidth - 30)];
-        self.selectView.backgroundColor = [UIColor whiteColor];
+        self.selectView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, kWidth, kHeight)];
+        self.selectView.backgroundColor = [UIColor colorWithRed:37.0/255.0 green:37.0/255.0 blue:37.0/255.0 alpha:0.2];
     }
     return _selectView;
 }
@@ -666,9 +716,24 @@
     
 }
 
+-(NSMutableArray *)categoryIdArray {
+    if (_categoryIdArray == nil) {
+        self.categoryIdArray = [NSMutableArray new];
+    }
+    return _categoryIdArray;
+}
+
 -(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-    [self.tableView launchRefreshing];
+    
+    if (self.selectMenu) {
+        [self requestData];
+    } else {
+        [self requestBrandData];
+    }
+    
+    [self requesCityName];
 }
 
 //在页面将要消失的时候去掉所有的圈圈

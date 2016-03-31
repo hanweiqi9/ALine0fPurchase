@@ -73,7 +73,6 @@
 
 //为model的set方法赋值
 -(void)setBrandModel:(BrandModel *)brandModel {
-     NSDictionary *dict = [NSDictionary dictionary];
     //为tag标签label赋值
     for (NSInteger i = 0; i < brandModel.categoryName.count; i++) {
 
@@ -86,6 +85,7 @@
         self.tagLabel.textColor = [UIColor grayColor];
         self.tagLabel.font = [UIFont systemFontOfSize:13.0];
         self.tagLabel.textAlignment = NSTextAlignmentCenter;
+        NSDictionary *dict = [NSDictionary dictionary];
         dict = brandModel.categoryName[i];
         self.tagLabel.text = dict[@"categoryName"];
     }

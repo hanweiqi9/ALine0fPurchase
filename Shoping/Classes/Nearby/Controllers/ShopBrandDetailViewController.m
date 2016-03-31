@@ -57,6 +57,8 @@
     label.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = label;
     [self.view addSubview:self.tableView];
+    //上下滑动tableView时不让导航栏遮盖
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"ShBraDetaiTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
     //初始化按钮
@@ -277,6 +279,8 @@
             model.subTitle = [NSString stringWithFormat:@"地址：%@ 营业时间：%@~%@",self.datasDic[@"storeName"],self.datasDic[@"storeOpenTime"],self.datasDic[@"storeCloseTime"]];
             model.titImage = self.headImage1;
             [manager insertIntoCang:model];
+            [ProgressHUD showSuccess:@"收藏成功"];
+
             
         } else {
             [self.likeButton setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
@@ -284,6 +288,8 @@
             GuanModel *model = [[GuanModel alloc] init];
             model.title = self.datasDic[@"storeName"];
             [manager deleteCangTitle:model.title];
+            [ProgressHUD showSuccess:@"收藏成功"];
+
         }
     }
     //点击分享
@@ -323,6 +329,7 @@
 
 - (void)backLeftAction:(UIButton *)btn {
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 

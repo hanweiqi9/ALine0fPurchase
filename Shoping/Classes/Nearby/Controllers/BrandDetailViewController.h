@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface BrandDetailViewController : UIViewController
-@property (nonatomic, strong) NSString *brandId;
+
+
+@property (nonatomic, copy) NSString *brandId;
 //传过来的title
-@property (nonatomic, strong) NSString *titleId;
+@property (nonatomic, copy) NSString *titleId;
 
 @end

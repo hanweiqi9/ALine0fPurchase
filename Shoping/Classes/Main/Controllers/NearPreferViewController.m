@@ -355,11 +355,6 @@ static NSString *cellString = @"cellsting";
         layout.itemSize = CGSizeMake(kWidth/3-3 ,kHeight/20);
         //通过layout布局来创建一个collection
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-100) collectionViewLayout:layout];
-        //设置代理
-        _collectionView.delegate = self;
-        _collectionView.dataSource = self;
-        //将原背景颜色消除
-        _collectionView.backgroundColor = [UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.5];
         //注册item类型，与下item的设置要一致
         [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:collection];
         self.collectionView.delegate = self;

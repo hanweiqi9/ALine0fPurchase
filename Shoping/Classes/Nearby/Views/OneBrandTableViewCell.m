@@ -62,7 +62,6 @@
 
 //为setmodel方法赋值
 -(void)setOneModel:(OneBrandModel *)oneModel {
-    NSDictionary *dict = [NSDictionary dictionary];
     //为tagLabel赋值
     for (NSInteger i = 0; i < oneModel.categoryName.count; i++) {
         if (i < 4) {
@@ -70,6 +69,7 @@
         }else {
             self.tagLabel = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 4 - 10 + (i - 4) * 60 , kWidth / 12 + kWidth / 12 - 12, (kWidth - (kWidth / 4 + 5)) / 2 - 40, kWidth / 12 - 3)];
         }
+        NSDictionary *dict = [NSDictionary dictionary];
         [self.contentView addSubview:self.tagLabel];
         self.tagLabel.textColor = [UIColor grayColor];
         self.tagLabel.font = [UIFont systemFontOfSize:13.0];
@@ -82,7 +82,7 @@
     [self.storePicImage sd_setImageWithURL:[NSURL URLWithString:oneModel.brandLogoUrl] placeholderImage:nil];
     //赋值名字
 
-    if ([oneModel.brandNameZh isEqualToString:@""]) {
+    if ([oneModel.brandNameZh isEqual:[NSNull null]]) {
         
         self.znNameLabel.text = oneModel.brandNameEn;
     } else {
