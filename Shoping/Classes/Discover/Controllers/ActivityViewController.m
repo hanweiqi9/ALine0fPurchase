@@ -20,6 +20,7 @@
 #import "ShareView.h"
 #import "GuanCang.h"
 #import "TabViewController.h"
+#import "ProgressHUD.h"
 
 @interface ActivityViewController ()<UIWebViewDelegate>
 @property(nonatomic,strong) NSDictionary *dict;
@@ -52,18 +53,18 @@
     
     self.zanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.zanBtn.tag = 1;
-    self.zanBtn.frame = CGRectMake(kWidth*2/3, 0, kWidth/8, 20);
-    [self.zanBtn setImage:[UIImage imageNamed:@"favor_no1"] forState:UIControlStateNormal];
+    self.zanBtn.frame = CGRectMake(kWidth*3/4, 0, kWidth/9, 20);
+    [self.zanBtn setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
     
     [self.zanBtn setTintColor:[UIColor clearColor]];
-    [self.zanBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 5)];
+//    [self.zanBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
     [self.zanBtn addTarget:self action:@selector(zanActivity) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *oneBtn = [[UIBarButtonItem alloc] initWithCustomView:self.zanBtn];
     
     UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    shareBtn.frame = CGRectMake(kWidth*5/6, 0, kWidth/8, 20);
+    shareBtn.frame = CGRectMake(kWidth*5/6, 0, kWidth/9, 20);
     [shareBtn setImage:[UIImage imageNamed:@"shareicon"] forState:UIControlStateNormal];
-    [shareBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 5)];
+//    [shareBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 5)];
     [shareBtn addTarget:self action:@selector(shareBtn) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *twoBtn = [[UIBarButtonItem alloc] initWithCustomView:shareBtn];
     NSArray *rightBtns = @[twoBtn,oneBtn];
@@ -119,7 +120,6 @@
     message.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [message GET:[NSString stringWithFormat:@"%@&objId=%@&type=%ld&userId=%@",kActivity,self.selectId,self.type,self.userId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        //        NSLog(@"%@",responseObject);
         NSDictionary *dic = responseObject;
         self.dict = dic[@"datas"];
         self.titleStr = self.dict[@"title"];
@@ -130,7 +130,6 @@
         NSString *imStr = @"http://api.gjla.com/app_admin_v400/";
         self.image = [NSString stringWithFormat:@"%@%@",imStr,self.dict[@"mainPicUrl"]];
         
-        //        self.str = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='300%'";
         [self.webView loadHTMLString:self.str baseURL:nil];
         
         UIImageView *image1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.headView.frame.size.width, self.headView.frame.size.height)];
@@ -150,7 +149,8 @@
 
 -(void)zanActivity{
     
-    [self.zanBtn setImage:[UIImage imageNamed:@"favor_yes1"] forState:UIControlStateNormal];
+    
+    [self.zanBtn setImage:[UIImage imageNamed:@"favor_yes"] forState:UIControlStateNormal];
     
     GuanCang *manager =[GuanCang sharedInstance];
     manager.btnTag = self.zanBtn.tag;
@@ -159,6 +159,7 @@
     model.subTitle = self.subTit;
     model.titImage = self.image;
     [manager insertIntoCang:model];
+    [ProgressHUD showSuccess:@"收藏成功"];
     
     
     

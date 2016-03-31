@@ -27,7 +27,7 @@
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = leftBarBtn;
     
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, -50, kWidth, kHeight+44)];
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, -55, kWidth, kHeight+44)];
     self.webView.dataDetectorTypes = UIDataDetectorTypeAll;
     self.webView.scalesPageToFit = YES;
     self.webView.opaque = YES;

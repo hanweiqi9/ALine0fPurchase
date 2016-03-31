@@ -149,73 +149,22 @@
     [self.tableView reloadData];
     self.navigationItem.rightBarButtonItems = @[self.shareBtn, self.rightLikeBtn];
 }
-//自动开启
-//- (void)NSTreadone{
-//    @autoreleasepool {
-//        [NSThread detachNewThreadSelector:@selector(configheaderTableView) toTarget:self withObject:nil];
-//    }
-//}
 
 //tableView头部视图
 - (void)configheaderTableView {
+    UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth * 0.335)];
     NSString *str = @"http://api.gjla.com/app_admin_v400/";
-    NSString *brandUrl;
-    if (![self.datasDic[@"brandPicUrl"] isEqual:[NSNull null]]) {
-        brandUrl = self.datasDic[@"brandPicUrl"];
+    if ([self.datasDic[@"brandPicUrl"] isEqual:[NSNull null]]) {
+        [headImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",str,self.datasDic[@"brandLogoUrl"]]] placeholderImage:nil];
+    }else{
+        NSString *string = self.datasDic[@"brandPicUrl"];
+        NSArray *array = [string componentsSeparatedByString:@","];
+        NSString *imageStinf = array[0];
+        NSArray *arrays = [imageStinf componentsSeparatedByString:@"|"];
+        NSString *images = [NSString stringWithFormat:@"%@%@",str,arrays[0]];
+        [headImage sd_setImageWithURL:[NSURL URLWithString:images] placeholderImage:nil];
     }
-    
-    //字符串查找，判断字符串中是否有 |
-    NSMutableArray *strArray1 = [NSMutableArray new];
-    if ([brandUrl rangeOfString:@"|"].location != NSNotFound) {
-        //如果存在，先将字符串以"|"分割存储到数组
-        NSArray *array = [brandUrl componentsSeparatedByString:@"|"];
-        NSLog(@"以 | 分割 %@",array);
-        for (NSString *str1 in array) {
-            //判断数组中的字符串长度，若长度>5，将字符串以”,“分割存储到数组
-            if (str1.length > 5) {
-                NSArray *array1 = [str1 componentsSeparatedByString:@","];
-                NSLog(@"以 ， 分割 %@",array1);
-                for (NSString *str2 in array1) {
-                    //遍历分隔好的字符串，将字符串长度大于5的字符串存储到数组中
-                    if (str2.length > 5) {
-                        NSString *str3 = [str stringByAppendingString:str2];
-                        [strArray1 addObject:str3];
-                    }
-                }
-        }
-            //如果数组里面是一个url，并且带有 | |分隔符
-            if (strArray1.count == 1) {
-                //直接取出进行拼接
-                NSString *strUrl = [str stringByAppendingString:strArray1[0]];
-                UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth * 0.335)];
-                [headImage sd_setImageWithURL:[NSURL URLWithString:strUrl] placeholderImage:nil];
-                [self.headerView addSubview:headImage];
-            }
-            
-    }
-        //图片
-        
-    self.adView = [[JXBAdPageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth * 0.335)];
-            self.adView.contentMode = UIViewContentModeScaleAspectFill;
-            self.adView.iDisplayTime = 2;
-            self.adView.bWebImage = YES;
-            self.adView.delegate = self;
-            if (strArray1.count > 1) {
-                [self.adView startAdsWithBlock:strArray1 block:^(NSInteger clickIndex){
-                }];
-                
-            }
-            [self.headerView addSubview:self.adView];
-    } else {
-        //里面有一个url，且没有带 | |分隔符
-        NSString *brandUrl1 = [str stringByAppendingString:brandUrl];
-        NSLog(@"%@",brandUrl1);
-        UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth * 0.335)];
-            [headImage sd_setImageWithURL:[NSURL URLWithString:brandUrl1] placeholderImage:nil];
-            [self.headerView addSubview:headImage];
-        
-    }
-   
+    [self.headerView addSubview:headImage];
     //logo图标
     UIImageView *logoImage = [[UIImageView alloc] initWithFrame:CGRectMake(5 , kWidth * 0.4, kWidth / 4, kWidth / 4)];
     NSString *logoUrl = self.datasDic[@"brandLogoUrl"];

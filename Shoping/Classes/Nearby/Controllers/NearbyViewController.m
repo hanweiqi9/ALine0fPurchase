@@ -236,6 +236,8 @@
 //品牌菜单栏选择网络请求
 - (void)requestMenueData{
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
+    NSString *string = [NSString stringWithFormat:@"%@&cityId=%@&categoryIds=%@&pageNum=%ld",kBrandClassfiy,self.cityId,categoryIds1,(long)_pageNum1];
+    
     [sessionManger GET:[NSString stringWithFormat:@"%@&cityId=%@&categoryIds=%@&pageNum=%ld",kBrandClassfiy,self.cityId,categoryIds1,(long)_pageNum1] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -314,14 +316,14 @@
     if ([tableView isEqual:self.rightTableView]) {
         //第二种tableView
         static NSString *cellId = @"cellId";
-        OneBrandTableViewCell *cell = [self.rightTableView dequeueReusableCellWithIdentifier:cellId];
+        OneBrandTableViewCell *cell = [self.rightTableView cellForRowAtIndexPath:indexPath];
         if (cell == nil) {
             cell = [[OneBrandTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.oneModel = self.listArray[indexPath.row];
         cell.btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        cell.btn.frame = CGRectMake(kWidth *0.75 +25, kWidth/8+13, kWidth*0.1-13, kWidth*0.1-13);
+        cell.btn.frame = CGRectMake(kWidth *0.75 +40, kWidth/8+24, kWidth*0.1-13, kWidth*0.1-13);
         [cell.btn setImage:[UIImage imageNamed:@"brand_favor_no"] forState:UIControlStateNormal];
         cell.btn.tag = indexPath.row;
         [cell.btn addTarget:self action:@selector(likeAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -523,6 +525,7 @@
                 [self.rightTableView removeFromSuperview];
                 self.rightTableView = nil;
             }
+            self.cityButton.hidden = NO;
             [self.view addSubview:self.tableView];
             break;
         case 1: {
@@ -561,6 +564,7 @@
 - (void)handleSwipeFromRight:(UISwipeGestureRecognizer *)recognier {
     if (recognier.direction == UISwipeGestureRecognizerDirectionRight) {
         [self.rightTableView removeFromSuperview];
+         self.cityButton.hidden = NO;
         self.rightTableView = nil;
         self.segMentControl.selectedSegmentIndex = 0;
     }
