@@ -49,7 +49,7 @@
     
     //discounceImage
     self.discountImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth / 4 + 20, kWidth / 12 + 13 + kWidth / 12 , (kWidth - (kWidth / 4 + 5)) / 2 - 90, kWidth / 12 - 10)];
-    self.discountImageView.image = [UIImage imageNamed:@"brand_discount"];
+    self.discountImageView.image = [UIImage imageNamed:@"brand_discount_icon"];
     [self.contentView addSubview:self.discountImageView];
    
     //分割线

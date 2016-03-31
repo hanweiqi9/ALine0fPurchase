@@ -78,8 +78,12 @@
     self.leftButton.frame =CGRectMake(5, 30, 30, 20);
     [self.leftButton setImage:[UIImage imageNamed:@"home_page_lbs_icon"] forState:UIControlStateNormal];
     [self.leftButton setImageEdgeInsets:UIEdgeInsetsMake(-10, 5, 5, 5)];
-    
-    [self.leftButton setTitle:[[NSUserDefaults standardUserDefaults] valueForKey:@"cityName"] forState:UIControlStateNormal];
+    NSString *cityString = [[NSUserDefaults standardUserDefaults] valueForKey:@"city"];
+    if ([cityString isEqual:[NSNull null]]) {
+        cityString = @"上海";
+    }else
+        cityString = [[NSUserDefaults standardUserDefaults] objectForKey:@"cityName"];
+    [self.leftButton setTitle:cityString forState:UIControlStateNormal];
     [self.leftButton setTintColor:[UIColor redColor]];
     self.leftButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [self.leftButton setTitleEdgeInsets:UIEdgeInsetsMake(17, -16, 5, 5)];

@@ -40,10 +40,10 @@
     // Override point for customization after application launch.
 
     
-    NSUserDefaults *cityID = [NSUserDefaults standardUserDefaults];
-    [cityID setObject:@"391db7b8fdd211e3b2bf00163e000dce" forKey:@"cityId"];
-    [cityID setObject:@"上海" forKey:@"cityName"];
-    [cityID synchronize];
+//    NSUserDefaults *cityID = [NSUserDefaults standardUserDefaults];
+//    [cityID setObject:@"391db7b8fdd211e3b2bf00163e000dce" forKey:@"cityId"];
+//    [cityID setObject:@"上海" forKey:@"cityName"];
+//    [cityID synchronize];
     
     
     
