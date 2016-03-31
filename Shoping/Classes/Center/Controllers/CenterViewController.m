@@ -6,22 +6,34 @@
 //  Copyright © 2016年 韩苇棋. All rights reserved.
 //
 
-#define kCenter @"http://api.liwushuo.com/v2/channels/116/items?limit=20&gender=2&generation=2"
+#define kCenter @"http://api.liwushuo.com/v2/items?limit=20&gender=2&generation=2"
+//"http://api.liwushuo.com/v2/channels/116/items?limit=20&gender=2&generation=2"
+
+//http://api.liwushuo.com/v2/items?limit=20&offset=0&gender=2&generation=2
 
 #import "CenterViewController.h"
 #import "CenterTableViewCell.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "PullingRefreshTableView.h"
 #import "WebCenterViewController.h"
+#import "ProgressHUD.h"
+#import "MJRefresh.h"
 
-@interface CenterViewController ()<UITableViewDataSource,UITableViewDelegate,PullingRefreshTableViewDelegate>
+
+
+static NSString *itemIdentifier = @"itemIdentifier";
+@interface CenterViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 {
     NSInteger _offset;
 }
-@property(nonatomic,strong)PullingRefreshTableView *tableView;
+@property(nonatomic,strong)UICollectionView *collectionView;
 @property(nonatomic,strong) NSMutableArray *allArray;
+@property(nonatomic,strong) NSMutableArray *allCount;
 @property(nonatomic,assign) BOOL refreshing;
+
+@property(nonatomic,strong) UIImageView *imageView;
+@property(nonatomic,strong) UILabel *titleLabel;
+@property(nonatomic,strong) UILabel *priceLabel;
 
 @end
 
@@ -30,100 +42,85 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"饰品";
-
+    self.navigationItem.title = @"逛吧";
+    
+    
+//    [self.tableView registerNib:[UINib nibWithNibName:@"CenterTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellIndertifier"];
+    
     _offset = 0;
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"CenterTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellIndertifier"];
-    [self.view addSubview:self.tableView];
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        self.refreshing = YES;
+        [self.collectionView.mj_header beginRefreshing];
+        [self requestLoad];
+        
+    }];
+    
+    //上拉加载
+    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self.collectionView.mj_footer beginRefreshing];
+        self.refreshing = NO;
+        _offset += 20;
+        [self requestLoad];
+       
+    }];
     [self requestLoad];
+    [self.view addSubview:self.collectionView];
+
+
+    
     
 }
+
+
 
 -(void)requestLoad{
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    [manager GET:[NSString stringWithFormat:@"%@&offset=%ld",kCenter,_offset] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    
+    [manager GET:[NSString stringWithFormat:@"%@&offset=%ld", kCenter,_offset] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSLog(@"%@",responseObject);
         NSDictionary *dic = responseObject;
         NSDictionary *dict = dic[@"data"];
-        NSArray *arr = dict[@"items"];
+        self.allCount = dict[@"items"];
         if (self.refreshing) {
             if (self.allArray.count > 0) {
                 [self.allArray removeAllObjects];
             }
         }
-        for (NSDictionary *dict1 in arr) {
-            [self.allArray addObject:dict1];
+        for (NSDictionary *dict1 in self.allCount) {
+            [self.allArray addObject:dict1[@"data"]];
         }
-        [self.tableView reloadData];
-        [self.tableView tableViewDidFinishedLoading];
-        self.tableView.reachedTheEnd = NO;
         
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [self.collectionView reloadData];
+        [self.collectionView.mj_header endRefreshing];
+         [self.collectionView.mj_footer endRefreshing];
+        
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CenterTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cellIndertifier" forIndexPath:indexPath];
-    
-    [cell.imageHead sd_setImageWithURL:[NSURL URLWithString:self.allArray[indexPath.row][@"cover_image_url"]] placeholderImage:nil];
-    cell.titleLabel.text = self.allArray[indexPath.row][@"title"];
-       return cell;
-}
-
-
-
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.allArray.count;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    WebCenterViewController *html = [[WebCenterViewController alloc] init];
-//    self.tabBarController.tabBar.hidden = YES;
-    html.urlString = self.allArray[indexPath.row][@"url"];
-    [self.navigationController pushViewController:html animated:YES];
-    
-}
-
-
-#pragma mark--------------加载刷新数据
-- (void)pullingTableViewDidStartRefreshing:(PullingRefreshTableView *)tableView{
-    self.refreshing = YES;
-    _offset = 0;
-    [self performSelector:@selector(requestLoad) withObject:nil afterDelay:1.0];
-    
-}
-
-- (void)pullingTableViewDidStartLoading:(PullingRefreshTableView *)tableView{
-    self.refreshing = NO;
-    _offset += 20 ;
-    [self performSelector:@selector(requestLoad) withObject:nil afterDelay:1.0];
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [self.tableView tableViewDidScroll:scrollView];
-}
-
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    [self.tableView tableViewDidEndDragging:scrollView];
-}
-
-
 #pragma mark --------- 懒加载
--(PullingRefreshTableView *)tableView{
-    if (_tableView == nil) {
-        self.tableView = [[PullingRefreshTableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
-        self.tableView.pullingDelegate = self;
-        self.tableView.dataSource = self;
-        self.tableView.delegate = self;
-        self.tableView.separatorColor = [UIColor clearColor];
-        self.tableView.rowHeight = 180;
+
+-(UICollectionView *)collectionView{
+    if (_collectionView == nil) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.itemSize = CGSizeMake(kWidth/2-15, kHeight/3+30);
+        layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+        self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
+        layout.minimumInteritemSpacing = 10;
+        layout.minimumLineSpacing = 10;
+        self.collectionView.dataSource = self;
+        self.collectionView.delegate = self;
+        self.collectionView.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
+        _offset = 0;
+
+        [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"itemIdentifier"];
+
+        
     }
-    return _tableView;
+    return _collectionView;
 }
 
 -(NSMutableArray *)allArray{
@@ -132,6 +129,63 @@
     }
     return _allArray;
 }
+
+-(NSMutableArray *)allCount{
+    if (_allCount == nil) {
+        self.allCount = [NSMutableArray new];
+    }
+    return _allCount;
+}
+
+#pragma mark-----------代理方法
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"itemIdentifier" forIndexPath:indexPath];
+    for (UIView *view in cell.contentView.subviews) {
+        [view removeFromSuperview];
+    }
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth/2-15, kWidth/2-20)];
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.allArray[indexPath.row][@"cover_image_url"]] placeholderImage:nil];
+    
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, kWidth/2-15+2, kWidth/2-15-20, 40)];
+    self.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    self.titleLabel.numberOfLines = 0;
+    self.titleLabel.text = self.allArray[indexPath.row][@"name"];
+    
+    self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, kWidth/2+30, (kWidth/2-15)/2, 20)];
+    self.priceLabel.text = self.allArray[indexPath.row][@"price"];
+    self.priceLabel.textColor = [UIColor redColor];
+    
+    [cell.contentView addSubview:self.priceLabel];
+    [cell.contentView addSubview:self.titleLabel];
+    [cell.contentView addSubview:self.imageView];
+    cell.backgroundColor = [UIColor whiteColor];
+    return cell;
+    
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return self.allArray.count;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    WebCenterViewController *web = [[WebCenterViewController alloc] init];
+    web.urlString = self.allArray[indexPath.row][@"url"];
+    [self.navigationController pushViewController:web animated:YES];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"购买请登录淘宝账号" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:action];
+    [self presentViewController:alert animated:YES completion:nil];
+
+}
+
+
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
