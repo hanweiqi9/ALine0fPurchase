@@ -140,7 +140,7 @@
     NSString* nextImage = [_arrImage objectAtIndex:next];
     if(_bWebImage)
     {
-        if(_delegate && [_delegate respondsToSelector:@selector(setWebImage:imgUrl:)])
+        if(self.delegate && [self.delegate respondsToSelector:@selector(setWebImage:imgUrl:)])
         {
             [_delegate setWebImage:_imgPrev imgUrl:prevImage];
             [_delegate setWebImage:_imgCurrent imgUrl:curImage];

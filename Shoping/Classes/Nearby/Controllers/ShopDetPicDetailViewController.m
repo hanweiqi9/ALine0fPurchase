@@ -56,6 +56,8 @@
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
     [self.webView.scrollView addSubview:self.headView];
+    //上下滑动tableView时不让导航栏遮盖
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     //添加导航栏按钮
     [self initButton];
     //网络请求

@@ -311,7 +311,7 @@
 
 - (UIView *)headView{
     if (_headView == nil) {
-        self.headView = [[UIView alloc] init];
+        _headView = [[UIView alloc] init];
     }
     return _headView;
 }

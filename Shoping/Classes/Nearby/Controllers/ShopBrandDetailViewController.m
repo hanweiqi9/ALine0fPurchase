@@ -57,6 +57,8 @@
     label.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = label;
     [self.view addSubview:self.tableView];
+    //上下滑动tableView时不让导航栏遮盖
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"ShBraDetaiTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
     //初始化按钮

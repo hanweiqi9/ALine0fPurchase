@@ -71,6 +71,8 @@
     [self initButton];
     
     [self.view addSubview:self.tableView];
+    //上下滑动tableView时不让导航栏遮盖
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     //网络请求
     [self requestData];
 
@@ -449,7 +451,7 @@
 
 - (UITableView *)tableView {
     if (_tableView == nil) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight + 45) style:UITableViewStylePlain];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:UITableViewStylePlain];
         self.tableView.rowHeight = kHeight * 0.1 + 10;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
