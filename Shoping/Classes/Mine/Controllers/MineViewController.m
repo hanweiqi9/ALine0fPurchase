@@ -61,8 +61,6 @@
                LoginViewController *login = [[LoginViewController alloc] init];
                login.userStr = self.userPhoneText.text;
                [self.navigationController pushViewController:login animated:YES];
-            
-               
            }];
            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                

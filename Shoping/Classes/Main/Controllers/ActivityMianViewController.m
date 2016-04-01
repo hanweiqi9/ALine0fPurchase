@@ -11,7 +11,6 @@
 #import "NearTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIViewController+Common.h"
-#import "AllStoreViewController.h"
 #import "ProgressHUD.h"
 #import "MapViewController.h"
 #import "MangoSingleton.h"

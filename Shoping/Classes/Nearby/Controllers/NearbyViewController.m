@@ -91,9 +91,7 @@
     self.selectMenu = YES;
     self.distituId = @"";
     [self.view addSubview:self.tableView];
-    NSUserDefaults *cityID = [NSUserDefaults standardUserDefaults];
-    self.cityId = [cityID valueForKey:@"cityId"];
-    self.cityName = [cityID valueForKey:@"cityName"];
+
     //添加导航栏按钮
     [self initButton];
     //将自定义segMentControl作为导航栏的title
@@ -105,14 +103,10 @@
     [self.tableView launchRefreshing];
     [self requestCategotyIdData];
 //    [self requesCityName];
-   
-    
-    
 }
 
 //添加导航栏按钮
 - (void)initButton {
-    
     //自定义导航栏左侧选择城市按钮
     self.cityButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.cityButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -730,7 +724,12 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-    
+    self.cityId = [[NSUserDefaults standardUserDefaults] valueForKey:@"cityId"];
+    self.cityName = [[NSUserDefaults standardUserDefaults] valueForKey:@"cityName"];
+    [self.cityButton setTitle:self.cityName forState:UIControlStateNormal];
+    _pageCount = 1;
+    _pageNum1 = 1;
+    self.distituId = @"";
     if (self.selectMenu) {
         [self requestData];
     } else {

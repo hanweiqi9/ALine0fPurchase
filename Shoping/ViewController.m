@@ -23,6 +23,7 @@
 #import "NearbyViewController.h"
 #import "PreferDetailViewController.h"
 #import "MangoSingleton.h"
+#import "SearchViewController.h"
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate,PullingRefreshTableViewDelegate,UITabBarControllerDelegate>
 //UI控件
 @property (nonatomic, strong) PullingRefreshTableView *tableview;
@@ -315,6 +316,7 @@
     toolView.backgroundColor = [UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:0.6];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [button setBackgroundImage:[UIImage imageNamed:@"main_search_bg.9"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(SearchAction) forControlEvents:UIControlEventTouchUpInside];
     button.tag = 0;
     button.backgroundColor = [UIColor whiteColor];
     button.frame = CGRectMake(20, 5, kWidth - 40, 35);
@@ -354,7 +356,11 @@
     titleLgood.font = [UIFont systemFontOfSize:15.0];
     [self.HeadView addSubview:titleLgood];
 }
-
+- (void)SearchAction{
+    SearchViewController *searchVC = [[SearchViewController alloc] init];
+    searchVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:searchVC animated:YES];
+}
 #pragma mark ---------- 代理
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *string = @"IOS";
