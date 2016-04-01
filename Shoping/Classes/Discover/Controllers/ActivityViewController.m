@@ -22,7 +22,9 @@
 #import "TabViewController.h"
 #import "ProgressHUD.h"
 
-@interface ActivityViewController ()<UIWebViewDelegate>
+@interface ActivityViewController ()<UIWebViewDelegate>{
+    NSInteger clickCount;
+}
 @property(nonatomic,strong) NSDictionary *dict;
 @property(nonatomic,strong) UIWebView *webView;
 @property(nonatomic,strong) UIView *headView;
@@ -148,18 +150,34 @@
 }
 
 -(void)zanActivity{
+    clickCount += 1;
+    if (clickCount % 2 != 0) {
+        UIImageView *image = [[UIImageView alloc] init];
+        image.image = [UIImage imageNamed:@"favor_yes"];
+        [self.zanBtn setImage:image.image forState:UIControlStateNormal];
+        GuanCang *manager =[GuanCang sharedInstance];
+        manager.btnTag = self.zanBtn.tag;
+        GuanModel *model = [[GuanModel alloc] init];
+        model.title = self.titleStr;
+        model.subTitle = self.subTit;
+        model.titImage = self.image;
+        [manager insertIntoCang:model];
+        [ProgressHUD showSuccess:@"收藏成功"];
+        
+    }else{
+        [self.zanBtn setImage:[UIImage imageNamed:@"favorno"] forState:UIControlStateNormal];
+        GuanCang *manager =[GuanCang sharedInstance];
+        manager.btnTag = self.zanBtn.tag;
+        GuanModel *model = [[GuanModel alloc] init];
+        model.title = self.titleStr;
+        [manager deleteCangTitle:model.title];
+        [ProgressHUD showSuccess:@"收藏已删除"];
+        
+    }
     
     
-    [self.zanBtn setImage:[UIImage imageNamed:@"favor_yes"] forState:UIControlStateNormal];
     
-    GuanCang *manager =[GuanCang sharedInstance];
-    manager.btnTag = self.zanBtn.tag;
-    GuanModel *model = [[GuanModel alloc] init];
-    model.title = self.titleStr;
-    model.subTitle = self.subTit;
-    model.titImage = self.image;
-    [manager insertIntoCang:model];
-    [ProgressHUD showSuccess:@"收藏成功"];
+   
     
     
     
