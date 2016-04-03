@@ -199,7 +199,6 @@
 		7AD1EFD31CAA612A000718D1 /* 7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7AD1EFD21CAA612A000718D1 /* 7.jpg */; };
 		7AD1EFD51CAA6131000718D1 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD1EFD41CAA6131000718D1 /* 6.png */; };
 		7AD1EFD71CAA6136000718D1 /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD1EFD61CAA6136000718D1 /* 8.png */; };
-		7ADA5BBB1CAD0005000343D5 /* 12.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ADA5BBA1CAD0004000343D5 /* 12.png */; };
 		7ADC1E5D1CA41DD500145A8A /* activityMian.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E551CA41DD500145A8A /* activityMian.plist */; };
 		7ADC1E5E1CA41DD500145A8A /* guangzou.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E561CA41DD500145A8A /* guangzou.plist */; };
 		7ADC1E5F1CA41DD500145A8A /* MainCell.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E571CA41DD500145A8A /* MainCell.plist */; };
@@ -546,7 +545,6 @@
 		7AD1EFD21CAA612A000718D1 /* 7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.jpg; sourceTree = "<group>"; };
 		7AD1EFD41CAA6131000718D1 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
 		7AD1EFD61CAA6136000718D1 /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
-		7ADA5BBA1CAD0004000343D5 /* 12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 12.png; sourceTree = "<group>"; };
 		7ADC1E551CA41DD500145A8A /* activityMian.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = activityMian.plist; sourceTree = "<group>"; };
 		7ADC1E561CA41DD500145A8A /* guangzou.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = guangzou.plist; sourceTree = "<group>"; };
 		7ADC1E571CA41DD500145A8A /* MainCell.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = MainCell.plist; sourceTree = "<group>"; };
@@ -923,7 +921,6 @@
 		7A2D55951C9F780A002018F4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7ADA5BBA1CAD0004000343D5 /* 12.png */,
 				7A3939B21CA1412200D5F3F7 /* SearchViewController.h */,
 				7A3939B31CA1412200D5F3F7 /* SearchViewController.m */,
 				7A2D55B31C9F7AD7002018F4 /* NearbyViewController.h */,
@@ -1433,7 +1430,6 @@
 				7A52F5C21CA7FD2400130420 /* CenterTableViewCell.xib in Resources */,
 				7A81FD4F1C9FCCE00054A7FA /* ShopBrand.plist in Resources */,
 				7A5A95101CA3F18300C94BC1 /* read_me.txt in Resources */,
-				7ADA5BBB1CAD0005000343D5 /* 12.png in Resources */,
 				7A2D559B1C9F780A002018F4 /* Discover.storyboard in Resources */,
 				7A81FD3F1C9FCCCC0054A7FA /* ShopTableViewCell.xib in Resources */,
 				7A2D55C61C9F7DA1002018F4 /* GlobalShop.storyboard in Resources */,
