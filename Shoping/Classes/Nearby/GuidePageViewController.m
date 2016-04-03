@@ -26,7 +26,7 @@
 }
 
 - (void)guidePage {
-    NSArray *imgArray = @[[UIImage imageNamed:@"7.jpg"],[UIImage imageNamed:@"6.png"],[UIImage imageNamed:@"8.png"]];
+    NSArray *imgArray = @[[UIImage imageNamed:@"y1"],[UIImage imageNamed:@"6.png"],[UIImage imageNamed:@"8.png"]];
     UIScrollView *scrollView1 = [[UIScrollView alloc]initWithFrame:self.view.bounds];
     scrollView1.tag = 200;
     scrollView1.pagingEnabled = YES;

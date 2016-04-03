@@ -735,7 +735,6 @@
     } else {
         [self requestBrandData];
     }
-    
     [self requesCityName];
 }
 

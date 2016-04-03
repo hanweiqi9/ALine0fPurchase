@@ -9,7 +9,7 @@
 #import "SearchResultViewController.h"
 #import "ResultTableViewCell.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
-#import "SearchResultModel.h"
+#import "SearchResultModel.h"
 #import "VOSegmentedControl.h"
 #import "SearchBeij.h"
 

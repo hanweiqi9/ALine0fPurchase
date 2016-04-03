@@ -51,15 +51,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"精选";
-    self.cityId = [[NSUserDefaults standardUserDefaults]valueForKey:@"cityId"];
+    self.cityId = @"391db7b8fdd211e3b2bf00163e000dce";
+    [[NSUserDefaults standardUserDefaults] setObject:self.cityId forKey:@"cityId"];
     [self.view addSubview:self.tableview];
     
     [self headSettingView];
     //数据请求
     [self.tableview launchRefreshing];
-    
-    [self MoreThead];
     [self getCityData];
+    [self MoreThead];
+
     //黑背景
     self.blackView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight)];
     self.blackView.backgroundColor = [UIColor colorWithRed:58.0/255.0 green:58.0/255.0 blue:58.0/255.0 alpha:0.5];
@@ -82,7 +83,7 @@
         cityString = @"上海";
     }else
         cityString = [[NSUserDefaults standardUserDefaults] objectForKey:@"cityName"];
-    [self.leftButton setTitle:cityString forState:UIControlStateNormal];
+    [self.leftButton setTitle:@"上海" forState:UIControlStateNormal];
     [self.leftButton setTintColor:[UIColor redColor]];
     self.leftButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [self.leftButton setTitleEdgeInsets:UIEdgeInsetsMake(17, -16, 5, 5)];
@@ -134,7 +135,7 @@
 //列表的设置
 - (void)settingTools{
     UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight/2-15, kWidth, kWidth/3+0.5)];
-    for (int i = 1 ; i < 6; i++) {
+    for (int i = 1 ; i < self.toolArray.count + 1; i++) {
         [self.HeadView addSubview:toolView];
         UIButton *toolButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [toolButton addTarget:self action:@selector(AllBottonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -144,15 +145,13 @@
             toolButton.frame = CGRectMake(kWidth/ 2 * (i - 1)+0.5*(i-1), 0, kWidth/2, kWidth/3);
             UIImageView *imageview= [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, toolButton.frame.size.width, toolButton.frame.size.height)];
             [imageview sd_setImageWithURL:[NSURL URLWithString:sting] placeholderImage:nil];
-            
             [toolButton addSubview:imageview];
             [toolView addSubview:toolButton];
-        }if (i > 2 && i < 6) {
+        }if (i > 2 && i < self.toolArray.count + 1) {
             toolButton.frame = CGRectMake(kWidth/4*(i- 3)+5,kHeight/2+kWidth/3-10, kWidth/4-10, kWidth/4-10);
             toolButton.tag = i;
             UIImageView *imageview= [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, toolButton.frame.size.width - 5, toolButton.frame.size.height - 5)];
             [imageview sd_setImageWithURL:[NSURL URLWithString:sting] placeholderImage:nil];
-            
             [toolButton addSubview:imageview];
             [self.HeadView addSubview:toolButton];
         }
@@ -169,14 +168,14 @@
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, youButton.frame.size.width, youButton.frame.size.height)];
     [imageview sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
     [youButton addSubview:imageview];
-    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(0, youButton.frame.size.height - 40,youButton.frame.size.width ,40)];
-    lable.text = dic[@"mallName"];
-    lable.shadowColor = [UIColor grayColor];
-    lable.shadowOffset = CGSizeMake(0.5, 0.5);
-    lable.textAlignment = NSTextAlignmentCenter;
-    lable.textColor = [UIColor whiteColor];
-    lable.highlighted = YES;
-    [imageview addSubview:lable];
+//    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(0, youButton.frame.size.height - 40,youButton.frame.size.width ,40)];
+//    lable.text = dic[@"mallName"];
+//    lable.shadowColor = [UIColor grayColor];
+//    lable.shadowOffset = CGSizeMake(0.5, 0.5);
+//    lable.textAlignment = NSTextAlignmentCenter;
+//    lable.textColor = [UIColor whiteColor];
+//    lable.highlighted = YES;
+//    [imageview addSubview:lable];
     [self.HeadView addSubview:youButton];
     for (int i = 0; i < 2; i++) {
         UIButton *Button = [UIButton buttonWithType:UIButtonTypeSystem];

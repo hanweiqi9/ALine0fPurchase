@@ -196,9 +196,6 @@
 		7AAD21A21CAD5EEB00061BDF /* JCTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD219E1CAD5EEB00061BDF /* JCTagListView.m */; };
 		7AB392FC1CA816CD0008FBB1 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AB392FB1CA816CD0008FBB1 /* city.plist */; };
 		7AD1EFD11CAA5D2F000718D1 /* GuidePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1EFD01CAA5D2F000718D1 /* GuidePageViewController.m */; };
-		7AD1EFD31CAA612A000718D1 /* 7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7AD1EFD21CAA612A000718D1 /* 7.jpg */; };
-		7AD1EFD51CAA6131000718D1 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD1EFD41CAA6131000718D1 /* 6.png */; };
-		7AD1EFD71CAA6136000718D1 /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD1EFD61CAA6136000718D1 /* 8.png */; };
 		7ADC1E5D1CA41DD500145A8A /* activityMian.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E551CA41DD500145A8A /* activityMian.plist */; };
 		7ADC1E5E1CA41DD500145A8A /* guangzou.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E561CA41DD500145A8A /* guangzou.plist */; };
 		7ADC1E5F1CA41DD500145A8A /* MainCell.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E571CA41DD500145A8A /* MainCell.plist */; };
@@ -542,9 +539,6 @@
 		7AB392FB1CA816CD0008FBB1 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
 		7AD1EFCF1CAA5D2E000718D1 /* GuidePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidePageViewController.h; sourceTree = "<group>"; };
 		7AD1EFD01CAA5D2F000718D1 /* GuidePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidePageViewController.m; sourceTree = "<group>"; };
-		7AD1EFD21CAA612A000718D1 /* 7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.jpg; sourceTree = "<group>"; };
-		7AD1EFD41CAA6131000718D1 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
-		7AD1EFD61CAA6136000718D1 /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
 		7ADC1E551CA41DD500145A8A /* activityMian.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = activityMian.plist; sourceTree = "<group>"; };
 		7ADC1E561CA41DD500145A8A /* guangzou.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = guangzou.plist; sourceTree = "<group>"; };
 		7ADC1E571CA41DD500145A8A /* MainCell.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = MainCell.plist; sourceTree = "<group>"; };
@@ -979,9 +973,6 @@
 		7A2D55971C9F780A002018F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7AD1EFD61CAA6136000718D1 /* 8.png */,
-				7AD1EFD41CAA6131000718D1 /* 6.png */,
-				7AD1EFD21CAA612A000718D1 /* 7.jpg */,
 				7A81FD301C9FCCCC0054A7FA /* BrandTableViewCell.h */,
 				7A81FD311C9FCCCC0054A7FA /* BrandTableViewCell.m */,
 				7A81FD321C9FCCCC0054A7FA /* OneBrandTableViewCell.h */,
@@ -1367,7 +1358,7 @@
 				TargetAttributes = {
 					7A2D554B1C9F7148002018F4 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = N9LZQ5F3XD;
+						DevelopmentTeam = 8X38GN74J3;
 					};
 				};
 			};
@@ -1440,17 +1431,14 @@
 				7A81FD4B1C9FCCE00054A7FA /* Brand.plist in Resources */,
 				7A7430F21CA36ED200DB5DE4 /* mei.plist in Resources */,
 				7A52F5C41CA8034E00130420 /* Center.plist in Resources */,
-				7AD1EFD51CAA6131000718D1 /* 6.png in Resources */,
 				7A81B9B31CA3DE8E00029E84 /* StoreAllTableViewCell.xib in Resources */,
 				7A3939C21CA1841500D5F3F7 /* ShopPicDetail.plist in Resources */,
 				7A94854D1CA2891E004E652E /* ShBrDetail.plist in Resources */,
-				7AD1EFD71CAA6136000718D1 /* 8.png in Resources */,
 				7AAD21951CAD5D4B00061BDF /* blueArrowDown.png in Resources */,
 				7A2D555A1C9F7148002018F4 /* Main.storyboard in Resources */,
 				7A8422691CABD99100E2EA9F /* MJRefresh.bundle in Resources */,
 				7ADC1E631CA41DD500145A8A /* Turn.plist in Resources */,
 				7AB392FC1CA816CD0008FBB1 /* city.plist in Resources */,
-				7AD1EFD31CAA612A000718D1 /* 7.jpg in Resources */,
 				7A81FD911C9FE98A0054A7FA /* Shop.plist in Resources */,
 				7A2D559D1C9F780A002018F4 /* Hot1.plist in Resources */,
 			);
@@ -1757,7 +1745,7 @@
 					"$(PROJECT_DIR)/Shoping/libWeiboSDK",
 					"$(PROJECT_DIR)/Shoping/SDK1.6-2.2",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.MangoInc.Shopping;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MangoInc.Shoping;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1787,7 +1775,7 @@
 					"$(PROJECT_DIR)/Shoping/libWeiboSDK",
 					"$(PROJECT_DIR)/Shoping/SDK1.6-2.2",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.MangoInc.Shopping;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MangoInc.Shoping;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

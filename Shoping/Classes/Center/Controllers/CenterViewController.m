@@ -117,8 +117,6 @@ static NSString *itemIdentifier = @"itemIdentifier";
         _offset = 0;
 
         [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"itemIdentifier"];
-
-        
     }
     return _collectionView;
 }
@@ -146,7 +144,6 @@ static NSString *itemIdentifier = @"itemIdentifier";
     }
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth/2-15, kWidth/2-20)];
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.allArray[indexPath.row][@"cover_image_url"]] placeholderImage:nil];
-    
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, kWidth/2-15+2, kWidth/2-15-20, 40)];
     self.titleLabel.font = [UIFont systemFontOfSize:14.0];
     self.titleLabel.numberOfLines = 0;
