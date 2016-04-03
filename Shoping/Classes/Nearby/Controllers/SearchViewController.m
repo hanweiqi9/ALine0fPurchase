@@ -152,6 +152,7 @@
     NSString *encodingString = [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     SearchResultViewController *resultVC = [[SearchResultViewController alloc] init];
     resultVC.result = encodingString;
+    self.mySearchBar.hidden = YES;
     [self.navigationController pushViewController:resultVC animated:YES];
     
     
@@ -234,6 +235,10 @@
 
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.mySearchBar.hidden = NO;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

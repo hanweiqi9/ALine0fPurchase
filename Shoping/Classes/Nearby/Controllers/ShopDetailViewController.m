@@ -303,7 +303,7 @@
     label1.alpha = 0.1;
     
     label1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 + 20 , kWidth * 0.335 + 145, kWidth / 3 - 10, 30)];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 + 35 , kWidth * 0.335 + 145, kWidth / 3 - 10, 30)];
     label2.text = @"入住商户";
     UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5 , kWidth * 0.335 + 160, kWidth / 3 - 30, 2)];
     label3.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
@@ -451,7 +451,7 @@
 
 - (UITableView *)tableView {
     if (_tableView == nil) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:UITableViewStylePlain];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight - 60) style:UITableViewStylePlain];
         self.tableView.rowHeight = kHeight * 0.1 + 10;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;

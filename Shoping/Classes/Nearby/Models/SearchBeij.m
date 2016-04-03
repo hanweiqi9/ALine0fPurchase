@@ -13,11 +13,12 @@
     self = [super init];
     if (self) {
         self.brandNameEn = dic[@"brandNameEn"];
-//        //拼接图片的URl
+        self.brandNameZn = dic[@"brandNameZn"];
+        //        //拼接图片的URl
         NSString *str = @"http://api.gjla.com/app_admin_v400/";
         NSString *imageUrl = dic[@"brandLogoUrl"];
         self.brandLogoUrl = [NSString stringWithFormat:@"%@%@",str, imageUrl];
-        
+        self.brandId = dic[@"brandId"];
     }
     return self;
     

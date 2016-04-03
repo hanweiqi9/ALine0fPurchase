@@ -313,14 +313,20 @@
     mapVC.lat = [latitude floatValue];
     mapVC.lng = [longitude floatValue];
     NSString *name = self.datasDic[@"storeName"];
+    
     NSString *address = self.datasDic[@"address"];
+    NSLog(@"address %@",address);
     //使用单例传值
     MangoSingleton *mango = [MangoSingleton sharInstance];
     //如果获取到的经纬度值不为空，就传到地图页面
-    if ([name isEqual:[NSNull null]] && [address isEqual:[NSNull null]]) {
+    if (![name isEqual:[NSNull null]] && [address isEqual:[NSNull null]]) {
         mango.title = name;
         mango.inputText = address;
 
+    } else {
+        //使用单例传值
+        mango.title = name;
+        mango.inputText = address;
     }
     [self.navigationController pushViewController:mapVC animated:YES];
 
@@ -333,11 +339,10 @@
 }
 
 
-
 #pragma mark ---------------------------- 懒加载
 -(UITableView *)tableView {
     if (_tableView == nil) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:UITableViewStylePlain];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight - 60) style:UITableViewStylePlain];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.separatorColor = [UIColor clearColor];

@@ -197,7 +197,7 @@
 #pragma mark ------------------------- 懒加载
 -(PullingRefreshTableView *)tableView {
     if (_tableView == nil) {
-        self.tableView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 110, kWidth, kHeight) pullingDelegate:self];
+        self.tableView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 110, kWidth, kHeight - 80) pullingDelegate:self];
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
         self.tableView.rowHeight = kWidth / 4 + 20;
