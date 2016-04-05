@@ -191,10 +191,10 @@
     label1.alpha = 0.1;
     
     label1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 + 30, kWidth * 0.7 + 15, kWidth / 3, 30)];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 3 + 38, kWidth * 0.7 + 15, kWidth / 3, 30)];
     label2.text = @"附近门店";
     label2.textColor = [UIColor grayColor];
-    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5 + 5 , kWidth * 0.7 + 26, kWidth / 3 - 30, 2)];
+    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(kWidth / 1.5  , kWidth * 0.7 + 26, kWidth / 3 - 30, 2)];
     label3.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_tblack_a"]];
     label3.alpha = 0.1;
     //门店label
@@ -362,7 +362,9 @@
         NSString *address = self.datasDic[@"storeAddress"];
         //使用单例传值
         mango.title = name;
+        NSLog(@"44444444%@",mango.title);
         mango.inputText = address;
+        NSLog(@"44444444%@",mango.inputText);
     }
     
     
@@ -380,11 +382,11 @@
 #pragma mark ---------------------------- 懒加载
 -(UITableView *)tableView {
     if (_tableView == nil) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight - 65) style:UITableViewStylePlain];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight - 64) style:UITableViewStylePlain];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.backgroundColor = [UIColor whiteColor];
-        self.tableView.rowHeight = kHeight * 0.1 + 10;
+        self.tableView.rowHeight = kHeight * 0.1 + 15;
         self.tableView.separatorColor = [UIColor clearColor];
 
         
@@ -395,7 +397,7 @@
 
 -(UIView *)headerView {
     if (_headerView == nil) {
-        self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth / 3 + kWidth / 3 + 170)];
+        self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kWidth / 3 + kWidth / 3 + 155)];
     }
     return _headerView;
 

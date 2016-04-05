@@ -12,7 +12,9 @@
 #import "SearchResultModel.h"
 #import "VOSegmentedControl.h"
 #import "SearchBeij.h"
-
+#import "BrandDetailViewController.h"
+#import "ShopDetailViewController.h"
+#import "ShopBrandDetailViewController.h"
 #define kSearchShop @"http://api.gjla.com/app_admin_v400/api/searchkeywords/searchList?pageSize=10&longitude=112.426781&latitude=34.618738&cityId=391db7b8fdd211e3b2bf00163e000dce&pageNum=1"
 #define kBeiJIng @"http://api.gjla.com/app_admin_v400/api/searchkeywords/searchList?pageSize=10&longitude=112.42679&latitude=34.618716&searchType=1&keywords=%E5%8C%97%E4%BA%AC&cityId=391db7b8fdd211e3b2bf00163e000dce&pageNum=1"
 /*
@@ -118,6 +120,42 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (type == 1) {
+        //点击按钮进入品牌详情页面，把对应的id传过去
+        BrandDetailViewController *vc = [[BrandDetailViewController alloc] init];
+        SearchBeij *model = self.dataArray[indexPath.row];
+        vc.brandId = model.brandId;
+        if ([model.brandNameEn isEqualToString:@""]) {
+            vc.titleId = model.brandNameZn;
+        } else {
+            vc.titleId = model.brandNameEn;
+        }
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    } else if (type == 2) {
+        //点击进入商场详情页面
+        ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
+        SearchResultModel *model = self.dataArray[indexPath.row];
+        shopDetailVC.detailId = model.mallId;
+        [self.navigationController pushViewController:shopDetailVC animated:YES];
+        
+    } else if (type == 3) {
+        //点击进入门店详情页面
+        ShopBrandDetailViewController *shopBrandVC = [[ShopBrandDetailViewController alloc] init];
+        SearchResultModel *model = self.dataArray[indexPath.row];
+        shopBrandVC.brandId = model.brandId;
+        shopBrandVC.storeId = model.storeId;
+        [self.navigationController pushViewController:shopBrandVC animated:YES];
+        
+        
+        
+    }
+    
+}
+
+
 
 - (UITableView *)tableView {
     if (_tableView == nil) {

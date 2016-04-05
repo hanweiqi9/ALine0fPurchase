@@ -51,21 +51,12 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAllowsAribitreryLoads</key>
+	<key>NSAllowsArbitraryLoads</key>
 	<dict/>
 	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
-	<key>NSApptransportSecurity</key>
 	<dict/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<true/>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

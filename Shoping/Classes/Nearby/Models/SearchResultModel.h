@@ -13,7 +13,8 @@
 @property (nonatomic, strong) NSString *mallOrStoreName;
 @property (nonatomic, strong) NSString *mallOrStoreAddress;
 @property (nonatomic, strong) NSString *distance;
-
-
+@property (nonatomic, strong) NSString *mallId;
+@property (nonatomic, strong) NSString *brandId;
+@property (nonatomic, strong) NSString *storeId;
 - (instancetype)initWithDictionaryAq:(NSDictionary *)dic;
 @end

@@ -46,7 +46,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GkY-O7-U2r">
-                        <rect key="frame" x="117" y="74" width="84" height="20"/>
+                        <rect key="frame" x="117" y="74" width="155" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Zcc-op-iKK"/>
                         </constraints>
@@ -67,7 +67,7 @@
                     <constraint firstItem="GkY-O7-U2r" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="66" id="Vdw-by-X4Q"/>
                     <constraint firstAttribute="topMargin" secondItem="Mnj-Vv-mca" secondAttribute="top" id="ZE7-iV-w23"/>
                     <constraint firstItem="q5O-0a-F5C" firstAttribute="top" secondItem="Mnj-Vv-mca" secondAttribute="bottom" constant="5" id="dlP-IJ-uUw"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="GkY-O7-U2r" secondAttribute="trailing" constant="221" id="nrj-im-IPV"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="GkY-O7-U2r" secondAttribute="trailing" constant="150" id="nrj-im-IPV"/>
                     <constraint firstItem="GkY-O7-U2r" firstAttribute="leading" secondItem="rFh-3N-Ssh" secondAttribute="trailing" constant="8" id="oWr-tm-aBC"/>
                     <constraint firstItem="Mnj-Vv-mca" firstAttribute="leading" secondItem="rFh-3N-Ssh" secondAttribute="trailing" constant="8" id="oll-GS-EH8"/>
                     <constraint firstAttribute="leadingMargin" secondItem="rFh-3N-Ssh" secondAttribute="leading" id="sZo-Vz-snQ"/>
