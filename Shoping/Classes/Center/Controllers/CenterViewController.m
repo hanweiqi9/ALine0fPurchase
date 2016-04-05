@@ -43,10 +43,7 @@ static NSString *itemIdentifier = @"itemIdentifier";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"逛吧";
-    
-    
 //    [self.tableView registerNib:[UINib nibWithNibName:@"CenterTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellIndertifier"];
-    
     _offset = 0;
     
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -55,30 +52,20 @@ static NSString *itemIdentifier = @"itemIdentifier";
         [self requestLoad];
         
     }];
-    
     //上拉加载
     self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self.collectionView.mj_footer beginRefreshing];
         self.refreshing = NO;
         _offset += 20;
         [self requestLoad];
-       
     }];
     [self requestLoad];
     [self.view addSubview:self.collectionView];
-
-
-    
-    
 }
-
-
-
 -(void)requestLoad{
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@&offset=%ld", kCenter,_offset] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    [manager GET:[NSString stringWithFormat:@"%@&offset=%ld", kCenter,(long)_offset] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSDictionary *dict = dic[@"data"];
@@ -108,7 +95,7 @@ static NSString *itemIdentifier = @"itemIdentifier";
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.itemSize = CGSizeMake(kWidth/2-15, kHeight/3+30);
         layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
-        self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
+        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-40) collectionViewLayout:layout];
         layout.minimumInteritemSpacing = 10;
         layout.minimumLineSpacing = 10;
         self.collectionView.dataSource = self;
@@ -142,23 +129,20 @@ static NSString *itemIdentifier = @"itemIdentifier";
     for (UIView *view in cell.contentView.subviews) {
         [view removeFromSuperview];
     }
-    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth/2-15, kWidth/2-20)];
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height - 60)];
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.allArray[indexPath.row][@"cover_image_url"]] placeholderImage:nil];
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, kWidth/2-15+2, kWidth/2-15-20, 40)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5,cell.contentView.frame.size.height - 60, cell.contentView.frame.size.width-10, 40)];
     self.titleLabel.font = [UIFont systemFontOfSize:14.0];
     self.titleLabel.numberOfLines = 0;
     self.titleLabel.text = self.allArray[indexPath.row][@"name"];
-    
-    self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, kWidth/2+30, (kWidth/2-15)/2, 20)];
+    self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, cell.contentView.frame.size.height - 20, cell.contentView.frame.size.width-10, 20)];
     self.priceLabel.text = self.allArray[indexPath.row][@"price"];
     self.priceLabel.textColor = [UIColor redColor];
-    
     [cell.contentView addSubview:self.priceLabel];
     [cell.contentView addSubview:self.titleLabel];
     [cell.contentView addSubview:self.imageView];
     cell.backgroundColor = [UIColor whiteColor];
     return cell;
-    
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -178,10 +162,6 @@ static NSString *itemIdentifier = @"itemIdentifier";
     [self presentViewController:alert animated:YES completion:nil];
 
 }
-
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

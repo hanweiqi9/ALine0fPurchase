@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+static NSString *appKey = @"c8bc55807272329cce2f71d0";
+static NSString *channel = @"Publish channel";
+static BOOL isProduction = FALSE;
+
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
     NSString *wbtoken;
