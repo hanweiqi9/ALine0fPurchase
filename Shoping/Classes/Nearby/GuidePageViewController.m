@@ -32,7 +32,7 @@
     pageC.numberOfPages = 3.0;
     
     //初始化图片
-    NSArray *imgArray = @[[UIImage imageNamed:@"y4.png"],[UIImage imageNamed:@"y8.png"],[UIImage imageNamed:@"y3.png"]];
+    NSArray *imgArray = @[[UIImage imageNamed:@"y4.png"],[UIImage imageNamed:@"y8.png"],[UIImage imageNamed:@"tupian.png"]];
     UIScrollView *scrollView1 = [[UIScrollView alloc]initWithFrame:self.view.bounds];
     scrollView1.tag = 200;
     scrollView1.pagingEnabled = YES;
@@ -48,7 +48,7 @@
             imageView.userInteractionEnabled = YES;
             UIButton *button=[[UIButton alloc]initWithFrame:CGRectMake((imageView.bounds.size.width - 140)/2 + kWidth / 12 - 7, imageView.bounds.size.height - (kWidth * 27 / 75) - 5, kWidth * 4 / 15,  kWidth * 4 / 15)];
             [button setTitleColor:[UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0] forState:UIControlStateNormal];
-            [button setTitle:@"点击进入" forState:UIControlStateNormal];
+            [button setTitle:@"马上体验" forState:UIControlStateNormal];
             [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
             button.layer.masksToBounds = YES;
             button.layer.cornerRadius = (kWidth * 4 / 15) / 2.0;

@@ -41,6 +41,7 @@
     //内容label
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake((kWidth - 20) / 8 + kHeight * 0.1 + 10, 0, kWidth - 40 - kHeight * 0.1 - 20, kHeight * 0.1)];
     self.nameLabel.numberOfLines = 0;
+    self.nameLabel.font = [UIFont systemFontOfSize:14.0];
     [label addSubview:self.nameLabel];
     //时间label
     self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake((kWidth - 20) / 8 + kHeight * 0.1, kHeight * 0.1 / 2 + 7, kWidth - 20 - kHeight * 0.1 - 20, kHeight * 0.1 / 2)];
