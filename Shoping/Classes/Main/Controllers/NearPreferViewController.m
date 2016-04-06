@@ -174,7 +174,6 @@ static NSString *cellString = @"cellsting";
                 NSString *timeLabels = [NSString stringWithFormat:@"有效期 %@-%@",timeSting,timeEndSting];
                 cell.timeLable.text = timeLabels;
             }
-            
             else{
                 cell.imageView.image = [UIImage imageNamed:@"coupon_bg.9"];
                 cell.timeLable.text = @"免费";

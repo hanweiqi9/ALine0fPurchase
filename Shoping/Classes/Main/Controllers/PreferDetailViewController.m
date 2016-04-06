@@ -234,7 +234,6 @@
         mango.title = name;
         mango.inputText = address;
     }
-    
     [self.navigationController pushViewController:mapVC animated:YES];
 }
 #pragma mark ========== 代理

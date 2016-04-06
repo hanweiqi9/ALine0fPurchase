@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A0331E21CB4C2FF00637F9E /* TeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0331E11CB4C2FF00637F9E /* TeViewController.m */; };
 		7A0D19AE1CAA2F0C00007268 /* en.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D19AD1CAA2F0C00007268 /* en.png */; };
 		7A2A7AC01CA80758005253B0 /* City.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A2A7ABF1CA80758005253B0 /* City.plist */; };
 		7A2D55511C9F7148002018F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D55501C9F7148002018F4 /* main.m */; };
@@ -213,6 +214,8 @@
 /* Begin PBXFileReference section */
 		01A0D5C6BB4AC833914A9774 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		63E8722CE52D8272C529BF80 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A0331E01CB4C2FF00637F9E /* TeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeViewController.h; sourceTree = "<group>"; };
+		7A0331E11CB4C2FF00637F9E /* TeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeViewController.m; sourceTree = "<group>"; };
 		7A0D19AD1CAA2F0C00007268 /* en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = en.png; sourceTree = "<group>"; };
 		7A2A7ABF1CA80758005253B0 /* City.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = City.plist; sourceTree = "<group>"; };
 		7A2D554C1C9F7148002018F4 /* Shoping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shoping.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -805,6 +808,8 @@
 				7A2D55AB1C9F79B9002018F4 /* ScanViewController.m */,
 				7A81B9931CA3DE3900029E84 /* HtmlViewController.h */,
 				7A81B9941CA3DE3900029E84 /* HtmlViewController.m */,
+				7A0331E01CB4C2FF00637F9E /* TeViewController.h */,
+				7A0331E11CB4C2FF00637F9E /* TeViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1387,6 +1392,9 @@
 							com.apple.Push = {
 								enabled = 1;
 							};
+							com.apple.VPNLite = {
+								enabled = 0;
+							};
 						};
 					};
 				};
@@ -1636,6 +1644,7 @@
 				7A81FD2E1C9FCCA50054A7FA /* OneBrandModel.m in Sources */,
 				7A3FB3AE1CA956390037E428 /* SearchBeij.m in Sources */,
 				7A84226A1CABD99100E2EA9F /* MJRefreshConst.m in Sources */,
+				7A0331E21CB4C2FF00637F9E /* TeViewController.m in Sources */,
 				7A2D55B51C9F7AD7002018F4 /* NearbyViewController.m in Sources */,
 				7A2D55981C9F780A002018F4 /* ActivityViewController.m in Sources */,
 				7A3939BA1CA147DE00D5F3F7 /* CustomAnnotationView.m in Sources */,
@@ -1689,7 +1698,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Lamco Sinyo education technology co., LTD (CCQ5LLLX4L)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1732,7 +1741,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Lamco Sinyo education technology co., LTD (CCQ5LLLX4L)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;

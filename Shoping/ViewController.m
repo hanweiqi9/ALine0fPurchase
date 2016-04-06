@@ -24,6 +24,7 @@
 #import "PreferDetailViewController.h"
 #import "MangoSingleton.h"
 #import "SearchViewController.h"
+#import "TeViewController.h"
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate,PullingRefreshTableViewDelegate,UITabBarControllerDelegate>
 //UI控件
 @property (nonatomic, strong) PullingRefreshTableView *tableview;
@@ -60,7 +61,7 @@
     [self.tableview launchRefreshing];
     [self getCityData];
     [self MoreThead];
-
+    
     //黑背景
     self.blackView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight)];
     self.blackView.backgroundColor = [UIColor colorWithRed:58.0/255.0 green:58.0/255.0 blue:58.0/255.0 alpha:0.5];
@@ -168,14 +169,14 @@
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, youButton.frame.size.width, youButton.frame.size.height)];
     [imageview sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
     [youButton addSubview:imageview];
-//    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(0, youButton.frame.size.height - 40,youButton.frame.size.width ,40)];
-//    lable.text = dic[@"mallName"];
-//    lable.shadowColor = [UIColor grayColor];
-//    lable.shadowOffset = CGSizeMake(0.5, 0.5);
-//    lable.textAlignment = NSTextAlignmentCenter;
-//    lable.textColor = [UIColor whiteColor];
-//    lable.highlighted = YES;
-//    [imageview addSubview:lable];
+    //    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(0, youButton.frame.size.height - 40,youButton.frame.size.width ,40)];
+    //    lable.text = dic[@"mallName"];
+    //    lable.shadowColor = [UIColor grayColor];
+    //    lable.shadowOffset = CGSizeMake(0.5, 0.5);
+    //    lable.textAlignment = NSTextAlignmentCenter;
+    //    lable.textColor = [UIColor whiteColor];
+    //    lable.highlighted = YES;
+    //    [imageview addSubview:lable];
     [self.HeadView addSubview:youButton];
     for (int i = 0; i < 2; i++) {
         UIButton *Button = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -257,7 +258,6 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = responseObject;
         NSArray *dataArray = dic[@"datas"];
-        
         if (self.toolArray.count > 0) {
             [self.toolArray removeAllObjects];
         }
@@ -425,7 +425,9 @@
     NSString *stinr = array[array.count-1];
     NSArray *typeArray = [stinr componentsSeparatedByString:@".html"];
     NSString *typestinr = typeArray[0];
-    if ([typestinr isEqualToString:@"index9"] ||[typestinr isEqualToString:@"hq"]  ) {
+    NSArray *arraray = [typestinr componentsSeparatedByString:@"x"];
+    NSString *types = arraray[0];
+    if ([types isEqualToString:@"inde"] ||[typestinr isEqualToString:@"hq"]  ) {
         HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
         htmlVC.type = @"1";
         htmlVC.urlString = self.turnArray[index][@"fuliId"];
@@ -495,7 +497,7 @@
 }
 
 - (void)BackUpView:(UIButton *)button{
-
+    
     self.blackView.hidden = YES;
     self.cityId = self.cityArray[button.tag][@"cityId"];
     NSString *name = self.cityArray[button.tag][@"cityName"];
@@ -527,32 +529,81 @@
     youhuiVC.title = @"全部优惠券";
     [self.navigationController pushViewController:youhuiVC animated:YES];
 }
-
 - (void)AllBottonAction:(UIButton *)button {
-    if (button.tag > 0 && button.tag < 6) {
-        NSString *urlsting = self.toolArray[button.tag-1][@"recommendLink"];
-        NSArray *array = [urlsting componentsSeparatedByString:@"/"];
-        NSString *stinr = array[array.count-1];
-        NSArray *typeArray = [stinr componentsSeparatedByString:@".html?"];
-        NSString *typestinr = typeArray[0];
-        if ([typestinr isEqualToString:@"index9"]) {
-            HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
-            htmlVC.urlString = self.toolArray[button.tag-1][@"recommendLink"];
-            htmlVC.type = @"1";
-            htmlVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:htmlVC animated:YES];
+    if ( button.tag > 0  && button.tag < 6) {
+        if (button.tag < 3) {
+            NSString *urlsting = self.toolArray[button.tag-1][@"recommendLink"];
+            NSArray *array = [urlsting componentsSeparatedByString:@"/"];
+            NSString *stinr = array[array.count-1];
+            NSArray *typeArray = [stinr componentsSeparatedByString:@".html?"];
+            NSString *typestinr = typeArray[0];
+            NSArray *typaarray = [typestinr componentsSeparatedByString:@"x"];
+            NSString *typr = typaarray[0];
+            if ([typr isEqualToString:@"inde"]) {
+                HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
+                htmlVC.urlString = self.toolArray[button.tag-1][@"recommendLink"];
+                htmlVC.type = @"1";
+                htmlVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:htmlVC animated:YES];
+            }
+            if ([typestinr isEqualToString:@"brandcoupon"]) {
+                NSString *stinf = typeArray[1];
+                NSArray *aarray = [stinf componentsSeparatedByString:@"cid="];
+                NSString *csting = aarray[1];
+                NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
+                ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
+                activityMianVC.hidesBottomBarWhenPushed = YES;
+                activityMianVC.trunId = barray[0];
+                activityMianVC.cityID = self.cityId;
+                activityMianVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:activityMianVC animated:YES];
+            }
         }
-        if ([typestinr isEqualToString:@"brandcoupon"]) {
-            NSString *stinf = typeArray[1];
-            NSArray *aarray = [stinf componentsSeparatedByString:@"cid="];
-            NSString *csting = aarray[1];
-            NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
-            ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
-            activityMianVC.hidesBottomBarWhenPushed = YES;
-                        activityMianVC.trunId = barray[0];
-            activityMianVC.cityID = self.cityId;
-            activityMianVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:activityMianVC animated:YES];
+        else{
+            if ([self.cityId isEqualToString:@"bd21203d001c11e4b2bf00163e000dce"]) {
+                NSString *urlsting = self.toolArray[button.tag-1][@"recommendLink"];
+                NSArray *array = [urlsting componentsSeparatedByString:@"/"];
+                NSString *stinr = array[array.count-1];
+                NSArray *typeArray = [stinr componentsSeparatedByString:@".html?"];
+                NSString *stinf = typeArray[1];
+                NSArray *aarray = [stinf componentsSeparatedByString:@"cid="];
+                NSString *csting = aarray[1];
+                NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
+                TeViewController *teVC = [[TeViewController alloc] init];
+                teVC.hidesBottomBarWhenPushed = YES;
+                teVC.trunId = barray[0];
+                teVC.cityID = self.cityId;
+                teVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:teVC animated:YES];
+            }
+            else{
+                NSString *urlsting = self.toolArray[button.tag-1][@"recommendLink"];
+                NSArray *array = [urlsting componentsSeparatedByString:@"/"];
+                NSString *stinr = array[array.count-1];
+                NSArray *typeArray = [stinr componentsSeparatedByString:@".html?"];
+                NSString *typestinr = typeArray[0];
+                NSArray *typaarray = [typestinr componentsSeparatedByString:@"x"];
+                NSString *typr = typaarray[0];
+                if ([typr isEqualToString:@"inde"]) {
+                    HtmlViewController *htmlVC = [[HtmlViewController alloc] init];
+                    htmlVC.urlString = self.toolArray[button.tag-1][@"recommendLink"];
+                    htmlVC.type = @"1";
+                    htmlVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:htmlVC animated:YES];
+                }
+                if ([typestinr isEqualToString:@"brandcoupon"]) {
+                    NSString *stinf = typeArray[1];
+                    NSArray *aarray = [stinf componentsSeparatedByString:@"cid="];
+                    NSString *csting = aarray[1];
+                    NSArray *barray = [csting componentsSeparatedByString:@"&ctype="];
+                    ActivityMianViewController *activityMianVC = [[ActivityMianViewController alloc] init];
+                    activityMianVC.hidesBottomBarWhenPushed = YES;
+                    activityMianVC.trunId = barray[0];
+                    activityMianVC.cityID = self.cityId;
+                    activityMianVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:activityMianVC animated:YES];
+                }
+            }
         }
     }
     if (button.tag == 6) {
@@ -561,12 +612,11 @@
         NSDictionary *dic = self.youArray[0];
         shopVC.title = dic[@"mallName"];
         shopVC.detailId = dic[@"mallId"];
-        //        shopVC.cityID = self.cityId;
         shopVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:shopVC animated:self];
     }
     if (button.tag == 7) {
-        //        附近商城
+        //附近商城
         TabViewController *tabbarVC = [[TabViewController alloc] init];
         tabbarVC.tabBar.tintColor = [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
         tabbarVC.selectedIndex = 1;

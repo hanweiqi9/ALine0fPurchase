@@ -98,7 +98,7 @@
     //初始化按钮
     [self initButton];
     //地理编码
-     [self reGeoAction];
+    [self reGeoAction];
     
 }
 
