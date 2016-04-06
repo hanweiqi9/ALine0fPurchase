@@ -29,15 +29,13 @@
     UILongPressGestureRecognizer *_longTapGesture;
     MAPointAnnotation *_distanAnnotation;  //目的地坐标
     MAPointAnnotation *_anotitaon;  //点击tableView得到的大头针
-   
-
 }
 
 @property (nonatomic, strong) UIView *barView;
 @property (nonatomic, strong) NSString *titles;
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UIButton *rotePlayBtn;  //路径规划
-@property (nonatomic, strong) MAPointAnnotation *pointAnnotation;
+@property (nonatomic, strong) MAPointAnnotation *pointAnnotation;  //起点坐标
 @property (nonatomic, strong) MangoSingleton *mango;
 @property (nonatomic, strong) NSArray *pathPolylines;
 @property (nonatomic, strong) NSMutableArray *annotations;
@@ -85,10 +83,10 @@
 
     [_mapView addAnnotation:self.pointAnnotation];
     //终点坐标
-    self.mango = [MangoSingleton sharInstance];
-    self.endPointAnnotation = [[MAPointAnnotation alloc] init];
-    self.endPointAnnotation.coordinate = CLLocationCoordinate2DMake(self.mango.latValue, self.mango.lngValue);
-    [_mapView addAnnotation:self.endPointAnnotation];
+//    self.mango = [MangoSingleton sharInstance];
+//    self.endPointAnnotation = [[MAPointAnnotation alloc] init];
+//    self.endPointAnnotation.coordinate = CLLocationCoordinate2DMake(self.mango.latValue, self.mango.lngValue);
+//    [_mapView addAnnotation:self.endPointAnnotation];
 
     //添加长按手势
     _longTapGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTapAction:)];
@@ -115,8 +113,9 @@
     [self.view addSubview:self.rotePlayBtn];
     //初始化搜索按钮
     self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.searchBtn.frame = CGRectMake(kWidth / 2 + 15 + kWidth / 4, 6, 60, 30);
-    [self.searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+    self.searchBtn.frame = CGRectMake(kWidth / 2 + kWidth / 4, 6, 90, 30);
+    [self.searchBtn setTitle:@"周边" forState:UIControlStateNormal];
+    self.searchBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
     [self.searchBtn setTitleColor:[UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0] forState:UIControlStateNormal];
     [self.searchBtn setImage:[UIImage imageNamed:@"search_icon1"] forState:UIControlStateNormal];
     self.searchBtn.layer.cornerRadius = 30 / 2;
@@ -440,7 +439,6 @@
     NSLog(@"%@", _mapView.userLocation);
     
 }
-
 
 #pragma mark ------------- 手指协议
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {

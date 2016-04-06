@@ -144,6 +144,7 @@
 }
 
 
+
 -(PullingRefreshTableView *)tableView{
     if (_tableView == nil) {
         self.tableView = [[PullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight) style:UITableViewStylePlain];
@@ -159,7 +160,6 @@
         self.rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
         [self.tableView addGestureRecognizer:self.leftSwipe];
         [self.tableView addGestureRecognizer:self.rightSwipe];
-        
     }
     return _tableView;
 }

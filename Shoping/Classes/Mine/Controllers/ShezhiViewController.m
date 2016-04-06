@@ -53,7 +53,7 @@
     
     
     UIButton *removeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    removeBtn.frame = CGRectMake(kWidth/5, kHeight/2, kWidth-kWidth*2/5, 44);
+    removeBtn.frame = CGRectMake(kWidth/5, kHeight/3, kWidth-kWidth*2/5, 44);
     removeBtn.backgroundColor = kColor;
     [removeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [removeBtn setTitle:@"退出当前账户" forState:UIControlStateNormal];

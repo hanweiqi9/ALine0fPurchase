@@ -62,7 +62,7 @@
     [WeiboSDK registerApp:@"894620014"];
     
     //微信
-    [WXApi registerApp:@"wxb18bd78d096243ca"];
+    [WXApi registerApp:@"wx320a6b7e0f5a8a91"];
     
     //配置用户key
     [MAMapServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
