@@ -19,6 +19,9 @@
         NSString *str = @"http://api.gjla.com/app_admin_v400/";
         NSString *imageUrl = dic[@"mallOrStorePicUrl"];
         self.mallOrStorePicUrl = [NSString stringWithFormat:@"%@%@",str, imageUrl];
+        self.mallId = dic[@"mallOrStoreId"];
+        self.brandId = dic[@"brandId"];
+        self.storeId = dic[@"mallOrStoreId"];
         
     }
     return self;

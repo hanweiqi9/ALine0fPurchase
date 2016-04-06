@@ -204,6 +204,9 @@
 		7ADC1E621CA41DD500145A8A /* Tool.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E5A1CA41DD500145A8A /* Tool.plist */; };
 		7ADC1E631CA41DD500145A8A /* Turn.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E5B1CA41DD500145A8A /* Turn.plist */; };
 		7ADC1E641CA41DD500145A8A /* you.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC1E5C1CA41DD500145A8A /* you.plist */; };
+		7AEE47EB1CB117510016FAEB /* jpush-ios-2.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEE47E91CB117510016FAEB /* jpush-ios-2.1.0.a */; };
+		7AEE47ED1CB1177D0016FAEB /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEE47EC1CB1177C0016FAEB /* CoreFoundation.framework */; };
+		7AEE47EF1CB119170016FAEB /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AEE47EE1CB119170016FAEB /* PushConfig.plist */; };
 		878BDD405C63EC5BFCCF1F64 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E8722CE52D8272C529BF80 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -547,6 +550,10 @@
 		7ADC1E5A1CA41DD500145A8A /* Tool.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Tool.plist; sourceTree = "<group>"; };
 		7ADC1E5B1CA41DD500145A8A /* Turn.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Turn.plist; sourceTree = "<group>"; };
 		7ADC1E5C1CA41DD500145A8A /* you.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = you.plist; sourceTree = "<group>"; };
+		7AEE47E91CB117510016FAEB /* jpush-ios-2.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.0.a"; sourceTree = "<group>"; };
+		7AEE47EA1CB117510016FAEB /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		7AEE47EC1CB1177C0016FAEB /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		7AEE47EE1CB119170016FAEB /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
 		E747211142BC7577B3EE2490 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -555,11 +562,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A5A95461CA3F38000C94BC1 /* UIKit.framework in Frameworks */,
+				7A5A95441CA3F37800C94BC1 /* Foundation.framework in Frameworks */,
+				7AEE47ED1CB1177D0016FAEB /* CoreFoundation.framework in Frameworks */,
+				7A5A95541CA3F3F000C94BC1 /* CFNetwork.framework in Frameworks */,
 				7A5A955C1CA3F4A100C94BC1 /* MediaPlayer.framework in Frameworks */,
 				7A5A955A1CA3F49300C94BC1 /* AVFoundation.framework in Frameworks */,
 				7A5A95581CA3F40600C94BC1 /* libicucore.tbd in Frameworks */,
 				7A5A95561CA3F3FA00C94BC1 /* libz.1.2.5.tbd in Frameworks */,
-				7A5A95541CA3F3F000C94BC1 /* CFNetwork.framework in Frameworks */,
 				7A5A95521CA3F3E700C94BC1 /* MobileCoreServices.framework in Frameworks */,
 				7A81FD8F1C9FDB3B0054A7FA /* CoreLocation.framework in Frameworks */,
 				7A5A95501CA3F3C700C94BC1 /* QuartzCore.framework in Frameworks */,
@@ -567,10 +577,9 @@
 				7A5A954C1CA3F3A100C94BC1 /* Security.framework in Frameworks */,
 				7A5A954A1CA3F39600C94BC1 /* CoreTelephony.framework in Frameworks */,
 				7A5A95481CA3F38C00C94BC1 /* CoreText.framework in Frameworks */,
-				7A5A95461CA3F38000C94BC1 /* UIKit.framework in Frameworks */,
-				7A5A95441CA3F37800C94BC1 /* Foundation.framework in Frameworks */,
 				7A5A95421CA3F36A00C94BC1 /* CoreGraphics.framework in Frameworks */,
 				7A5A95401CA3F35A00C94BC1 /* libsqlite3.tbd in Frameworks */,
+				7AEE47EB1CB117510016FAEB /* jpush-ios-2.1.0.a in Frameworks */,
 				7A5A953E1CA3F34A00C94BC1 /* SystemConfiguration.framework in Frameworks */,
 				7A5A953C1CA3F33D00C94BC1 /* libz.tbd in Frameworks */,
 				7A5A953A1CA3F33300C94BC1 /* libsqlite3.0.tbd in Frameworks */,
@@ -588,6 +597,7 @@
 		5C9BFE9262BF9451EACBE43D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7AEE47EC1CB1177C0016FAEB /* CoreFoundation.framework */,
 				7A81B9B71CA3DF3600029E84 /* AMap.bundle */,
 				7A5A955B1CA3F4A100C94BC1 /* MediaPlayer.framework */,
 				7A5A95591CA3F49300C94BC1 /* AVFoundation.framework */,
@@ -1052,6 +1062,7 @@
 		7A81B9B61CA3DF3600029E84 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				7AEE47E81CB117510016FAEB /* lib */,
 				7AAD21971CAD5EEB00061BDF /* searchBar */,
 				7AAD218F1CAD5D4B00061BDF /* PullingRefreshTableView */,
 				7AAD21111CAD5BBE00061BDF /* AMap.bundle */,
@@ -1063,6 +1074,7 @@
 				7A81B9D61CA3DF3600029E84 /* UIViewController+Common.m */,
 				7A81B9D71CA3DF3600029E84 /* VOSegmentedControl */,
 				7A81B9E71CA3DF3600029E84 /* ZLDropDownMenu */,
+				7AEE47EE1CB119170016FAEB /* PushConfig.plist */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1315,6 +1327,15 @@
 			path = searchBar;
 			sourceTree = "<group>";
 		};
+		7AEE47E81CB117510016FAEB /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				7AEE47E91CB117510016FAEB /* jpush-ios-2.1.0.a */,
+				7AEE47EA1CB117510016FAEB /* JPUSHService.h */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
 		D6B9D2E3370F3E14A2730002 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1358,7 +1379,15 @@
 				TargetAttributes = {
 					7A2D554B1C9F7148002018F4 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 8X38GN74J3;
+						DevelopmentTeam = CCQ5LLLX4L;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1434,6 +1463,7 @@
 				7A81B9B31CA3DE8E00029E84 /* StoreAllTableViewCell.xib in Resources */,
 				7A3939C21CA1841500D5F3F7 /* ShopPicDetail.plist in Resources */,
 				7A94854D1CA2891E004E652E /* ShBrDetail.plist in Resources */,
+				7AEE47EF1CB119170016FAEB /* PushConfig.plist in Resources */,
 				7AAD21951CAD5D4B00061BDF /* blueArrowDown.png in Resources */,
 				7A2D555A1C9F7148002018F4 /* Main.storyboard in Resources */,
 				7A8422691CABD99100E2EA9F /* MJRefresh.bundle in Resources */,
@@ -1726,7 +1756,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E747211142BC7577B3EE2490 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1744,11 +1775,13 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Shoping/libWeiboSDK",
 					"$(PROJECT_DIR)/Shoping/SDK1.6-2.2",
+					"$(PROJECT_DIR)/Shoping/Tools/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.MangoInc.Shoping;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MangoInc.Shopping;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = "\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000$(SRCROOT)/Shoping/Tools/lib";
 			};
 			name = Debug;
 		};
@@ -1756,7 +1789,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 01A0D5C6BB4AC833914A9774 /* Pods.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1774,10 +1808,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Shoping/libWeiboSDK",
 					"$(PROJECT_DIR)/Shoping/SDK1.6-2.2",
+					"$(PROJECT_DIR)/Shoping/Tools/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.MangoInc.Shoping;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MangoInc.Shopping;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000\U0000$(SRCROOT)/Shoping/Tools/lib";
 			};
 			name = Release;
 		};

@@ -20,13 +20,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor greenColor];
+
     [self guidePage];
     
 }
 
 - (void)guidePage {
-    NSArray *imgArray = @[[UIImage imageNamed:@"y1"],[UIImage imageNamed:@"6.png"],[UIImage imageNamed:@"8.png"]];
+    //初始化pageController
+    UIPageControl *pageC=[[UIPageControl alloc]initWithFrame:CGRectMake((self.view.bounds.size.width-80)/2, self.view.bounds.size.height-30-50, 80, 30)];
+    pageC.tag = 201;
+    pageC.numberOfPages = 3.0;
+    
+    //初始化图片
+    NSArray *imgArray = @[[UIImage imageNamed:@"y4.png"],[UIImage imageNamed:@"y8.png"],[UIImage imageNamed:@"y3.png"]];
     UIScrollView *scrollView1 = [[UIScrollView alloc]initWithFrame:self.view.bounds];
     scrollView1.tag = 200;
     scrollView1.pagingEnabled = YES;
@@ -40,23 +46,21 @@
         [scrollView1 addSubview:imageView];
         if(i == 2){
             imageView.userInteractionEnabled = YES;
-            UIButton *button=[[UIButton alloc]initWithFrame:CGRectMake((imageView.bounds.size.width-150)/2 , imageView.bounds.size.height-60, 150, 50)];
-            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            UIButton *button=[[UIButton alloc]initWithFrame:CGRectMake((imageView.bounds.size.width - 140)/2 + kWidth / 12 - 7, imageView.bounds.size.height - (kWidth * 27 / 75) - 5, kWidth * 4 / 15,  kWidth * 4 / 15)];
+            [button setTitleColor:[UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0] forState:UIControlStateNormal];
             [button setTitle:@"点击进入" forState:UIControlStateNormal];
             [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
             button.layer.masksToBounds = YES;
-            button.layer.cornerRadius = 25.0;
-            button.backgroundColor = kColor;
+            button.layer.cornerRadius = (kWidth * 4 / 15) / 2.0;
+//            button.backgroundColor = kColor;
             [imageView addSubview:button];
         }
     }
-    
     [self.view addSubview:scrollView1];
-    
-    UIPageControl *pageC=[[UIPageControl alloc]initWithFrame:CGRectMake((self.view.bounds.size.width-80)/2, self.view.bounds.size.height-30-60, 80, 30)];
-    pageC.tag = 201;
-    pageC.numberOfPages = 3.0;
     [self.view addSubview:pageC];
+    
+    
+    
 
 }
 

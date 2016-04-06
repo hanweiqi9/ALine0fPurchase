@@ -91,7 +91,7 @@
     self.selectMenu = YES;
     self.distituId = @"";
     [self.view addSubview:self.tableView];
-
+    
     //添加导航栏按钮
     [self initButton];
     //将自定义segMentControl作为导航栏的title
@@ -102,7 +102,7 @@
     //网络请求
     [self.tableView launchRefreshing];
     [self requestCategotyIdData];
-//    [self requesCityName];
+    //    [self requesCityName];
 }
 
 //添加导航栏按钮
@@ -112,7 +112,7 @@
     [self.cityButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.cityButton.frame = CGRectMake(0, 0, 60, 44);
     [self.cityButton setImage:[UIImage imageNamed:@"sanjiao_up"] forState:UIControlStateNormal];
-    [self.cityButton setTitle:self.cityName forState:UIControlStateNormal];
+    
     [self.cityButton setImageEdgeInsets:UIEdgeInsetsMake(0, self.cityButton.frame.size.width - 10, 0, 0)];
     [self.cityButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -25, 0, 10)];
     [self.cityButton addTarget:self action:@selector(selectCityBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -152,13 +152,13 @@
         NSDictionary *responDic = responseObject;
         NSArray *datasArray = responDic[@"datas"];
         if(datasArray.count == 0){
-//            if (_pageCount == 1) {
+            //            if (_pageCount == 1) {
             [ProgressHUD dismiss];
-                UIAlertController *aletVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"本区域暂无相关内容,请返回重新选择" preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-                [aletVC addAction:action];
-                [self.navigationController presentViewController:aletVC animated:YES completion:nil];
-//            }
+            UIAlertController *aletVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"本区域暂无相关内容,请返回重新选择" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+            [aletVC addAction:action];
+            [self.navigationController presentViewController:aletVC animated:YES completion:nil];
+            //            }
         }
         else{
             if (self.refreshing) {
@@ -170,14 +170,14 @@
             if (self.dataArray.count > 0) {
                 [self.dataArray removeAllObjects];
             }
-        for (NSDictionary *dic in datasArray) {
-            ShopModel *model = [[ShopModel alloc] initWithDistionary:dic];
-            [self.dataArray addObject:model];
-        }
-        [ProgressHUD showSuccess:@"数据加载完成"];
-        [self.tableView tableViewDidFinishedLoading];
-        self.tableView.reachedTheEnd = NO;
-        [self.tableView reloadData];
+            for (NSDictionary *dic in datasArray) {
+                ShopModel *model = [[ShopModel alloc] initWithDistionary:dic];
+                [self.dataArray addObject:model];
+            }
+            [ProgressHUD showSuccess:@"数据加载完成"];
+            [self.tableView tableViewDidFinishedLoading];
+            self.tableView.reachedTheEnd = NO;
+            [self.tableView reloadData];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
@@ -206,7 +206,7 @@
             [self.idArray addObject:districtId];
             [self.cityArray addObject:districtName];
         }
-       
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
     }];
 }
@@ -223,14 +223,14 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
-
-
+    
+    
 }
 
 //品牌菜单栏选择网络请求
 - (void)requestMenueData{
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
-    NSString *string = [NSString stringWithFormat:@"%@&cityId=%@&categoryIds=%@&pageNum=%ld",kBrandClassfiy,self.cityId,categoryIds1,(long)_pageNum1];
+    //    NSString *string = [NSString stringWithFormat:@"%@&cityId=%@&categoryIds=%@&pageNum=%ld",kBrandClassfiy,self.cityId,categoryIds1,(long)_pageNum1];
     
     [sessionManger GET:[NSString stringWithFormat:@"%@&cityId=%@&categoryIds=%@&pageNum=%ld",kBrandClassfiy,self.cityId,categoryIds1,(long)_pageNum1] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -322,7 +322,7 @@
         cell.btn.tag = indexPath.row;
         [cell.btn addTarget:self action:@selector(likeAction:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.btn];
-
+        
         return cell;
         
     }
@@ -452,7 +452,7 @@
     __block NearbyViewController *weakSelf = self;
     //点击方法
     [self.tagListView setCompletionBlockWithSelected:^(NSInteger index) {
-       _distituId = self.idArray[index];
+        _distituId = self.idArray[index];
         weakSelf.selectView.hidden = YES;
         _pageCount = 1;
         [weakSelf requestData];
@@ -463,43 +463,43 @@
 
 //实现点击收藏的代理方法
 -(void)likeAction:(UIButton *)btn {
-           clickCount += 1;
-            if (clickCount % 2 != 0) {
-                [btn setImage:[UIImage imageNamed:@"brand_favor_yes"] forState:UIControlStateNormal];
-                GuanCang *manager =[GuanCang sharedInstance];
-                manager.btnTag = btn.tag;
-                GuanModel *model = [[GuanModel alloc] init];
-                OneBrandModel *model1 = self.listArray[btn.tag];
-                if ([model1.brandNameZh isEqualToString:@""]) {
-                    model.title = model1.brandNameEn;
-                }else{
-                    model.title = model1.brandNameZh;
-                }
-                for (NSDictionary *dic in model1.categoryName) {
-                    model.subTitle = dic[@"categoryName"];
-
-                }
-                model.titImage = model1.brandLogoUrl;
-                model.selectId = model1.brandId;
-                [manager insertIntoNewModel:model];
-                [ProgressHUD showSuccess:@"收藏成功"];
-            } else {
-                [btn setImage:[UIImage imageNamed:@"brand_favor_no"] forState:UIControlStateNormal];
-                GuanCang *manager =[GuanCang sharedInstance];
-                manager.btnTag = btn.tag;
-                GuanModel *model = [[GuanModel alloc] init];
-                OneBrandModel *model1 = self.listArray[btn.tag];
-                if ([model1.brandNameZh isEqualToString:@""]) {
-                    model.title = model1.brandNameEn;
-                    [manager deleteModelTitle:model.title];
-                }else{
-                    model.title = model1.brandNameZh;
-                    [manager deleteModelTitle:model.title];
-                }
-                [ProgressHUD showSuccess:@"取消收藏"];
+    clickCount += 1;
+    if (clickCount % 2 != 0) {
+        [btn setImage:[UIImage imageNamed:@"brand_favor_yes"] forState:UIControlStateNormal];
+        GuanCang *manager =[GuanCang sharedInstance];
+        manager.btnTag = btn.tag;
+        GuanModel *model = [[GuanModel alloc] init];
+        OneBrandModel *model1 = self.listArray[btn.tag];
+        if ([model1.brandNameZh isEqualToString:@""]) {
+            model.title = model1.brandNameEn;
+        }else{
+            model.title = model1.brandNameZh;
+        }
+        for (NSDictionary *dic in model1.categoryName) {
+            model.subTitle = dic[@"categoryName"];
             
-            }
-
+        }
+        model.titImage = model1.brandLogoUrl;
+        model.selectId = model1.brandId;
+        [manager insertIntoNewModel:model];
+        [ProgressHUD showSuccess:@"收藏成功"];
+    } else {
+        [btn setImage:[UIImage imageNamed:@"brand_favor_no"] forState:UIControlStateNormal];
+        GuanCang *manager =[GuanCang sharedInstance];
+        manager.btnTag = btn.tag;
+        GuanModel *model = [[GuanModel alloc] init];
+        OneBrandModel *model1 = self.listArray[btn.tag];
+        if ([model1.brandNameZh isEqualToString:@""]) {
+            model.title = model1.brandNameEn;
+            [manager deleteModelTitle:model.title];
+        }else{
+            model.title = model1.brandNameZh;
+            [manager deleteModelTitle:model.title];
+        }
+        [ProgressHUD showSuccess:@"取消收藏"];
+        
+    }
+    
 }
 
 //导航栏右侧搜索按钮
@@ -558,7 +558,7 @@
 - (void)handleSwipeFromRight:(UISwipeGestureRecognizer *)recognier {
     if (recognier.direction == UISwipeGestureRecognizerDirectionRight) {
         [self.rightTableView removeFromSuperview];
-         self.cityButton.hidden = NO;
+        self.cityButton.hidden = NO;
         self.rightTableView = nil;
         self.segMentControl.selectedSegmentIndex = 0;
     }
@@ -591,7 +591,7 @@
 - (void)menu:(ZLDropDownMenu *)menu didSelectRowAtIndexPath:(ZLIndexPath *)indexPath
 {
     //初始化数组，用来接收字典的所有 Values
-//    NSArray  *tranlArray = [NSArray array];
+    //    NSArray  *tranlArray = [NSArray array];
     NSArray *array = self.subTitleArray[indexPath.column];
     //当前选中的字符串
     NSString *nameStr = array[indexPath.row];
@@ -724,9 +724,16 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-    self.cityId = [[NSUserDefaults standardUserDefaults] valueForKey:@"cityId"];
-    self.cityName = [[NSUserDefaults standardUserDefaults] valueForKey:@"cityName"];
-    [self.cityButton setTitle:self.cityName forState:UIControlStateNormal];
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"cityId"] isEqualToString:@""]) {
+        self.cityId = @"391db7b8fdd211e3b2bf00163e000dce";
+        [self.cityButton setTitle:@"上海" forState:UIControlStateNormal];
+    }
+    else{
+        self.cityId = [[NSUserDefaults standardUserDefaults] valueForKey:@"cityId"];
+        self.cityName = [[NSUserDefaults standardUserDefaults] valueForKey:@"cityName"];
+        [self.cityButton setTitle:self.cityName forState:UIControlStateNormal];
+        
+    }
     _pageCount = 1;
     _pageNum1 = 1;
     self.distituId = @"";
@@ -751,13 +758,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -17,7 +17,7 @@
 #import "MangoSingleton.h"
 #import "TabViewController.h"
 #import "GuidePageViewController.h"
-
+#import "JPUSHService.h"
 #define kYouMengAppKey @"56fa417fe0f55a6972001497"
 
 @interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate,CLLocationManagerDelegate, AMapSearchDelegate, UITabBarControllerDelegate>
@@ -94,10 +94,36 @@
         
     }
     
+    //推送代码
+    if ([[UIDevice currentDevice].systemVersion floatValue ] >= 8.0) {
+        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |UIUserNotificationTypeSound|UIUserNotificationTypeAlert) categories:nil];
+    }else{
+        [JPUSHService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge) categories:nil];
+    }
+    [JPUSHService setupWithOption:launchOptions appKey:appKey channel:channel apsForProduction:isProduction];
     return YES;
 }
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    [JPUSHService registerDeviceToken:deviceToken];
+}
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+   [JPUSHService handleRemoteNotification:userInfo];
+}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:
+(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    // IOS 7 Support Required
+    [JPUSHService handleRemoteNotification:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+- (void)application:(UIApplication *)application
+didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    //Optional
+    NSLog(@"did Fail To Register For Remote Notifications With Error: %@",
+          error);
+}
+//微博
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
     if ([WeiboSDK isCanShareInWeiboAPP]) {
          return [WeiboSDK handleOpenURL:url delegate:self];
