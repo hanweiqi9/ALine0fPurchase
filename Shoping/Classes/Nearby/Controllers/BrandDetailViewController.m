@@ -93,6 +93,7 @@
     shareButton.tag = 2;
     [shareButton addTarget:self action:@selector(rightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.shareBtn = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+    self.navigationItem.rightBarButtonItems = @[self.shareBtn, self.rightLikeBtn];
 
 
 
