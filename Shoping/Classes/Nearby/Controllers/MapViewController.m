@@ -16,7 +16,7 @@
 
 
 
-#define kAppKey @"4cbda1b412f083f404b754fb1efa0910"
+#define kAppKey @"e2baf0ac4039a02b714d7b228a086ff3"
 #define kColor [UIColor colorWithRed:255.0 / 255.0 green:89.0 / 255.0 blue:94.0 / 255.0 alpha:1.0];
 #define kWidth [UIScreen mainScreen].bounds.size.width
 #define kHeight [UIScreen mainScreen].bounds.size.height
@@ -65,7 +65,7 @@
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 44, kWidth, kHeight - 190)];
     _mapView.delegate = self;
     _mapView.showsUserLocation = YES;
-    _mapView.userTrackingMode = MAUserTrackingModeNone;
+    _mapView.userTrackingMode = 1;
     _mapView.compassOrigin = CGPointMake(_mapView.compassOrigin.x, 22);
     _mapView.scaleOrigin = CGPointMake(_mapView.scaleOrigin.x, 22);
     
@@ -82,11 +82,7 @@
     self.pointAnnotation.coordinate = CLLocationCoordinate2DMake(self.lat, self.lng);
 
     [_mapView addAnnotation:self.pointAnnotation];
-    //终点坐标
-//    self.mango = [MangoSingleton sharInstance];
-//    self.endPointAnnotation = [[MAPointAnnotation alloc] init];
-//    self.endPointAnnotation.coordinate = CLLocationCoordinate2DMake(self.mango.latValue, self.mango.lngValue);
-//    [_mapView addAnnotation:self.endPointAnnotation];
+
 
     //添加长按手势
     _longTapGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTapAction:)];
@@ -161,6 +157,7 @@
 //当位置更新时，会进位置回调函数
 -(void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.lat, self.lng);
+
     _mapView.centerCoordinate = coordinate;
     if(updatingLocation)
     {
@@ -317,7 +314,7 @@
 //搜索按钮点击方法
 - (void)searchAroundAction:(UIButton *)btn {
     //周边搜索
-    [AMapSearchServices sharedServices].apiKey = @"4cbda1b412f083f404b754fb1efa0910";
+    [AMapSearchServices sharedServices].apiKey = @"e2baf0ac4039a02b714d7b228a086ff3";
     //初始化检索对象
     _search = [[AMapSearchAPI alloc] init];
     _search.delegate = self;

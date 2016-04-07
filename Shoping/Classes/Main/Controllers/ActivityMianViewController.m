@@ -193,11 +193,14 @@
     NSString *address = self.datasDic[@"storeAddress"];
     
     //使用单例传值
-    MangoSingleton *mango = [MangoSingleton sharInstance];
+    MangoSingleton *mangos = [MangoSingleton sharInstance];
     //如果获取到的经纬度值不为空，就传到地图页面
     if ([name isEqual:[NSNull null]] && [address isEqual:[NSNull null]]) {
-        mango.title = name;
-        mango.inputText = address;
+        mangos.title = @"当前位置";
+        mangos.inputText = @"你的坐标";
+    } else {
+        mangos.title = name;
+        mangos.inputText = address;
     }
     [self.navigationController pushViewController:mapVC animated:YES];
 }
