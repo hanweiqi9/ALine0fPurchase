@@ -61,8 +61,8 @@
     
     
     
-    self.titleArray = [[NSMutableArray alloc] initWithObjects:@"我的关注",@"我的收藏",@"我的评分",@"客服中心", nil];
-    self.imageArray = [[NSMutableArray alloc] initWithObjects:@"my_attention_icon",@"my_favor_icon",@"my_comment_icon",@"my_kefuzhongxin", nil];
+    self.titleArray = [[NSMutableArray alloc] initWithObjects:@"我的关注",@"我的收藏",@"我的评分", nil];
+    self.imageArray = [[NSMutableArray alloc] initWithObjects:@"my_attention_icon",@"my_favor_icon",@"my_comment_icon", nil];
     [self.view addSubview:self.tableView];
     [self tableViewHeadView];
 }
@@ -199,7 +199,7 @@
 #pragma mark--------------UITableViewDataSource
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return 3;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -262,16 +262,16 @@
             [self.score1 addSubview:lView];
         }
             break;
-        case 3:
-        {
-            //应用内拨打电话返回应用
-            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://18860233262"]]];
-            UIWebView *cellPhoneWebView = [[UIWebView alloc] init];
-            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://18860233262"]]];
-            [cellPhoneWebView loadRequest:request];
-            [self.view addSubview:cellPhoneWebView];
-        }
-            break;
+//        case 3:
+//        {
+//            //应用内拨打电话返回应用
+//            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://18860233262"]]];
+//            UIWebView *cellPhoneWebView = [[UIWebView alloc] init];
+//            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://18860233262"]]];
+//            [cellPhoneWebView loadRequest:request];
+//            [self.view addSubview:cellPhoneWebView];
+//        }
+//            break;
             default:
             break;
     }
