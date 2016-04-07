@@ -91,9 +91,8 @@
     self.selectMenu = YES;
     self.distituId = @"";
     [self.view addSubview:self.tableView];
-    
+
     //添加导航栏按钮
-    [self initButton];
     //将自定义segMentControl作为导航栏的title
     self.navigationItem.titleView = self.segMentControl;
     //添加主标题选项
@@ -103,6 +102,7 @@
     [self.tableView launchRefreshing];
     [self requestCategotyIdData];
     //    [self requesCityName];
+    
 }
 
 //添加导航栏按钮
@@ -112,7 +112,7 @@
     [self.cityButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.cityButton.frame = CGRectMake(0, 0, 60, 44);
     [self.cityButton setImage:[UIImage imageNamed:@"sanjiao_up"] forState:UIControlStateNormal];
-    
+    [self.cityButton setTitle:self.cityName forState:UIControlStateNormal];
     [self.cityButton setImageEdgeInsets:UIEdgeInsetsMake(0, self.cityButton.frame.size.width - 10, 0, 0)];
     [self.cityButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -25, 0, 10)];
     [self.cityButton addTarget:self action:@selector(selectCityBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -705,7 +705,6 @@
     }
     return _cityArray;
 }
-
 -(NSMutableArray *)idArray {
     if (_idArray == nil) {
         self.idArray = [NSMutableArray new];
@@ -713,27 +712,26 @@
     return _idArray;
     
 }
-
 -(NSMutableArray *)categoryIdArray {
     if (_categoryIdArray == nil) {
         self.categoryIdArray = [NSMutableArray new];
     }
     return _categoryIdArray;
 }
-
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"cityId"] isEqualToString:@""]) {
+    NSString *name = [[NSUserDefaults standardUserDefaults] valueForKey:@"cityName"];
+    if (name == nil) {
         self.cityId = @"391db7b8fdd211e3b2bf00163e000dce";
-        [self.cityButton setTitle:@"上海" forState:UIControlStateNormal];
+        self.cityName = @"上海";
     }
     else{
         self.cityId = [[NSUserDefaults standardUserDefaults] valueForKey:@"cityId"];
         self.cityName = [[NSUserDefaults standardUserDefaults] valueForKey:@"cityName"];
-        [self.cityButton setTitle:self.cityName forState:UIControlStateNormal];
-        
     }
+    [self initButton];
+
     _pageCount = 1;
     _pageNum1 = 1;
     self.distituId = @"";
